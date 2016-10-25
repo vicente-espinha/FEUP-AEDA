@@ -146,6 +146,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\Desktop\menu.cpp" />
+    <ClCompile Include="..\..\..\..\..\Desktop\Source.cpp" />
+    <ClCompile Include="..\..\..\..\..\Desktop\Utilities.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\Desktop\Menu.h" />
+    <ClInclude Include="..\..\..\..\..\Desktop\Utilities.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
