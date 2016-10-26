@@ -39,7 +39,7 @@ void Menu::ChangeCursorStatus(bool Visible) {
 }
 
 
-/* ----------------------------------------- Option Names ------------------------------ */
+/* ----------------------------------------- Option Names ------------------------------ */ 
 string * Menu::RegisterItems() {
 
 	string *item = new string[3];
@@ -229,12 +229,12 @@ void Menu::Menu1() {
 
 				(*MenuOption[MenuChoice - 1])();
 			}
-			catch (...) {}
+			catch (...){}  
 			break;
 
 		case 'P': // if the entered key is the 'up arrow'
-			MenuChoice++;
-			if (MenuChoice>ItemCount)
+			MenuChoice++; 
+			if (MenuChoice>ItemCount) 
 				MenuChoice = 1;
 			break;
 
@@ -245,7 +245,7 @@ void Menu::Menu1() {
 			break;
 
 		case 27: // If the entered key is the escape key (Esc)
-			try { (*MenuOption[ItemCount - 1])(); }
+			try { (*MenuOption[ItemCount - 1])(); } 
 			catch (...) {}
 			break;
 		default:// any another key.
