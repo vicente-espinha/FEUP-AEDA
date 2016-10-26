@@ -39,31 +39,6 @@ e que vai dirigir tudo.
 
 */
 
-
-
-// MUITO IMPORTANTE ESTE CICLO. Isto vai detetar input invalido e pergunta caso queira repetir este ciclo.
-// SEMPRE que existir a possibilidade do senhor merdar, chamem esta função, ela vai ajudar :)
-
-bool invalidInput()
-{
-	bool b = true;
-	while (b)
-	{
-		string x;
-		cin.clear();
-		cin.ignore(10000);
-		cout << "Invalid input. Do you wish to try again? (s/n)"
-			if (x == "sim" || x == "s")
-				return true;
-			else if (x == "nao" || x == "não" || x == "n")
-				return false;
-			else
-				continue;
-	}
-}
-
-
-
 class Aluguer
 {
 protected:

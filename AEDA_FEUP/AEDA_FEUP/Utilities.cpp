@@ -4,6 +4,26 @@
 Utilities::Utilities() {
 }
 
+
+bool invalidInput()
+{
+	bool b = true;
+	while (b)
+	{
+		string x;
+		cin.clear();
+		cin.ignore(10000);
+		cout << "Invalid input. Do you wish to try again? (y/n)";
+		if (x == "yes" || x == "y")
+			return true;
+		else if (x == "no" || x == "n")
+			return false;
+		else
+			continue;
+	}
+}
+
+
 //Clears the console (avoids using 'system' function)
 void Utilities::clearScreen() {
 
@@ -27,7 +47,7 @@ void Utilities::clearScreen() {
 		cellCount,
 		homeCoords,
 		&count
-		)) return;
+	)) return;
 
 	if (!FillConsoleOutputAttribute(
 		hStdOut,
@@ -35,7 +55,7 @@ void Utilities::clearScreen() {
 		cellCount,
 		homeCoords,
 		&count
-		)) return;
+	)) return;
 
 	//Sets the cursor in its initial position
 	SetConsoleCursorPosition(hStdOut, homeCoords);
