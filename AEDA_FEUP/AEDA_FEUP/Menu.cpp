@@ -8,7 +8,7 @@
 using namespace std;
 
 Menu m;
-Utilities d;
+Utilities u;
 
 /* ----------------------------------- Menu Functionalities ---------------------------- */
 void Menu::gotoxy(int xpos, int ypos) {
