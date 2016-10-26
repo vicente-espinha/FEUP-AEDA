@@ -79,7 +79,7 @@ void LoginOption() {
 	m.gotoxy(25, 10);
 	cout << "You have selected menu option (#1)" << endl;
 	u.pressToContinueMessage();
-	system("cls");
+	u.clearScreen();
 
 }
 
@@ -87,7 +87,7 @@ void RegisterOption() {
 
 	u.clearScreen();
 	m.RegisterMenu();
-	system("cls");
+	u.clearScreen();
 
 }
 
@@ -103,18 +103,18 @@ void UnregUserOption() {
 void SuplierOption() {
 
 	u.clearScreen();
-	m.gotoxy(25, 10);
-	cout << "Name: " << endl;
-	cout << "Password: " << endl;
+	cout << "Name: \n" << endl;
+	cout << "Password: \n" << endl;
 
 }
 
 void UserOption() {
 
 	u.clearScreen();
-	m.gotoxy(25, 10);
-	cout << "Name: " << endl;
-	cout << "Password: " << endl;
+	cout << "Name: \n" << endl;
+	cin << 
+	cout << "Password: \n" << endl;
+	
 
 }
 
@@ -125,7 +125,7 @@ void Option1() {
 	m.gotoxy(25, 10);
 	cout << "You have selected menu option (#1)" << endl;
 	u.pressToContinueMessage();
-	system("cls");
+	u.clearScreen();
 }
 
 void Option2() {
@@ -134,7 +134,7 @@ void Option2() {
 	m.gotoxy(25, 10);
 	cout << "You have selected menu option (#2)" << endl;
 	u.pressToContinueMessage();
-	system("cls");
+	u.clearScreen();
 }
 
 void Option3() {
@@ -143,7 +143,7 @@ void Option3() {
 	m.gotoxy(25, 10);
 	cout << "You have selected menu option (#3)" << endl;
 	u.pressToContinueMessage();
-	system("cls");
+	u.clearScreen();
 }
 
 void ExitOption() {
