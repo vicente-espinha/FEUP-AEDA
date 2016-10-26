@@ -20,5 +20,6 @@ public:
 	void setYear(int);
 	int getYear();
 	bool isValid(int day, int month, int year);
-	bool isBetween(Data begin, Data end, Data timeGiven);
+	bool operator<(Data time1);
+	bool operator>(Data time1);
 };
