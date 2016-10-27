@@ -40,12 +40,21 @@ void Menu::ChangeCursorStatus(bool Visible) {
 
 
 /* ----------------------------------------- Option Names ------------------------------ */ 
-string * Menu::RegisterItems() {
+string * Menu::LoginItems() {
 
 	string *item = new string[3];
 	item[0] = "Login";
 	item[1] = "Register";
 	item[2] = "Continue as unregistered user";
+
+	return item;
+}
+//-----------------------------------------------
+string * Menu::RegisterItems() {
+
+	string *item = new string[2];
+	item[0] = "Register as a suplier";
+	item[1] = "Register as a basic white user";
 
 	return item;
 }
@@ -63,7 +72,7 @@ string * Menu::Menu1Items() {
 
 /* --------------------------------------- Menu Options ------------------------------- */
 
-/*-------Register options--------*/
+/*-------Login Menu options--------*/
 void LoginOption() {
 
 	u.clearScreen();
@@ -77,19 +86,35 @@ void LoginOption() {
 void RegisterOption() {
 
 	u.clearScreen();
-	m.gotoxy(25, 10);
-	cout << "You have selected menu option (#2)" << endl;
-	u.pressToContinueMessage();
+	m.RegisterMenu();
 	system("cls");
 
 }
-
 
 void UnregUserOption() {
 
 	u.clearScreen();
 	m.Menu1();
-	system("cls");
+	u.clearScreen();
+
+}
+
+/*-------Register Menu Options------*/
+void SuplierOption() {
+
+	u.clearScreen();
+	m.gotoxy(25, 10);
+	cout << "Name: " << endl;
+	cout << "Password: " << endl;
+
+}
+
+void UserOption() {
+
+	u.clearScreen();
+	m.gotoxy(25, 10);
+	cout << "Name: " << endl;
+	cout << "Password: " << endl;
 
 }
 
@@ -129,8 +154,8 @@ void ExitOption() {
 	exit(0);
 }
 
-
-void Menu::RegisterMenu() {
+/*--------------------------------------------------Menu Initialization-------------------------------------------------*/
+void Menu::LoginMenu() {
 
 	ChangeCursorStatus(false);
 	typedef void(*TMenuOption)();
@@ -143,6 +168,71 @@ void Menu::RegisterMenu() {
 	MenuOption[0] = LoginOption; //Filling the array with the functions.
 	MenuOption[1] = RegisterOption;
 	MenuOption[2] = UnregUserOption;
+
+	while (1) {
+
+		for (int i = 0; i<ItemCount; i++) { // Draw the menu.
+
+			gotoxy(2, 2 + i);
+			MenuChoice == i + 1 ? cout << " -> " : cout << "    "; // if (i+1) == MenuChoice, ' -> ', else print '    '.
+			cout << LoginItems()[i] << endl;
+		}
+
+		key = _getch(); //get the key.
+
+		switch (key) {
+
+		case '\r': // if the entered key is 'Enter'.
+			try {
+
+				(*MenuOption[MenuChoice - 1])();
+			}
+			catch (...) {}
+			break;
+
+		case 'P': // if the entered key is the 'up arrow'
+			MenuChoice++;
+			if (MenuChoice>ItemCount)
+				MenuChoice = 1;
+			break;
+
+		case 'H': //If the entered key is the 'down arrow'
+			MenuChoice--;
+			if (MenuChoice<1)
+				MenuChoice = ItemCount;
+			break;
+
+		case 27: // If the entered key is the escape key (Esc)
+			try { (*MenuOption[ItemCount - 1])(); }
+			catch (...) {}
+			break;
+		default:// any another key.
+			if (key >= '1' && key <= char(ItemCount + '0')) {
+
+				try { (*MenuOption[int(key) - '0' - 1])(); }
+
+				catch (...) {}
+			}
+		}
+	}
+
+	delete MenuOption;
+	return;
+
+}
+
+void Menu::RegisterMenu() {
+
+	ChangeCursorStatus(false);
+	typedef void(*TMenuOption)();
+
+	int ItemCount = 2; // This variable holds the number of menu items.
+	int MenuChoice = 1; // This variable holds the position of the cursor. 
+	char key; //For entering the key (up arrow,down arrow,etc...).
+
+	TMenuOption *MenuOption = new TMenuOption[ItemCount]; //Array of pointers to functions (dynamic).
+	MenuOption[0] = SuplierOption; //Filling the array with the functions.
+	MenuOption[1] = UserOption;
 
 	while (1) {
 
