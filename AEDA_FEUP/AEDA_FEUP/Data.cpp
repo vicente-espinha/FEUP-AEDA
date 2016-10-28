@@ -74,38 +74,10 @@ bool Data::isValid(int day, int month, int year)
 	return true;
 }
 
-bool Data::operator<(Data x)
+bool Data::isBetween(Data begin, Data end, Data timeGiven)
 {
-	if (this->getYear() < x.getYear())
-		return true;
-	if (this->getYear() > x.getYear())
-		return false;
-	if (this->getMonth() < x.getMonth())
-		return true;
-	if (this->getMonth() > x.getMonth())
-		return false;
-	if (this->getDay() < x.getDay())
-		return true;
-	if (this->getDay() > x.getDay())
-		return false;
-	else
-		return true;
+	if (begin.getYear() < timeGiven.getYear())
+	return false;
 }
 
-bool Data::operator>(Data x)
-{
-	if (this->getYear() > x.getYear())
-		return true;
-	if (this->getYear() < x.getYear())
-		return false;
-	if (this->getMonth() > x.getMonth())
-		return true;
-	if (this->getMonth() < x.getMonth())
-		return false;
-	if (this->getDay() > x.getDay())
-		return true;
-	if (this->getDay() < x.getDay())
-		return false;
-	else
-		return true;
-}
+
