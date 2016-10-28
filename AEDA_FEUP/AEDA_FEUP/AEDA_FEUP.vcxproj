@@ -147,27 +147,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
 <<<<<<< HEAD
-<<<<<<< HEAD
     <ClCompile Include="Data.cpp" />
 =======
     <ClCompile Include="Clients.cpp" />
 >>>>>>> origin/master
-=======
->>>>>>> parent of cc4e329... Adicionadas as datas
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Utilities.cpp" />
   </ItemGroup>
   <ItemGroup>
 <<<<<<< HEAD
-<<<<<<< HEAD
     <ClInclude Include="Data.h" />
     <ClInclude Include="Rent.h" />
 =======
     <ClInclude Include="Clients.h" />
 >>>>>>> origin/master
-=======
->>>>>>> parent of cc4e329... Adicionadas as datas
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Utilities.h" />
   </ItemGroup>
