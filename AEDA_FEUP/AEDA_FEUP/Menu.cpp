@@ -112,7 +112,6 @@ void UserOption() {
 
 	u.clearScreen();
 	cout << "Name: \n" << endl;
-	cin << 
 	cout << "Password: \n" << endl;
 	
 

@@ -19,7 +19,8 @@ class Users : public Clients {
 	unsigned int points, nif;
 	fstream f;
 public:
-	Users(string username, string password, unsigned int nif, unsigned int points = 0);
+	Users();
+	//Users(string username, string password, unsigned int nif, unsigned int points = 0);
 	void createClient();
 	string * getUsername();
 	unsigned int getPoints();
