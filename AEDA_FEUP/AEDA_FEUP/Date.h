@@ -6,20 +6,20 @@
 #include <string>
 #include <fstream>
 
-class Data
+class Date
 {
 private:
 	int day, month, year;
 public:
-	Data();
-	Data(int, int, int);
+	Date();
+	Date(int, int, int);
 	void setDay(int);
 	int getDay();
 	void setMonth(int);
 	int getMonth();
 	void setYear(int);
 	int getYear();
-	bool isValid(int day, int month, int year);
-	bool operator<(Data time1);
-	bool operator>(Data time1);
+	bool isValid();
+	bool operator<(Date time1);
+	bool operator>(Date time1);
 };

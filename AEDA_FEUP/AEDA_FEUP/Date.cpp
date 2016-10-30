@@ -1,80 +1,80 @@
-#include "Data.h"
+#include "Date.h"
 
-Data::Data()
+Date::Date()
 {
 	day = 0;
 	month = 0;
 	year = 0;
 }
 
-Data::Data(int day, int month, int year)
+Date::Date(int day, int month, int year)
 {
 	this->day = day;
 	this->month = month;
 	this->year = year;
 }
 
-void Data::setDay(int day)
+void Date::setDay(int day)
 {
 	this->day = day;
 }
 
-int Data::getDay()
+int Date::getDay()
 {
 	return day;
 }
 
-void Data::setMonth(int month)
+void Date::setMonth(int month)
 {
 	this->month = month;
 }
 
-int Data::getMonth()
+int Date::getMonth()
 {
 	return month;
 }
 
-void Data::setYear(int year)
+void Date::setYear(int year)
 {
 	this->year = year;
 }
 
-int Data::getYear()
+int Date::getYear()
 {
 	return year;
 }
 
-bool Data::isValid(int day, int month, int year)
+bool Date::isValid()
 {
 
-	if (month < 1 || month > 12)
+	if (this->getMonth() < 1 || this->getMonth() > 12)
 	{
 		return false;
 	}
-	if (year < 1969 || year > 2016)
+	if (this->getYear() < 1969 || this->getYear() > 2016)
 	{
 		return false;
 	}
-	if (month == 1 || month == 5 || month == 7 || month == 10 || month == 3 || month == 12 || month == 8)
+	if (this->getMonth() == 1 || this->getMonth() == 5 || this->getMonth() == 7 || this->getMonth() == 10 || this->getMonth() == 3 || this->getMonth() == 12 || this->getMonth() == 8)
 	{
-		if (day < 1 || day > 31)
+		if (this->getDay() < 1 || this->getDay() > 31)
 		{
 			return false;
 		}
 	}
-	if (month == 4 || month == 6 || month == 9 || month == 11)
+	if (this->getMonth() == 4 || this->getMonth() == 6 || this->getMonth() == 9 || this->getMonth() == 11)
 	{
-		if (day < 1 || day > 30)
+		if (this->getDay() < 1 || this->getDay() > 30)
 		{
 			return false;
 		}
 	}
-	if (month == 2 && (day < 1 || day > 28))
+	if (this->getMonth() == 2 && (this->getDay() < 1 || this->getDay() > 28))
 		return false;
 	return true;
 }
 
-bool Data::operator<(Data x)
+bool Date::operator<(Date x)
 {
 	if (this->getYear() < x.getYear())
 		return true;
@@ -92,7 +92,7 @@ bool Data::operator<(Data x)
 		return true;
 }
 
-bool Data::operator>(Data x)
+bool Date::operator>(Date x)
 {
 	if (this->getYear() > x.getYear())
 		return true;
