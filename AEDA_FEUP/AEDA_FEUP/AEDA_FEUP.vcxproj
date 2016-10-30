@@ -146,13 +146,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Data.cpp" />
+    <ClCompile Include="Date.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="Rent.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Utilities.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Data.h" />
+    <ClInclude Include="Company.h" />
+    <ClInclude Include="Date.h" />
     <ClInclude Include="Rent.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Utilities.h" />
