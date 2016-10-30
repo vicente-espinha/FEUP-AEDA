@@ -15,7 +15,7 @@ int main() {
 	cout << "\n  You will be now asked to input the name of the resource files. \n"; Sleep(1);
 
 	u.clearScreen();
-	m.RegisterMenu();
+	m.LoginMenu();
 
 	u.clearScreen();
 	u.aboutMessage();
