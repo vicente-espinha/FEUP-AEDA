@@ -9,7 +9,6 @@ class Clients
 {
 public:
 	Clients();
-	virtual ~Clients();
 	//void makeReservation();
 
 };
@@ -19,8 +18,7 @@ class Users : public Clients {
 	unsigned int points, nif;
 	fstream f;
 public:
-	Users();
-	//Users(string username, string password, unsigned int nif, unsigned int points = 0);
+	Users(string username, string password, unsigned int nif, unsigned int points = 0);
 	void createClient();
 	string * getUsername();
 	unsigned int getPoints();
