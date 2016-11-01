@@ -4,11 +4,65 @@
 #include <conio.h>
 #include "Menu.h"
 #include "Utilities.h"
+#include <vector>
+#include "Rent.h"
 
 using namespace std;
 
 Menu m;
 Utilities u;
+
+bool file_verify(string file)
+{
+	fstream c(file);
+	if (c.fail())
+	{
+		c.close();
+		return false;
+	}
+		c.close();
+		return true;
+}
+
+/*vector<Rent>rents(string file)   //not finished
+{
+	ifstream c(file);
+	vector<Rent>pro;
+	string name, type, type_type, price, day1, day2, mouth1, mouth2, year1, year2;
+	getline(c, name, ';');
+	getline(c, type, ';');
+	getline(c, type_type, ';');
+	getline(c, price, ';');
+	getline(c, day1, ';');
+	getline(c, day2, ';');
+	getline(c, mouth1, ';');
+	getline(c, mouth2, ';');
+	getline(c, year1, ';');
+	getline(c, year2, ';');
+	Date d1, d2;
+	d1;
+
+	c.close();
+	return pro;
+}*/
+
+vector<Clients>clients(string file)
+{
+	ifstream c(file);
+	vector<Clients>pro;
+	while (!c.eof())
+	{
+		string username, password, pontos, NIF;
+		getline(c, username, ';');
+		getline(c, password, ';');
+		getline(c, NIF, ';');
+		getline(c, pontos, ';');
+		Clients x=Clients(username,password,atoi(NIF.c_str()),atoi(pontos.c_str()));
+		pro.push_back(x);
+	}
+	c.close();
+	return pro;
+}
 
 /* ----------------------------------- Menu Functionalities ---------------------------- */
 void Menu::gotoxy(int xpos, int ypos) {
