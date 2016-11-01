@@ -231,6 +231,7 @@ void Menu::LoginMenu() {
 
 		for (int i = 0; i<ItemCount; i++) { // Draw the menu.
 
+			gotoxy(2, 8 + i);
 			MenuChoice == i + 1 ? cout << " -> " : cout << "    "; // if (i+1) == MenuChoice, ' -> ', else print '    '.
 			cout << LoginItems()[i] << endl;
 		}
