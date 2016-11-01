@@ -36,21 +36,14 @@ protected:
 								// Outra cena, é dataInicio e fim porque o fornecedor tem de explicitar
 								// quais sao as datas em que o aluguer esta disponivel;
 
-	int durationRent;		    // Estas duas trabalham juntas, porque o fornecedor tem de dizer quanto
-						        // tempo uma pessoa pode ter um determinado aluguer, funcionando do género
-								// "A duração do aluguer será em noites, semanas, ou meses?" , extrai para o tipoEstadia
-								// "Quantos noites/semanas/meses serão? " texto varia com tipoEstadia, extrai para duracaoEstadia
-
+	
 	int numPeople;              // O numero de pessoas que vai para um determinado aluguer, (quarto duplo, triplo, etc...)
 	
 public:
-	Rent(string cidade, Date dataI, Date dataF, int duracao, int numOcupantes);
-
-	virtual void getNome() {}        // getNome do Hotel, nao faz sentido as outras classes terem nomes
+	Rent(string tipoRent, string cidade, Date dataI, Date dataF, int numOcupantes);
 	virtual int getNumOcupantes() {}
 	Date getDataInicio() { return dataBegin; }
 	Date getDataFim() { return dataEnd; }
-	int getDuracao() { return durationRent; }
 	virtual T buildRent() {}
 };
 
@@ -62,13 +55,44 @@ class Hotel : public Rent<T>
 	string type;                    // Tipo de Quarto que quer
 	float price;
 public:
-	Hotel(string nome, string cidade, Date dataI, Date dataF, string tipo, int duracao, float preco, int numOcupantes);
+	Hotel(string nome, string cidade, Date dataI, Date dataF, string tipo, float preco, int numOcupantes);
 	string getType() { return type; }
 
 	string getName() { return nameHotel; }
 	float getPrice() { return price; }
 	T buildRent(); // Pressupostamente constroi um hotel, mas ainda tenho que pensar como implementar isto
 	
+};
+
+template <typename T>
+class bedNbreakfast
+{
+protected:
+	string namebnb;
+public:
+	bedNbreakfast(string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes);
+	T buildRent();
+	string getName() { return  namebnb; }
+};
+
+template<typename T>
+class sharedHouse
+{
+protected:
+	string nameSH;
+public:
+	sharedHouse(string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes);
+};
+
+template<typename T>
+class flat
+{
+protected:
+	string nameFlat;
+	bool hasKitchen;
+public:
+	flat(string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes);
+	T buildRent();
 };
 
 
