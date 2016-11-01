@@ -19,4 +19,5 @@ public:
 	void aboutMessage();
 	bool invalidInputRetry();
 	bool invalidInputNoRetry();
+	string trim(string s);
 };
