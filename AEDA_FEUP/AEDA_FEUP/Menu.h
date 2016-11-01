@@ -8,6 +8,10 @@ using namespace std;
 
 class Menu {
 
+	//Variables
+	string username, password;
+	unsigned int nif;
+
 	//Menu functionalities
 	HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 	COORD CursorPosition;

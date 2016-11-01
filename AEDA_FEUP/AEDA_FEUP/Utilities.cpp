@@ -87,6 +87,16 @@ void Utilities::cinClear() {
 	return;
 }
 
+void Utilities::logo() {
+
+	cout << "\n      _     ___ _      _   ___ ___   ___ _  _   _____ _  _ ___   ___ _   _ _  _ \n";
+	cout << "     /_\\   | _ \\ |    /_\\ / __| __| |_ _| \\| | |_   _| || | __| / __| | | | \\| | \n";
+	cout << "    / _ \\  |  _/ |__ / _ \\ (__| _|   | || .` |   | | | __ | _|  \\__ \\ |_| | .` |  \n";
+	cout << "   /_/ \\_\\ |_| |____/_/ \\_\\___|___| |___|_|\\_|   |_| |_||_|___| |___/\\___/|_|\\_|   \n";
+	cout << "\n   .-.-.-.-.-.-.-.-.- Find your ideal room... At the best price -.-.-.-.-.-.-.-. \n";
+
+}
+
 void Utilities::cancelMessage() {
 	setColor(7); cout << "\n  WARNING: You have canceled the operation!\n           Press any key to continue... "; setColor(15);
 	cinClear();

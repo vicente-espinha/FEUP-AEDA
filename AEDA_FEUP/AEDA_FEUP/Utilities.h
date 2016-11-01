@@ -17,6 +17,7 @@ public:
 	void successMessage();
 	void pressToContinueMessage();
 	void aboutMessage();
+	void logo();
 	bool invalidInputRetry();
 	bool invalidInputNoRetry();
 };

@@ -2,17 +2,19 @@
 #include <string>
 #include <windows.h> 
 #include <conio.h>
+#include <vector>
+
 #include "Menu.h"
 #include "Utilities.h"
-#include <vector>
 #include "Rent.h"
+#include "Clients.h"
 
 using namespace std;
 
 Menu m;
 Utilities u;
 
-bool file_verify(string file)
+/*bool file_verify(string file)
 {
 	fstream c(file);
 	if (c.fail())
@@ -22,7 +24,7 @@ bool file_verify(string file)
 	}
 		c.close();
 		return true;
-}
+}*/
 
 /*vector<Rent>rents(string file)   //not finished
 {
@@ -46,7 +48,7 @@ bool file_verify(string file)
 	return pro;
 }*/
 
-vector<Clients>clients(string file)
+/*vector<Clients>clients(string file)
 {
 	ifstream c(file);
 	vector<Clients>pro;
@@ -57,12 +59,12 @@ vector<Clients>clients(string file)
 		getline(c, password, ';');
 		getline(c, NIF, ';');
 		getline(c, pontos, ';');
-		Clients x=Clients(username,password,atoi(NIF.c_str()),atoi(pontos.c_str()));
+		Clients x = Clients(username,password,stoi(NIF.c_str()),stoi(pontos.c_str()));
 		pro.push_back(x);
 	}
 	c.close();
 	return pro;
-}
+}*/
 
 /* ----------------------------------- Menu Functionalities ---------------------------- */
 void Menu::gotoxy(int xpos, int ypos) {
@@ -107,7 +109,7 @@ string * Menu::LoginItems() {
 string * Menu::RegisterItems() {
 
 	string *item = new string[2];
-	item[0] = "Register as a suplier";
+	item[0] = "Register as a supplier";
 	item[1] = "Register as a basic white user";
 
 	return item;
@@ -154,11 +156,12 @@ void UnregUserOption() {
 }
 
 /*-------Register Menu Options------*/
-void SuplierOption() {
+void SupplierOption() {
 
 	u.clearScreen();
 	cout << "Name: \n" << endl;
 	cout << "Password: \n" << endl;
+
 
 }
 
@@ -209,6 +212,8 @@ void ExitOption() {
 
 /*--------------------------------------------------Menu Initialization-------------------------------------------------*/
 void Menu::LoginMenu() {
+    
+	u.logo();
 
 	ChangeCursorStatus(false);
 	typedef void(*TMenuOption)();
@@ -226,7 +231,6 @@ void Menu::LoginMenu() {
 
 		for (int i = 0; i<ItemCount; i++) { // Draw the menu.
 
-			gotoxy(2, 2 + i);
 			MenuChoice == i + 1 ? cout << " -> " : cout << "    "; // if (i+1) == MenuChoice, ' -> ', else print '    '.
 			cout << LoginItems()[i] << endl;
 		}
@@ -284,7 +288,7 @@ void Menu::RegisterMenu() {
 	char key; //For entering the key (up arrow,down arrow,etc...).
 
 	TMenuOption *MenuOption = new TMenuOption[ItemCount]; //Array of pointers to functions (dynamic).
-	MenuOption[0] = SuplierOption; //Filling the array with the functions.
+	MenuOption[0] = SupplierOption; //Filling the array with the functions.
 	MenuOption[1] = UserOption;
 
 	while (1) {
