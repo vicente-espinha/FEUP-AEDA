@@ -1,17 +1,9 @@
 #pragma once
-
-/*
-* Aluguer.h
-*
-*  Created on: 22/10/2016
-*      Author: angrydodo
-*/
-
-#include "Date.h"
 #include <iostream>
 #include <string>
 #include <vector>
-#include "Utilities.h" // Tem a função invalidInput
+#include "Utilities.h"
+#include "Date.h"
 
 using namespace std;
 
@@ -32,7 +24,7 @@ que deseja disponibilizar, com as respectivas características"
 
 */
 
-//template <class T>	 // IMPORTANTE!!! A função buildRent retorna objetos da classe respetiva, i.e. Hotel retorna Hotel e whatnot
+template <typename T>	 // IMPORTANTE!!! A função buildRent retorna objetos da classe respetiva, i.e. Hotel retorna Hotel e whatnot
 class Rent
 {
 protected:
@@ -62,8 +54,8 @@ public:
 	virtual T buildRent() {}
 };
 
-
-class Hotel : public Rent
+template <typename T>
+class Hotel : public Rent<T>
 {
 	string nameHotel;               // Podera ser utilizado para, apos fazer sort ao vetor de aluguer, fazer display bonito
 	int numPeople;                  // Definido pelo tipo de aluguer que é
@@ -75,7 +67,7 @@ public:
 
 	string getName() { return nameHotel; }
 	float getPrice() { return price; }
-	void buildRent(); // Pressupostamente constroi um hotel, mas ainda tenho que pensar como implementar isto
+	T buildRent(); // Pressupostamente constroi um hotel, mas ainda tenho que pensar como implementar isto
 	
 };
 

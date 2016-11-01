@@ -2,21 +2,24 @@
 
 // ALUGUER
 
-Rent::Rent(string c, Date dataI, Date dataF, int d, int n)
+template <typename T>
+Rent<T>::Rent(string c, Date dataI, Date dataF, int d, int n)
 {
 	city = c; dataBegin = dataI; dataEnd = dataF; durationRent = d; numPeople = n;
 }
 
 // HOTEL
 
-Hotel::Hotel(string nome, string cidade, Date dataI, Date dataF, string tipo, int duracao, float preco, int numOcupantes) : Rent(cidade, dataI,dataF,duracao,numOcupantes)
+template <typename T>
+Hotel<T>::Hotel(string nome, string cidade, Date dataI, Date dataF, string tipo, int duracao, float preco, int numOcupantes) : Rent(cidade, dataI,dataF,duracao,numOcupantes)
 {
 	nameHotel = nome;
 	type = tipo;
 	price = preco;
 }
 
-Hotel Hotel::buildRent()
+template <typename T>
+T Hotel<T>::buildRent()
 {
 	string x;
 	int n;

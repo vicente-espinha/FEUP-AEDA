@@ -5,7 +5,7 @@ Utilities::Utilities() {
 }
 
 
-bool invalidInput()
+bool Utilities::invalidInputRetry()
 {
 	bool b = true;
 	while (b)
@@ -23,6 +23,18 @@ bool invalidInput()
 	}
 }
 
+bool Utilities::invalidInputNoRetry() // Serve para fazer codigo bonitinho, num ciclo while, em que não pode fazer retry
+{
+	if (cin.fail())
+	{
+		cin.clear();
+		cin.ignore(1000000, '\n');
+		cout << "\n\n The input was invalid. Retrying last segment.\n\n";
+		return true;
+	}
+	else
+		return false;
+}
 
 //Clears the console (avoids using 'system' function)
 void Utilities::clearScreen() {
