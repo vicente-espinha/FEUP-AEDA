@@ -11,9 +11,8 @@ Rent<T>::Rent(string typeRent, string c, Date dataI, Date dataF, int n)
 // HOTEL
 
 template <typename T>
-Hotel<T>::Hotel(string typeRent, string nome, string cidade, Date dataI, Date dataF, string tipo, float preco, int numOcupantes) : Rent(typeRent,cidade, dataI, dataF, numOcupantes)
+Hotel<T>::Hotel(string typeRent, string nome, string cidade, Date dataI, Date dataF, string tipo, float preco, int numOcupantes) //: Rent(typeRent, cidade, dataI, dataF, numOcupantes)
 {
-
 	nameHotel = nome;
 	type = tipo;
 	price = preco;
@@ -354,7 +353,6 @@ T sharedHouse<T>::buildRent()
 	}
 
 	return sharedHouse("Shared House",name, city, d1, d2, price, numPeople);
-
 }
 
 // FLAT

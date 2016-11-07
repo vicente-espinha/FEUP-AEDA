@@ -1,14 +1,18 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <fstream>
 #include <windows.h> 
-#include <conio.h> 
+#include <conio.h>
+
+#include "Clients.h"
 
 using namespace std;
 
-class Menu {
+class Menu : public Users{
 
 	//Variables
+	fstream f;
 	string username, password;
 	unsigned int nif;
 
@@ -31,4 +35,8 @@ public:
 	void LoginMenu();
 	void RegisterMenu();
 	void Menu1();
+
+	//klxgfndkdf
+	void writeUsersFile(string username, string password, unsigned int nif, unsigned int points);
+	vector<Users> fileToVector(string file);
 };

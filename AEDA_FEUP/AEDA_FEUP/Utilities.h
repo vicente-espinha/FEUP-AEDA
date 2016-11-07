@@ -21,4 +21,5 @@ public:
 	bool invalidInputRetry();
 	bool invalidInputNoRetry();
 	string trim(string s);
+	bool fileVerify(string file);
 };

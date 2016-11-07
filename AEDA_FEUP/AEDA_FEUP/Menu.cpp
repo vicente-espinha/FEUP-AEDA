@@ -14,17 +14,9 @@ using namespace std;
 Menu m;
 Utilities u;
 
-/*bool file_verify(string file)
-{
-	fstream c(file);
-	if (c.fail())
-	{
-		c.close();
-		return false;
-	}
-		c.close();
-		return true;
-}*/
+//Global variables
+string username, password;
+unsigned int nif, points;
 
 /*vector<Rent>rents(string file)   //not finished
 {
@@ -48,23 +40,23 @@ Utilities u;
 	return pro;
 }*/
 
-/*vector<Clients>clients(string file)
+vector<Users> Menu::fileToVector(string file)
 {
 	ifstream c(file);
-	vector<Clients>pro;
 	while (!c.eof())
 	{
-		string username, password, pontos, NIF;
+		string nif, points;
 		getline(c, username, ';');
 		getline(c, password, ';');
-		getline(c, NIF, ';');
-		getline(c, pontos, ';');
-		Clients x = Clients(username,password,stoi(NIF.c_str()),stoi(pontos.c_str()));
-		pro.push_back(x);
+		getline(c, nif, ';');
+		getline(c, points, ';');
+		Users x = Users(username, password, stoi(nif.c_str()), stoi(points.c_str()));
+		usersVec.push_back(x);
 	}
 	c.close();
-	return pro;
-}*/
+
+	return usersVec;
+}
 
 /* ----------------------------------- Menu Functionalities ---------------------------- */
 void Menu::gotoxy(int xpos, int ypos) {
@@ -95,7 +87,9 @@ void Menu::ChangeCursorStatus(bool Visible) {
 }
 
 
-/* ----------------------------------------- Option Names ------------------------------ */ 
+/* ----------------------------------------- Option Names ------------------------------ */
+                     /*Loads the arrays with the different menu functions*/
+
 string * Menu::LoginItems() {
 
 	string *item = new string[3];
@@ -161,17 +155,20 @@ void SupplierOption() {
 	u.clearScreen();
 	cout << "Name: \n" << endl;
 	cout << "Password: \n" << endl;
-
-
 }
 
 void UserOption() {
 
 	u.clearScreen();
-	cout << "Name: \n" << endl;
-	cout << "Password: \n" << endl;
+	cout << "Name: ";
+	getline(cin, username);
+	cout << "Password: ";
+	cin >> password;
+	cout << "NIF: ";
+	cin >> nif;
+	points = 0;
+	m.writeUsersFile(username, password, nif, points);
 	
-
 }
 
 /*-------Menu 1 options--------*/
@@ -408,4 +405,15 @@ void Menu::Menu1() {
 
 	delete MenuOption;
 	return;
+}
+
+void Menu::writeUsersFile(string username, string password, unsigned int nif, unsigned int points){
+
+	u.fileVerify("users.txt");
+
+	f.open("users.txt");
+	f << username << " ; " << password << " ; " << nif << "\n";
+	f.close();
+
+	fileToVector("users.txt");
 }

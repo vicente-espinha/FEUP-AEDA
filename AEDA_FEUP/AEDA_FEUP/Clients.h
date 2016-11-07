@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <vector>
 
 using namespace std;
 
@@ -14,9 +15,12 @@ public:
 };
 
 class Users : public Clients {
+
+protected:
 	string username, password;
 	unsigned int points, nif;
 	fstream f;
+	vector<Users> usersVec;
 public:
 	Users(string username, string password, unsigned int nif, unsigned int points = 0);
 	void createClient();

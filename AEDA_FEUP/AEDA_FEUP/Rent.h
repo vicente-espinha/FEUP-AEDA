@@ -55,7 +55,7 @@ class Hotel : public Rent<T>
 	string type;                    // Tipo de Quarto que quer
 	float price;
 public:
-	Hotel(string nome, string cidade, Date dataI, Date dataF, string tipo, float preco, int numOcupantes);
+	Hotel(string typeRent, string nome, string cidade, Date dataI, Date dataF, string tipo, float preco, int numOcupantes);
 	string getType() { return type; }
 
 	string getName() { return nameHotel; }
@@ -65,7 +65,7 @@ public:
 };
 
 template <typename T>
-class bedNbreakfast
+class bedNbreakfast : public Rent<T>
 {
 protected:
 	string namebnb;
@@ -76,16 +76,17 @@ public:
 };
 
 template<typename T>
-class sharedHouse
+class sharedHouse : public Rent<T>
 {
 protected:
 	string nameSH;
 public:
 	sharedHouse(string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes);
+	T buildRent();
 };
 
 template<typename T>
-class flat
+class flat : public Rent<T>
 {
 protected:
 	string nameFlat;

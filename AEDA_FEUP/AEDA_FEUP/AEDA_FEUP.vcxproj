@@ -146,6 +146,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Clients.cpp" />
     <ClCompile Include="Date.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Rent.cpp" />
@@ -154,12 +155,16 @@
     <ClCompile Include="Utilities.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Clients.h" />
     <ClInclude Include="Company.h" />
     <ClInclude Include="Date.h" />
     <ClInclude Include="Supplier.h" />
     <ClInclude Include="Rent.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Utilities.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="users.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
