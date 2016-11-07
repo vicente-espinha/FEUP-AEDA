@@ -10,11 +10,13 @@ Users::Users(string username, string password, unsigned int nif, unsigned int po
 
 }
 
-void Users::addUser(string username, string password) {
+string Users::getUsername() { return username; }
 
+string Users::getPassword() { return password; }
 
+unsigned int Users::getPoints() { return points; }
 
-}
+unsigned int Users::getNif() { return nif; }
 
 
 

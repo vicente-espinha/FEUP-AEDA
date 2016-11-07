@@ -6,15 +6,22 @@
 #include <conio.h>
 
 #include "Clients.h"
+#include "Supplier.h"
 
 using namespace std;
 
-class Menu : public Users{
+class Menu {
 
 	//Variables
 	fstream f;
+
+	string usersFile, suppliersFile;
+
+	vector<Users> usersVec;
+	//vector<Supplier> suppliersVec;
+
 	string username, password;
-	unsigned int nif;
+	unsigned int nif, points;
 
 	//Menu functionalities
 	HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -26,17 +33,18 @@ public:
 	string * RegisterItems();
 	string * LoginItems();
 
-
-	//Menu functionalities
-	void gotoxy(int, int); // With this function you can goto any position on the cmd line screen.
+	// Menu functionalities //
+	void gotoxy(int, int); /* With this function you can goto any position on the cmd line screen */
 	void ChangeCursorStatus(bool);
 
-	//Menus
+	// Menus //
 	void LoginMenu();
 	void RegisterMenu();
 	void Menu1();
 
-	//klxgfndkdf
-	void writeUsersFile(string username, string password, unsigned int nif, unsigned int points);
-	vector<Users> fileToVector(string file);
+	//
+	bool foundUsersFile(string userFiles);
+	void loadUsers();
+	void saveUsers();
+	void addUser();
 };

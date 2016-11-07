@@ -23,10 +23,10 @@ protected:
 	vector<Users> usersVec;
 public:
 	Users(string username, string password, unsigned int nif, unsigned int points = 0);
-	void createClient();
-	string * getUsername();
+	string getUsername();
+	string getPassword();
 	unsigned int getPoints();
-	void addUser(string username, string password);
+	unsigned int getNif();
 	bool checkExistance(string username, string password);
 };
 

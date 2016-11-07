@@ -14,10 +14,6 @@ using namespace std;
 Menu m;
 Utilities u;
 
-//Global variables
-string username, password;
-unsigned int nif, points;
-
 /*vector<Rent>rents(string file)   //not finished
 {
 	ifstream c(file);
@@ -40,23 +36,7 @@ unsigned int nif, points;
 	return pro;
 }*/
 
-vector<Users> Menu::fileToVector(string file)
-{
-	ifstream c(file);
-	while (!c.eof())
-	{
-		string nif, points;
-		getline(c, username, ';');
-		getline(c, password, ';');
-		getline(c, nif, ';');
-		getline(c, points, ';');
-		Users x = Users(username, password, stoi(nif.c_str()), stoi(points.c_str()));
-		usersVec.push_back(x);
-	}
-	c.close();
 
-	return usersVec;
-}
 
 /* ----------------------------------- Menu Functionalities ---------------------------- */
 void Menu::gotoxy(int xpos, int ypos) {
@@ -160,14 +140,9 @@ void SupplierOption() {
 void UserOption() {
 
 	u.clearScreen();
-	cout << "Name: ";
-	getline(cin, username);
-	cout << "Password: ";
-	cin >> password;
-	cout << "NIF: ";
-	cin >> nif;
-	points = 0;
-	m.writeUsersFile(username, password, nif, points);
+	u.setColor(14); cout << "\n  ::| ADD USER |::\n"; u.setColor(15);
+	m.addUser();
+	m.Menu1();
 	
 }
 
@@ -209,8 +184,6 @@ void ExitOption() {
 
 /*--------------------------------------------------Menu Initialization-------------------------------------------------*/
 void Menu::LoginMenu() {
-    
-	u.logo();
 
 	ChangeCursorStatus(false);
 	typedef void(*TMenuOption)();
@@ -228,7 +201,7 @@ void Menu::LoginMenu() {
 
 		for (int i = 0; i<ItemCount; i++) { // Draw the menu.
 
-			gotoxy(2, 8 + i);
+			gotoxy(2, 2 + i);
 			MenuChoice == i + 1 ? cout << " -> " : cout << "    "; // if (i+1) == MenuChoice, ' -> ', else print '    '.
 			cout << LoginItems()[i] << endl;
 		}
@@ -407,13 +380,90 @@ void Menu::Menu1() {
 	return;
 }
 
-void Menu::writeUsersFile(string username, string password, unsigned int nif, unsigned int points){
+bool Menu::foundUsersFile(string usersFile) {
 
-	u.fileVerify("users.txt");
+	f.open(usersFile);
 
-	f.open("users.txt");
-	f << username << " ; " << password << " ; " << nif << "\n";
+	if (f.fail()) {
+		f.close();
+		u.setColor(12); cerr << "\n  ERROR: " << usersFile << " (users file) could not be found!\n         Verify the directory!\n\n"; u.setColor(15);
+		return false;
+	}
+
 	f.close();
 
-	fileToVector("users.txt");
+	this->usersFile = usersFile;
+	return true;
+}
+
+//Carrega o ficheiro de clientes para memória (vetor de clientes).
+void Menu::loadUsers() {
+
+	string line;
+
+	f.open(usersFile);
+	getline(f, line);
+
+	while (getline(f, line)) {
+
+		string username = line.substr(0, line.find(" ; "));
+		line.erase(0, line.find(" ; ") + 3);
+		string password = line.substr(0, line.find(" ; "));
+		line.erase(0, line.find(" ; ") + 3);
+		unsigned int nif = stoi(line.substr(0, line.find(" ; ")));
+		line.erase(0, line.find(" ; ") + 3);
+		unsigned int points = stoi(line.substr(0, line.length()));
+
+		usersVec.push_back(Users(username, password, nif, points));
+	}
+	f.close();
+	return;
+}
+
+//Carrega a memória para o ficheiro de clientes.
+void Menu::saveUsers() {
+
+	ofstream f("tempSave.txt");
+
+	for (unsigned int index = 0; index != usersVec.size(); index++) {
+		f << usersVec[index].getUsername() << " ; " << usersVec[index].getPassword() << " ; " << usersVec[index].getNif() << " ; " << usersVec[index].getPoints() << endl;
+	}
+
+	f.close();
+	remove(usersFile.c_str());
+	rename("tempSave.txt", usersFile.c_str());
+	return;
+}
+
+void Menu::addUser() {
+
+	cout << "\n Name:  "; getline(cin, username);
+
+	if (cin.eof()) {
+		u.cancelMessage();
+		return;
+	}
+
+	for (unsigned int index = 0; index != username.size(); index++) {
+		if (!isalpha(username[index]) && username[index] != ' ') {
+			u.setColor(12); cerr << "  ERROR: Name must only contain alphabetic characters. "; u.setColor(15);
+			Sleep(3000);
+			u.clearScreen();
+			return;
+		}
+	}
+
+	cout << "\n Password:  "; cin >> password;
+	u.cinClear();
+	cout << "\n NIF:  "; cin >> nif;
+
+	if (cin.eof()) {
+		u.cancelMessage();
+		return;
+	}
+
+	usersVec.push_back(Users(username, password, nif, 0));
+
+	u.successMessage();
+	return;
 }

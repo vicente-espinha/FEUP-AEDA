@@ -1,20 +1,8 @@
 #include "Utilities.h"
-#include <fstream>
+
 
 //Construtor
 Utilities::Utilities() {
-}
-
-bool Utilities::fileVerify(string file){
-
-	fstream c(file);
-	if (c.fail())
-	{
-		c.close();
-		return false;
-	}
-	c.close();
-	return true;
 }
 
 string Utilities::trim(string s)
