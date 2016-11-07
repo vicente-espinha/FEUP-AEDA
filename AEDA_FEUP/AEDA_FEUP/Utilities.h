@@ -20,4 +20,5 @@ public:
 	void logo();
 	bool invalidInputRetry();
 	bool invalidInputNoRetry();
+	string trim(string s);
 };

@@ -5,6 +5,23 @@ Utilities::Utilities() {
 }
 
 
+string Utilities::trim(string s)
+{
+	while (s.find("  ") != string::npos)
+	{
+		s.erase(s.find("  "), 1);
+	}
+	if (s[0] == ' ')
+	{
+		s.erase(0, 1);
+	}
+	if (s[s.length() - 1] == ' ')
+	{
+		s.erase(s.length() - 1, 1);
+	}
+	return s;
+}
+
 bool Utilities::invalidInputRetry()
 {
 	bool b = true;

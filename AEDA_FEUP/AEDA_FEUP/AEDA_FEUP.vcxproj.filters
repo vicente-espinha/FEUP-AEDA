@@ -30,7 +30,7 @@
     <ClCompile Include="Date.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Clients.cpp">
+    <ClCompile Include="Supplier.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -50,7 +50,7 @@
     <ClInclude Include="Date.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Clients.h">
+    <ClInclude Include="Supplier.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
