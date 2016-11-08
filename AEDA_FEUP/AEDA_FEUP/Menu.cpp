@@ -11,6 +11,9 @@
 
 using namespace std;
 
+bool isRunning = true;
+
+//Class objects
 Menu m;
 Utilities u;
 
@@ -38,7 +41,11 @@ Utilities u;
 
 
 
-/* ----------------------------------- Menu Functionalities ---------------------------- */
+///////////////////////////
+// MENU FUNCTIONALITIES //
+//////////////////////////
+
+
 void Menu::gotoxy(int xpos, int ypos) {
 
 	COORD scrn;
@@ -67,40 +74,50 @@ void Menu::ChangeCursorStatus(bool Visible) {
 }
 
 
-/* ----------------------------------------- Option Names ------------------------------ */
-                     /*Loads the arrays with the different menu functions*/
+///////////////////
+// OPTION NAMES //       /*Loads the arrays with the different menu functions*/
+//////////////////
+
 
 string * Menu::LoginItems() {
 
-	string *item = new string[3];
+	string *item = new string[4];
 	item[0] = "Login";
 	item[1] = "Register";
 	item[2] = "Continue as unregistered user";
+	item[3] = "Exit";
 
 	return item;
 }
 //-----------------------------------------------
 string * Menu::RegisterItems() {
 
-	string *item = new string[2];
+	string *item = new string[4];
 	item[0] = "Register as a supplier";
-	item[1] = "Register as a basic white user";
+	item[1] = "Register as a user";
+	item[2] = "Return to Main Menu";
+	item[3] = "Exit";
 
 	return item;
 }
 //----------------------------------------------
 string * Menu::Menu1Items() {
 
-	string *item = new string[4];
+	string *item = new string[5];
 	item[0] = "Menu Option #1.";
 	item[1] = "Menu Option #2.";
 	item[2] = "Menu Option #3.";
-	item[3] = "Exit.";
+	item[3] = "Return to Main Menu";
+	item[4] = "Exit.";
 
 	return item;
 }
 
-/* --------------------------------------- Menu Options ------------------------------- */
+
+///////////////////
+// MENU OPTIONS //
+//////////////////
+
 
 /*-------Login Menu options--------*/
 void LoginOption() {
@@ -140,10 +157,10 @@ void SupplierOption() {
 void UserOption() {
 
 	u.clearScreen();
-	u.setColor(14); cout << "\n  ::| ADD USER |::\n"; u.setColor(15);
-	m.addUser();
+	u.setColor(14); cout << "\n  ::| REGISTER |::\n"; u.setColor(15);
+	m.registerUser();
 	m.Menu1();
-	
+
 }
 
 /*-------Menu 1 options--------*/
@@ -174,21 +191,31 @@ void Option3() {
 	u.clearScreen();
 }
 
-void ExitOption() {
+/*-------Return and exit options--------*/
+void returnMain() {
 
-	m.gotoxy(30, 15);
-	cout << "Exitting..." << endl;
-	u.pressToContinueMessage();
-	exit(0);
+	u.clearScreen();
+	m.LoginMenu();
 }
 
-/*--------------------------------------------------Menu Initialization-------------------------------------------------*/
-void Menu::LoginMenu() {
+void ExitOption() {
+
+	isRunning = false;
+
+}
+
+
+//////////////////////////
+// MENU INITIALIZATION //
+/////////////////////////
+
+
+int Menu::LoginMenu() {
 
 	ChangeCursorStatus(false);
 	typedef void(*TMenuOption)();
 
-	int ItemCount = 3; // This variable holds the number of menu items.
+	int ItemCount = 4; // This variable holds the number of menu items.
 	int MenuChoice = 1; // This variable holds the position of the cursor. 
 	char key; //For entering the key (up arrow,down arrow,etc...).
 
@@ -196,10 +223,11 @@ void Menu::LoginMenu() {
 	MenuOption[0] = LoginOption; //Filling the array with the functions.
 	MenuOption[1] = RegisterOption;
 	MenuOption[2] = UnregUserOption;
+	MenuOption[3] = ExitOption;
 
 	while (1) {
 
-		for (int i = 0; i<ItemCount; i++) { // Draw the menu.
+		for (int i = 0; i < ItemCount; i++) { // Draw the menu.
 
 			gotoxy(2, 2 + i);
 			MenuChoice == i + 1 ? cout << " -> " : cout << "    "; // if (i+1) == MenuChoice, ' -> ', else print '    '.
@@ -216,17 +244,22 @@ void Menu::LoginMenu() {
 				(*MenuOption[MenuChoice - 1])();
 			}
 			catch (...) {}
+
+			if (!isRunning) {
+				return 0;
+			}
+
 			break;
 
 		case 'P': // if the entered key is the 'up arrow'
 			MenuChoice++;
-			if (MenuChoice>ItemCount)
+			if (MenuChoice > ItemCount)
 				MenuChoice = 1;
 			break;
 
 		case 'H': //If the entered key is the 'down arrow'
 			MenuChoice--;
-			if (MenuChoice<1)
+			if (MenuChoice < 1)
 				MenuChoice = ItemCount;
 			break;
 
@@ -245,26 +278,31 @@ void Menu::LoginMenu() {
 	}
 
 	delete MenuOption;
-	return;
-
+	return 0;
 }
 
-void Menu::RegisterMenu() {
+int Menu::RegisterMenu() {
+
+	if (!isRunning) {
+		return 0;
+	}
 
 	ChangeCursorStatus(false);
 	typedef void(*TMenuOption)();
 
-	int ItemCount = 2; // This variable holds the number of menu items.
+	int ItemCount = 4; // This variable holds the number of menu items.
 	int MenuChoice = 1; // This variable holds the position of the cursor. 
 	char key; //For entering the key (up arrow,down arrow,etc...).
 
 	TMenuOption *MenuOption = new TMenuOption[ItemCount]; //Array of pointers to functions (dynamic).
 	MenuOption[0] = SupplierOption; //Filling the array with the functions.
 	MenuOption[1] = UserOption;
+	MenuOption[2] = returnMain;
+	MenuOption[3] = ExitOption;
 
 	while (1) {
 
-		for (int i = 0; i<ItemCount; i++) { // Draw the menu.
+		for (int i = 0; i < ItemCount; i++) { // Draw the menu.
 
 			gotoxy(2, 2 + i);
 			MenuChoice == i + 1 ? cout << " -> " : cout << "    "; // if (i+1) == MenuChoice, ' -> ', else print '    '.
@@ -281,17 +319,22 @@ void Menu::RegisterMenu() {
 				(*MenuOption[MenuChoice - 1])();
 			}
 			catch (...) {}
+
+			if (!isRunning) {
+				return 0;
+			}
+
 			break;
 
 		case 'P': // if the entered key is the 'up arrow'
 			MenuChoice++;
-			if (MenuChoice>ItemCount)
+			if (MenuChoice > ItemCount)
 				MenuChoice = 1;
 			break;
 
 		case 'H': //If the entered key is the 'down arrow'
 			MenuChoice--;
-			if (MenuChoice<1)
+			if (MenuChoice < 1)
 				MenuChoice = ItemCount;
 			break;
 
@@ -310,16 +353,16 @@ void Menu::RegisterMenu() {
 	}
 
 	delete MenuOption;
-	return;
+	return 0;
 
 }
 
-void Menu::Menu1() {
+int Menu::Menu1() {
 
 	ChangeCursorStatus(false);
 	typedef void(*TMenuOption)();
 
-	int ItemCount = 4; // This variable holds the number of menu items.
+	int ItemCount = 5; // This variable holds the number of menu items.
 	int MenuChoice = 1; // This variable holds the position of the cursor. 
 	char key; //For entering the key (up arrow,down arrow,etc...).
 
@@ -327,11 +370,12 @@ void Menu::Menu1() {
 	MenuOption[0] = Option1; //Filling the array with the functions.
 	MenuOption[1] = Option2;
 	MenuOption[2] = Option3;
-	MenuOption[3] = ExitOption;
+	MenuOption[3] = returnMain;
+	MenuOption[4] = ExitOption;
 
 	while (1) {
 
-		for (int i = 0; i<ItemCount; i++) { // Draw the menu.
+		for (int i = 0; i < ItemCount; i++) { // Draw the menu.
 
 			gotoxy(2, 2 + i);
 			MenuChoice == i + 1 ? cout << " -> " : cout << "    "; // if (i+1) == MenuChoice, ' -> ', else print '    '.
@@ -347,23 +391,28 @@ void Menu::Menu1() {
 
 				(*MenuOption[MenuChoice - 1])();
 			}
-			catch (...){}  
+			catch (...) {}
+
+			if (!isRunning) {
+				return 0;
+			}
+
 			break;
 
 		case 'P': // if the entered key is the 'up arrow'
-			MenuChoice++; 
-			if (MenuChoice>ItemCount) 
+			MenuChoice++;
+			if (MenuChoice > ItemCount)
 				MenuChoice = 1;
 			break;
 
 		case 'H': //If the entered key is the 'down arrow'
 			MenuChoice--;
-			if (MenuChoice<1)
+			if (MenuChoice < 1)
 				MenuChoice = ItemCount;
 			break;
 
 		case 27: // If the entered key is the escape key (Esc)
-			try { (*MenuOption[ItemCount - 1])(); } 
+			try { (*MenuOption[ItemCount - 1])(); }
 			catch (...) {}
 			break;
 		default:// any another key.
@@ -377,9 +426,16 @@ void Menu::Menu1() {
 	}
 
 	delete MenuOption;
-	return;
+	return 0;
 }
 
+
+//////////////////////
+// USERS FUNCTIONS //
+/////////////////////
+
+
+//Checks existance of the users file
 bool Menu::foundUsersFile(string usersFile) {
 
 	f.open(usersFile);
@@ -396,7 +452,7 @@ bool Menu::foundUsersFile(string usersFile) {
 	return true;
 }
 
-//Carrega o ficheiro de clientes para memória (vetor de clientes).
+//Loads the users file to memory (Users vector)
 void Menu::loadUsers() {
 
 	string line;
@@ -420,22 +476,23 @@ void Menu::loadUsers() {
 	return;
 }
 
-//Carrega a memória para o ficheiro de clientes.
+//Loads memory to the users file
 void Menu::saveUsers() {
 
-	ofstream f("tempSave.txt");
+	ofstream p("tempSave.txt");
 
-	for (unsigned int index = 0; index != usersVec.size(); index++) {
-		f << usersVec[index].getUsername() << " ; " << usersVec[index].getPassword() << " ; " << usersVec[index].getNif() << " ; " << usersVec[index].getPoints() << endl;
+	for (size_t i = 0; i < usersVec.size(); i++) {
+		p << usersVec[i].getUsername() << " ; " << usersVec[i].getPassword() << " ; " << usersVec[i].getNif() << " ; " << usersVec[i].getPoints() << endl;
 	}
 
-	f.close();
+	p.close();
 	remove(usersFile.c_str());
 	rename("tempSave.txt", usersFile.c_str());
 	return;
 }
 
-void Menu::addUser() {
+//Adds a user to the users vector
+void Menu::registerUser() {
 
 	cout << "\n Name:  "; getline(cin, username);
 
@@ -457,12 +514,18 @@ void Menu::addUser() {
 	u.cinClear();
 	cout << "\n NIF:  "; cin >> nif;
 
+	u.cinClear();
+
 	if (cin.eof()) {
 		u.cancelMessage();
 		return;
 	}
 
 	usersVec.push_back(Users(username, password, nif, 0));
+
+	for (size_t i = 0; i < usersVec.size(); i++) {
+		cout << usersVec[i].getUsername() << " ; " << usersVec[i].getPassword() << " ; " << usersVec[i].getNif() << " ; " << usersVec[i].getPoints() << endl;
+	}
 
 	u.successMessage();
 	return;

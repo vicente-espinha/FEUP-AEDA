@@ -7,6 +7,7 @@ Users::Users(string username, string password, unsigned int nif, unsigned int po
 	this->username = username;
 	this->password = password;
 	this->nif = nif;
+	this->points = points;
 
 }
 

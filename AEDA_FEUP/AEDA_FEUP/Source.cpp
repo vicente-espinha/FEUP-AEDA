@@ -18,8 +18,13 @@ int main() {
 	cout << "\n  You will be now asked to input the name of the resource files. \n"; Sleep(1);
 
 	//CLIENTS FILE TEST (FOUND/VALID)
-	cout << "\n  Users file      : ";
+	cout << "\n  Users file:  ";
 	u.setColor(14); getline(cin, usersFile); u.setColor(15);
+
+	if (cin.eof()) {
+		u.cancelMessage();
+		return 0;
+	}
 
 	if (!menu.foundUsersFile(usersFile)) {
 		return 0;

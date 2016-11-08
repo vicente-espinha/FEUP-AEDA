@@ -22,7 +22,7 @@ protected:
 	fstream f;
 	vector<Users> usersVec;
 public:
-	Users(string username, string password, unsigned int nif, unsigned int points = 0);
+	Users(string username, string password, unsigned int nif, unsigned int points);
 	string getUsername();
 	string getPassword();
 	unsigned int getPoints();

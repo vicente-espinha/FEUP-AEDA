@@ -38,13 +38,13 @@ public:
 	void ChangeCursorStatus(bool);
 
 	// Menus //
-	void LoginMenu();
-	void RegisterMenu();
-	void Menu1();
+	int LoginMenu();
+	int RegisterMenu();
+	int Menu1();
 
 	//
 	bool foundUsersFile(string userFiles);
 	void loadUsers();
 	void saveUsers();
-	void addUser();
+	void registerUser();
 };
