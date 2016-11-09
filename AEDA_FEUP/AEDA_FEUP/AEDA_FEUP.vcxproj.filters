@@ -36,7 +36,11 @@
     <ClCompile Include="Clients.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Corporation.cpp">
+=======
+    <ClCompile Include="Reservations.cpp">
+>>>>>>> origin/master
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -62,12 +66,19 @@
     <ClInclude Include="Clients.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Corporation.h">
+=======
+    <ClInclude Include="Reservations.h">
+>>>>>>> origin/master
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="users.txt">
+    <Text Include="rents.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="suppliers.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

@@ -109,3 +109,87 @@ bool Date::operator>(Date x)
 	else
 		return true;
 }
+
+Date Date::operator+(Date days)
+{
+	if (this->getMonth() == 1 || this->getMonth() == 3 || this->getMonth() == 5 || this->getMonth() == 7 || this->getMonth() == 9 || this->getMonth() == 11)
+	{
+		if (this->getDay() + (days.getDay() - this->getDay()) < 31)
+			this->setDay(this->getDay() + (days.getDay() - this->getDay()));
+		else
+		{
+			this->setMonth(this->getMonth() + 1);
+			this->setDay(this->getDay() + (days.getDay() - this->getDay()) - 31);
+		}
+	}
+	if (this->getMonth() == 2)
+	{
+		if (this->getDay() + (days.getDay() - this->getDay()) < 28)
+			this->setDay(this->getDay() + (days.getDay() - this->getDay()));
+		else
+		{
+			this->setMonth(this->getMonth() + 1);
+			this->setDay(this->getDay() + (days.getDay() - this->getDay()) - 28);
+		}
+	}
+	else
+	{
+		if (this->getDay() + (days.getDay() - this->getDay()) < 30)
+			this->setDay(this->getDay() + (days.getDay() - this->getDay()));
+		else
+		{
+			this->setMonth(this->getMonth() + 1);
+			this->setDay(this->getDay() + (days.getDay() - this->getDay()) - 30);
+		}
+	}
+	return *this;
+}
+Date Date::operator-(Date days)
+{
+	if (this->getMonth() == 1 || this->getMonth() == 3 || this->getMonth() == 5 || this->getMonth() == 7 || this->getMonth() == 9 || this->getMonth() == 11)
+	{
+		if (this->getDay() - (this->getDay() - days.getDay()) > 0)
+			this->setDay(this->getDay() - (this->getDay() - days.getDay()));
+		else
+		{
+			this->setMonth(this->getMonth() - 1);
+			this->setDay(this->getDay() - (this->getDay() - days.getDay()) + 31);
+		}
+	}
+	if (this->getMonth() == 2)
+	{
+		if (this->getDay() + (this->getDay() - days.getDay()) < 28)
+			this->setDay(this->getDay() - (this->getDay() - days.getDay()));
+		else
+		{
+			this->setMonth(this->getMonth() - 1);
+			this->setDay(this->getDay() - (this->getDay() - days.getDay()) + 28);
+		}
+	}
+	else
+	{
+		if (this->getDay() - (this->getDay() - days.getDay())> 0)
+			this->setDay(this->getDay() - (this->getDay() - days.getDay()));
+		else
+		{
+			this->setMonth(this->getMonth() - 1);
+			this->setDay(this->getDay() - (this->getDay() - days.getDay()) + 30);
+		}
+	}
+	return *this;
+}
+
+int Date::minus(Date days)     // Retorna a diferenca das datas, para fins de price e whatnot
+{
+	if (this->getDay() - (this->getDay() - days.getDay()) > 0)
+		return (this->getDay() - (this->getDay() - days.getDay()));
+	else if (this->getMonth() == 1 || this->getMonth() == 3 || this->getMonth() == 5 || this->getMonth() == 7 || this->getMonth() == 9 || this->getMonth() == 11)
+		return (this->getDay() - (this->getDay() - days.getDay()) + 31);
+	else if (this->getMonth() == 2)
+		return (this->getDay() - (this->getDay() - days.getDay()));
+	else 
+		return (this->getDay() - (this->getDay() - days.getDay()) + 30);
+	
+}
+
+

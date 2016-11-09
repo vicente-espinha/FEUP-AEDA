@@ -1,0 +1,2 @@
+Hotel ; Ibis ; Coimbra ; 15/4/2016 ; 15/5/2016 ; Simple Room ; 67 ; 1
+Hotel ; AEDA ; MACEDO CRL ; 15/4/2016 ; 15/6/2016 ; Double Room ; 67 ; 2

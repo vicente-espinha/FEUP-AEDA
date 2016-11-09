@@ -3,7 +3,6 @@
 #include "Rent.h"
 #include "Clients.h"
 
-
 class Company
 {
 protected:
