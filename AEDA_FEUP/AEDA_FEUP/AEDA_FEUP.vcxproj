@@ -150,6 +150,7 @@
     <ClCompile Include="Date.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Rent.cpp" />
+    <ClCompile Include="Reservations.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Supplier.cpp" />
     <ClCompile Include="Utilities.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="Clients.h" />
     <ClInclude Include="Company.h" />
     <ClInclude Include="Date.h" />
+    <ClInclude Include="Reservations.h" />
     <ClInclude Include="Supplier.h" />
     <ClInclude Include="Rent.h" />
     <ClInclude Include="Menu.h" />
