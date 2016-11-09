@@ -96,4 +96,14 @@ public:
 	T buildRent();
 };
 
-
+template<typename T>
+class apartment : public Rent<T>
+{
+protected: 
+	string nameApartment;
+	int numRooms;
+	bool hasKitchen, hasSuite, hasLivingRoom;
+public:
+	apartment(string tipoRent, string name, string cidade, Date dataI, Date dataF, int numOcupantes, int numrooms, bool kitchen, bool suite, bool livingroom);
+	T buildRent();
+};
