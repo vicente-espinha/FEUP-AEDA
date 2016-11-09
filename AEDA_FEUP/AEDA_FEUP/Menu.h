@@ -17,7 +17,6 @@ class Menu {
 
 	string usersFile, suppliersFile;
 
-	vector<Users> usersVec;
 	//vector<Supplier> suppliersVec;
 
 	string username, password;
@@ -41,10 +40,4 @@ public:
 	int LoginMenu();
 	int RegisterMenu();
 	int Menu1();
-
-	//
-	bool foundUsersFile(string userFiles);
-	void loadUsers();
-	void saveUsers();
-	void registerUser();
 };

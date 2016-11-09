@@ -4,6 +4,9 @@
 #include <cstdlib>
 #include "Utilities.h"
 #include "Menu.h"
+#include "Corporation.h"
+
+Corporation* Corporation::singleton_instance = 0;
 
 int main() {
 
@@ -26,11 +29,11 @@ int main() {
 		return 0;
 	}
 
-	if (!menu.foundUsersFile(usersFile)) {
+	if (!(Corporation::instance()->foundUsersFile(usersFile))) {
 		return 0;
 	}
 
-	menu.loadUsers();
+	Corporation::instance()->loadUsers();
 
 	u.clearScreen();
 	menu.LoginMenu();
@@ -42,13 +45,13 @@ int main() {
 	u.setColor(14); cin >> saveChanges; u.setColor(15);
 
 	if (saveChanges == "y" || saveChanges == "Y") {
-		menu.saveUsers();
+		Corporation::instance()->saveUsers();
 	}
 	else {
 		u.setColor(7); cout << "  WARNING: Changes not saved!\n"; u.setColor(15);
 	}
-	Sleep(1500);
 
+	Sleep(1500);
 	u.clearScreen();
 	u.logo();
 	u.aboutMessage();

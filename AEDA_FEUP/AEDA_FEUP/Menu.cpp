@@ -8,6 +8,7 @@
 #include "Utilities.h"
 #include "Rent.h"
 #include "Clients.h"
+#include "Corporation.h"
 
 using namespace std;
 
@@ -16,30 +17,6 @@ bool isRunning = true;
 //Class objects
 Menu m;
 Utilities u;
-
-/*vector<Rent>rents(string file)   //not finished
-{
-	ifstream c(file);
-	vector<Rent>pro;
-	string name, type, type_type, price, day1, day2, mouth1, mouth2, year1, year2;
-	getline(c, name, ';');
-	getline(c, type, ';');
-	getline(c, type_type, ';');
-	getline(c, price, ';');
-	getline(c, day1, ';');
-	getline(c, day2, ';');
-	getline(c, mouth1, ';');
-	getline(c, mouth2, ';');
-	getline(c, year1, ';');
-	getline(c, year2, ';');
-	Date d1, d2;
-	d1;
-
-	c.close();
-	return pro;
-}*/
-
-
 
 ///////////////////////////
 // MENU FUNCTIONALITIES //
@@ -158,7 +135,7 @@ void UserOption() {
 
 	u.clearScreen();
 	u.setColor(14); cout << "\n  ::| REGISTER |::\n"; u.setColor(15);
-	m.registerUser();
+	Corporation::instance()->registerUser();
 	m.Menu1();
 
 }
@@ -227,7 +204,7 @@ int Menu::LoginMenu() {
 
 	while (1) {
 
-		for (int i = 0; i < ItemCount; i++) { // Draw the menu.
+		for (int i = 0; i < ItemCount; i++) { // Draw the m.
 
 			gotoxy(2, 2 + i);
 			MenuChoice == i + 1 ? cout << " -> " : cout << "    "; // if (i+1) == MenuChoice, ' -> ', else print '    '.
@@ -302,7 +279,7 @@ int Menu::RegisterMenu() {
 
 	while (1) {
 
-		for (int i = 0; i < ItemCount; i++) { // Draw the menu.
+		for (int i = 0; i < ItemCount; i++) { // Draw the m.
 
 			gotoxy(2, 2 + i);
 			MenuChoice == i + 1 ? cout << " -> " : cout << "    "; // if (i+1) == MenuChoice, ' -> ', else print '    '.
@@ -375,7 +352,7 @@ int Menu::Menu1() {
 
 	while (1) {
 
-		for (int i = 0; i < ItemCount; i++) { // Draw the menu.
+		for (int i = 0; i < ItemCount; i++) { // Draw the m.
 
 			gotoxy(2, 2 + i);
 			MenuChoice == i + 1 ? cout << " -> " : cout << "    "; // if (i+1) == MenuChoice, ' -> ', else print '    '.
@@ -427,106 +404,4 @@ int Menu::Menu1() {
 
 	delete MenuOption;
 	return 0;
-}
-
-
-//////////////////////
-// USERS FUNCTIONS //
-/////////////////////
-
-
-//Checks existance of the users file
-bool Menu::foundUsersFile(string usersFile) {
-
-	f.open(usersFile);
-
-	if (f.fail()) {
-		f.close();
-		u.setColor(12); cerr << "\n  ERROR: " << usersFile << " (users file) could not be found!\n         Verify the directory!\n\n"; u.setColor(15);
-		return false;
-	}
-
-	f.close();
-
-	this->usersFile = usersFile;
-	return true;
-}
-
-//Loads the users file to memory (Users vector)
-void Menu::loadUsers() {
-
-	string line;
-
-	f.open(usersFile);
-	getline(f, line);
-
-	while (getline(f, line)) {
-
-		string username = line.substr(0, line.find(" ; "));
-		line.erase(0, line.find(" ; ") + 3);
-		string password = line.substr(0, line.find(" ; "));
-		line.erase(0, line.find(" ; ") + 3);
-		unsigned int nif = stoi(line.substr(0, line.find(" ; ")));
-		line.erase(0, line.find(" ; ") + 3);
-		unsigned int points = stoi(line.substr(0, line.length()));
-
-		usersVec.push_back(Users(username, password, nif, points));
-	}
-	f.close();
-	return;
-}
-
-//Loads memory to the users file
-void Menu::saveUsers() {
-
-	ofstream p("tempSave.txt");
-
-	for (size_t i = 0; i < usersVec.size(); i++) {
-		p << usersVec[i].getUsername() << " ; " << usersVec[i].getPassword() << " ; " << usersVec[i].getNif() << " ; " << usersVec[i].getPoints() << endl;
-	}
-
-	p.close();
-	remove(usersFile.c_str());
-	rename("tempSave.txt", usersFile.c_str());
-	return;
-}
-
-//Adds a user to the users vector
-void Menu::registerUser() {
-
-	cout << "\n Name:  "; getline(cin, username);
-
-	if (cin.eof()) {
-		u.cancelMessage();
-		return;
-	}
-
-	for (unsigned int index = 0; index != username.size(); index++) {
-		if (!isalpha(username[index]) && username[index] != ' ') {
-			u.setColor(12); cerr << "  ERROR: Name must only contain alphabetic characters. "; u.setColor(15);
-			Sleep(3000);
-			u.clearScreen();
-			return;
-		}
-	}
-
-	cout << "\n Password:  "; cin >> password;
-	u.cinClear();
-	cout << "\n NIF:  "; cin >> nif;
-
-	u.cinClear();
-
-	if (cin.eof()) {
-		u.cancelMessage();
-		return;
-	}
-
-	usersVec.push_back(Users(username, password, nif, 0));
-
-	for (size_t i = 0; i < usersVec.size(); i++) {
-		cout << usersVec[i].getUsername() << " ; " << usersVec[i].getPassword() << " ; " << usersVec[i].getNif() << " ; " << usersVec[i].getPoints() << endl;
-	}
-
-	u.successMessage();
-	return;
 }
