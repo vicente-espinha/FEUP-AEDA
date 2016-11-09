@@ -106,4 +106,5 @@ protected:
 public:
 	apartment(string tipoRent, string name, string cidade, Date dataI, Date dataF, int numOcupantes, int numrooms, bool kitchen, bool suite, bool livingroom);
 	T buildRent();
+	string getName() { return nameApartment; }
 };
