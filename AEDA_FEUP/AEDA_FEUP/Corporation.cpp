@@ -2,6 +2,7 @@
 
 Utilities u1;
 
+template <typename T>
 Corporation * Corporation::instance()
 {
 
@@ -12,7 +13,9 @@ Corporation * Corporation::instance()
 	return singleton_instance;
 }
 
+
 //Checks existance of the users file
+template <typename T>
 bool Corporation::foundUsersFile(string usersFile) {
 
 	fstream f;
@@ -32,6 +35,7 @@ bool Corporation::foundUsersFile(string usersFile) {
 }
 
 //Loads the users file to memory (Users vector)
+template <typename T>
 void Corporation::loadUsers() {
 
 	string line;
@@ -57,6 +61,7 @@ void Corporation::loadUsers() {
 }
 
 //Loads memory to the users file
+template <typename T>
 void Corporation::saveUsers() {
 
 	ofstream f;
@@ -73,6 +78,7 @@ void Corporation::saveUsers() {
 }
 
 //Adds a user to the users vector
+template <typename T>
 void Corporation::registerUser() {
 
 	cout << "\n Name:  "; getline(cin, username);
@@ -109,4 +115,49 @@ void Corporation::registerUser() {
 
 	u1.clearScreen();
 	return;
+}
+
+
+template <typename T>
+void Corporation::registerSupplier()
+{
+	bool isIn = true;
+	
+	string n, ad;
+	unsigned int nif;
+	vector<Rent<T>> v;
+	while (isIn)
+	{
+		cout << "What is your name?\nName: ";
+		cin >> n;
+		cout << "\nWhat is your FIN? (Fiscal Identification Number)\nFIN : ";
+		cin >> nif;
+		if (invalidInputRetry())
+			continue;
+		else
+		{
+			cout << "\nThe program will now return.\n";
+			isIn = false;
+			return;
+		}
+		isIn = false;
+	}
+
+	isIn = true;
+
+	while (isIn)
+	{
+
+	}
+
+
+	/*
+	string name, address;
+	unsigned int nif;
+	vector<Rent<T>> v;
+	*/
+
+
+
+	
 }
