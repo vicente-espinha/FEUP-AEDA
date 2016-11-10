@@ -15,9 +15,7 @@ protected:
 	unsigned int nif;
 	vector<Rent<T>> v;
 public:
-	Supplier(string n, unsigned int ni);
-	void readFile(string fileName);
-	void writeVector(Rent<T> r) { this->v.push_back(r); }
+	Supplier(string n, string ad, unsigned int ni);
 	string getName() { return name; }
 	string getAddress() { return address; }
 	unsigned int getNif() { return nif; }

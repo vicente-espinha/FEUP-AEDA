@@ -67,10 +67,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="users.txt">
+    <Text Include="rents.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="rents.txt">
+    <Text Include="suppliers.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
