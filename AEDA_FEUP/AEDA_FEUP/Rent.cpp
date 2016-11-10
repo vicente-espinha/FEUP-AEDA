@@ -3,19 +3,19 @@
 // ALUGUER
 
 template <typename T>
-Rent<T>::Rent(string typeRent, string c, Date dataI, Date dataF, int n)
+Rent<T>::Rent(string typeRent, string c, Date dataI, Date dataF, float p, int n)
 {
-	city = c; dataBegin = dataI; dataEnd = dataF; numPeople = n;
+	city = c; dataBegin = dataI; dataEnd = dataF; numPeople = n; price = p;
 }
 
 // HOTEL
 
 template <typename T>
-Hotel<T>::Hotel(string typeRent, string name, string cidade, Date dataI, Date dataF, string tipo, float preco, int numOcupantes) //: Rent(typeRent, cidade, dataI, dataF, numOcupantes)
+Hotel<T>::Hotel(string typeRent, string name, string cidade, Date dataI, Date dataF, string tipo, float preco, int numOcupantes) : Rent(typeRent, cidade, dataI, dataF, preco, numOcupantes)
 {
 	nameHotel = name;
 	type = tipo;
-	price = preco;
+	
 }
 
 template <typename T>
@@ -112,19 +112,19 @@ T Hotel<T>::buildRent()
 
 		if (n == 1) {
 			numPeople = 1;
-			return Hotel("Hotel", string name, string city, d1, d2, "Simple Room", price, numPeople);
+			return Hotel("Hotel",name ,city , d1, d2, "Simple Room", price, numPeople);
 		}
 		else if (n == 2) {
 			numPeople = 2;
-			return Hotel("Hotel", string name, string city, d1, d2, "Double Room", price, numPeople);
+			return Hotel("Hotel",name ,city, d1, d2, "Double Room", price, numPeople);
 		}
 		else if (n == 3) {
 			numPeople = 3;
-			return Hotel("Hotel", string name, string city, d1, d2, "Double Room with additional bed", price, numPeople);
+			return Hotel("Hotel",name ,city, d1, d2, "Double Room with additional bed", price, numPeople);
 		}
 		else if (n == 4) {
 			numPeople = 3;
-			return Hotel("Hotel", string name, string city, d1, d2, "Triple Room", price, numPeople);
+			return Hotel("Hotel",name ,city, d1, d2, "Triple Room", price, numPeople);
 		}
 		else
 		{

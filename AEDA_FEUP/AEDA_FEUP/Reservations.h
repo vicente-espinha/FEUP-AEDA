@@ -11,7 +11,7 @@ private:
 	string name, type_rent,type_type_rent;
 	Rent<T> *rent;
 public:
-	Reservation(string name, string type, string type_type, int n,double price, Date d1, Date d2,Rent<T> * rent);
+	Reservation(string name, string type, string type_type, int n, Date d1, Date d2,Rent<T> * rent);
 	string getname() { return name; };
 	string gettype_rent() { return type_rent; };
 	string gettype_type_rent() { return type_type_rent; };
