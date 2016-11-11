@@ -12,7 +12,6 @@
 
 using namespace std;
 
-template<typename T>
 class Corporation
 {
 private:
@@ -21,7 +20,7 @@ private:
 	string username, password;
 	unsigned int nif;
 	vector<Users> usersVec;
-	vector<Supplier<T>> suppliersVec;
+	vector<Supplier> suppliersVec;
 public:
 	static Corporation* instance();
 	bool foundUsersFile(string userFiles);

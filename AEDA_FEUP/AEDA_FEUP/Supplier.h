@@ -7,16 +7,18 @@
 
 using namespace std;
 
-template <typename T>
+
 class Supplier
 {
 protected:
 	string name, address;
 	unsigned int nif;
-	vector<Rent<T>> v;
+	vector<Rent> v;
 public:
 	Supplier(string n, string ad, unsigned int ni);
 	string getName() { return name; }
 	string getAddress() { return address; }
 	unsigned int getNif() { return nif; }
+	vector<Rent> getVector() { return v; }
+	void setVector(vector<Rent> v2) { v = v2; }
 };

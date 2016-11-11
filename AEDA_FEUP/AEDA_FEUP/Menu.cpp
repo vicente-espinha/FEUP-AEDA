@@ -131,11 +131,12 @@ void SupplierOption() {
 	cout << "Password: \n" << endl;
 }
 
+template<typename T>
 void UserOption() {
 
 	u.clearScreen();
 	u.setColor(14); cout << "\n  ::| REGISTER |::\n"; u.setColor(15);
-	Corporation::instance()->registerUser();
+	Corporation<T>::instance()->registerUser();
 	m.Menu1();
 
 }

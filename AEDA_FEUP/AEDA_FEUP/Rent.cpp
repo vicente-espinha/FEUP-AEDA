@@ -1,26 +1,23 @@
 #include "Rent.h"
 
 // ALUGUER
-
-template <typename T>
-Rent<T>::Rent(string typeRent, string c, Date dataI, Date dataF, float p, int n)
+Rent::Rent(string typeRent, string c, Date dataI, Date dataF, float p, int n)
 {
 	city = c; dataBegin = dataI; dataEnd = dataF; numPeople = n; price = p;
 }
 
 // HOTEL
 
-template <typename T>
-Hotel<T>::Hotel(string typeRent, string name, string cidade, Date dataI, Date dataF, string tipo, float preco, int numOcupantes) : Rent(typeRent, cidade, dataI, dataF, preco, numOcupantes)
+Hotel::Hotel(string typeRent, string name, string cidade, Date dataI, Date dataF, string tipo, float preco, int numOcupantes) : Rent(typeRent, cidade, dataI, dataF, preco, numOcupantes)
 {
 	nameHotel = name;
 	type = tipo;
-	
+
 }
 
-template <typename T>
-T Hotel<T>::buildRent()
+Hotel Hotel::buildRent()
 {
+	Utilities u;
 	string city;
 	int n;
 	float price;
@@ -59,15 +56,15 @@ T Hotel<T>::buildRent()
 	{
 		cout << "/nBeginning date:\nDay: ";
 		cin >> day1;
-		if (invalidInputNoRetry())
+		if (u.invalidInputNoRetry())
 			continue;
 		cout << "\nMonth:";
 		cin >> month1;
-		if (invalidInputNoRetry())
+		if (u.invalidInputNoRetry())
 			continue;
 		cout << "\nYear:";
 		cin >> year1;
-		if (invalidInputNoRetry())
+		if (u.invalidInputNoRetry())
 			continue;
 		d1 = Date(day1, month1, year1);
 		if (d1.isValid() == false)
@@ -80,15 +77,15 @@ T Hotel<T>::buildRent()
 	{
 		cout << "/nEnding date:\nDay: ";
 		cin >> day2;
-		if (invalidInputNoRetry())
+		if (u.invalidInputNoRetry())
 			continue;
 		cout << "\nMonth:";
 		cin >> month2;
-		if (invalidInputNoRetry())
+		if (u.invalidInputNoRetry())
 			continue;
 		cout << "\nYear:";
 		cin >> year2;
-		if (invalidInputNoRetry())
+		if (u.invalidInputNoRetry())
 			continue;
 		d2 = Date(day2, month2, year2);
 
@@ -112,23 +109,23 @@ T Hotel<T>::buildRent()
 
 		if (n == 1) {
 			numPeople = 1;
-			return Hotel("Hotel",name ,city , d1, d2, "Simple Room", price, numPeople);
+			return Hotel("Hotel", name, city, d1, d2, "Simple Room", price, numPeople);
 		}
 		else if (n == 2) {
 			numPeople = 2;
-			return Hotel("Hotel",name ,city, d1, d2, "Double Room", price, numPeople);
+			return Hotel("Hotel", name, city, d1, d2, "Double Room", price, numPeople);
 		}
 		else if (n == 3) {
 			numPeople = 3;
-			return Hotel("Hotel",name ,city, d1, d2, "Double Room with additional bed", price, numPeople);
+			return Hotel("Hotel", name, city, d1, d2, "Double Room with additional bed", price, numPeople);
 		}
 		else if (n == 4) {
 			numPeople = 3;
-			return Hotel("Hotel",name ,city, d1, d2, "Triple Room", price, numPeople);
+			return Hotel("Hotel", name, city, d1, d2, "Triple Room", price, numPeople);
 		}
 		else
 		{
-			invalidInputNoRetry();
+			u.invalidInputNoRetry();
 			continue;
 		}
 
@@ -137,21 +134,23 @@ T Hotel<T>::buildRent()
 
 // BED'N'BREAKFAST
 
-template <typename T>
-bedNbreakfast<T>::bedNbreakfast(string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes) : Rent(cidade, dataI, dataF, numOcupantes)
+bedNbreakfast::bedNbreakfast(string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes) : Rent(cidade, dataI, dataF, numOcupantes)
 {
 	this->namebnb = name;
 }
 
-template <typename T>
-T bedNbreakfast<T>::buildRent()
+bedNbreakfast bedNbreakfast::buildRent()
 {
+	Utilities u;
 	string city;
 	int n;
 	float price;
 	bool isIn = true; // Este boleano é só um sistema que usei para implementar uma deteção de erro, com possibilidade de repetição
 	cout << "What is the city where you wish to make your Bed'n'Breakfast rent available?\n\n";
 	cin >> city;
+	cout << "\n What is the name of the B'n'B?\nName:";
+	string name;
+	cin >> name;
 
 	while (isIn) // NumOcupantes
 	{
@@ -195,15 +194,15 @@ T bedNbreakfast<T>::buildRent()
 	{
 		cout << "/nBeginning date:\nDay: ";
 		cin >> day1;
-		if (invalidInputNoRetry())
+		if (u.invalidInputNoRetry())
 			continue;
 		cout << "\nMonth:";
 		cin >> month1;
-		if (invalidInputNoRetry())
+		if (u.invalidInputNoRetry())
 			continue;
 		cout << "\nYear:";
 		cin >> year1;
-		if (invalidInputNoRetry())
+		if (u.invalidInputNoRetry())
 			continue;
 		d1 = Date(day1, month1, year1);
 		if (d1.isValid() == false)
@@ -216,15 +215,15 @@ T bedNbreakfast<T>::buildRent()
 	{
 		cout << "/nEnding date:\nDay: ";
 		cin >> day2;
-		if (invalidInputNoRetry())
+		if (u.invalidInputNoRetry())
 			continue;
 		cout << "\nMonth:";
 		cin >> month2;
-		if (invalidInputNoRetry())
+		if (u.invalidInputNoRetry())
 			continue;
 		cout << "\nYear:";
 		cin >> year2;
-		if (invalidInputNoRetry())
+		if (u.invalidInputNoRetry())
 			continue;
 		d2 = Date(day2, month2, year2);
 
@@ -247,23 +246,24 @@ T bedNbreakfast<T>::buildRent()
 
 // SHARED-HOUSE
 
-template <typename T>
-sharedHouse<T>::sharedHouse(string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes) : Rent(typeRent, cidade, dataI, dataF, numOcupantes)
+sharedHouse::sharedHouse(string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes) : Rent(typeRent, cidade, dataI, dataF, numOcupantes)
 {
 	this->nameSH = name;
 }
 
 
-template <typename T>
-T sharedHouse<T>::buildRent()
+sharedHouse sharedHouse::buildRent()
 {
+	Utilities u;
 	string city;
 	int n;
 	float price;
 	bool isIn = true; // Este boleano é só um sistema que usei para implementar uma deteção de erro, com possibilidade de repetição
 	cout << "What is the city where you wish to make your shared-house rent available?\n\n";
 	cin >> city;
-
+	cout << "Under which name would you like to make the rent available?\n";
+	string name;
+	cin >> name;
 	while (isIn) // NumOcupantes
 	{
 		cout << "\nWhat is the number of people staying?\n\n" << endl;
@@ -306,15 +306,15 @@ T sharedHouse<T>::buildRent()
 	{
 		cout << "/nBeginning date:\nDay: ";
 		cin >> day1;
-		if (invalidInputNoRetry())
+		if (u.invalidInputNoRetry())
 			continue;
 		cout << "\nMonth:";
 		cin >> month1;
-		if (invalidInputNoRetry())
+		if (u.invalidInputNoRetry())
 			continue;
 		cout << "\nYear:";
 		cin >> year1;
-		if (invalidInputNoRetry())
+		if (u.invalidInputNoRetry())
 			continue;
 		d1 = Date(day1, month1, year1);
 		if (d1.isValid() == false)
@@ -327,15 +327,15 @@ T sharedHouse<T>::buildRent()
 	{
 		cout << "/nEnding date:\nDay: ";
 		cin >> day2;
-		if (invalidInputNoRetry())
+		if (u.invalidInputNoRetry())
 			continue;
 		cout << "\nMonth:";
 		cin >> month2;
-		if (invalidInputNoRetry())
+		if (u.invalidInputNoRetry())
 			continue;
 		cout << "\nYear:";
 		cin >> year2;
-		if (invalidInputNoRetry())
+		if (u.invalidInputNoRetry())
 			continue;
 		d2 = Date(day2, month2, year2);
 
@@ -356,23 +356,24 @@ T sharedHouse<T>::buildRent()
 
 // FLAT
 
-template <typename T>
-flat<T>::flat(string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes) : Rent(typeRent, cidade, dataI, dataF, numOcupantes)
+flat::flat(string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes) : Rent(typeRent, cidade, dataI, dataF, numOcupantes)
 {
 	this->nameFlat = name;
 }
 
-template <typename T>
-T flat<T>::buildRent()
+flat flat::buildRent()
 {
-
+	Utilities u;
 	string city;
 	int n;
 	float price;
 	bool isIn = true; // Este boleano é só um sistema que usei para implementar uma deteção de erro, com possibilidade de repetição
 	cout << "What is the city where you wish to make your shared-house rent available?\n\n";
 	cin >> city;
-
+	string name;
+	cout << "\nUnder which name would you like to make the rent available?\n";
+	cin >> name;
+	
 	while (isIn) // NumOcupantes
 	{
 		cout << "\nWhat is the number of people staying?\n\n" << endl;
@@ -415,15 +416,15 @@ T flat<T>::buildRent()
 	{
 		cout << "/nBeginning date:\nDay: ";
 		cin >> day1;
-		if (invalidInputNoRetry())
+		if (u.invalidInputNoRetry())
 			continue;
 		cout << "\nMonth:";
 		cin >> month1;
-		if (invalidInputNoRetry())
+		if (u.invalidInputNoRetry())
 			continue;
 		cout << "\nYear:";
 		cin >> year1;
-		if (invalidInputNoRetry())
+		if (u.invalidInputNoRetry())
 			continue;
 		d1 = Date(day1, month1, year1);
 		if (d1.isValid() == false)
@@ -436,15 +437,15 @@ T flat<T>::buildRent()
 	{
 		cout << "/nEnding date:\nDay: ";
 		cin >> day2;
-		if (invalidInputNoRetry())
+		if (u.invalidInputNoRetry())
 			continue;
 		cout << "\nMonth:";
 		cin >> month2;
-		if (invalidInputNoRetry())
+		if (u.invalidInputNoRetry())
 			continue;
 		cout << "\nYear:";
 		cin >> year2;
-		if (invalidInputNoRetry())
+		if (u.invalidInputNoRetry())
 			continue;
 		d2 = Date(day2, month2, year2);
 
@@ -466,8 +467,7 @@ T flat<T>::buildRent()
 
 // APARTMENT
 
-template <typename T>
-apartment<T>::apartment(string tipoRent, string name, string cidade, Date dataI, Date dataF, int numOcupantes, int numrooms, bool kitchen, bool suite, bool livingroom) : Rent(typeRent, cidade, dataI, dataF, numOcupantes)
+apartment::apartment(string tipoRent, string name, string cidade, Date dataI, Date dataF, int numOcupantes, int numrooms, bool kitchen, bool suite, bool livingroom) : Rent(tipoRent, cidade, dataI, dataF, numOcupantes)
 {
 	nameApartment = name;
 	hasKitchen = kitchen;
@@ -475,15 +475,19 @@ apartment<T>::apartment(string tipoRent, string name, string cidade, Date dataI,
 	hasLivingRoom = livingroom;
 }
 
-template<typename T>
-T apartment<T>::buildRent()
+apartment apartment::buildRent()
 {
+	Utilities u;
 	string city;
 	int n;
 	float price;
 	bool isIn = true; // Este boleano é só um sistema que usei para implementar uma deteção de erro, com possibilidade de repetição
 	cout << "What is the city where you wish to make your apartment rent available?\n\n";
 	cin >> city;
+
+	string name;
+	cout << "\nUnder which name would you like to make the rent available?\n";
+	cin >> name;
 
 	while (isIn) // NumOcupantes
 	{
@@ -596,15 +600,15 @@ T apartment<T>::buildRent()
 	{
 		cout << "/nBeginning date:\nDay: ";
 		cin >> day1;
-		if (invalidInputNoRetry())
+		if (u.invalidInputNoRetry())
 			continue;
 		cout << "\nMonth:";
 		cin >> month1;
-		if (invalidInputNoRetry())
+		if (u.invalidInputNoRetry())
 			continue;
 		cout << "\nYear:";
 		cin >> year1;
-		if (invalidInputNoRetry())
+		if (u.invalidInputNoRetry())
 			continue;
 		d1 = Date(day1, month1, year1);
 		if (d1.isValid() == false)
@@ -616,12 +620,12 @@ T apartment<T>::buildRent()
 	while (isIn)
 	{
 		cout << "How many rooms will there be available?\n";
-		cin >> room;
-		if (invalidInputNoRetry())
+		cin >> rooms;
+		if (u.invalidInputNoRetry())
 			continue;
 		cout << "How many people per room?\n";
 		cin >> people;
-		if (invalidInputNoRetry())
+		if (u.invalidInputNoRetry())
 			continue;
 		if (people < 0 || people > 4)
 		{
@@ -634,15 +638,15 @@ T apartment<T>::buildRent()
 	{
 		cout << "/nEnding date:\nDay: ";
 		cin >> day2;
-		if (invalidInputNoRetry())
+		if (u.invalidInputNoRetry())
 			continue;
 		cout << "\nMonth:";
 		cin >> month2;
-		if (invalidInputNoRetry())
+		if (u.invalidInputNoRetry())
 			continue;
 		cout << "\nYear:";
 		cin >> year2;
-		if (invalidInputNoRetry())
+		if (u.invalidInputNoRetry())
 			continue;
 		d2 = Date(day2, month2, year2);
 
@@ -657,9 +661,6 @@ T apartment<T>::buildRent()
 			continue;
 		}
 	}
-	string n;
-	cout << "Finally, under which name is the apartment rented?\n";
-	cin >> n;
-	
-	return apartment("Apartment", n, city, d1, d2, price, people, rooms, k, s, lr);
+
+	return apartment("Apartment", name, city, d1, d2, price, people, rooms, k, s, lr);
 }

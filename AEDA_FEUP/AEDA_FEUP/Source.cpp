@@ -6,6 +6,7 @@
 #include "Menu.h"
 #include "Corporation.h"
 
+
 Corporation* Corporation::singleton_instance = 0;
 
 int main() {

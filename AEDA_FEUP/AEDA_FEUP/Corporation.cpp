@@ -2,7 +2,6 @@
 
 Utilities u1;
 
-template <typename T>
 Corporation * Corporation::instance()
 {
 
@@ -15,7 +14,6 @@ Corporation * Corporation::instance()
 
 
 //Checks existance of the users file
-template <typename T>
 bool Corporation::foundUsersFile(string usersFile) {
 
 	fstream f;
@@ -35,7 +33,6 @@ bool Corporation::foundUsersFile(string usersFile) {
 }
 
 //Loads the users file to memory (Users vector)
-template <typename T>
 void Corporation::loadUsers() {
 
 	string line;
@@ -61,7 +58,6 @@ void Corporation::loadUsers() {
 }
 
 //Loads memory to the users file
-template <typename T>
 void Corporation::saveUsers() {
 
 	ofstream f;
@@ -78,7 +74,6 @@ void Corporation::saveUsers() {
 }
 
 //Adds a user to the users vector
-template <typename T>
 void Corporation::registerUser() {
 
 	cout << "\n Name:  "; getline(cin, username);
@@ -118,22 +113,26 @@ void Corporation::registerUser() {
 }
 
 
-template <typename T>
-void Corporation::registerSupplier()
+void Corporation::registerSuppliers()
 {
+	Utilities u;
 	bool isIn = true;
 	
 	string n, ad;
 	unsigned int nif;
-	vector<Rent<T>> v;
 	while (isIn)
 	{
 		cout << "What is your name?\nName: ";
 		cin >> n;
 		cout << "\nWhat is your FIN? (Fiscal Identification Number)\nFIN : ";
 		cin >> nif;
-		if (invalidInputRetry())
+		if (u.invalidInputRetry())
 			continue;
+		if (!u.invalidInputRetry())
+		{
+			isIn = false;
+			
+		}
 		else
 		{
 			cout << "\nThe program will now return.\n";
@@ -145,17 +144,37 @@ void Corporation::registerSupplier()
 
 	isIn = true;
 
+	cout << "\nWhat is your address?\n";
+	cin >> ad;
+	int n;
 	while (isIn)
 	{
-
+		
+		cout << "\nHow many rents do you want to make available?\n";
+		cin >> n;
+		if (u.invalidInputRetry())
+			continue;
+		if (!u.invalidInputRetry())
+			isIn = false;
+		else
+		{
+			cout << "\nThe program will now return.\n";
+			isIn = false;
+			return;
+		}
 	}
+	vector<Rent> v;
 
+	for (int i = 0; i < n; i++)
+	{
+		cout << "What is the type of rent? \n1 - Hotel"
+	}
 
 	/*
 	string name, address;
 	unsigned int nif;
-	vector<Rent<T>> v;
-	*/
+	vector<Rent<T>> v;*/
+	
 
 
 

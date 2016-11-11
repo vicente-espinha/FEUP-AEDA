@@ -17,7 +17,6 @@ alugueres, o de clientes para pesquisar e reservar possibilidades de acordo com 
 
 */
 
-template <typename T>	 // IMPORTANTE!!! A função buildRent retorna objetos da classe respetiva, i.e. Hotel retorna Hotel e whatnot
 class Rent
 {
 protected:
@@ -35,13 +34,13 @@ protected:
 public:
 	Rent(string tipoRent, string cidade, Date dataI, Date dataF, float price, int numOcupantes);
 	virtual int getNumOcupantes() {}
+	virtual float getPreco() {}
 	Date getDataInicio() { return dataBegin; }
 	Date getDataFim() { return dataEnd; }
-	virtual T buildRent() {}
+	auto buildRent() {}
 };
 
-template <typename T>
-class Hotel : public Rent<T>
+class Hotel : public Rent
 {
 	string nameHotel;               // Podera ser utilizado para, apos fazer sort ao vetor de aluguer, fazer display bonito
 	int numPeople;                  // Definido pelo tipo de aluguer que é
@@ -53,44 +52,43 @@ public:
 
 	string getName() { return nameHotel; }
 	float getPrice() { return price; }
-	T buildRent(); // Pressupostamente constroi um hotel, mas ainda tenho que pensar como implementar isto
+	Hotel buildRent(); // Pressupostamente constroi um hotel, mas ainda tenho que pensar como implementar isto
 	
 };
 
-template <typename T>
-class bedNbreakfast : public Rent<T>
+
+class bedNbreakfast : public Rent
 {
 protected:
 	string namebnb;
 public:
 	bedNbreakfast(string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes);
-	T buildRent();
+	bedNbreakfast buildRent();
 	string getName() { return  namebnb; }
 };
 
-template<typename T>
-class sharedHouse : public Rent<T>
+
+class sharedHouse : public Rent
 {
 protected:
 	string nameSH;
 public:
 	sharedHouse(string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes);
-	T buildRent();
+	sharedHouse buildRent();
 };
 
-template<typename T>
-class flat : public Rent<T>
+
+class flat : public Rent
 {
 protected:
 	string nameFlat;
 	bool hasKitchen;
 public:
 	flat(string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes);
-	T buildRent();
+	flat buildRent();
 };
 
-template<typename T>
-class apartment : public Rent<T>
+class apartment : public Rent
 {
 protected: 
 	string nameApartment;
@@ -98,6 +96,6 @@ protected:
 	bool hasKitchen, hasSuite, hasLivingRoom;
 public:
 	apartment(string tipoRent, string name, string cidade, Date dataI, Date dataF, int numOcupantes, int numrooms, bool kitchen, bool suite, bool livingroom);
-	T buildRent();
+	apartment buildRent();
 	string getName() { return nameApartment; }
 };
