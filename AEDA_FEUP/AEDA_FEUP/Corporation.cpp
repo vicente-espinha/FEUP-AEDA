@@ -110,3 +110,32 @@ void Corporation::registerUser() {
 	u1.clearScreen();
 	return;
 }
+
+//Loads the users file to memory (Users vector)
+/*void loadReservations()
+{
+	string name, type, type_type, d1, d2;
+	unsigned int n_people;
+	fstream f;
+
+	f.open(file);
+	getline(f, line);
+
+	while (getline(f, line)) {
+
+		string  name= line.substr(0, line.find(" ; "));
+		line.erase(0, line.find(" ; ") + 3);
+		string type = line.substr(0, line.find(" ; "));
+		line.erase(0, line.find(" ; ") + 3);
+		string type_type = line.substr(0, line.find(" ; "));
+		line.erase(0, line.find(" ; ") + 3);
+		unsigned int n_people = stoi(line.substr(0, line.find(" ; ")));
+		line.erase(0, line.find(" ; ") + 3);
+		string d1 = line.substr(0, line.find(" ; "));
+		line.erase(0, line.find(" ; ") + 3);
+		string d2 = line.substr(0, line.length());
+
+		reservationVec.push_back(Reservation(name, type, type_type, n_people,Date(d1),Date(d2)));
+	}
+	f.close();
+}*/
