@@ -7,7 +7,7 @@ Date::Date()
 	year = 0;
 }
 
-Date::Date(string date)
+Date::Date(string d)
 {
 	string separator = "/";
 

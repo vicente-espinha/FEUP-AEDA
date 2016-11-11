@@ -1,1 +1,1 @@
-joao ; Hotel ; Quarto Simples ; 1 ; 16/04/2016 ; 20/04/2016
+joao ; Ibis ; Hotel ; Simple Room ; 1 ; 16/04/2016 ; 20/04/2016
