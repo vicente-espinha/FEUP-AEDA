@@ -26,10 +26,7 @@ private:
 	vector<Users> usersVec;
 
 	vector<Supplier> suppliersVec;
-	//template<typename T>
-	//vector<Reservation<T>>reservationVec;
-	//template<typename T>
-	//vector<Rent<T>>rentsVec;
+	
 public:
 	static Corporation* instance();
 	bool foundUsersFile(string userFiles);

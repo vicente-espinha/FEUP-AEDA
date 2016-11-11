@@ -116,9 +116,8 @@ void Corporation::registerUser() {
 
 void Corporation::registerSuppliers()
 {
-	Utilities u;
 	bool isIn = true;
-
+	u1.clearScreen();
 	string n, ad;
 	unsigned int nif;
 	while (isIn)
@@ -127,9 +126,9 @@ void Corporation::registerSuppliers()
 		cin >> n;
 		cout << "\nWhat is your FIN? (Fiscal Identification Number)\nFIN : ";
 		cin >> nif;
-		if (u.invalidInputRetry())
+		if (u1.invalidInputRetry())
 			continue;
-		if (!u.invalidInputRetry())
+		if (!u1.invalidInputRetry())
 		{
 			isIn = false;
 
@@ -147,19 +146,17 @@ void Corporation::registerSuppliers()
 
 	cout << "\nWhat is your address?\n";
 	cin >> ad;
-	int n;
+	int numIteration;
 	while (isIn)
 	{
 
 		cout << "\nHow many rents do you want to make available?\n";
-		cin >> n;
-		if (u.invalidInputRetry())
+		cin >> numIteration;
+		if (u1.invalidInputRetry())
 			continue;
-		if (!u.invalidInputRetry())
-		{
-			n = stoi(n);
+		if (!u1.invalidInputRetry())
 			isIn = false;
-		}
+		
 		else
 		{
 			cout << "\nThe program will now return.\n";
@@ -169,10 +166,18 @@ void Corporation::registerSuppliers()
 	}
 	vector<Rent> v;
 	int choice;
-	for (int i = 0; i < n; i++)
+	for (int i = 0; i < numIteration; i++)
 	{
 		cout << "What is the type of rent? \n1 - Hotel\n2 - Bed'n'Breakfast\n3 - Apartment\n4 - Flat\n5 - Apartment\n6 - Shared House";
-
+		cin >> choice;
+		switch (choice)
+		{
+		case 1:
+			return Hotel::buildRent();
+			break;
+		case 2:
+			return bedNbreakfast::buildRent();
+		}
 	}
 
 	/*
@@ -185,7 +190,7 @@ void Corporation::registerSuppliers()
 
 
 }
-== == == =
+
 //Loads the users file to memory (Users vector)
 /*template<typename T>
 void Corporation::loadReservations()
@@ -288,4 +293,3 @@ void Corporation::loadReservations()
 
 
 }*/
->> >> >> > origin / master

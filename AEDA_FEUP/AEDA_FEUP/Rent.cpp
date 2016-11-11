@@ -1,5 +1,7 @@
 #include "Rent.h"
 
+
+Utilities u;
 // ALUGUER
 Rent::Rent(string typeRent, string c, Date dataI, Date dataF, float p, int n)
 {
@@ -17,7 +19,6 @@ Hotel::Hotel(string typeRent, string name, string cidade, Date dataI, Date dataF
 
 Hotel Hotel::buildRent()
 {
-	Utilities u;
 	string city;
 	int n;
 	float price;
@@ -134,7 +135,7 @@ Hotel Hotel::buildRent()
 
 // BED'N'BREAKFAST
 
-bedNbreakfast::bedNbreakfast(string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes) : Rent(cidade, dataI, dataF, numOcupantes)
+bedNbreakfast::bedNbreakfast(string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes) : Rent(typeRent,cidade, dataI, dataF, preco, numOcupantes)
 {
 	this->namebnb = name;
 }
@@ -246,7 +247,7 @@ bedNbreakfast bedNbreakfast::buildRent()
 
 // SHARED-HOUSE
 
-sharedHouse::sharedHouse(string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes) : Rent(typeRent, cidade, dataI, dataF, numOcupantes)
+sharedHouse::sharedHouse(string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes) : Rent(typeRent, cidade, dataI, dataF, preco, numOcupantes)
 {
 	this->nameSH = name;
 }
@@ -254,7 +255,6 @@ sharedHouse::sharedHouse(string typeRent, string name, string cidade, Date dataI
 
 sharedHouse sharedHouse::buildRent()
 {
-	Utilities u;
 	string city;
 	int n;
 	float price;
@@ -356,14 +356,13 @@ sharedHouse sharedHouse::buildRent()
 
 // FLAT
 
-flat::flat(string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes) : Rent(typeRent, cidade, dataI, dataF, numOcupantes)
+flat::flat(string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes) : Rent(typeRent, cidade, dataI, dataF,preco, numOcupantes)
 {
 	this->nameFlat = name;
 }
 
 flat flat::buildRent()
 {
-	Utilities u;
 	string city;
 	int n;
 	float price;
@@ -373,7 +372,7 @@ flat flat::buildRent()
 	string name;
 	cout << "\nUnder which name would you like to make the rent available?\n";
 	cin >> name;
-	
+
 	while (isIn) // NumOcupantes
 	{
 		cout << "\nWhat is the number of people staying?\n\n" << endl;
@@ -467,7 +466,7 @@ flat flat::buildRent()
 
 // APARTMENT
 
-apartment::apartment(string tipoRent, string name, string cidade, Date dataI, Date dataF, int numOcupantes, int numrooms, bool kitchen, bool suite, bool livingroom) : Rent(tipoRent, cidade, dataI, dataF, numOcupantes)
+apartment::apartment(string tipoRent, string name, string cidade, Date dataI, Date dataF, float price, int numOcupantes, int numrooms, bool kitchen, bool suite, bool livingroom) : Rent(tipoRent, cidade, dataI, dataF, price, numOcupantes)
 {
 	nameApartment = name;
 	hasKitchen = kitchen;
@@ -477,7 +476,6 @@ apartment::apartment(string tipoRent, string name, string cidade, Date dataI, Da
 
 apartment apartment::buildRent()
 {
-	Utilities u;
 	string city;
 	int n;
 	float price;
@@ -661,6 +659,5 @@ apartment apartment::buildRent()
 			continue;
 		}
 	}
-
 	return apartment("Apartment", name, city, d1, d2, price, people, rooms, k, s, lr);
 }

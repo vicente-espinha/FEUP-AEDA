@@ -4,6 +4,7 @@
 #include <vector>
 #include "Utilities.h"
 #include "Date.h"
+#include "Corporation.h"
 
 using namespace std;
 
@@ -95,7 +96,7 @@ protected:
 	int numRooms;
 	bool hasKitchen, hasSuite, hasLivingRoom;
 public:
-	apartment(string tipoRent, string name, string cidade, Date dataI, Date dataF, int numOcupantes, int numrooms, bool kitchen, bool suite, bool livingroom);
+	apartment(string tipoRent, string name, string cidade, Date dataI, Date dataF,float price, int numOcupantes, int numrooms, bool kitchen, bool suite, bool livingroom);
 	apartment buildRent();
 	string getName() { return nameApartment; }
 };
