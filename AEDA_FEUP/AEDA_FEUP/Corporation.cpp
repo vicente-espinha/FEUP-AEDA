@@ -112,11 +112,13 @@ void Corporation::registerUser() {
 }
 
 //Loads the users file to memory (Users vector)
-/*void loadReservations()
+/*template<typename T>
+void Corporation::loadReservations()
 {
 	string name,name_rent type, type_type, d1, d2;
 	unsigned int n_people;
 	fstream f;
+	Rent<T> *c;
 
 	f.open("reservations.txt");
 
@@ -137,7 +139,77 @@ void Corporation::registerUser() {
 		line.erase(0, line.find(" ; ") + 3);
 		string d2 = line.substr(0, line.length());
 
-		reservationVec.push_back(Reservation(name, type, type_type, n_people,Date(d1),Date(d2)));
+		for (int i = 0; i < rentsVec.size(); i++)
+		{
+			if (name_rent == rentsVec.at(i).getName())
+				c = rentsVec.at(i).getName();
+		}
+
+
+		reservationVec.push_back(Reservation(name, type, type_type, n_people,Date(d1),Date(d2),c));
 	}
 	f.close();
+}*/
+
+/*void Corporation::makeReservation()
+{
+	string city;
+	cout << "City : ";
+	getline(cin, city);
+
+	cout << "List of possibilities : " << endl;
+	for (int i = 0; i < rentsVec; i++)
+	{
+		if(city == rentsVec.at(i).getCity())
+		cout << " -> " << rentsVec.at(i) << endl;
+	}
+
+	string d1, d2,name_rent;
+	Rent<T> c;
+
+	cout << " Name of the Rent Place : ";
+	getline(cin, name_rent);
+
+	for (int i = 0; i < rentsVec.size(); i++)
+	{
+		int n_people;
+
+		cout << "Number of persons : ";
+		cin >> n_people;
+
+		if (n_people > rentsVec.at(i).getNumOcupantes())
+		{
+			cout << "Invalid number of persons." << endl;
+			break;
+		}
+
+		if (name_rent == rentsVec.at(i).getName())
+		{
+			cout << " Date of check-in : ";
+			getline(cin, d1);
+			cout << "Date of check-out : ";
+			getline(cin, d2);
+
+			Date d1 = Date(d1);
+			Date d2 = Date(d2);
+
+			if (d1 >= rentsVec.at(i).getDataInicio() && d2 <= rentsVec.at(i).getDataFim())
+			{
+				string answer;
+				cout << rentsVEc.at(i) << endl << "Do you want to confirm? ";
+				if (answer == "yes" || answer == "Yes")
+				{
+					reservationsVec.push_back(Reservation())
+						break;
+				}
+				else
+					continue;
+			}
+			else
+				cout << "invalid period of time" << endl;
+		}
+	}
+
+	
+	
 }*/

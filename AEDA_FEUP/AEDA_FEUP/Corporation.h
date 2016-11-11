@@ -8,10 +8,10 @@
 #include "Utilities.h"
 #include "Reservations.h"
 #include "Date.h"
+#include "Rent.h"
 
 using namespace std;
 
-/*template<typename T>*/
 class Corporation
 {
 private:
@@ -20,7 +20,10 @@ private:
 	string username, password;
 	unsigned int nif;
 	vector<Users> usersVec;
+	//template<typename T>
 	//vector<Reservation<T>>reservationVec;
+	//template<typename T>
+	//vector<Rent<T>>rentsVec;
 public:
 	static Corporation* instance();
 	bool foundUsersFile(string userFiles);
@@ -28,5 +31,6 @@ public:
 	void loadUsers();
 	void saveUsers();
 	void registerUser();
+	//void makeReservation();
 };
 

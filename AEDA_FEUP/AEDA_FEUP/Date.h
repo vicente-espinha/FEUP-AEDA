@@ -12,7 +12,7 @@ private:
 	int day, month, year;
 public:
 	Date();
-	Date(string d);
+	//Date(string d);
 	Date(int, int, int);
 	void setDay(int);
 	int getDay();
