@@ -6,15 +6,13 @@
 
 #include "Clients.h"
 #include "Utilities.h"
-<<<<<<< HEAD
+
 #include "Rent.h"
 #include "Supplier.h"
-
-=======
 #include "Reservations.h"
 #include "Date.h"
 #include "Rent.h"
->>>>>>> origin/master
+
 
 using namespace std;
 

@@ -112,13 +112,13 @@ void Corporation::registerUser() {
 	return;
 }
 
-<<<<<<< HEAD
+
 
 void Corporation::registerSuppliers()
 {
 	Utilities u;
 	bool isIn = true;
-	
+
 	string n, ad;
 	unsigned int nif;
 	while (isIn)
@@ -132,7 +132,7 @@ void Corporation::registerSuppliers()
 		if (!u.invalidInputRetry())
 		{
 			isIn = false;
-			
+
 		}
 		else
 		{
@@ -150,13 +150,16 @@ void Corporation::registerSuppliers()
 	int n;
 	while (isIn)
 	{
-		
+
 		cout << "\nHow many rents do you want to make available?\n";
 		cin >> n;
 		if (u.invalidInputRetry())
 			continue;
 		if (!u.invalidInputRetry())
+		{
+			n = stoi(n);
 			isIn = false;
+		}
 		else
 		{
 			cout << "\nThe program will now return.\n";
@@ -165,23 +168,24 @@ void Corporation::registerSuppliers()
 		}
 	}
 	vector<Rent> v;
-
+	int choice;
 	for (int i = 0; i < n; i++)
 	{
-		cout << "What is the type of rent? \n1 - Hotel"
+		cout << "What is the type of rent? \n1 - Hotel\n2 - Bed'n'Breakfast\n3 - Apartment\n4 - Flat\n5 - Apartment\n6 - Shared House";
+
 	}
 
 	/*
 	string name, address;
 	unsigned int nif;
 	vector<Rent<T>> v;*/
-	
 
 
 
-	
+
+
 }
-=======
+== == == =
 //Loads the users file to memory (Users vector)
 /*template<typename T>
 void Corporation::loadReservations()
@@ -281,7 +285,7 @@ void Corporation::loadReservations()
 		}
 	}
 
-	
-	
+
+
 }*/
->>>>>>> origin/master
+>> >> >> > origin / master
