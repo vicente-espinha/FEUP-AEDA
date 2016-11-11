@@ -7,6 +7,20 @@ Date::Date()
 	year = 0;
 }
 
+/*Date::Date(string d)
+{
+	string separator = "/";
+
+	string str = line.substr(0, line.find(separator));
+	this->day = (atoi(str.c_str()));
+	line.erase(0, line.find(separator) + 1);
+	str = line.substr(0, line.find(separator));
+	this->month = (atoi(str.c_str()));
+	line.erase(0, line.find(separator) + 1);
+	str = line.substr(0, line.find(' '));
+	this->year = (atoi(str.c_str()));
+}*/
+
 Date::Date(int day, int month, int year)
 {
 	this->day = day;

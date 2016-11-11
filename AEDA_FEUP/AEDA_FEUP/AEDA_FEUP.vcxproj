@@ -169,6 +169,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="rents.txt" />
+    <Text Include="reservations.txt" />
     <Text Include="suppliers.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
