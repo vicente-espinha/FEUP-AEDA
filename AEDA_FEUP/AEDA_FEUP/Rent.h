@@ -48,9 +48,9 @@ class Hotel : public Rent
 	string type;                    // Tipo de Quarto que quer
 	
 public:
+
 	Hotel(string typeRent, string nome, string cidade, Date dataI, Date dataF, string tipo, float preco, int numOcupantes);
 	string getType() { return type; }
-
 	string getName() { return nameHotel; }
 	float getPrice() { return price; }
 	Hotel buildRent(); // Pressupostamente constroi um hotel, mas ainda tenho que pensar como implementar isto

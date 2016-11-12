@@ -15,7 +15,7 @@ protected:
 	unsigned int nif;
 	vector<Rent> v;
 public:
-	Supplier(string n, string ad, unsigned int ni);
+	Supplier(string n, string ad, unsigned int ni, vector<Rent> v2);
 	string getName() { return name; }
 	string getAddress() { return address; }
 	unsigned int getNif() { return nif; }

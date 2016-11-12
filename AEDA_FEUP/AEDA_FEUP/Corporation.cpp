@@ -1,6 +1,11 @@
 #include "Corporation.h"
 
 Utilities u1;
+Hotel h;
+bedNbreakfast bnb;
+sharedHouse sh;
+apartment ap;
+flat fl;
 
 Corporation * Corporation::instance()
 {
@@ -112,8 +117,23 @@ void Corporation::registerUser() {
 	return;
 }
 
+//Loads suppliersVec to the .txt file
+void Corporation::saveSuppliers()
+{
+	ofstream f;
 
+	f.open("suppliers.txt", ofstream::app);
 
+	for (size_t i = 0; i < suppliersVec.size(); i++) {
+		f << suppliersVec[i].getName() << " ; " << suppliersVec[i].getAddress() << " ; " << suppliersVec[i].getNif() << " ; ";
+		for (int j = 0; j < suppliersVec[i].getVector().size(); j++)
+		{		}	//f << suppliersVec[i].getVector()[j].
+	}
+
+	f.close();
+}
+
+//Adds a supplier to the suppliers vector
 void Corporation::registerSuppliers()
 {
 	bool isIn = true;
@@ -168,31 +188,52 @@ void Corporation::registerSuppliers()
 	int choice;
 	for (int i = 0; i < numIteration; i++)
 	{
+		u1.clearScreen();
 		cout << "What is the type of rent? \n1 - Hotel\n2 - Bed'n'Breakfast\n3 - Apartment\n4 - Flat\n5 - Apartment\n6 - Shared House";
 		cin >> choice;
+		if (u1.invalidInputRetry())
+		{
+			i--;
+			continue;
+		}
+		if (!u1.invalidInputRetry())
+		{
+			i = numIteration;
+			break;
+		}
 		switch (choice)
 		{
 		case 1:
-			return Hotel::buildRent();
+			v.push_back(h.buildRent());
 			break;
 		case 2:
-			return bedNbreakfast::buildRent();
+			v.push_back(bnb.buildRent());
+			break;
+		case 3:
+			v.push_back(ap.buildRent());
+			break;
+		case 4:
+			v.push_back(fl.buildRent());
+			break;
+		case 5:
+			v.push_back(ap.buildRent());
+			break;
+		case 6:
+			v.push_back(sh.buildRent());
+			break;
 		}
 	}
 
-	/*
-	string name, address;
-	unsigned int nif;
-	vector<Rent<T>> v;*/
+	cout << "\n\nThe program will now return to the main menu.\n\n";
 
-
-
-
+	Supplier s(n,ad,nif,v);
+	suppliersVec.push_back(s);
+	return;
 
 }
 
 //Loads the users file to memory (Users vector)
-/*template<typename T>
+/*
 void Corporation::loadReservations()
 {
 	string name,name_rent type, type_type, d1, d2;
