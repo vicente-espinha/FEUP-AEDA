@@ -1,11 +1,12 @@
 #include "Corporation.h"
 
 Utilities u1;
-Hotel h;
-bedNbreakfast bnb;
-sharedHouse sh;
-apartment ap;
-flat fl;
+Menu corpMenu;
+//Hotel h;
+//bedNbreakfast bnb;
+//sharedHouse sh;
+//apartment ap;
+//flat fl;
 
 Corporation * Corporation::instance()
 {
@@ -44,7 +45,6 @@ void Corporation::loadUsers() {
 	fstream f;
 
 	f.open(usersFile);
-	getline(f, line);
 
 	while (getline(f, line)) {
 
@@ -81,11 +81,13 @@ void Corporation::saveUsers() {
 //Adds a user to the users vector
 void Corporation::registerUser() {
 
+	string password, nif;
+
 	cout << "\n Name:  "; getline(cin, username);
 
 	if (cin.eof()) {
 		u1.cancelMessage();
-		return;
+		corpMenu.RegisterMenu();
 	}
 
 	for (unsigned int index = 0; index != username.size(); index++) {
@@ -93,28 +95,113 @@ void Corporation::registerUser() {
 			u1.setColor(12); cerr << "  ERROR: Name must only contain alphabetic characters. "; u1.setColor(15);
 			Sleep(3000);
 			u1.clearScreen();
-			return;
+			corpMenu.RegisterMenu();
+		}
+	}
+
+	for (unsigned int index2 = 0; index2 != usersVec.size(); index2++) {
+		if (usersVec.at(index2).getUsername() == username) {
+			u1.setColor(12); cerr << "  ERROR: The username you selected already exists. Please choose another one. "; u1.setColor(15);
+			Sleep(3000);
+			u1.clearScreen();
+			corpMenu.RegisterMenu();
 		}
 	}
 
 	cout << "\n Password:  "; cin >> password;
+
 	u1.cinClear();
+
+	for (unsigned int index3 = 0; index3 != password.size(); index3++) {
+		if (!isalnum(password[index3])) {
+			u1.setColor(12); cerr << "  ERROR: Password cannot contain special characters. "; u1.setColor(15);
+			Sleep(3000);
+			u1.clearScreen();
+			corpMenu.RegisterMenu();
+		}
+	}
+
 	cout << "\n NIF:  "; cin >> nif;
 	u1.cinClear();
 
+	for (unsigned int index4 = 0; index4 != nif.size(); index4++) {
+		if (!isdigit(nif[index4]) && username[index4] != ' ') {
+			u1.setColor(12); cerr << "  ERROR: NIF can only contain digits. "; u1.setColor(15);
+			Sleep(3000);
+			u1.clearScreen();
+			corpMenu.RegisterMenu();
+		}
+	}
+
+	for (unsigned int index5 = 0; index5 != usersVec.size(); index5++) {
+		if (usersVec.at(index5).getNif() == stoi(nif)) {
+			u1.setColor(12); cerr << "  ERROR: The NIF you selected already exists. Probably you already have an account. "; u1.setColor(15);
+			Sleep(3000);
+			u1.clearScreen();
+			corpMenu.RegisterMenu();
+		}
+
+	}
+
+	if (nif.size() != 9) {
+		u1.setColor(12); cerr << "  ERROR: The NIF must have 9 digits. "; u1.setColor(15);
+		Sleep(3000);
+		u1.clearScreen();
+		corpMenu.RegisterMenu();
+	}
+
 	if (cin.eof()) {
 		u1.cancelMessage();
-		return;
+		corpMenu.RegisterMenu();
 	}
 
-	usersVec.push_back(Users(username, password, nif, 0));
-
-	for (size_t i = 0; i < usersVec.size(); i++) {
-		cout << usersVec[i].getUsername() << " ; " << usersVec[i].getPassword() << " ; " << usersVec[i].getNif() << " ; " << usersVec[i].getPoints() << endl;
-	}
-
+	usersVec.push_back(Users(username, password, stoi(nif), 0));
 	u1.clearScreen();
 	return;
+}
+
+bool Corporation::foundSuppliersFile(string suppliersFile){
+
+	fstream f;
+
+	f.open(suppliersFile);
+
+	if (f.fail()) {
+		f.close();
+		u1.setColor(12); cerr << "\n  ERROR: " << suppliersFile << " (suppliers file) could not be found!\n         Verify the directory!\n\n"; u1.setColor(15);
+		return false;
+	}
+
+	f.close();
+
+	this->suppliersFile = suppliersFile;
+	return true;
+}
+
+void Corporation::loadSuppliers(){
+
+	string line;
+	fstream f;
+
+	f.open(suppliersFile);
+
+	while (getline(f, line)) {
+
+		string supplierName = line.substr(0, line.find(" ; "));
+		line.erase(0, line.find(" ; ") + 3);
+		string password = line.substr(0, line.find(" ; "));
+		line.erase(0, line.find(" ; ") + 3);
+		unsigned int nif = stoi(line.substr(0, line.find(" ; ")));
+		line.erase(0, line.find(" ; ") + 3);
+		string address = line.substr(0, line.find(" ; "));
+		line.erase(0, line.find(" ; ") + 3);
+		unsigned int points = stoi(line.substr(0, line.length()));
+
+		//suppliersVec.push_back(Suppliers(username, password, nif, points));
+	}
+	f.close();
+	return;
+
 }
 
 //Loads suppliersVec to the .txt file
@@ -124,19 +211,19 @@ void Corporation::saveSuppliers()
 
 	f.open("suppliers.txt", ofstream::app);
 
-	for (size_t i = 0; i < suppliersVec.size(); i++) {
+	/*for (size_t i = 0; i < suppliersVec.size(); i++) {
 		f << suppliersVec[i].getName() << " ; " << suppliersVec[i].getAddress() << " ; " << suppliersVec[i].getNif() << " ; ";
 		for (int j = 0; j < suppliersVec[i].getVector().size(); j++)
 		{		}	//f << suppliersVec[i].getVector()[j].
-	}
+	}*/
 
 	f.close();
 }
 
 //Adds a supplier to the suppliers vector
-void Corporation::registerSuppliers()
+void Corporation::registerSupplier()
 {
-	bool isIn = true;
+	/*bool isIn = true;
 	u1.clearScreen();
 	string n, ad;
 	unsigned int nif;
@@ -166,31 +253,17 @@ void Corporation::registerSuppliers()
 
 	cout << "\nWhat is your address?\n";
 	cin >> ad;
-	int numIteration;
-	while (isIn)
-	{
 
-		cout << "\nHow many rents do you want to make available?\n";
-		cin >> numIteration;
-		if (u1.invalidInputRetry())
-			continue;
-		if (!u1.invalidInputRetry())
-			isIn = false;
-		
-		else
-		{
-			cout << "\nThe program will now return.\n";
-			isIn = false;
-			return;
-		}
-	}
+	int numIteration;
 	vector<Rent> v;
 	int choice;
+
 	for (int i = 0; i < numIteration; i++)
 	{
 		u1.clearScreen();
 		cout << "What is the type of rent? \n1 - Hotel\n2 - Bed'n'Breakfast\n3 - Apartment\n4 - Flat\n5 - Apartment\n6 - Shared House";
 		cin >> choice;
+
 		if (u1.invalidInputRetry())
 		{
 			i--;
@@ -201,34 +274,35 @@ void Corporation::registerSuppliers()
 			i = numIteration;
 			break;
 		}
+
 		switch (choice)
 		{
 		case 1:
-			v.push_back(h.buildRent());
+			//v.push_back(h.buildRent());
 			break;
 		case 2:
-			v.push_back(bnb.buildRent());
+			//v.push_back(bnb.buildRent());
 			break;
 		case 3:
-			v.push_back(ap.buildRent());
+			//v.push_back(ap.buildRent());
 			break;
 		case 4:
-			v.push_back(fl.buildRent());
+			//v.push_back(fl.buildRent());
 			break;
 		case 5:
-			v.push_back(ap.buildRent());
+			//v.push_back(ap.buildRent());
 			break;
 		case 6:
-			v.push_back(sh.buildRent());
+			//v.push_back(sh.buildRent());
 			break;
 		}
 	}
 
 	cout << "\n\nThe program will now return to the main menu.\n\n";
 
-	Supplier s(n,ad,nif,v);
-	suppliersVec.push_back(s);
-	return;
+	
+	//suppliersVec.push_back(Supplier(n,ad,nif,v));
+	return;*/
 
 }
 

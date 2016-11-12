@@ -34,11 +34,12 @@ protected:
 	
 public:
 	Rent(string tipoRent, string cidade, Date dataI, Date dataF, float price, int numOcupantes);
-	virtual int getNumOcupantes() {}
-	virtual float getPreco() {}
+	virtual int getNumPeople() { return numPeople;  }
+	virtual float getPrice() { return price; }
 	Date getDataInicio() { return dataBegin; }
 	Date getDataFim() { return dataEnd; }
 	auto buildRent() {}
+	Rent getrent();
 };
 
 class Hotel : public Rent

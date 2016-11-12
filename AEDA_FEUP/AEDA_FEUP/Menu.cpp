@@ -127,16 +127,16 @@ void UnregUserOption() {
 void SupplierOption() {
 
 	u.clearScreen();
-	cout << "Name: \n" << endl;
-	cout << "Password: \n" << endl;
+	u.setColor(14); cout << "\n  ::| REGISTER |::\n"; u.setColor(15);
+	Corporation::instance()->registerSupplier();
+	m.Menu1();
 }
 
-template<typename T>
 void UserOption() {
 
 	u.clearScreen();
 	u.setColor(14); cout << "\n  ::| REGISTER |::\n"; u.setColor(15);
-	Corporation<T>::instance()->registerUser();
+	Corporation::instance()->registerUser();
 	m.Menu1();
 
 }

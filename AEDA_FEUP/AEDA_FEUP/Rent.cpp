@@ -1,7 +1,8 @@
 #include "Rent.h"
 
 
-Utilities u;
+Utilities u2;
+
 // ALUGUER
 Rent::Rent(string typeRent, string c, Date dataI, Date dataF, float p, int n)
 {
@@ -57,15 +58,15 @@ Hotel Hotel::buildRent()
 	{
 		cout << "/nBeginning date:\nDay: ";
 		cin >> day1;
-		if (u.invalidInputNoRetry())
+		if (u2.invalidInputNoRetry())
 			continue;
 		cout << "\nMonth:";
 		cin >> month1;
-		if (u.invalidInputNoRetry())
+		if (u2.invalidInputNoRetry())
 			continue;
 		cout << "\nYear:";
 		cin >> year1;
-		if (u.invalidInputNoRetry())
+		if (u2.invalidInputNoRetry())
 			continue;
 		d1 = Date(day1, month1, year1);
 		if (d1.isValid() == false)
@@ -78,15 +79,15 @@ Hotel Hotel::buildRent()
 	{
 		cout << "/nEnding date:\nDay: ";
 		cin >> day2;
-		if (u.invalidInputNoRetry())
+		if (u2.invalidInputNoRetry())
 			continue;
 		cout << "\nMonth:";
 		cin >> month2;
-		if (u.invalidInputNoRetry())
+		if (u2.invalidInputNoRetry())
 			continue;
 		cout << "\nYear:";
 		cin >> year2;
-		if (u.invalidInputNoRetry())
+		if (u2.invalidInputNoRetry())
 			continue;
 		d2 = Date(day2, month2, year2);
 
@@ -106,6 +107,7 @@ Hotel Hotel::buildRent()
 	{
 		cout << "\nWhat is the type of room you want to add? You may add:" << endl;
 		cout << "1 - Simple Room\n2 - Double room\n3 - Double room with aditional bed\n4 - Triple Room" << endl;
+		cin >> n;
 		// pode levar mais panisguices aqui malta
 
 		if (n == 1) {
@@ -126,7 +128,7 @@ Hotel Hotel::buildRent()
 		}
 		else
 		{
-			u.invalidInputNoRetry();
+			u2.invalidInputNoRetry();
 			continue;
 		}
 
@@ -160,8 +162,7 @@ bedNbreakfast bedNbreakfast::buildRent()
 		cin >> numPeople;
 		if (cin.fail())
 		{
-			cin.clear();
-			cin.ignore(1000000, '\n');
+			u2.cinClear();
 			cout << "\n\n The input was invalid. Retrying last segment.\n\n";
 			continue;
 		}
@@ -174,8 +175,7 @@ bedNbreakfast bedNbreakfast::buildRent()
 		cin >> price;
 		if (cin.fail())
 		{
-			cin.clear();
-			cin.ignore(1000000, '\n');
+			u2.cinClear();
 			cout << "\n\n The input was invalid. Retrying last segment.\n\n";
 			continue;
 		}
@@ -195,15 +195,15 @@ bedNbreakfast bedNbreakfast::buildRent()
 	{
 		cout << "/nBeginning date:\nDay: ";
 		cin >> day1;
-		if (u.invalidInputNoRetry())
+		if (u2.invalidInputNoRetry())
 			continue;
 		cout << "\nMonth:";
 		cin >> month1;
-		if (u.invalidInputNoRetry())
+		if (u2.invalidInputNoRetry())
 			continue;
 		cout << "\nYear:";
 		cin >> year1;
-		if (u.invalidInputNoRetry())
+		if (u2.invalidInputNoRetry())
 			continue;
 		d1 = Date(day1, month1, year1);
 		if (d1.isValid() == false)
@@ -216,15 +216,15 @@ bedNbreakfast bedNbreakfast::buildRent()
 	{
 		cout << "/nEnding date:\nDay: ";
 		cin >> day2;
-		if (u.invalidInputNoRetry())
+		if (u2.invalidInputNoRetry())
 			continue;
 		cout << "\nMonth:";
 		cin >> month2;
-		if (u.invalidInputNoRetry())
+		if (u2.invalidInputNoRetry())
 			continue;
 		cout << "\nYear:";
 		cin >> year2;
-		if (u.invalidInputNoRetry())
+		if (u2.invalidInputNoRetry())
 			continue;
 		d2 = Date(day2, month2, year2);
 
@@ -306,15 +306,15 @@ sharedHouse sharedHouse::buildRent()
 	{
 		cout << "/nBeginning date:\nDay: ";
 		cin >> day1;
-		if (u.invalidInputNoRetry())
+		if (u2.invalidInputNoRetry())
 			continue;
 		cout << "\nMonth:";
 		cin >> month1;
-		if (u.invalidInputNoRetry())
+		if (u2.invalidInputNoRetry())
 			continue;
 		cout << "\nYear:";
 		cin >> year1;
-		if (u.invalidInputNoRetry())
+		if (u2.invalidInputNoRetry())
 			continue;
 		d1 = Date(day1, month1, year1);
 		if (d1.isValid() == false)
@@ -327,15 +327,15 @@ sharedHouse sharedHouse::buildRent()
 	{
 		cout << "/nEnding date:\nDay: ";
 		cin >> day2;
-		if (u.invalidInputNoRetry())
+		if (u2.invalidInputNoRetry())
 			continue;
 		cout << "\nMonth:";
 		cin >> month2;
-		if (u.invalidInputNoRetry())
+		if (u2.invalidInputNoRetry())
 			continue;
 		cout << "\nYear:";
 		cin >> year2;
-		if (u.invalidInputNoRetry())
+		if (u2.invalidInputNoRetry())
 			continue;
 		d2 = Date(day2, month2, year2);
 
@@ -415,15 +415,15 @@ flat flat::buildRent()
 	{
 		cout << "/nBeginning date:\nDay: ";
 		cin >> day1;
-		if (u.invalidInputNoRetry())
+		if (u2.invalidInputNoRetry())
 			continue;
 		cout << "\nMonth:";
 		cin >> month1;
-		if (u.invalidInputNoRetry())
+		if (u2.invalidInputNoRetry())
 			continue;
 		cout << "\nYear:";
 		cin >> year1;
-		if (u.invalidInputNoRetry())
+		if (u2.invalidInputNoRetry())
 			continue;
 		d1 = Date(day1, month1, year1);
 		if (d1.isValid() == false)
@@ -436,15 +436,15 @@ flat flat::buildRent()
 	{
 		cout << "/nEnding date:\nDay: ";
 		cin >> day2;
-		if (u.invalidInputNoRetry())
+		if (u2.invalidInputNoRetry())
 			continue;
 		cout << "\nMonth:";
 		cin >> month2;
-		if (u.invalidInputNoRetry())
+		if (u2.invalidInputNoRetry())
 			continue;
 		cout << "\nYear:";
 		cin >> year2;
-		if (u.invalidInputNoRetry())
+		if (u2.invalidInputNoRetry())
 			continue;
 		d2 = Date(day2, month2, year2);
 
@@ -598,15 +598,15 @@ apartment apartment::buildRent()
 	{
 		cout << "/nBeginning date:\nDay: ";
 		cin >> day1;
-		if (u.invalidInputNoRetry())
+		if (u2.invalidInputNoRetry())
 			continue;
 		cout << "\nMonth:";
 		cin >> month1;
-		if (u.invalidInputNoRetry())
+		if (u2.invalidInputNoRetry())
 			continue;
 		cout << "\nYear:";
 		cin >> year1;
-		if (u.invalidInputNoRetry())
+		if (u2.invalidInputNoRetry())
 			continue;
 		d1 = Date(day1, month1, year1);
 		if (d1.isValid() == false)
@@ -619,11 +619,11 @@ apartment apartment::buildRent()
 	{
 		cout << "How many rooms will there be available?\n";
 		cin >> rooms;
-		if (u.invalidInputNoRetry())
+		if (u2.invalidInputNoRetry())
 			continue;
 		cout << "How many people per room?\n";
 		cin >> people;
-		if (u.invalidInputNoRetry())
+		if (u2.invalidInputNoRetry())
 			continue;
 		if (people < 0 || people > 4)
 		{
@@ -636,15 +636,15 @@ apartment apartment::buildRent()
 	{
 		cout << "/nEnding date:\nDay: ";
 		cin >> day2;
-		if (u.invalidInputNoRetry())
+		if (u2.invalidInputNoRetry())
 			continue;
 		cout << "\nMonth:";
 		cin >> month2;
-		if (u.invalidInputNoRetry())
+		if (u2.invalidInputNoRetry())
 			continue;
 		cout << "\nYear:";
 		cin >> year2;
-		if (u.invalidInputNoRetry())
+		if (u2.invalidInputNoRetry())
 			continue;
 		d2 = Date(day2, month2, year2);
 

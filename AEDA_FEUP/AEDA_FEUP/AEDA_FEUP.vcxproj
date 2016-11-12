@@ -171,6 +171,7 @@
     <Text Include="rents.txt" />
     <Text Include="reservations.txt" />
     <Text Include="suppliers.txt" />
+    <Text Include="users.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

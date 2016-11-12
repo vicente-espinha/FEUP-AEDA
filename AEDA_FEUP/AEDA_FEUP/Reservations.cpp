@@ -1,6 +1,6 @@
 #include "Reservations.h"
-template<typename T>
-Reservation<T>::Reservation(string name, string type, string type_type, int n, Date d1, Date d2,Rent<T> * rent)
+/*template<typename T>
+Reservation<T>::Reservation(string name, string type, string type_type, int n, Date d1, Date d2,Rent * rent)
 {
 	this->name = name;
 	this->type_rent = type;
@@ -10,4 +10,4 @@ Reservation<T>::Reservation(string name, string type, string type_type, int n, D
 	this->d2 = d2;
 	this->n_people=n;
 	this->rent = rent;
-}
+}*/

@@ -8,12 +8,12 @@ void Supplier<T>::readFile(string fileName)
 	x.open(fileName);
 }*/
 
-Supplier::Supplier(string n, string ad, unsigned int ni, vector<Rent> v2)
+Supplier::Supplier(string n, string ad, unsigned int ni, vector<Rent> v)
 {
 	name = n;
 	address = ad;
 	nif = ni;
-	v = v2;
+	this->v = v;
 //	v = buildRent();
 }
 
