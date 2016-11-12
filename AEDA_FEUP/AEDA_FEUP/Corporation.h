@@ -5,12 +5,8 @@
 #include <vector>
 
 #include "Clients.h"
-#include "Utilities.h"
-
-#include "Rent.h"
 #include "Supplier.h"
-#include "Reservations.h"
-#include "Date.h"
+#include "Utilities.h"
 #include "Menu.h"
 
 
@@ -23,7 +19,7 @@ private:
 	string usersFile, suppliersFile;
 	string username, supplierName;
 	vector<Users> usersVec;
-	//vector<Supplier> suppliersVec;
+	vector<Supplier> suppliersVec;
 	
 public:
 	static Corporation* instance();

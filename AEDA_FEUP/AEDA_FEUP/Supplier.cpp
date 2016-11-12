@@ -14,7 +14,6 @@ Supplier::Supplier(string n, string ad, unsigned int ni, vector<Rent> v)
 	address = ad;
 	nif = ni;
 	this->v = v;
-//	v = buildRent();
 }
 
 /*

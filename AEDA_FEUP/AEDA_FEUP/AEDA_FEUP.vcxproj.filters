@@ -13,7 +13,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Clients.h" />
-    <ClInclude Include="Company.h" />
     <ClInclude Include="Corporation.h" />
     <ClInclude Include="Date.h" />
     <ClInclude Include="Reservations.h" />

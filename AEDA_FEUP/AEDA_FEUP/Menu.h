@@ -5,8 +5,8 @@
 #include <windows.h> 
 #include <conio.h>
 
-#include "Clients.h"
-#include "Supplier.h"
+#include "Utilities.h"
+#include "Corporation.h"
 
 using namespace std;
 

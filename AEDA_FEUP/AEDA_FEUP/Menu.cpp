@@ -5,10 +5,6 @@
 #include <vector>
 
 #include "Menu.h"
-#include "Utilities.h"
-#include "Rent.h"
-#include "Clients.h"
-#include "Corporation.h"
 
 using namespace std;
 

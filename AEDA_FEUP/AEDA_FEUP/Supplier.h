@@ -19,6 +19,5 @@ public:
 	string getName() { return name; }
 	string getAddress() { return address; }
 	unsigned int getNif() { return nif; }
-//	vector<Rent> getVector() { return v; }
-	//void setVector(vector<Rent> v2) { v = v2; }
+	vector<Rent> getVector() { return v; }
 };

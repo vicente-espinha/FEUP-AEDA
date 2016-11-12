@@ -6,7 +6,7 @@ Utilities u2;
 // ALUGUER
 Rent::Rent(string typeRent, string c, Date dataI, Date dataF, float p, int n)
 {
-	city = c; dataBegin = dataI; dataEnd = dataF; numPeople = n; price = p;
+	city = c; dataBegin = dataI; dataEnd = dataF; numPeople = n; price = p; this->typeRent = typeRent;
 }
 
 // HOTEL

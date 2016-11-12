@@ -2,9 +2,9 @@
 #include <iostream>
 #include <string>
 #include <vector>
+
 #include "Utilities.h"
 #include "Date.h"
-#include "Corporation.h"
 
 using namespace std;
 
@@ -31,15 +31,22 @@ protected:
 
 	float price;
 	int numPeople;              // O numero de pessoas que vai para um determinado aluguer, (quarto duplo, triplo, etc...)
-	
+	string typeRent;
 public:
 	Rent(string tipoRent, string cidade, Date dataI, Date dataF, float price, int numOcupantes);
 	virtual int getNumPeople() { return numPeople;  }
 	virtual float getPrice() { return price; }
-	Date getDataInicio() { return dataBegin; }
-	Date getDataFim() { return dataEnd; }
+	virtual string getCity() { return city; }
+	virtual Date getDataInicio() { return dataBegin; }
+	virtual Date getDataFim() { return dataEnd; }
 	auto buildRent() {}
-	Rent getrent();
+	virtual string getTypeRent() { return typeRent; }
+	virtual string getName() { string x; return x; }
+	virtual string getType() { string x; return x; }
+	virtual int getNumRooms() { int i =0; return i; }
+	virtual bool getKitchen() {bool i = true; return i; }
+	virtual bool getSuite() { bool x = true; return x; }
+	virtual bool getLivingRoom() { bool x = true; return x; }
 };
 
 class Hotel : public Rent
@@ -53,7 +60,6 @@ public:
 	Hotel(string typeRent, string nome, string cidade, Date dataI, Date dataF, string tipo, float preco, int numOcupantes);
 	string getType() { return type; }
 	string getName() { return nameHotel; }
-	float getPrice() { return price; }
 	Hotel buildRent(); // Pressupostamente constroi um hotel, mas ainda tenho que pensar como implementar isto
 	
 };
@@ -77,6 +83,7 @@ protected:
 public:
 	sharedHouse(string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes);
 	sharedHouse buildRent();
+	string getName() { return nameSH; }
 };
 
 
@@ -88,6 +95,8 @@ protected:
 public:
 	flat(string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes);
 	flat buildRent();
+	bool getKitchen() { return hasKitchen; }
+	string getName() { return nameFlat; }
 };
 
 class apartment : public Rent
@@ -100,4 +109,8 @@ public:
 	apartment(string tipoRent, string name, string cidade, Date dataI, Date dataF,float price, int numOcupantes, int numrooms, bool kitchen, bool suite, bool livingroom);
 	apartment buildRent();
 	string getName() { return nameApartment; }
+	int getNumRooms() { return numRooms; }
+	bool getKitchen() { return hasKitchen; }
+	bool getSuite() { return hasSuite; }
+	bool getLivingRoom() { return hasLivingRoom; }
 };

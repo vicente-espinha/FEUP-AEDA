@@ -2,8 +2,7 @@
 #include <conio.h>
 #include <windows.h>
 #include <cstdlib>
-#include "Utilities.h"
-#include "Menu.h"
+
 #include "Corporation.h"
 
 
@@ -35,6 +34,7 @@ int main() {
 	}
 
 	Corporation::instance()->loadUsers();
+	Corporation::instance()->loadSuppliers();
 
 	u.clearScreen();
 	menu.LoginMenu();
@@ -42,17 +42,8 @@ int main() {
 	u.clearScreen();
 	u.logo();
 
-	cout << "\n  Do you want to save changes? (Y to confirm): ";
-	u.setColor(14); cin >> saveChanges; u.setColor(15);
-
-	if (saveChanges == "y" || saveChanges == "Y") {
-		Corporation::instance()->saveUsers();
-	}
-	else {
-		u.setColor(7); cout << "  WARNING: Changes not saved!\n"; u.setColor(15);
-	}
-
-	Sleep(1500);
+	Corporation::instance()->saveUsers();
+	
 	u.clearScreen();
 	u.logo();
 	u.aboutMessage();
