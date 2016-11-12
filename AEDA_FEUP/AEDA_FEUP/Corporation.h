@@ -20,10 +20,12 @@ class Corporation
 {
 private:
 	static Corporation* singleton_instance;
-	string usersFile, suppliersFile;
+	string usersFile, suppliersFile, reservationsFile;
 	string username, supplierName;
 	vector<Users> usersVec;
 	//vector<Supplier> suppliersVec;
+	//vector<Rent> rentsVec;
+	//vector<Reservation> reservationsVec;
 	
 public:
 	static Corporation* instance();
@@ -37,6 +39,10 @@ public:
 	void loadSuppliers();
 	void saveSuppliers();
 	void registerSupplier();
+
+	bool foundReservationsFile(string reservationsFile);
 	//void makeReservation();
+	//void loadReservations();
+	//void saveReservations();
 };
 

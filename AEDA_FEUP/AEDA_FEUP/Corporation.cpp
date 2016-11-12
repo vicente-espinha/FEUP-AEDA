@@ -306,14 +306,33 @@ void Corporation::registerSupplier()
 
 }
 
+//Checks existance of the reservations file
+bool Corporation::foundReservationsFile(string reservationsFile)
+{
+	fstream f;
+
+	f.open(reservationsFile);
+
+	if (f.fail()) {
+		f.close();
+		u1.setColor(12); cerr << "\n  ERROR: " << reservationsFile << " (suppliers file) could not be found!\n         Verify the directory!\n\n"; u1.setColor(15);
+		return false;
+	}
+
+	f.close();
+
+	this->reservationsFile = reservationsFile;
+	return true;
+}
+
 //Loads the users file to memory (Users vector)
 /*
 void Corporation::loadReservations()
 {
 	string name,name_rent type, type_type, d1, d2;
 	unsigned int n_people;
+	Rent *c;
 	fstream f;
-	Rent<T> *c;
 
 	f.open("reservations.txt");
 
@@ -407,4 +426,20 @@ void Corporation::loadReservations()
 
 
 
+}*/
+
+
+/*void Corporation::saveReservations()
+{
+	ofstream f;
+
+	f.open(reservationsFile, ofstream::app);
+
+	for (size_t i = 0; i < reservationsVec.size(); i++) {
+		f << reservationsVec.at(i).getname() << " ; " << reservationsVec.at(i).getrent();
+	}
+
+	f.close();
+
+	return;
 }*/
