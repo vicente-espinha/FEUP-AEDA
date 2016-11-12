@@ -7,7 +7,7 @@ Date::Date()
 	year = 0;
 }
 
-/*Date::Date(string d)
+Date::Date(string line)
 {
 	string separator = "/";
 
@@ -19,7 +19,7 @@ Date::Date()
 	line.erase(0, line.find(separator) + 1);
 	str = line.substr(0, line.find(' '));
 	this->year = (atoi(str.c_str()));
-}*/
+}
 
 Date::Date(int day, int month, int year)
 {
