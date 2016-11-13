@@ -11,6 +11,7 @@ private:
 	string name, type_rent,type_type_rent;
 	Rent *rent;
 public:
+	Reservation() {};
 	Reservation(string name, string type, string type_type, int n, Date d1, Date d2, Rent *rent);
 	string getname() { return name; };
 	string gettype_rent() { return type_rent; };
@@ -20,4 +21,5 @@ public:
 	Date getDate2() { return d2;};
 	int getn_people() { return n_people; };
 	Rent getrent() { return *rent; };
+	friend bool operator==(const Reservation & R1, const Reservation & R2);
 };

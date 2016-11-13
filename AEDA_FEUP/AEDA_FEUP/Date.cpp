@@ -206,4 +206,12 @@ int Date::minus(Date days)     // Retorna a diferenca das datas, para fins de pr
 	
 }
 
+bool operator==(const Date & D1, const Date & D2)
+{
+	if (D1.day == D2.day && D1.month == D2.month && D1.year == D2.year)
+		return true;
+	else
+		return false;
+}
+
 

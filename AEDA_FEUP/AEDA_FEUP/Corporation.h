@@ -41,5 +41,6 @@ public:
 	//void makeReservation();
 	//void loadReservations();
 	//void saveReservations();
+	//void cancelReservation(string name);
 };
 
