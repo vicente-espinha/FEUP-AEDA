@@ -395,18 +395,18 @@ bool Corporation::foundReservationsFile(string reservationsFile)
 }
 
 //Loads the users file to memory (Users vector)
-/*
-void Corporation::loadReservations()
+
+/*void Corporation::loadReservations()
 {
-	string name,name_rent type, type_type, d1, d2;
+	string name,name_rent,type, type_type, d1, d2;
 	unsigned int n_people;
 	Rent *c;
 	fstream f;
-
+	string line;
 	f.open("reservations.txt");
 
 	while (!f.eof()) {
-	getline(f, line)
+		getline(f, line);
 
 		string  name= line.substr(0, line.find(" ; "));
 		line.erase(0, line.find(" ; ") + 3);
@@ -429,7 +429,7 @@ void Corporation::loadReservations()
 		}
 
 
-		reservationVec.push_back(Reservation(name, type, type_type, n_people,Date(d1),Date(d2),c));
+		reservationsVec.push_back(Reservation(name, type, type_type, n_people,Date(d1),Date(d2),c));
 	}
 	f.close();
 }*/
@@ -505,7 +505,7 @@ void Corporation::loadReservations()
 	f.open(reservationsFile, ofstream::app);
 
 	for (size_t i = 0; i < reservationsVec.size(); i++) {
-		f << reservationsVec.at(i).getname() << " ; " << reservationsVec.at(i).getrent();
+		f << reservationsVec.at(i).getname() << " ; " << reservationsVec.at(i).getrent().getName() << " ; " << reservationsVec.at(i).gettype_rent << " ; " << reservationsVec.at(i).gettype_type_rent() << " ; " << reservationsVec.at(i).getn_people() << " ; " << reservationsVec.at(i).getDate1() << " ; " << reservationsVec.at(i).getDate2();
 	}
 
 	f.close();

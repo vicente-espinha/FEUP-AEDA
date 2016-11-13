@@ -7,6 +7,7 @@
 #include "Clients.h"
 #include "Supplier.h"
 #include "Utilities.h"
+#include "Reservations.h"
 #include "Menu.h"
 
 
@@ -19,7 +20,7 @@ private:
 	string usersFile, suppliersFile, reservationsFile;
 	string username, supplierName;
 	vector<Users> usersVec;
-
+	vector<Reservation>reservationsVec;
 	vector<Supplier> suppliersVec;
 
 	
