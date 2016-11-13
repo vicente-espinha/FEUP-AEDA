@@ -178,9 +178,11 @@ bool Corporation::foundSuppliersFile(string suppliersFile) {
 }
 
 void Corporation::loadSuppliers() {
-	/*
+
 		string line;
 		fstream f;
+
+		vector<Rent> rent;
 
 		f.open(suppliersFile);
 
@@ -194,13 +196,140 @@ void Corporation::loadSuppliers() {
 			line.erase(0, line.find(" ; ") + 3);
 			string address = line.substr(0, line.find(" ; "));
 			line.erase(0, line.find(" ; ") + 3);
-			unsigned int points = stoi(line.substr(0, line.length()));
+			string typeRent = line.substr(0, line.find(" ; "));
+			line.erase(0, line.find(" ; ") + 3);
 
-			//suppliersVec.push_back(Suppliers(username, password, nif, points));
+			if (typeRent == "Hotel") {
+				string nameHotel = line.substr(0, line.find(" ; "));
+				line.erase(0, line.find(" ; ") + 3);
+				string city = line.substr(0, line.find(" ; "));
+				line.erase(0, line.find(" ; ") + 3);
+				unsigned int startDay = stoi(line.substr(0, line.find(" ; ")));
+				line.erase(0, line.find(" ; ") + 3);
+				unsigned int startMonth = stoi(line.substr(0, line.find(" ; ")));
+				line.erase(0, line.find(" ; ") + 3);
+				unsigned int startYear = stoi(line.substr(0, line.find(" ; ")));
+				line.erase(0, line.find(" ; ") + 3);
+				unsigned int endDay = stoi(line.substr(0, line.find(" ; ")));
+				line.erase(0, line.find(" ; ") + 3);
+				unsigned int endMonth = stoi(line.substr(0, line.find(" ; ")));
+				line.erase(0, line.find(" ; ") + 3);
+				unsigned int endYear = stoi(line.substr(0, line.find(" ; ")));
+				line.erase(0, line.find(" ; ") + 3);
+				string roomType = line.substr(0, line.find(" ; "));
+				line.erase(0, line.find(" ; ") + 3);
+				float price = stof(line.substr(0, line.find(" ; ")));
+				line.erase(0, line.find(" ; ") + 3);
+				unsigned int numPeople = stoi(line.substr(0, line.length()));
+				
+				rent.push_back(Hotel(typeRent, nameHotel, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), roomType, price, numPeople));
+				suppliersVec.push_back(Supplier(supplierName, password, nif, address, rent));
+
+			}
+			 else if (typeRent == "Bed'n'Breakfast") {
+				string nameBB = line.substr(0, line.find(" ; "));
+				line.erase(0, line.find(" ; ") + 3);
+				string city = line.substr(0, line.find(" ; "));
+				line.erase(0, line.find(" ; ") + 3);
+				unsigned int startDay = stoi(line.substr(0, line.find(" ; ")));
+				line.erase(0, line.find(" ; ") + 3);
+				unsigned int startMonth = stoi(line.substr(0, line.find(" ; ")));
+				line.erase(0, line.find(" ; ") + 3);
+				unsigned int startYear = stoi(line.substr(0, line.find(" ; ")));
+				line.erase(0, line.find(" ; ") + 3);
+				unsigned int endDay = stoi(line.substr(0, line.find(" ; ")));
+				line.erase(0, line.find(" ; ") + 3);
+				unsigned int endMonth = stoi(line.substr(0, line.find(" ; ")));
+				line.erase(0, line.find(" ; ") + 3);
+				unsigned int endYear = stoi(line.substr(0, line.find(" ; ")));
+				line.erase(0, line.find(" ; ") + 3);
+				float price = stof(line.substr(0, line.find(" ; ")));
+				line.erase(0, line.find(" ; ") + 3);
+				unsigned int numPeople = stoi(line.substr(0, line.length()));
+
+				rent.push_back(bedNbreakfast(typeRent, nameBB, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople));
+				suppliersVec.push_back(Supplier(supplierName, password, nif, address, rent));
+
+			}
+			 else if (typeRent == "Shared House") {
+				 string nameSH = line.substr(0, line.find(" ; "));
+				 line.erase(0, line.find(" ; ") + 3);
+				 string city = line.substr(0, line.find(" ; "));
+				 line.erase(0, line.find(" ; ") + 3);
+				 unsigned int startDay = stoi(line.substr(0, line.find(" ; ")));
+				 line.erase(0, line.find(" ; ") + 3);
+				 unsigned int startMonth = stoi(line.substr(0, line.find(" ; ")));
+				 line.erase(0, line.find(" ; ") + 3);
+				 unsigned int startYear = stoi(line.substr(0, line.find(" ; ")));
+				 line.erase(0, line.find(" ; ") + 3);
+				 unsigned int endDay = stoi(line.substr(0, line.find(" ; ")));
+				 line.erase(0, line.find(" ; ") + 3);
+				 unsigned int endMonth = stoi(line.substr(0, line.find(" ; ")));
+				 line.erase(0, line.find(" ; ") + 3);
+				 unsigned int endYear = stoi(line.substr(0, line.find(" ; ")));
+				 line.erase(0, line.find(" ; ") + 3);
+				 float price = stof(line.substr(0, line.find(" ; ")));
+				 line.erase(0, line.find(" ; ") + 3);
+				 unsigned int numPeople = stoi(line.substr(0, line.length()));
+
+				 rent.push_back(sharedHouse(typeRent, nameSH, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople));
+				 suppliersVec.push_back(Supplier(supplierName, password, nif, address, rent));
+
+			 }
+			 else if (typeRent == "Flat") {
+				 string nameFlat = line.substr(0, line.find(" ; "));
+				 line.erase(0, line.find(" ; ") + 3);
+				 string city = line.substr(0, line.find(" ; "));
+				 line.erase(0, line.find(" ; ") + 3);
+				 unsigned int startDay = stoi(line.substr(0, line.find(" ; ")));
+				 line.erase(0, line.find(" ; ") + 3);
+				 unsigned int startMonth = stoi(line.substr(0, line.find(" ; ")));
+				 line.erase(0, line.find(" ; ") + 3);
+				 unsigned int startYear = stoi(line.substr(0, line.find(" ; ")));
+				 line.erase(0, line.find(" ; ") + 3);
+				 unsigned int endDay = stoi(line.substr(0, line.find(" ; ")));
+				 line.erase(0, line.find(" ; ") + 3);
+				 unsigned int endMonth = stoi(line.substr(0, line.find(" ; ")));
+				 line.erase(0, line.find(" ; ") + 3);
+				 unsigned int endYear = stoi(line.substr(0, line.find(" ; ")));
+				 line.erase(0, line.find(" ; ") + 3);
+				 float price = stof(line.substr(0, line.find(" ; ")));
+				 line.erase(0, line.find(" ; ") + 3);
+				 unsigned int numPeople = stoi(line.substr(0, line.length()));
+
+				 rent.push_back(flat(typeRent, nameFlat, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople));
+				 suppliersVec.push_back(Supplier(supplierName, password, nif, address, rent));
+
+			 }
+			 else if (typeRent == "Apartment") {
+				 /*string nameApartment = line.substr(0, line.find(" ; "));
+				 line.erase(0, line.find(" ; ") + 3);
+				 string city = line.substr(0, line.find(" ; "));
+				 line.erase(0, line.find(" ; ") + 3);
+				 unsigned int startDay = stoi(line.substr(0, line.find(" ; ")));
+				 line.erase(0, line.find(" ; ") + 3);
+				 unsigned int startMonth = stoi(line.substr(0, line.find(" ; ")));
+				 line.erase(0, line.find(" ; ") + 3);
+				 unsigned int startYear = stoi(line.substr(0, line.find(" ; ")));
+				 line.erase(0, line.find(" ; ") + 3);
+				 unsigned int endDay = stoi(line.substr(0, line.find(" ; ")));
+				 line.erase(0, line.find(" ; ") + 3);
+				 unsigned int endMonth = stoi(line.substr(0, line.find(" ; ")));
+				 line.erase(0, line.find(" ; ") + 3);
+				 unsigned int endYear = stoi(line.substr(0, line.find(" ; ")));
+				 line.erase(0, line.find(" ; ") + 3);
+				 float price = stof(line.substr(0, line.find(" ; ")));
+				 line.erase(0, line.find(" ; ") + 3);
+				 unsigned int numPeople = stoi(line.substr(0, line.length()));
+
+				 rent.push_back(flat(typeRent, nameApartment, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople));
+				 suppliersVec.push_back(Supplier(supplierName, password, nif, address, rent));
+				 
+			 }*/
 		}
 		f.close();
 		return;
-		*/
+		
 }
 
 //Loads suppliersVec to the .txt file
@@ -211,7 +340,7 @@ void Corporation::saveSuppliers()
 	f.open("suppliers.txt", ofstream::app);
 
 	for (size_t i = 0; i < suppliersVec.size(); i++) {
-		f << suppliersVec[i].getName() << " ; " << suppliersVec[i].getAddress() << " ; " << suppliersVec[i].getNif() << " ; ";
+		f << suppliersVec[i].getName() << " ; " << suppliersVec[i].getPassword() << " ; " << suppliersVec[i].getNif() << " ; " << suppliersVec[i].getAddress() << "; ";
 		for (int j = 0; j < suppliersVec[i].getVector().size(); j++)
 		{
 			if (suppliersVec[i].getVector()[j].getTypeRent() == "Hotel")
@@ -259,7 +388,7 @@ void Corporation::saveSuppliers()
 				f << suppliersVec[i].getVector()[j].getDataInicio().getDay() << "/" << suppliersVec[i].getVector()[j].getDataInicio().getMonth() << "/" << suppliersVec[i].getVector()[j].getDataInicio().getYear() << " ; ";
 				f << suppliersVec[i].getVector()[j].getDataFim().getDay() << "/" << suppliersVec[i].getVector()[j].getDataFim().getMonth() << "/" << suppliersVec[i].getVector()[j].getDataFim().getYear() << " ; ";
 				f << suppliersVec[i].getVector()[j].getPrice() << " ; " << suppliersVec[i].getVector()[j].getNumPeople() << " ; ";
-				f << suppliersVec[i].getVector()[j].getNumPeople() << " ; " << suppliersVec[i].getVector()[j].getNumRooms() << " ; ";
+				f << suppliersVec[i].getVector()[j].getNumRooms() << " ; ";
 				f << suppliersVec[i].getVector()[j].getKitchen() << " ; " << suppliersVec[i].getVector()[j].getSuite() << " ; " << suppliersVec[i].getVector()[j].getLivingRoom() << "\n";
 				cout << "Completed!\n";
 			}
@@ -277,12 +406,14 @@ void Corporation::registerSupplier()
 
 	bool isIn = true;
 	u1.clearScreen();
-	string n, ad;
+	string ad, password;
 	unsigned int nif;
 	while (isIn)
 	{
 		cout << "What is your name?\nName: ";
-		cin >> n;
+		cin >> supplierName;
+		cout << "password";
+		cin >> password;
 		cout << "\nWhat is your FIN? (Fiscal Identification Number)\nFIN : ";
 		cin >> nif;
 		if (u1.invalidInputRetry())
@@ -370,7 +501,7 @@ void Corporation::registerSupplier()
 
 	cout << "\n\nThe program will now return to the main menu.\n\n";
 
-	suppliersVec.push_back(Supplier(n, ad, nif, v));
+	suppliersVec.push_back(Supplier(supplierName, password, nif, ad, v));
 	return;
 
 }

@@ -548,11 +548,11 @@ apartment apartment::buildRent()
 	}
 	while (isIn)
 	{
-		cout << "Does it have a living room? (y/n)\n";
+		cout << "Does it have a living room? (Y for yes)\n";
 		cin >> x;
 		if (x == "Y" || x == "y" || x == "yes")
 		{
-			lr = true;
+			lr = "Yes";
 			isIn = false;
 			break;
 		}
@@ -575,7 +575,7 @@ apartment apartment::buildRent()
 		cin >> x;
 		if (x == "Y" || x == "y" || x == "yes")
 		{
-			k = true;
+			k = "Yes";
 			isIn = false;
 			break;
 		}

@@ -11,12 +11,13 @@ using namespace std;
 class Supplier
 {
 protected:
-	string name, address;
+	string name, password, address;
 	unsigned int nif;
 	vector<Rent> v;
 public:
-	Supplier(string n, string ad, unsigned int ni, vector<Rent> v);
+	Supplier(string n, string password, unsigned int ni, string ad, vector<Rent> v);
 	string getName() { return name; }
+	string getPassword() { return password; }
 	string getAddress() { return address; }
 	unsigned int getNif() { return nif; }
 	vector<Rent> getVector() { return v; }

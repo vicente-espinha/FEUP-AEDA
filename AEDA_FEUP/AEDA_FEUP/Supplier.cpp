@@ -8,9 +8,10 @@ void Supplier<T>::readFile(string fileName)
 	x.open(fileName);
 }*/
 
-Supplier::Supplier(string n, string ad, unsigned int ni, vector<Rent> v)
+Supplier::Supplier(string n, string password, unsigned int ni, string ad, vector<Rent> v)
 {
 	name = n;
+	this->password = password;
 	address = ad;
 	nif = ni;
 	this->v = v;

@@ -10,7 +10,7 @@ Corporation* Corporation::singleton_instance = 0;
 
 int main() {
 
-	string usersFile, suppliersFile, saveChanges;
+	string usersFile, suppliersFile;
 
 	//Objetos da classe. 
 	Menu menu;
@@ -21,8 +21,10 @@ int main() {
 	cout << "\n  You will be now asked to input the name of the resource files. \n"; Sleep(1);
 
 	//CLIENTS FILE TEST (FOUND/VALID)
-	cout << "\n  Users file:  ";
+	cout << "\n  Users file:       ";
 	u.setColor(14); getline(cin, usersFile); u.setColor(15);
+	cout << "\n  Suppliers file:   ";
+	u.setColor(14); getline(cin, suppliersFile); u.setColor(15);
 
 	if (cin.eof()) {
 		u.cancelMessage();
@@ -30,6 +32,10 @@ int main() {
 	}
 
 	if (!(Corporation::instance()->foundUsersFile(usersFile))) {
+		return 0;
+	}
+	
+	if (!(Corporation::instance()->foundSuppliersFile(suppliersFile))) {
 		return 0;
 	}
 
@@ -43,6 +49,7 @@ int main() {
 	u.logo();
 
 	Corporation::instance()->saveUsers();
+	Corporation::instance()->saveSuppliers();
 	
 	u.clearScreen();
 	u.logo();
