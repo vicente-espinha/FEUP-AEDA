@@ -3,7 +3,7 @@
 
 using namespace std;
 
-/*class Reservation {
+class Reservation {
 private:
 	Date d1, d2;
 	double total_price;
@@ -20,4 +20,4 @@ public:
 	Date getDate2() { return d2;};
 	int getn_people() { return n_people; };
 	Rent getrent() { return *rent; };
-};*/
+};

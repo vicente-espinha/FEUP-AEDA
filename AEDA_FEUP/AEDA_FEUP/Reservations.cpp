@@ -1,6 +1,6 @@
 #include "Reservations.h"
 
-/*Reservation::Reservation(string name, string type, string type_type, int n, Date d1, Date d2,Rent * rent)
+Reservation::Reservation(string name, string type, string type_type, int n, Date d1, Date d2,Rent * rent)
 {
 	this->name = name;
 	this->type_rent = type;
@@ -10,4 +10,4 @@
 	this->d2 = d2;
 	this->n_people=n;
 	this->rent = rent;
-}*/
+}
