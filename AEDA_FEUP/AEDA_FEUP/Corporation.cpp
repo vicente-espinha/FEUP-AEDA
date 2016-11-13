@@ -4,11 +4,8 @@ using namespace std;
 
 Utilities u1;
 Menu corpMenu;
-//Hotel h;
-//bedNbreakfast bnb;
-//sharedHouse sh;
-//apartment ap;
-//flat fl;
+
+
 
 Corporation * Corporation::instance()
 {
@@ -276,6 +273,8 @@ void Corporation::saveSuppliers()
 //Adds a supplier to the suppliers vector
 void Corporation::registerSupplier()
 {
+
+
 	bool isIn = true;
 	u1.clearScreen();
 	string n, ad;
@@ -322,13 +321,12 @@ void Corporation::registerSupplier()
 
 	vector<Rent> v;
 	int choice;
-
+	Date d1, d2;
 	for (int i = 0; i < numIteration; i++)
 	{
 		u1.clearScreen();
-		cout << "What is the type of rent? \n1 - Hotel\n2 - Bed'n'Breakfast\n3 - Apartment\n4 - Flat\n5 - Apartment\n6 - Shared House";
+		cout << "What is the type of rent? \n1 - Hotel\n2 - Bed'n'Breakfast\n3 - Apartment\n4 - Flat\n5 - Shared House";
 		cin >> choice;
-
 		if (u1.invalidInputRetry())
 		{
 			i--;
@@ -340,35 +338,60 @@ void Corporation::registerSupplier()
 			break;
 		}
 
-		switch (choice)
+		if (choice == 1)
 		{
-		case 1:
-			//v.push_back(h.buildRent());
+			Hotel h;
+			v.push_back(h.buildRent());
+		}
+		if (choice == 2)
+		{
+			bedNbreakfast bnb;
+			v.push_back(bnb.buildRent());
+		}
+		if (choice == 3)
+		{
+			flat fl;
+			v.push_back(fl.buildRent());
 			break;
-		case 2:
-			//v.push_back(bnb.buildRent());
+		}
+		if (choice == 4)
+		{
+			apartment ap;
+			v.push_back(ap.buildRent());
 			break;
-		case 3:
-			//v.push_back(ap.buildRent());
-			break;
-		case 4:
-			//v.push_back(fl.buildRent());
-			break;
-		case 5:
-			//v.push_back(ap.buildRent());
-			break;
-		case 6:
-			//v.push_back(sh.buildRent());
+		}	
+		if (choice == 5)
+		{
+			sharedHouse sh;
+			v.push_back(sh.buildRent());
 			break;
 		}
 	}
 
 	cout << "\n\nThe program will now return to the main menu.\n\n";
 
-
-	//suppliersVec.push_back(Supplier(n,ad,nif,v));
+	suppliersVec.push_back(Supplier(n, ad, nif, v));
 	return;
 
+}
+
+//Checks existance of the reservations file
+bool Corporation::foundReservationsFile(string reservationsFile)
+{
+	fstream f;
+
+	f.open(reservationsFile);
+
+	if (f.fail()) {
+		f.close();
+		u1.setColor(12); cerr << "\n  ERROR: " << reservationsFile << " (suppliers file) could not be found!\n         Verify the directory!\n\n"; u1.setColor(15);
+		return false;
+	}
+
+	f.close();
+
+	this->reservationsFile = reservationsFile;
+	return true;
 }
 
 //Loads the users file to memory (Users vector)
@@ -377,8 +400,8 @@ void Corporation::loadReservations()
 {
 	string name,name_rent type, type_type, d1, d2;
 	unsigned int n_people;
+	Rent *c;
 	fstream f;
-	Rent<T> *c;
 
 	f.open("reservations.txt");
 
@@ -472,4 +495,20 @@ void Corporation::loadReservations()
 
 
 
+}*/
+
+
+/*void Corporation::saveReservations()
+{
+	ofstream f;
+
+	f.open(reservationsFile, ofstream::app);
+
+	for (size_t i = 0; i < reservationsVec.size(); i++) {
+		f << reservationsVec.at(i).getname() << " ; " << reservationsVec.at(i).getrent();
+	}
+
+	f.close();
+
+	return;
 }*/

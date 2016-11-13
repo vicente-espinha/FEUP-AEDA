@@ -3,8 +3,9 @@
 
 
 #include <iostream>
-#include<string>
-#include <fstream>
+#include <string>
+
+using namespace std;
 
 class Date
 {
@@ -12,7 +13,7 @@ private:
 	int day, month, year;
 public:
 	Date();
-	//Date(string d);
+	Date(string line);
 	Date(int, int, int);
 	void setDay(int);
 	int getDay();

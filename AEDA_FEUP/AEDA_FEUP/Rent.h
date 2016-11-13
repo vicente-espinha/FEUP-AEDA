@@ -33,6 +33,7 @@ protected:
 	int numPeople;              // O numero de pessoas que vai para um determinado aluguer, (quarto duplo, triplo, etc...)
 	string typeRent;
 public:
+	Rent() {}
 	Rent(string tipoRent, string cidade, Date dataI, Date dataF, float price, int numOcupantes);
 	virtual int getNumPeople() { return numPeople;  }
 	virtual float getPrice() { return price; }
@@ -56,7 +57,7 @@ class Hotel : public Rent
 	string type;                    // Tipo de Quarto que quer
 	
 public:
-
+	Hotel(){ }
 	Hotel(string typeRent, string nome, string cidade, Date dataI, Date dataF, string tipo, float preco, int numOcupantes);
 	string getType() { return type; }
 	string getName() { return nameHotel; }
@@ -70,6 +71,7 @@ class bedNbreakfast : public Rent
 protected:
 	string namebnb;
 public:
+	bedNbreakfast(){}
 	bedNbreakfast(string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes);
 	bedNbreakfast buildRent();
 	string getName() { return  namebnb; }
@@ -81,6 +83,7 @@ class sharedHouse : public Rent
 protected:
 	string nameSH;
 public:
+	sharedHouse() {}
 	sharedHouse(string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes);
 	sharedHouse buildRent();
 	string getName() { return nameSH; }
@@ -93,6 +96,7 @@ protected:
 	string nameFlat;
 	bool hasKitchen;
 public:
+	flat() {}
 	flat(string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes);
 	flat buildRent();
 	bool getKitchen() { return hasKitchen; }
@@ -106,6 +110,7 @@ protected:
 	int numRooms;
 	bool hasKitchen, hasSuite, hasLivingRoom;
 public:
+	apartment() {}
 	apartment(string tipoRent, string name, string cidade, Date dataI, Date dataF,float price, int numOcupantes, int numrooms, bool kitchen, bool suite, bool livingroom);
 	apartment buildRent();
 	string getName() { return nameApartment; }
