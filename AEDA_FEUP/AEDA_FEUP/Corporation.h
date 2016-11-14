@@ -27,6 +27,8 @@ private:
 public:
 	static Corporation* instance();
 
+	void login();
+
 	bool foundUsersFile(string userFiles);
 	void loadUsers();
 	void saveUsers();

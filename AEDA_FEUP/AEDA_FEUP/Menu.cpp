@@ -52,7 +52,7 @@ void Menu::ChangeCursorStatus(bool Visible) {
 //////////////////
 
 
-string * Menu::LoginItems() {
+string * Menu::MainMenuItems() {
 
 	string *item = new string[4];
 	item[0] = "Login";
@@ -74,13 +74,13 @@ string * Menu::RegisterItems() {
 	return item;
 }
 //----------------------------------------------
-string * Menu::Menu1Items() {
+string * Menu::UsersMenuItems() {
 
 	string *item = new string[5];
-	item[0] = "Menu Option #1.";
-	item[1] = "Menu Option #2.";
-	item[2] = "Menu Option #3.";
-	item[3] = "Return to Main Menu";
+	item[0] = "Make Reservation";
+	item[1] = "Cancel Reservation";
+	item[2] = "Explore";
+	item[3] = "Logout";
 	item[4] = "Exit.";
 
 	return item;
@@ -92,13 +92,11 @@ string * Menu::Menu1Items() {
 //////////////////
 
 
-/*-------Login Menu options--------*/
+/*-------Main Menu options--------*/
 void LoginOption() {
 
 	u.clearScreen();
-	m.gotoxy(25, 10);
-	cout << "You have selected menu option (#1)" << endl;
-	u.pressToContinueMessage();
+	Corporation::instance()->login();
 	u.clearScreen();
 
 }
@@ -114,7 +112,7 @@ void RegisterOption() {
 void UnregUserOption() {
 
 	u.clearScreen();
-	m.Menu1();
+	m.UsersMenu();
 	u.clearScreen();
 
 }
@@ -125,7 +123,7 @@ void SupplierOption() {
 	u.clearScreen();
 	u.setColor(14); cout << "\n  ::| REGISTER |::\n"; u.setColor(15);
 	Corporation::instance()->registerSupplier();
-	m.Menu1();
+	m.MainMenu();
 }
 
 void UserOption() {
@@ -133,12 +131,12 @@ void UserOption() {
 	u.clearScreen();
 	u.setColor(14); cout << "\n  ::| REGISTER |::\n"; u.setColor(15);
 	Corporation::instance()->registerUser();
-	m.Menu1();
+	m.MainMenu();
 
 }
 
-/*-------Menu 1 options--------*/
-void Option1() {
+/*-------Users Menu options--------*/
+void MakeReservationOption() {
 
 	u.clearScreen();
 	m.gotoxy(25, 10);
@@ -147,7 +145,7 @@ void Option1() {
 	u.clearScreen();
 }
 
-void Option2() {
+void CancelReservationOption() {
 
 	u.clearScreen();
 	m.gotoxy(25, 10);
@@ -156,7 +154,7 @@ void Option2() {
 	u.clearScreen();
 }
 
-void Option3() {
+void ExploreOption() {
 
 	u.clearScreen();
 	m.gotoxy(25, 10);
@@ -166,10 +164,10 @@ void Option3() {
 }
 
 /*-------Return and exit options--------*/
-void returnMain() {
+void Logout() {
 
 	u.clearScreen();
-	m.LoginMenu();
+	m.MainMenu();
 }
 
 void ExitOption() {
@@ -184,7 +182,7 @@ void ExitOption() {
 /////////////////////////
 
 
-int Menu::LoginMenu() {
+int Menu::MainMenu() {
 
 	ChangeCursorStatus(false);
 	typedef void(*TMenuOption)();
@@ -205,7 +203,7 @@ int Menu::LoginMenu() {
 
 			gotoxy(2, 2 + i);
 			MenuChoice == i + 1 ? cout << " -> " : cout << "    "; // if (i+1) == MenuChoice, ' -> ', else print '    '.
-			cout << LoginItems()[i] << endl;
+			cout << MainMenuItems()[i] << endl;
 		}
 
 		key = _getch(); //get the key.
@@ -271,7 +269,7 @@ int Menu::RegisterMenu() {
 	TMenuOption *MenuOption = new TMenuOption[ItemCount]; //Array of pointers to functions (dynamic).
 	MenuOption[0] = SupplierOption; //Filling the array with the functions.
 	MenuOption[1] = UserOption;
-	MenuOption[2] = returnMain;
+	MenuOption[2] = Logout;
 	MenuOption[3] = ExitOption;
 
 	while (1) {
@@ -331,7 +329,7 @@ int Menu::RegisterMenu() {
 
 }
 
-int Menu::Menu1() {
+int Menu::UsersMenu() {
 
 	ChangeCursorStatus(false);
 	typedef void(*TMenuOption)();
@@ -341,10 +339,10 @@ int Menu::Menu1() {
 	char key; //For entering the key (up arrow,down arrow,etc...).
 
 	TMenuOption *MenuOption = new TMenuOption[ItemCount]; //Array of pointers to functions (dynamic).
-	MenuOption[0] = Option1; //Filling the array with the functions.
-	MenuOption[1] = Option2;
-	MenuOption[2] = Option3;
-	MenuOption[3] = returnMain;
+	MenuOption[0] = MakeReservationOption; //Filling the array with the functions.
+	MenuOption[1] = CancelReservationOption;
+	MenuOption[2] = ExploreOption;
+	MenuOption[3] = Logout;
 	MenuOption[4] = ExitOption;
 
 	while (1) {
@@ -353,7 +351,7 @@ int Menu::Menu1() {
 
 			gotoxy(2, 2 + i);
 			MenuChoice == i + 1 ? cout << " -> " : cout << "    "; // if (i+1) == MenuChoice, ' -> ', else print '    '.
-			cout << Menu1Items()[i] << endl;
+			cout << UsersMenuItems()[i] << endl;
 		}
 
 		key = _getch(); //get the key.

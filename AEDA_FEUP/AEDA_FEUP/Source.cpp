@@ -40,16 +40,16 @@ int main() {
 	}
 
 	Corporation::instance()->loadUsers();
-	Corporation::instance()->loadSuppliers();
+	//Corporation::instance()->loadSuppliers();
 
 	u.clearScreen();
-	menu.LoginMenu();
+	menu.MainMenu();
 
 	u.clearScreen();
 	u.logo();
 
 	Corporation::instance()->saveUsers();
-	Corporation::instance()->saveSuppliers();
+	//Corporation::instance()->saveSuppliers();
 	
 	u.clearScreen();
 	u.logo();

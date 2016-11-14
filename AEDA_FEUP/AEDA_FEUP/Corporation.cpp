@@ -17,6 +17,44 @@ Corporation * Corporation::instance()
 	return singleton_instance;
 }
 
+void Corporation::login(){
+
+	string password;
+	int counter = 0;
+
+	cout << "Username:  \n"; cin >> username;
+	u1.cinClear();
+	cout << "\nPassword:  \n"; cin >> password;
+
+	for (size_t i = 0; i != usersVec.size(); i++) {
+		if (usersVec.at(i).getUsername() == username && usersVec.at(i).getPassword() == password) {
+			Corporation::instance()->username = username;
+			counter--;
+			u1.clearScreen();
+			corpMenu.UsersMenu();
+		}
+	}
+
+	counter++;
+
+	for (size_t i = 0; i != suppliersVec.size(); i++) {
+		if (suppliersVec.at(i).getName() == username && suppliersVec.at(i).getPassword() == password) {
+			Corporation::instance()->username = username;
+			u1.clearScreen();
+			//Falta adicionar menu Suppliers
+		}
+	}
+
+	counter++;
+
+	if (counter == 2) {
+		cout << "\n  ERROR: The username/password you inserted do not exist. Please try again.";
+		Sleep(1000);
+		return;
+	}
+
+}
+
 
 //Checks existance of the users file
 bool Corporation::foundUsersFile(string usersFile) {
@@ -323,9 +361,9 @@ void Corporation::loadSuppliers() {
 				 unsigned int numPeople = stoi(line.substr(0, line.length()));
 
 				 rent.push_back(flat(typeRent, nameApartment, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople));
-				 suppliersVec.push_back(Supplier(supplierName, password, nif, address, rent));
+				 suppliersVec.push_back(Supplier(supplierName, password, nif, address, rent));*/
 				 
-			 }*/
+			 }
 		}
 		f.close();
 		return;
