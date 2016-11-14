@@ -19,37 +19,49 @@ Corporation * Corporation::instance()
 
 void Corporation::login(){
 
-	string password;
-	int counter = 0;
+	string password, user;
+	bool foundUser = false;
+	bool foundSupplier = false;
 
-	cout << "Username:  \n"; cin >> username;
+	cout << "Username:  "; getline(cin, user);
+
+	if (cin.eof()) {
+		u1.cancelMessage();
+		corpMenu.MainMenu();
+	}
+
+	cout << "\nPassword:  "; cin >> password;
+
 	u1.cinClear();
-	cout << "\nPassword:  \n"; cin >> password;
+
+	if (cin.eof()) {
+		u1.cancelMessage();
+		corpMenu.MainMenu();
+	}
 
 	for (size_t i = 0; i != usersVec.size(); i++) {
-		if (usersVec.at(i).getUsername() == username && usersVec.at(i).getPassword() == password) {
-			Corporation::instance()->username = username;
-			counter--;
+		if (usersVec.at(i).getUsername() == user && usersVec.at(i).getPassword() == password) {
+			Corporation::instance()->username = user;
+			foundUser = true;
 			u1.clearScreen();
 			corpMenu.UsersMenu();
+			return;
 		}
 	}
-
-	counter++;
 
 	for (size_t i = 0; i != suppliersVec.size(); i++) {
-		if (suppliersVec.at(i).getName() == username && suppliersVec.at(i).getPassword() == password) {
-			Corporation::instance()->username = username;
+		if (suppliersVec.at(i).getName() == user && suppliersVec.at(i).getPassword() == password) {
+			Corporation::instance()->username = user;
+			foundSupplier = true;
 			u1.clearScreen();
-			//Falta adicionar menu Suppliers
+			corpMenu.SuppliersMenu();
+			return;
 		}
 	}
 
-	counter++;
-
-	if (counter == 2) {
+	if (!foundUser && !foundSupplier) {
 		cout << "\n  ERROR: The username/password you inserted do not exist. Please try again.";
-		Sleep(1000);
+		Sleep(2000);
 		return;
 	}
 
@@ -102,15 +114,16 @@ void Corporation::loadUsers() {
 //Loads memory to the users file
 void Corporation::saveUsers() {
 
-	ofstream f;
-
-	f.open(usersFile, ofstream::app);
+	ofstream f("temp.txt");
 
 	for (size_t i = 0; i < usersVec.size(); i++) {
 		f << usersVec[i].getUsername() << " ; " << usersVec[i].getPassword() << " ; " << usersVec[i].getNif() << " ; " << usersVec[i].getPoints() << endl;
 	}
 
 	f.close();
+
+	remove(usersFile.c_str());
+	rename("temp.txt",usersFile.c_str());
 
 	return;
 }
