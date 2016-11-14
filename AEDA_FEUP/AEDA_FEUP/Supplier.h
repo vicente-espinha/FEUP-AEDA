@@ -14,11 +14,14 @@ protected:
 	string name, password, address;
 	unsigned int nif;
 	vector<Rent> v;
-public:
+	
+public:	
+	Supplier();
 	Supplier(string n, string password, unsigned int ni, string ad, vector<Rent> v);
 	string getName() { return name; }
 	string getPassword() { return password; }
 	string getAddress() { return address; }
+	void setVector(vector<Rent> v2) { v = v2; }
 	unsigned int getNif() { return nif; }
 	vector<Rent> getVector() { return v; }
 };

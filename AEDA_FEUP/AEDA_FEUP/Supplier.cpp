@@ -1,12 +1,18 @@
 #include "Supplier.h"
+#include <conio.h>
+#include <windows.h>
+#include <cstdlib>
 
-/*
-template <typename T>
-void Supplier<T>::readFile(string fileName)
+
+
+Utilities u1;
+
+
+Supplier::Supplier()
 {
-	ifstream x;
-	x.open(fileName);
-}*/
+	
+
+}
 
 Supplier::Supplier(string n, string password, unsigned int ni, string ad, vector<Rent> v)
 {
@@ -17,8 +23,3 @@ Supplier::Supplier(string n, string password, unsigned int ni, string ad, vector
 	this->v = v;
 }
 
-/*
-string name, address;
-unsigned int nif;
-vector<Rent<T>> v;
-*/

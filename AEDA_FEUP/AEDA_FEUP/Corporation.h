@@ -35,6 +35,7 @@ public:
 	bool foundSuppliersFile(string suppliersFile);
 	void loadSuppliers();
 	void saveSuppliers();
+	void addRentToSupplier(Supplier s);
 	void registerSupplier();
 
 	bool foundReservationsFile(string reservationsFile);
