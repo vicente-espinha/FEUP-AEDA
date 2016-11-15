@@ -178,9 +178,7 @@ void ExploreOption() {
 void CreateRentOption() {
 
 	u.clearScreen();
-	m.gotoxy(25, 10);
-	cout << "You have selected menu option (#1)" << endl;
-	u.pressToContinueMessage();
+	Corporation::instance()->makeRent();
 	u.clearScreen();
 }
 

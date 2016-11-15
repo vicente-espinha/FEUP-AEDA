@@ -38,6 +38,7 @@ public:
 	void loadSuppliers();
 	void saveSuppliers();
 	void registerSupplier();
+	void makeRent();
 
 	bool foundReservationsFile(string reservationsFile);
 	//void makeReservation();

@@ -25,6 +25,6 @@
     <Text Include="rents.txt" />
     <Text Include="suppliers.txt" />
     <Text Include="reservations.txt" />
-    <Text Include="..\..\..\..\..\Desktop\users.txt" />
+    <Text Include="users.txt" />
   </ItemGroup>
 </Project>
