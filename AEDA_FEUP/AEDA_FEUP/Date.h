@@ -27,5 +27,6 @@ public:
 	Date operator+(Date days);    // Retorna o resultado das datas
 	Date operator-(Date days);    
 	int minus(Date days);     // Retorna a diferenca das datas, para fins de price e whatnot
+	friend ostream& operator<<(ostream& out, const Date & data);
 	
 };

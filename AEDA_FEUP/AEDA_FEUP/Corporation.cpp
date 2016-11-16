@@ -689,42 +689,49 @@ bool Corporation::foundReservationsFile(string reservationsFile)
 //Loads the users file to memory (Reservations vector)
 /*void Corporation::loadReservations()
 {
-string name,name_rent,type, type_type, d1, d2;
-unsigned int n_people;
-Rent *c;
-fstream f;
-string line;
-f.open("reservations.txt");
+	Rent *c;
+	fstream f;
+	string line;
+	f.open("reservations.txt");
 
-while (!f.eof()) {
-getline(f, line);
+	while (!f.eof()) {
+		getline(f, line);
 
-string  name= line.substr(0, line.find(" ; "));
-line.erase(0, line.find(" ; ") + 3);
-string  name_rent = line.substr(0, line.find(" ; "));
-line.erase(0, line.find(" ; ") + 3);
-string type = line.substr(0, line.find(" ; "));
-line.erase(0, line.find(" ; ") + 3);
-string type_type = line.substr(0, line.find(" ; "));
-line.erase(0, line.find(" ; ") + 3);
-unsigned int n_people = stoi(line.substr(0, line.find(" ; ")));
-line.erase(0, line.find(" ; ") + 3);
-string d1 = line.substr(0, line.find(" ; "));
-line.erase(0, line.find(" ; ") + 3);
-string d2 = line.substr(0, line.length());
-
-
-for (vector<Rent>::iterator it=rentsVec.begin(); it != rentsVec.end();it++)
-{
-if (name_rent == it.getName())
-c = *it;
-}
+		string  name = line.substr(0, line.find(" ; "));
+		line.erase(0, line.find(" ; ") + 3);
+		string  city = line.substr(0, line.find(" ; "));
+		line.erase(0, line.find(" ; ") + 3);
+		string  name_rent = line.substr(0, line.find(" ; "));
+		line.erase(0, line.find(" ; ") + 3);
+		string type = line.substr(0, line.find(" ; "));
+		line.erase(0, line.find(" ; ") + 3);
+		string type_type = line.substr(0, line.find(" ; "));
+		line.erase(0, line.find(" ; ") + 3);
+		unsigned int n_people = stoi(line.substr(0, line.find(" ; ")));
+		line.erase(0, line.find(" ; ") + 3);
+		string d1 = line.substr(0, line.find(" ; "));
+		line.erase(0, line.find(" ; ") + 3);
+		string d2 = line.substr(0, line.length());
 
 
-reservationsVec.push_back(Reservation(name, type, type_type, n_people,Date(d1),Date(d2),c));
-}
-f.close();
+		for (vector<Rent>::iterator it = rentsVec.begin(); it != rentsVec.end(); it++)
+		{
+			if ((*it).getCity() == city)
+			{
+				if ((*it).getName() == name_rent)
+				{
+					c = it;
+				}
+			}
+
+		}
+
+
+		reservationsVec.push_back(Reservation(name, city, type, type_type, n_people, Date(d1), Date(d2), c));
+	}
+	f.close();
 }*/
+
 
 /*void Corporation::makeReservation()
 {
@@ -792,17 +799,17 @@ cout << "invalid period of time" << endl;
 
 /*void Corporation::saveReservations()
 {
-ofstream f;
+	ofstream f;
 
-f.open(reservationsFile, ofstream::app);
+	f.open(reservationsFile, ofstream::app);
 
-for (size_t i = 0; i < reservationsVec.size(); i++) {
-f << reservationsVec.at(i).getname() << " ; " << reservationsVec.at(i).getrent().getName() << " ; " << reservationsVec.at(i).gettype_rent << " ; " << reservationsVec.at(i).gettype_type_rent() << " ; " << reservationsVec.at(i).getn_people() << " ; " << reservationsVec.at(i).getDate1() << " ; " << reservationsVec.at(i).getDate2();
-}
+	for (size_t i = 0; i < reservationsVec.size(); i++) {
+		f << reservationsVec.at(i).getusername() << " ; " << reservationsVec.at(i).getcity() << " ; " << reservationsVec.at(i).getrent().getName() << "; " << reservationsVec.at(i).gettype_rent << "; " << reservationsVec.at(i).gettype_type_rent() << "; " << reservationsVec.at(i).getn_people() << "; " << reservationsVec.at(i).getDate1() << "; " << reservationsVec.at(i).getDate2();
+	}
 
-f.close();
+	f.close();
 
-return;
+	return;
 }*/
 
 
@@ -871,3 +878,180 @@ return;
 }
 
 }*/
+
+
+bool Corporation::foundRentsFile(string rentsFile)
+{
+	fstream f;
+
+	f.open(rentsFile);
+
+	if (f.fail()) {
+		f.close();
+		u1.setColor(12); cerr << "\n  ERROR: " << rentsFile << " (suppliers file) could not be found!\n         Verify the directory!\n\n"; u1.setColor(15);
+		return false;
+	}
+
+	f.close();
+
+	this->rentsFile = rentsFile;
+	return true;
+}
+
+void Corporation::loadRents()
+{
+	string line;
+	fstream f;
+
+	vector<Rent> rent;
+
+	f.open(suppliersFile);
+
+	while (getline(f, line)) {
+
+		string typeRent = u1.trim(line.substr(0, line.find(" ; ")));
+		line.erase(0, line.find(" ; ") + 3);
+
+		if (typeRent == "Hotel") {
+			string nameHotel = u1.trim(line.substr(0, line.find(" ; ")));
+			line.erase(0, line.find(" ; ") + 3);
+			string city = u1.trim(line.substr(0, line.find(" ; ")));
+			line.erase(0, line.find(" ; ") + 3);
+			unsigned int startDay = stoi(line.substr(0, line.find("/")));
+			line.erase(0, line.find("/") + 1);
+			unsigned int startMonth = stoi(line.substr(0, line.find("/")));
+			line.erase(0, line.find("/") + 1);
+			unsigned int startYear = stoi(line.substr(0, line.find(" ; ")));
+			line.erase(0, line.find(" ; ") + 3);
+			unsigned int endDay = stoi(line.substr(0, line.find("/")));
+			line.erase(0, line.find("/") + 1);
+			unsigned int endMonth = stoi(line.substr(0, line.find("/")));
+			line.erase(0, line.find("/") + 1);
+			unsigned int endYear = stoi(line.substr(0, line.find(" ; ")));
+			line.erase(0, line.find(" ; ") + 3);
+			string roomType = u1.trim(line.substr(0, line.find(" ; ")));
+			line.erase(0, line.find(" ; ") + 3);
+			float price = stof(line.substr(0, line.find(" ; ")));
+			line.erase(0, line.find(" ; ") + 3);
+			unsigned int numPeople = stoi(line.substr(0, line.length()));
+
+			rentsVec.push_back(Hotel(typeRent, nameHotel, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), roomType, price, numPeople));
+
+		}
+		else if (typeRent == "Bed'n'Breakfast") {
+			string nameBB = u1.trim(line.substr(0, line.find(" ; ")));
+			line.erase(0, line.find(" ; ") + 3);
+			string city = u1.trim(line.substr(0, line.find(" ; ")));
+			line.erase(0, line.find(" ; ") + 3);
+			unsigned int startDay = stoi(line.substr(0, line.find("/")));
+			line.erase(0, line.find("/") + 1);
+			unsigned int startMonth = stoi(line.substr(0, line.find("/")));
+			line.erase(0, line.find("/") + 1);
+			unsigned int startYear = stoi(line.substr(0, line.find(" ; ")));
+			line.erase(0, line.find(" ; ") + 3);
+			unsigned int endDay = stoi(line.substr(0, line.find("/")));
+			line.erase(0, line.find("/") + 1);
+			unsigned int endMonth = stoi(line.substr(0, line.find("/")));
+			line.erase(0, line.find("/") + 1);
+			unsigned int endYear = stoi(line.substr(0, line.find(" ; ")));
+			line.erase(0, line.find(" ; ") + 3);
+			float price = stof(line.substr(0, line.find(" ; ")));
+			line.erase(0, line.find(" ; ") + 3);
+			unsigned int numPeople = stoi(line.substr(0, line.length()));
+
+			rent.push_back(bedNbreakfast(typeRent, nameBB, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople));
+
+		}
+		else if (typeRent == "Shared House") {
+			string nameSH = u1.trim(line.substr(0, line.find(" ; ")));
+			line.erase(0, line.find(" ; ") + 3);
+			string city = u1.trim(line.substr(0, line.find(" ; ")));
+			line.erase(0, line.find(" ; ") + 3);
+			unsigned int startDay = stoi(line.substr(0, line.find("/")));
+			line.erase(0, line.find("/") + 1);
+			unsigned int startMonth = stoi(line.substr(0, line.find("/")));
+			line.erase(0, line.find("/") + 1);
+			unsigned int startYear = stoi(line.substr(0, line.find(" ; ")));
+			line.erase(0, line.find(" ; ") + 3);
+			unsigned int endDay = stoi(line.substr(0, line.find("/")));
+			line.erase(0, line.find("/") + 1);
+			unsigned int endMonth = stoi(line.substr(0, line.find("/")));
+			line.erase(0, line.find("/") + 1);
+			unsigned int endYear = stoi(line.substr(0, line.find(" ; ")));
+			line.erase(0, line.find(" ; ") + 3);
+			float price = stof(line.substr(0, line.find(" ; ")));
+			line.erase(0, line.find(" ; ") + 3);
+			unsigned int numPeople = stoi(line.substr(0, line.length()));
+
+			rent.push_back(sharedHouse(typeRent, nameSH, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople));
+
+		}
+		else if (typeRent == "Flat") {
+			string nameFlat = u1.trim(line.substr(0, line.find(" ; ")));
+			line.erase(0, line.find(" ; ") + 3);
+			string city = u1.trim(line.substr(0, line.find(" ; ")));
+			line.erase(0, line.find(" ; ") + 3);
+			unsigned int startDay = stoi(line.substr(0, line.find("/")));
+			line.erase(0, line.find("/") + 1);
+			unsigned int startMonth = stoi(line.substr(0, line.find("/")));
+			line.erase(0, line.find("/") + 1);
+			unsigned int startYear = stoi(line.substr(0, line.find(" ; ")));
+			line.erase(0, line.find(" ; ") + 3);
+			unsigned int endDay = stoi(line.substr(0, line.find("/")));
+			line.erase(0, line.find("/") + 1);
+			unsigned int endMonth = stoi(line.substr(0, line.find("/")));
+			line.erase(0, line.find("/") + 1);
+			unsigned int endYear = stoi(line.substr(0, line.find(" ; ")));
+			line.erase(0, line.find(" ; ") + 3);
+			float price = stof(line.substr(0, line.find(" ; ")));
+			line.erase(0, line.find(" ; ") + 3);
+			unsigned int numPeople = stoi(line.substr(0, line.length()));
+
+			rent.push_back(flat(typeRent, nameFlat, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople));
+
+		}
+		else if (typeRent == "Apartment") {
+			string nameApartment = u1.trim(line.substr(0, line.find(" ; ")));
+			line.erase(0, line.find(" ; ") + 3);
+			string city = u1.trim(line.substr(0, line.find(" ; ")));
+			line.erase(0, line.find(" ; ") + 3);
+			unsigned int startDay = stoi(line.substr(0, line.find("/")));
+			line.erase(0, line.find("/") + 1);
+			unsigned int startMonth = stoi(line.substr(0, line.find("/")));
+			line.erase(0, line.find("/") + 1);
+			unsigned int startYear = stoi(line.substr(0, line.find(" ; ")));
+			line.erase(0, line.find(" ; ") + 3);
+			unsigned int endDay = stoi(line.substr(0, line.find("/")));
+			line.erase(0, line.find("/") + 1);
+			unsigned int endMonth = stoi(line.substr(0, line.find("/")));
+			line.erase(0, line.find("/") + 1);
+			unsigned int endYear = stoi(line.substr(0, line.find(" ; ")));
+			line.erase(0, line.find(" ; ") + 3);
+			float price = stof(line.substr(0, line.find(" ; ")));
+			line.erase(0, line.find(" ; ") + 3);
+			unsigned int numPeople = stoi(line.substr(0, line.find(" ; ")));
+			int numRooms = stof(line.substr(0, line.find(" ; ")));
+			bool k, s, l;
+			string x = line.substr(0, line.find(" ; "));
+			if (x == "true")
+				k = true;
+			else
+				k = false;
+			x = line.substr(0, line.find(" ; "));
+			if (x == "true")
+				s = true;
+			else
+				s = false;
+			x = line.substr(0, line.find(" ; "));
+			if (x == "true")
+				l = true;
+			else
+				l = false;
+
+			rent.push_back(apartment(typeRent, nameApartment, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople, numRooms, k, s, l));
+
+		}
+	}
+	f.close();
+	return;
+}
