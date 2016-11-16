@@ -716,14 +716,8 @@ bool Corporation::foundReservationsFile(string reservationsFile)
 
 		for (vector<Rent>::iterator it = rentsVec.begin(); it != rentsVec.end(); it++)
 		{
-			if ((*it).getCity() == city)
-			{
-				if ((*it).getName() == name_rent)
-				{
-					c = it;
-				}
-			}
-
+			if ((*it).getCity() == city && (*it).getName() == name_rent)
+				c = it;
 		}
 
 
@@ -735,65 +729,59 @@ bool Corporation::foundReservationsFile(string reservationsFile)
 
 /*void Corporation::makeReservation()
 {
-string city;
-cout << "City : ";
-getline(cin, city);
+	string city;
+	cout << "City : ";
+	getline(cin, city);
 
-cout << "List of possibilities : " << endl;
-for (int i = 0; i < rentsVec; i++)
-{
-if(city == rentsVec.at(i).getCity())
-cout << " -> " << rentsVec.at(i) << endl;
-}
+	cout << "List of possibilities : " << endl;
+	for (int i = 0; i < rentsVec.size(); i++)
+	{
+		if (city == rentsVec.at(i).getCity())
+			cout << " -> " << rentsVec.at(i) << endl; // maneira de display?
+	}
+	string d1, d2, name_rent;
 
-string d1, d2,name_rent;
-Rent c;
+	cout << " Name of the Rent Place : ";
+	getline(cin, name_rent);
 
-cout << " Name of the Rent Place : ";
-getline(cin, name_rent);
+	for (vector<Rent>::iterator it = rentsVec.begin(); it != rentsVec.end(); it++)
+	{
+		if (name_rent == (*it).getName()) {
 
-for (int i = 0; i < rentsVec.size(); i++)
-{
-int n_people;
+			unsigned int n_people;
+			cout << "Number of persons : ";
+			cin >> n_people;
 
-cout << "Number of persons : ";
-cin >> n_people;
+			if (n_people > (*it).getNumPeople())
+			{
+				cout << "Invalid number of persons." << endl;
+				break;
+			}
 
-if (n_people > rentsVec.at(i).getNumOcupantes())
-{
-cout << "Invalid number of persons." << endl;
-break;
-}
+				cout << " Date of check-in : ";
+				getline(cin, d1);
+				cout << "Date of check-out : ";
+				getline(cin, d2);
 
-if (name_rent == rentsVec.at(i).getName())
-{
-cout << " Date of check-in : ";
-getline(cin, d1);
-cout << "Date of check-out : ";
-getline(cin, d2);
+				Date date1 = Date(d1);
+				Date date2 = Date(d2);
 
-Date d1 = Date(d1);
-Date d2 = Date(d2);
-
-if (d1 >= rentsVec.at(i).getDataInicio() && d2 <= rentsVec.at(i).getDataFim())
-{
-string answer;
-cout << rentsVEc.at(i) << endl << "Do you want to confirm? ";
-if (answer == "yes" || answer == "Yes")
-{
-reservationsVec.push_back(Reservation(username,))
-break;
-}
-else
-continue;
-}
-else
-cout << "invalid period of time" << endl;
-}
-}
-
-
-
+				if (date1 >= (*it).getDataInicio() && date2 <= (*it).getDataFim())
+				{
+					string answer;
+					cout << (*it) << endl << "Do you want to confirm? ";
+					if (answer == "yes" || answer == "Yes")
+					{
+						reservationsVec.push_back(Reservation(username, city, (*it).getType(), (*it).getTypeRent(), n_people, date1, date2,it));
+						break;
+					}
+					else
+						continue;
+				}
+				else
+					cout << "invalid period of time" << endl;
+		}
+	}
 }*/
 
 
@@ -804,7 +792,7 @@ cout << "invalid period of time" << endl;
 	f.open(reservationsFile, ofstream::app);
 
 	for (size_t i = 0; i < reservationsVec.size(); i++) {
-		f << reservationsVec.at(i).getusername() << " ; " << reservationsVec.at(i).getcity() << " ; " << reservationsVec.at(i).getrent().getName() << "; " << reservationsVec.at(i).gettype_rent << "; " << reservationsVec.at(i).gettype_type_rent() << "; " << reservationsVec.at(i).getn_people() << "; " << reservationsVec.at(i).getDate1() << "; " << reservationsVec.at(i).getDate2();
+		f << reservationsVec.at(i).getusername() << " ; " << reservationsVec.at(i).getcity() << " ; " << reservationsVec.at(i).getrent().getName() << "; " << reservationsVec.at(i).gettype_rent << "; " << reservationsVec.at(i).gettype_type_rent() << "; " << reservationsVec.at(i).getn_people() << "; " << reservationsVec.at(i).getDate1() << "; " << reservationsVec.at(i).getDate2() << endl;
 	}
 
 	f.close();
@@ -813,69 +801,69 @@ cout << "invalid period of time" << endl;
 }*/
 
 
-/*void Corporation::cancelReservation(string name)
+/*void Corporation::cancelReservation()
 {
 #pragma warning(disable : 4996)
-time_t ti = time(0);
-struct tm * now = localtime(&ti);
-unsigned int year = 1900 + now->tm_year, month = 1 + now->tm_mon, day = now->tm_mday;
-Date real_date = Date(day, month, year);
+	time_t ti = time(0);
+	struct tm * now = localtime(&ti);
+	unsigned int year = 1900 + now->tm_year, month = 1 + now->tm_mon, day = now->tm_mday;
+	Date real_date = Date(day, month, year);
 
-vector<Reservation>temp;
-unsigned int j = 0;
-cout << "List of your reservations : " << endl;
-for (int i = 0; i < reservationsVec.size(); i++)
-{
-if (username == reservationsVec.at(i).getname()) {
-cout << i + 1 << " -> " << reservationsVec.at(i) << endl;
-j++;
-temp.push_back(reservationsVec.at(i));
-}
-}
+	vector<Reservation>temp;
+	unsigned int j = 0;
+	cout << "List of your reservations : " << endl;
+	for (int i = 0; i < reservationsVec.size(); i++)
+	{
+		if (username == reservationsVec.at(i).getusername()) {
+			cout << i + 1 << " -> " << reservationsVec.at(i) << endl; // maneira display?
+			j++;
+			temp.push_back(reservationsVec.at(i));
+		}
+	}
 
-unsigned int n;
-cout << " Which one would you like to cancel :";
-cin >> n;
-if (n > j || n < 0) {
-cout << "Invalid Input" << endl;
-Sleep(3000);
-return;
-}
+	unsigned int n;
+	cout << " Which one would you like to cancel :";
+	cin >> n;
+	if (n > j || n < 0) {
+		cout << "Invalid Input" << endl;
+		Sleep(3000);
+		return;
+	}
 
-string answer;
-cout << "Do you want to confirm ? (yes|No)";
-getline(cin, answer);
-if (answer == "Yes" || answer == "yes")
-{
-for (int i = 0; i < temp.size(); i++)
-{
-if ((i + 1) == n) {
-Date x = temp.at(i).getDate1().minus(real_date);
-if (x.getYear() !=0 || x.getMonth >= 1)
-cout << " You will receive " << temp.at(i).getprice() << " euros." << endl;
-else if (x.getDay >= 15)
-cout << "You will receive " << temp.at(i).getprice() / 2 << " euros." << endl;
-else
-cout << "You will not receive any money." << endl;
-}
-}
+	string answer;
+	cout << "Do you want to confirm ? (yes|No)";
+	getline(cin, answer);
+	if (answer == "Yes" || answer == "yes")
+	{
+		for (int i = 0; i < temp.size(); i++)
+		{
+			if ((i + 1) == n) {
+				Date x = temp.at(i).getDate1().minus(real_date);
+				if (x.getYear() != 0 || x.getMonth >= 1)
+					cout << " You will receive " << temp.at(i).getprice() << " euros." << endl;
+				else if (x.getDay >= 15)
+					cout << "You will receive " << temp.at(i).getprice() / 2 << " euros." << endl;
+				else
+					cout << "You will not receive any money." << endl;
+			}
+		}
 
-for (int i = 0; i < reservationsVec.size(); i++)
-{
-if (reservationsVec.at(i) == temp.at(n - 1)) {
-reservationsVec.erase(reservationsVec.begin() + i);
-cout << "Operation concluded!" << endl;
-Sleep(2000);
-return;
-}
-}
-}
-else
-{
-cout << "You canceled the operation." << endl;
-Sleep(2000);
-return;
-}
+		for (int i = 0; i < reservationsVec.size(); i++)
+		{
+			if (reservationsVec.at(i) == temp.at(n - 1)) {
+				reservationsVec.erase(reservationsVec.begin() + i);
+				cout << "Operation concluded!" << endl;
+				Sleep(2000);
+				return;
+			}
+		}
+	}
+	else
+	{
+		cout << "You canceled the operation." << endl;
+		Sleep(2000);
+		return;
+	}
 
 }*/
 

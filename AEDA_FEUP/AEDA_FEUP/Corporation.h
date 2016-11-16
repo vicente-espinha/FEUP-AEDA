@@ -47,6 +47,7 @@ public:
 	//void makeReservation();
 	//void loadReservations();
 	//void saveReservations();
+	//void cancelReservation();
 
 	bool foundRentsFile(string rentsFile);
 	void loadRents();
