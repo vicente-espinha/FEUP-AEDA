@@ -49,11 +49,11 @@ int main() {
 	u.logo();
 
 	Corporation::instance()->saveUsers();
-	//Corporation::instance()->saveSuppliers();
+	Corporation::instance()->saveSuppliers();
 	
-	u.clearScreen();
-	u.logo();
-	u.aboutMessage();
+	//u.clearScreen();
+	//u.logo();
+	//u.aboutMessage();
 	Sleep(3000);
 	return 0;
 }

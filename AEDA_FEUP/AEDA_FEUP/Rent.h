@@ -29,14 +29,14 @@ protected:
 								// assim por causa da extracao de um istream;
 								// Outra cena, é dataInicio e fim porque o fornecedor tem de explicitar
 								// quais sao as datas em que o aluguer esta disponivel;
-
+	string name;
 	float price;
 	int numPeople;              // O numero de pessoas que vai para um determinado aluguer, (quarto duplo, triplo, etc...)
 	string typeRent;
 	//vector<Clients, Date> reserved;
 public:
 	Rent() {}
-	Rent(string tipoRent, string cidade, Date dataI, Date dataF, float price, int numOcupantes);
+	Rent(string tipoRent, string name2, string cidade, Date dataI, Date dataF, float price, int numOcupantes);
 //	virtual vector<Clients, Date> getReservations() { return reserved; }
 	virtual int getNumPeople() { return numPeople;  }
 	virtual float getPrice() { return price; }

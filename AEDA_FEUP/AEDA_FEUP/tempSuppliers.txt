@@ -1,1 +1,5 @@
-Gajo Bo ; asdasd ; 123456789 ; Macedo crl ; Hotel ;  ; Coimbra ; 1/1/2014 ; 3/3/2014 ; 
+Gajo Bo ; asdasd ; 123456789 ; Macedo crl ; Hotel ;  ; Coimbra ; 1/1/2014 ; 3/3/2014 ;  ; 100 ; 1
+Hugh Mungus ; asdasdsad ; 21321312 ; Cenas ; Hotel ;  ; Coimbra ; 1/1/2014 ; 3/3/2014 ;  ; 100 ; 1
+Bed'n'Breakfast ;  ; Leça, onde se esta bem ; 1/1/2014 ; 3/3/2014 ; 200 ; 3
+Ken Can Bone ; asdasdas ; 12312312 ; Cenas ; Hotel ;  ; Coimbra ; 1/1/2014 ; 3/3/2014 ;  ; 100 ; 1
+Bed'n'Breakfast ;  ; Leça, onde se esta bem ; 1/1/2014 ; 3/3/2014 ; 200 ; 3

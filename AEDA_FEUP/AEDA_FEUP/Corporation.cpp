@@ -303,10 +303,12 @@ void Corporation::loadSuppliers() {
 
 		}
 		else if (typeRent == "Shared House") {
+			cout << typeRent << " ";
 			string nameSH = u1.trim(line.substr(0, line.find(" ; ")));
 			line.erase(0, line.find(" ; ") + 3);
 			string city = u1.trim(line.substr(0, line.find(" ; ")));
 			line.erase(0, line.find(" ; ") + 3);
+			cout << nameSH << " " << city << endl;
 			unsigned int startDay = stoi(line.substr(0, line.find("/")));
 			line.erase(0, line.find("/") + 1);
 			unsigned int startMonth = stoi(line.substr(0, line.find("/")));
@@ -407,35 +409,55 @@ void Corporation::saveSuppliers()
 
 	for (size_t i = 0; i < suppliersVec.size(); i++) {
 		f << suppliersVec[i].getName() << " ; " << suppliersVec[i].getPassword() << " ; " << suppliersVec[i].getNif() << " ; " << suppliersVec[i].getAddress() << " ; ";
-		for (int j = 0; j < suppliersVec[i].getVector().size(); j++)
+		unsigned int j = 0;
+		for (size_t j = 0; j < suppliersVec[i].getVector().size(); j++)
 		{
+
 			if (suppliersVec[i].getVector()[j].getTypeRent() == "Hotel")
 			{
+				cout << "Size: " << suppliersVec.size() << endl;;
+				cout << "Vector Size: " << suppliersVec[i].getVector().size() << endl;
 				//Gajo Bo ; asdasd ; 123456789 ; Macedo crl ; Hotel ; Ibis ; Coimbra ; 1/1/2014 ; 3/3/2014 ; Single Room ; 100 ; 1
 				//Gajo Bo; asdasd; 123456789; Macedo crl; Hotel; ; Coimbra; 1 / 1 / 2014; 3 / 3 / 2014; ; 100; 1
 
-
+				cout << "i: " << i << " j: " << j;
+				cout << suppliersVec[i].getVector()[j].getTypeRent();
 				cout << "Saving Hotel...\n";
-				cout << suppliersVec[i].getVector()[j].getName() << " " << suppliersVec[i].getVector()[j].getCity() << endl;
+
+				cout << "Hotel ; " << suppliersVec[i].getVector()[j].getName() << " ; " << suppliersVec[i].getVector()[j].getCity() << " ; ";
 				f << "Hotel ; " << suppliersVec[i].getVector()[j].getName() << " ; " << suppliersVec[i].getVector()[j].getCity() << " ; ";
-				cout << suppliersVec[i].getVector()[j].getDataInicio().getDay() << "/" << suppliersVec[i].getVector()[j].getDataInicio().getMonth() << suppliersVec[i].getVector()[j].getDataInicio().getYear() << endl;
+				cout << suppliersVec[i].getVector()[j].getDataInicio().getDay() << "/" << suppliersVec[i].getVector()[j].getDataInicio().getMonth() << "/" << suppliersVec[i].getVector()[j].getDataInicio().getYear() << " ; ";
 				f << suppliersVec[i].getVector()[j].getDataInicio().getDay() << "/" << suppliersVec[i].getVector()[j].getDataInicio().getMonth() << "/" << suppliersVec[i].getVector()[j].getDataInicio().getYear() << " ; ";
+				cout << suppliersVec[i].getVector()[j].getDataFim().getDay() << "/" << suppliersVec[i].getVector()[j].getDataFim().getMonth() << "/" << suppliersVec[i].getVector()[j].getDataFim().getYear() << " ; ";
 				f << suppliersVec[i].getVector()[j].getDataFim().getDay() << "/" << suppliersVec[i].getVector()[j].getDataFim().getMonth() << "/" << suppliersVec[i].getVector()[j].getDataFim().getYear() << " ; ";
-				f << u1.trim(suppliersVec[i].getVector()[j].getType()) << " ; " << suppliersVec[i].getVector()[j].getPrice() << " ; " << suppliersVec[i].getVector()[j].getNumPeople() << "\n";
+				cout << suppliersVec[i].getVector()[j].getType() << " ; " << suppliersVec[i].getVector()[j].getPrice() << " ; " << suppliersVec[i].getVector()[j].getNumPeople() << "\n";
+				f << suppliersVec[i].getVector()[j].getType() << " ; " << suppliersVec[i].getVector()[j].getPrice() << " ; " << suppliersVec[i].getVector()[j].getNumPeople() << "\n";
 				cout << "Completed!\n";
+				
 			}
 
-			if (u1.trim(suppliersVec[i].getVector()[j].getTypeRent()) == "Bed'n'Breakfast")
+			if (suppliersVec[i].getVector()[j].getTypeRent() == "Bed'n'Breakfast")
 			{
+				cout << "i: " << i << " j: " << j;
+
+				cout << suppliersVec[i].getVector()[j].getTypeRent();
+
 				cout << "Saving Bed'n'Breakfast...\n";
-				f << "Bed'n'Breakfast ; " << u1.trim(suppliersVec[i].getVector()[j].getName()) << " ; " << u1.trim(suppliersVec[i].getVector()[j].getCity()) << " ; ";
+				cout << "Bed'n'Breakfast ; " << suppliersVec[i].getVector()[j].getName() << " ; " << u1.trim(suppliersVec[i].getVector()[j].getCity()) << " ; ";
+				f << "Bed'n'Breakfast ; " << suppliersVec[i].getVector()[j].getName() << " ; " << u1.trim(suppliersVec[i].getVector()[j].getCity()) << " ; ";
+				cout << suppliersVec[i].getVector()[j].getDataInicio().getDay() << "/" << suppliersVec[i].getVector()[j].getDataInicio().getMonth() << "/" << suppliersVec[i].getVector()[j].getDataInicio().getYear() << " ; ";
 				f << suppliersVec[i].getVector()[j].getDataInicio().getDay() << "/" << suppliersVec[i].getVector()[j].getDataInicio().getMonth() << "/" << suppliersVec[i].getVector()[j].getDataInicio().getYear() << " ; ";
+				cout << suppliersVec[i].getVector()[j].getDataFim().getDay() << "/" << suppliersVec[i].getVector()[j].getDataFim().getMonth() << "/" << suppliersVec[i].getVector()[j].getDataFim().getYear() << " ; ";
 				f << suppliersVec[i].getVector()[j].getDataFim().getDay() << "/" << suppliersVec[i].getVector()[j].getDataFim().getMonth() << "/" << suppliersVec[i].getVector()[j].getDataFim().getYear() << " ; ";
+				cout << suppliersVec[i].getVector()[j].getPrice() << " ; " << suppliersVec[i].getVector()[j].getNumPeople() << "\n";
 				f << suppliersVec[i].getVector()[j].getPrice() << " ; " << suppliersVec[i].getVector()[j].getNumPeople() << "\n";
 				cout << "Completed!\n";
 			}
-			if (u1.trim(suppliersVec[i].getVector()[j].getTypeRent()) == "Shared House")
+			if (suppliersVec[i].getVector()[j].getTypeRent() == "Shared House")
 			{
+				cout << "i: " << i << " j: " << j;
+
+				cout << suppliersVec[i].getVector()[j].getTypeRent();
 				cout << "Saving Shared House...\n";
 				f << "Shared House ; " << u1.trim(suppliersVec[i].getVector()[j].getName()) << " ; " << u1.trim(suppliersVec[i].getVector()[j].getCity()) << " ; ";
 				f << suppliersVec[i].getVector()[j].getDataInicio().getDay() << "/" << suppliersVec[i].getVector()[j].getDataInicio().getMonth() << "/" << suppliersVec[i].getVector()[j].getDataInicio().getYear() << " ; ";
@@ -443,8 +465,11 @@ void Corporation::saveSuppliers()
 				f << suppliersVec[i].getVector()[j].getPrice() << " ; " << suppliersVec[i].getVector()[j].getNumPeople() << "\n";
 				cout << "Completed!\n";
 			}
-			if (u1.trim(suppliersVec[i].getVector()[j].getTypeRent()) == "Flat")
+			if (suppliersVec[i].getVector()[j].getTypeRent() == "Flat")
 			{
+				cout << "i: " << i << " j: " << j;
+				cout << suppliersVec[i].getVector()[j].getTypeRent();
+
 				cout << "Saving Flat...\n";
 				f << "Flat ; " << u1.trim(suppliersVec[i].getVector()[j].getName()) << " ; " << u1.trim(suppliersVec[i].getVector()[j].getCity()) << " ; ";
 				f << suppliersVec[i].getVector()[j].getDataInicio().getDay() << "/" << suppliersVec[i].getVector()[j].getDataInicio().getMonth() << "/" << suppliersVec[i].getVector()[j].getDataInicio().getYear() << " ; ";
@@ -452,8 +477,9 @@ void Corporation::saveSuppliers()
 				f << suppliersVec[i].getVector()[j].getPrice() << " ; " << suppliersVec[i].getVector()[j].getNumPeople() << "\n";
 				cout << "Completed!\n";
 			}
-			if (u1.trim(suppliersVec[i].getVector()[j].getTypeRent()) == "Apartment")
+			if (suppliersVec[i].getVector()[j].getTypeRent() == "Apartment")
 			{
+				cout << suppliersVec[i].getVector()[j].getTypeRent();
 				cout << "Saving Apartment...\n";
 				f << "Apartment ; " << u1.trim(suppliersVec[i].getVector()[j].getName()) << " ; " << u1.trim(suppliersVec[i].getVector()[j].getCity()) << " ; ";
 				f << suppliersVec[i].getVector()[j].getDataInicio().getDay() << "/" << suppliersVec[i].getVector()[j].getDataInicio().getMonth() << "/" << suppliersVec[i].getVector()[j].getDataInicio().getYear() << " ; ";
