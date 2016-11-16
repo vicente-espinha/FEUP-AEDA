@@ -40,7 +40,7 @@ int main() {
 	}
 
 	Corporation::instance()->loadUsers();
-	//Corporation::instance()->loadSuppliers();
+	Corporation::instance()->loadSuppliers();
 
 	u.clearScreen();
 	menu.MainMenu();
