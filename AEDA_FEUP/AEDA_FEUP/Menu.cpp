@@ -52,7 +52,7 @@ void Menu::ChangeCursorStatus(bool Visible) {
 //////////////////
 
 
-string * Menu::LoginItems() {
+string * Menu::MainMenuItems() {
 
 	string *item = new string[4];
 	item[0] = "Login";
@@ -74,31 +74,40 @@ string * Menu::RegisterItems() {
 	return item;
 }
 //----------------------------------------------
-string * Menu::Menu1Items() {
+string * Menu::UsersMenuItems() {
 
 	string *item = new string[5];
-	item[0] = "Menu Option #1.";
-	item[1] = "Menu Option #2.";
-	item[2] = "Menu Option #3.";
-	item[3] = "Return to Main Menu";
-	item[4] = "Exit.";
+	item[0] = "Make Reservation";
+	item[1] = "Cancel Reservation";
+	item[2] = "Explore";
+	item[3] = "Logout";
+	item[4] = "Exit";
 
 	return item;
 }
+//----------------------------------------------
+string * Menu::SuppliersMenuItems() {
 
+	string *item = new string[5];
+	item[0] = "Create Rent";
+	item[1] = "Delete Rent";
+	item[2] = "Your rents";
+	item[3] = "Logout";
+	item[4] = "Exit";
+
+	return item;
+}
 
 ///////////////////
 // MENU OPTIONS //
 //////////////////
 
 
-/*-------Login Menu options--------*/
+/*-------Main Menu options--------*/
 void LoginOption() {
 
 	u.clearScreen();
-	m.gotoxy(25, 10);
-	cout << "You have selected menu option (#1)" << endl;
-	u.pressToContinueMessage();
+	Corporation::instance()->login();
 	u.clearScreen();
 
 }
@@ -114,7 +123,7 @@ void RegisterOption() {
 void UnregUserOption() {
 
 	u.clearScreen();
-	m.Menu1();
+	m.UsersMenu();
 	u.clearScreen();
 
 }
@@ -125,7 +134,7 @@ void SupplierOption() {
 	u.clearScreen();
 	u.setColor(14); cout << "\n  ::| REGISTER |::\n"; u.setColor(15);
 	Corporation::instance()->registerSupplier();
-	m.Menu1();
+	m.MainMenu();
 }
 
 void UserOption() {
@@ -133,12 +142,12 @@ void UserOption() {
 	u.clearScreen();
 	u.setColor(14); cout << "\n  ::| REGISTER |::\n"; u.setColor(15);
 	Corporation::instance()->registerUser();
-	m.Menu1();
+	m.MainMenu();
 
 }
 
-/*-------Menu 1 options--------*/
-void Option1() {
+/*-------Users Menu options--------*/
+void MakeReservationOption() {
 
 	u.clearScreen();
 	m.gotoxy(25, 10);
@@ -147,7 +156,7 @@ void Option1() {
 	u.clearScreen();
 }
 
-void Option2() {
+void CancelReservationOption() {
 
 	u.clearScreen();
 	m.gotoxy(25, 10);
@@ -156,7 +165,33 @@ void Option2() {
 	u.clearScreen();
 }
 
-void Option3() {
+void ExploreOption() {
+
+	u.clearScreen();
+	m.gotoxy(25, 10);
+	cout << "You have selected menu option (#3)" << endl;
+	u.pressToContinueMessage();
+	u.clearScreen();
+}
+
+/*-------Suppliers Menu options--------*/
+void CreateRentOption() {
+
+	u.clearScreen();
+	Corporation::instance()->makeRent();
+	u.clearScreen();
+}
+
+void DeleteRentOption() {
+
+	u.clearScreen();
+	m.gotoxy(25, 10);
+	cout << "You have selected menu option (#2)" << endl;
+	u.pressToContinueMessage();
+	u.clearScreen();
+}
+
+void ViewAllRentsOption() {
 
 	u.clearScreen();
 	m.gotoxy(25, 10);
@@ -166,17 +201,9 @@ void Option3() {
 }
 
 /*-------Return and exit options--------*/
-void returnMain() {
+void Logout() { u.clearScreen(); m.MainMenu(); }
 
-	u.clearScreen();
-	m.LoginMenu();
-}
-
-void ExitOption() {
-
-	isRunning = false;
-
-}
+void ExitOption() { isRunning = false; }
 
 
 //////////////////////////
@@ -184,7 +211,7 @@ void ExitOption() {
 /////////////////////////
 
 
-int Menu::LoginMenu() {
+int Menu::MainMenu() {
 
 	ChangeCursorStatus(false);
 	typedef void(*TMenuOption)();
@@ -205,7 +232,7 @@ int Menu::LoginMenu() {
 
 			gotoxy(2, 2 + i);
 			MenuChoice == i + 1 ? cout << " -> " : cout << "    "; // if (i+1) == MenuChoice, ' -> ', else print '    '.
-			cout << LoginItems()[i] << endl;
+			cout << MainMenuItems()[i] << endl;
 		}
 
 		key = _getch(); //get the key.
@@ -271,7 +298,7 @@ int Menu::RegisterMenu() {
 	TMenuOption *MenuOption = new TMenuOption[ItemCount]; //Array of pointers to functions (dynamic).
 	MenuOption[0] = SupplierOption; //Filling the array with the functions.
 	MenuOption[1] = UserOption;
-	MenuOption[2] = returnMain;
+	MenuOption[2] = Logout;
 	MenuOption[3] = ExitOption;
 
 	while (1) {
@@ -331,7 +358,7 @@ int Menu::RegisterMenu() {
 
 }
 
-int Menu::Menu1() {
+int Menu::UsersMenu() {
 
 	ChangeCursorStatus(false);
 	typedef void(*TMenuOption)();
@@ -341,10 +368,10 @@ int Menu::Menu1() {
 	char key; //For entering the key (up arrow,down arrow,etc...).
 
 	TMenuOption *MenuOption = new TMenuOption[ItemCount]; //Array of pointers to functions (dynamic).
-	MenuOption[0] = Option1; //Filling the array with the functions.
-	MenuOption[1] = Option2;
-	MenuOption[2] = Option3;
-	MenuOption[3] = returnMain;
+	MenuOption[0] = MakeReservationOption; //Filling the array with the functions.
+	MenuOption[1] = CancelReservationOption;
+	MenuOption[2] = ExploreOption;
+	MenuOption[3] = Logout;
 	MenuOption[4] = ExitOption;
 
 	while (1) {
@@ -353,7 +380,7 @@ int Menu::Menu1() {
 
 			gotoxy(2, 2 + i);
 			MenuChoice == i + 1 ? cout << " -> " : cout << "    "; // if (i+1) == MenuChoice, ' -> ', else print '    '.
-			cout << Menu1Items()[i] << endl;
+			cout << UsersMenuItems()[i] << endl;
 		}
 
 		key = _getch(); //get the key.
@@ -401,4 +428,77 @@ int Menu::Menu1() {
 
 	delete MenuOption;
 	return 0;
+}
+
+int Menu::SuppliersMenu() {
+
+	ChangeCursorStatus(false);
+	typedef void(*TMenuOption)();
+
+	int ItemCount = 5; // This variable holds the number of menu items.
+	int MenuChoice = 1; // This variable holds the position of the cursor. 
+	char key; //For entering the key (up arrow,down arrow,etc...).
+
+	TMenuOption *MenuOption = new TMenuOption[ItemCount]; //Array of pointers to functions (dynamic).
+	MenuOption[0] = CreateRentOption; //Filling the array with the functions.
+	MenuOption[1] = DeleteRentOption;
+	MenuOption[2] = ViewAllRentsOption;
+	MenuOption[3] = Logout;
+	MenuOption[4] = ExitOption;
+
+	while (1) {
+
+		for (int i = 0; i < ItemCount; i++) { // Draw the m.
+
+			gotoxy(2, 2 + i);
+			MenuChoice == i + 1 ? cout << " -> " : cout << "    "; // if (i+1) == MenuChoice, ' -> ', else print '    '.
+			cout << SuppliersMenuItems()[i] << endl;
+		}
+
+		key = _getch(); //get the key.
+
+		switch (key) {
+
+		case '\r': // if the entered key is 'Enter'.
+			try {
+
+				(*MenuOption[MenuChoice - 1])();
+			}
+			catch (...) {}
+
+			if (!isRunning) {
+				return 0;
+			}
+
+			break;
+
+		case 'P': // if the entered key is the 'up arrow'
+			MenuChoice++;
+			if (MenuChoice > ItemCount)
+				MenuChoice = 1;
+			break;
+
+		case 'H': //If the entered key is the 'down arrow'
+			MenuChoice--;
+			if (MenuChoice < 1)
+				MenuChoice = ItemCount;
+			break;
+
+		case 27: // If the entered key is the escape key (Esc)
+			try { (*MenuOption[ItemCount - 1])(); }
+			catch (...) {}
+			break;
+		default:// any another key.
+			if (key >= '1' && key <= char(ItemCount + '0')) {
+
+				try { (*MenuOption[int(key) - '0' - 1])(); }
+
+				catch (...) {}
+			}
+		}
+	}
+
+	delete MenuOption;
+	return 0;
+
 }

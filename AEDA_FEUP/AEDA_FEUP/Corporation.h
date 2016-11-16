@@ -27,6 +27,8 @@ private:
 public:
 	static Corporation* instance();
 
+	void login();
+
 	bool foundUsersFile(string userFiles);
 	void loadUsers();
 	void saveUsers();
@@ -37,6 +39,7 @@ public:
 	void saveSuppliers();
 	void addRentToSupplier(Supplier s);
 	void registerSupplier();
+	void makeRent();
 
 	bool foundReservationsFile(string reservationsFile);
 	//void makeReservation();
