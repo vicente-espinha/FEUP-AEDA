@@ -486,7 +486,7 @@ void Corporation::printSuppliers()
 			f << suppliersVec[i].getVector()[j].getPrice() << " ; " << suppliersVec[i].getVector()[j].getNumPeople() << " ; ";
 			f << suppliersVec[i].getVector()[j].getNumRooms() << " ; ";
 			f << suppliersVec[i].getVector()[j].getKitchen() << " ; " << suppliersVec[i].getVector()[j].getSuite() << " ; " << suppliersVec[i].getVector()[j].getLivingRoom() << "\n";
-			cout << "Completed!\n";
+			cout << "Completed!\n"; 
 		}
 
 	}
