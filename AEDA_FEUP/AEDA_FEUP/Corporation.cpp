@@ -543,7 +543,7 @@ void Corporation::registerSupplier()
 		Supplier x (s, password, nif, ad, v2);
 		suppliersVec.push_back(x);
 		cout << "\nSuccess!!! The program will now return.";
-		Sleep(1000);
+		Sleep(1000); 
 		isIn = false;
 }
 
