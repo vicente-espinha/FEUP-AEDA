@@ -133,12 +133,7 @@ void Corporation::registerUser() {
 
 	string user, password, nif;
 
-<<<<<<< HEAD
-	cout << "\n Name:  ";
-	getline(cin, username);
-=======
 	cout << "\n Name:  "; getline(cin, user);
->>>>>>> origin/master
 
 	if (cin.eof()) {
 		u1.cancelMessage();
@@ -239,115 +234,6 @@ void Corporation::loadSuppliers() {
 	fstream f;
 
 	vector<Rent> rent;
-<<<<<<< HEAD
-	f.open(suppliersFile);
-
-
-	while (getline(f, line)) {
-		cout << "Cenas maradas\n";
-		string supplierName = line.substr(0, line.find(" ; "));
-		cout << "Cenas maradas\n"; line.erase(0, line.find(" ; ") + 3);
-		string password = line.substr(0, line.find(" ; "));
-		cout << "Cenas maradas\n"; line.erase(0, line.find(" ; ") + 3);
-		cout << "Cenas maradas\n"; unsigned int nif = stoi(line.substr(0, line.find(" ; ")));
-		cout << "Cenas maradas\n"; line.erase(0, line.find(" ; ") + 3);
-		string address = line.substr(0, line.find(" ; "));
-		line.erase(0, line.find(" ; ") + 3);
-		string typeRent = line.substr(0, line.find(" ; "));
-		line.erase(0, line.find(" ; ") + 3);
-		if (typeRent == "Hotel") {
-			string nameHotel = line.substr(0, line.find(" ; "));
-			line.erase(0, line.find(" ; ") + 3);
-			string city = line.substr(0, line.find(" ; "));
-			line.erase(0, line.find(" ; ") + 3);
-			unsigned int startDay = stoi(line.substr(0, line.find(" ; ")));
-			line.erase(0, line.find(" ; ") + 3);
-			unsigned int startMonth = stoi(line.substr(0, line.find(" ; ")));
-			line.erase(0, line.find(" ; ") + 3);
-			unsigned int startYear = stoi(line.substr(0, line.find(" ; ")));
-			line.erase(0, line.find(" ; ") + 3);
-			unsigned int endDay = stoi(line.substr(0, line.find(" ; ")));
-			line.erase(0, line.find(" ; ") + 3);
-			unsigned int endMonth = stoi(line.substr(0, line.find(" ; ")));
-			line.erase(0, line.find(" ; ") + 3);
-			unsigned int endYear = stoi(line.substr(0, line.find(" ; ")));
-			line.erase(0, line.find(" ; ") + 3);
-			string roomType = line.substr(0, line.find(" ; "));
-			line.erase(0, line.find(" ; ") + 3);
-			float price = stof(line.substr(0, line.find(" ; ")));
-			line.erase(0, line.find(" ; ") + 3);
-			unsigned int numPeople = stoi(line.substr(0, line.length()));
-		
-			rent.push_back(Hotel(typeRent, nameHotel, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), roomType, price, numPeople));
-			suppliersVec.push_back(Supplier(supplierName, password, nif, address, rent));
-		
-		}
-		else if (typeRent == "Bed'n'Breakfast") {
-			string nameBB = line.substr(0, line.find(" ; "));
-			line.erase(0, line.find(" ; ") + 3);
-			string city = line.substr(0, line.find(" ; "));
-			line.erase(0, line.find(" ; ") + 3);
-			unsigned int startDay = stoi(line.substr(0, line.find(" ; ")));
-			line.erase(0, line.find(" ; ") + 3);
-			unsigned int startMonth = stoi(line.substr(0, line.find(" ; ")));
-			line.erase(0, line.find(" ; ") + 3);
-			unsigned int startYear = stoi(line.substr(0, line.find(" ; ")));
-			line.erase(0, line.find(" ; ") + 3);
-			unsigned int endDay = stoi(line.substr(0, line.find(" ; ")));
-			line.erase(0, line.find(" ; ") + 3);
-			unsigned int endMonth = stoi(line.substr(0, line.find(" ; ")));
-			line.erase(0, line.find(" ; ") + 3);
-			unsigned int endYear = stoi(line.substr(0, line.find(" ; ")));
-			line.erase(0, line.find(" ; ") + 3);
-			float price = stof(line.substr(0, line.find(" ; ")));
-			line.erase(0, line.find(" ; ") + 3);
-			unsigned int numPeople = stoi(line.substr(0, line.length()));
-
-			rent.push_back(bedNbreakfast(typeRent, nameBB, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople));
-			suppliersVec.push_back(Supplier(supplierName, password, nif, address, rent));
-
-		}
-		else if (typeRent == "Shared House") {
-			string nameSH = line.substr(0, line.find(" ; "));
-			line.erase(0, line.find(" ; ") + 3);
-			string city = line.substr(0, line.find(" ; "));
-			line.erase(0, line.find(" ; ") + 3);
-			unsigned int startDay = stoi(line.substr(0, line.find(" ; ")));
-			line.erase(0, line.find(" ; ") + 3);
-			unsigned int startMonth = stoi(line.substr(0, line.find(" ; ")));
-			line.erase(0, line.find(" ; ") + 3);
-			unsigned int startYear = stoi(line.substr(0, line.find(" ; ")));
-			line.erase(0, line.find(" ; ") + 3);
-			unsigned int endDay = stoi(line.substr(0, line.find(" ; ")));
-			line.erase(0, line.find(" ; ") + 3);
-			unsigned int endMonth = stoi(line.substr(0, line.find(" ; ")));
-			line.erase(0, line.find(" ; ") + 3);
-			unsigned int endYear = stoi(line.substr(0, line.find(" ; ")));
-			line.erase(0, line.find(" ; ") + 3);
-			float price = stof(line.substr(0, line.find(" ; ")));
-			line.erase(0, line.find(" ; ") + 3);
-			unsigned int numPeople = stoi(line.substr(0, line.length()));
-
-			rent.push_back(sharedHouse(typeRent, nameSH, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople));
-			suppliersVec.push_back(Supplier(supplierName, password, nif, address, rent));
-
-		}
-		else if (typeRent == "Flat") {
-			string nameFlat = line.substr(0, line.find(" ; "));
-			line.erase(0, line.find(" ; ") + 3);
-			string city = line.substr(0, line.find(" ; "));
-			line.erase(0, line.find(" ; ") + 3);
-			unsigned int startDay = stoi(line.substr(0, line.find(" ; ")));
-			line.erase(0, line.find(" ; ") + 3);
-			unsigned int startMonth = stoi(line.substr(0, line.find(" ; ")));
-			line.erase(0, line.find(" ; ") + 3);
-			unsigned int startYear = stoi(line.substr(0, line.find(" ; ")));
-			line.erase(0, line.find(" ; ") + 3);
-			unsigned int endDay = stoi(line.substr(0, line.find(" ; ")));
-			line.erase(0, line.find(" ; ") + 3);
-			unsigned int endMonth = stoi(line.substr(0, line.find(" ; ")));
-			line.erase(0, line.find(" ; ") + 3);
-=======
 
 	f.open(suppliersFile);
 
@@ -406,49 +292,12 @@ void Corporation::loadSuppliers() {
 			line.erase(0, line.find("/") + 1);
 			unsigned int endMonth = stoi(line.substr(0, line.find("/")));
 			line.erase(0, line.find("/") + 1);
->>>>>>> origin/master
 			unsigned int endYear = stoi(line.substr(0, line.find(" ; ")));
 			line.erase(0, line.find(" ; ") + 3);
 			float price = stof(line.substr(0, line.find(" ; ")));
 			line.erase(0, line.find(" ; ") + 3);
 			unsigned int numPeople = stoi(line.substr(0, line.length()));
 
-<<<<<<< HEAD
-			rent.push_back(flat(typeRent, nameFlat, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople));
-			suppliersVec.push_back(Supplier(supplierName, password, nif, address, rent));
-
-		}
-		else if (typeRent == "Apartment") {
-			/*string nameApartment = line.substr(0, line.find(" ; "));
-			line.erase(0, line.find(" ; ") + 3);
-			string city = line.substr(0, line.find(" ; "));
-			line.erase(0, line.find(" ; ") + 3);
-			unsigned int startDay = stoi(line.substr(0, line.find(" ; ")));
-			line.erase(0, line.find(" ; ") + 3);
-			unsigned int startMonth = stoi(line.substr(0, line.find(" ; ")));
-			line.erase(0, line.find(" ; ") + 3);
-			unsigned int startYear = stoi(line.substr(0, line.find(" ; ")));
-			line.erase(0, line.find(" ; ") + 3);
-			unsigned int endDay = stoi(line.substr(0, line.find(" ; ")));
-			line.erase(0, line.find(" ; ") + 3);
-			unsigned int endMonth = stoi(line.substr(0, line.find(" ; ")));
-			line.erase(0, line.find(" ; ") + 3);
-			unsigned int endYear = stoi(line.substr(0, line.find(" ; ")));
-			line.erase(0, line.find(" ; ") + 3);
-			float price = stof(line.substr(0, line.find(" ; ")));
-			line.erase(0, line.find(" ; ") + 3);
-			unsigned int numPeople = stoi(line.substr(0, line.length()));
-
-			rent.push_back(flat(typeRent, nameApartment, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople));
-			suppliersVec.push_back(Supplier(supplierName, password, nif, address, rent));
-
-		}*/
-		}
-		f.close();
-		return;
-
-	}
-=======
 			rent.push_back(bedNbreakfast(typeRent, nameBB, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople));
 			suppliersVec.push_back(Supplier(supplierName, password, nif, address, rent));
 
@@ -540,8 +389,8 @@ void Corporation::loadSuppliers() {
 				l = true;
 			else
 				l = false;
-		
-			rent.push_back(apartment(typeRent, nameApartment, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople, numRooms, k, s ,l));
+
+			rent.push_back(apartment(typeRent, nameApartment, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople, numRooms, k, s, l));
 			suppliersVec.push_back(Supplier(supplierName, password, nif, address, rent));
 
 		}
@@ -549,7 +398,6 @@ void Corporation::loadSuppliers() {
 	f.close();
 	return;
 
->>>>>>> origin/master
 }
 
 //Loads suppliersVec to the .txt file
@@ -628,17 +476,6 @@ void Corporation::saveSuppliers()
 }
 
 //Adds a supplier to the suppliers vector
-<<<<<<< HEAD
-void Corporation::addRentToSupplier(Supplier s)
-{
-	bool isIn;
-
-	isIn = true;
-	int numIteration;
-	
-	while (isIn)
-	{
-=======
 void Corporation::registerSupplier() {
 
 	string user, password, nif, address;
@@ -767,7 +604,6 @@ void Corporation::makeRent() {
 	isIn = true;
 	while (isIn) {
 
->>>>>>> origin/master
 		cout << "\nHow many rents do you wish to be made available?\n";
 		cin >> numIteration;
 		if (u1.invalidInputRetry())
@@ -783,7 +619,6 @@ void Corporation::makeRent() {
 		u1.clearScreen();
 		cout << "What is the type of rent? \n1 - Hotel\n2 - Bed'n'Breakfast\n3 - Apartment\n4 - Flat\n5 - Shared House";
 		cin >> choice;
-		vector<Rent> temp;
 		if (u1.invalidInputRetry())
 		{
 			i--;
@@ -798,113 +633,41 @@ void Corporation::makeRent() {
 		if (choice == 1)
 		{
 			Hotel h;
-			temp = s.getVector();
-			temp.push_back(h.buildRent());
-			s.setVector(temp);
-			break;
+			v.push_back(h.buildRent());
 		}
 		if (choice == 2)
 		{
 			bedNbreakfast bnb;
-			temp = s.getVector();
-			temp.push_back(bnb.buildRent());
-			s.setVector(temp);
-			break;
+			v.push_back(bnb.buildRent());
 		}
 		if (choice == 3)
 		{
 			flat fl;
-			temp = s.getVector();
-			temp.push_back(fl.buildRent());
-			s.setVector(temp);
+			v.push_back(fl.buildRent());
 			break;
 		}
 		if (choice == 4)
 		{
 			apartment ap;
-			temp = s.getVector();
-			temp.push_back(ap.buildRent());
-			s.setVector(temp);
+			v.push_back(ap.buildRent());
 			break;
 		}
 		if (choice == 5)
 		{
 			sharedHouse sh;
-			temp = s.getVector();
-			temp.push_back(sh.buildRent());
-			s.setVector(temp);
+			v.push_back(sh.buildRent());
 			break;
 		}
 	}
 
 	cout << "\n\nThe program will now return to the main menu.\n\n";
-<<<<<<< HEAD
-	
-=======
 	Sleep(2000);
->>>>>>> origin/master
 
 	return;
 
 }
 
-void Corporation::registerSupplier()
-{
-	bool isIn = true;
-	u1.clearScreen();
-	string s, ad, password;
-	unsigned int nif;
-	while (isIn)
-	{
-		cout << "What is your username?\nUsername: ";
-		cin >> s;
-		for (int i = 0; i < suppliersVec.size(); i++)
-		{
-			if (s == suppliersVec[i].getName())
-			{
-				cout << "The username is already taken! Do you wish to try again? (y/n)";
-				string choice;
-				cin >> choice;
-				if (choice == "Y" || choice == "y")
-					continue;
-				if (choice == "n" || choice == "N")
-				{
-					cout << "\nThe program will now return.\n";
-					isIn = false;
-					return;
-				}
-				else
-				{
-					u1.cinClear();
-					i--;
-					continue;
-				}
-			}
-		}
-		cout << "\nPassword: ";
-		cin >> password;
-		cout << "\nWhat is your FIN? (Fiscal Identification Number)\nFIN: ";
-		cin >> nif;
-		if (u1.invalidInputRetry())
-			continue;
-		if (!u1.invalidInputRetry())
-		{
-		
-			cout << "\nThe program will now return.\n";
-			isIn = false;
-			return;
-		}
-		cout << "\nWhat is your address?\nAddress: ";
-		cin >> ad;
-		vector<Rent> v2;
-		Supplier x (s, password, nif, ad, v2);
-		suppliersVec.push_back(x);
-		cout << "\nSuccess!!! The program will now return.";
-		Sleep(1000); 
-		isIn = false;
-}
-
-/*Checks existance of the reservations file
+//Checks existance of the reservations file
 bool Corporation::foundReservationsFile(string reservationsFile)
 {
 	fstream f;
@@ -922,105 +685,105 @@ bool Corporation::foundReservationsFile(string reservationsFile)
 	this->reservationsFile = reservationsFile;
 	return true;
 }
-*/
-//Loads the users file to memory (Users vector)
 
+//Loads the users file to memory (Reservations vector)
 /*void Corporation::loadReservations()
 {
-	string name,name_rent,type, type_type, d1, d2;
-	unsigned int n_people;
-	Rent *c;
-	fstream f;
-	string line;
-	f.open("reservations.txt");
+string name,name_rent,type, type_type, d1, d2;
+unsigned int n_people;
+Rent *c;
+fstream f;
+string line;
+f.open("reservations.txt");
 
-	while (!f.eof()) {
-		getline(f, line);
+while (!f.eof()) {
+getline(f, line);
 
-		string  name= line.substr(0, line.find(" ; "));
-		line.erase(0, line.find(" ; ") + 3);
-		string  name_rent = line.substr(0, line.find(" ; "));
-		line.erase(0, line.find(" ; ") + 3);
-		string type = line.substr(0, line.find(" ; "));
-		line.erase(0, line.find(" ; ") + 3);
-		string type_type = line.substr(0, line.find(" ; "));
-		line.erase(0, line.find(" ; ") + 3);
-		unsigned int n_people = stoi(line.substr(0, line.find(" ; ")));
-		line.erase(0, line.find(" ; ") + 3);
-		string d1 = line.substr(0, line.find(" ; "));
-		line.erase(0, line.find(" ; ") + 3);
-		string d2 = line.substr(0, line.length());
-
-		for (int i = 0; i < rentsVec.size(); i++)
-		{
-			if (name_rent == rentsVec.at(i).getName())
-				c = rentsVec.at(i).getName();
-		}
+string  name= line.substr(0, line.find(" ; "));
+line.erase(0, line.find(" ; ") + 3);
+string  name_rent = line.substr(0, line.find(" ; "));
+line.erase(0, line.find(" ; ") + 3);
+string type = line.substr(0, line.find(" ; "));
+line.erase(0, line.find(" ; ") + 3);
+string type_type = line.substr(0, line.find(" ; "));
+line.erase(0, line.find(" ; ") + 3);
+unsigned int n_people = stoi(line.substr(0, line.find(" ; ")));
+line.erase(0, line.find(" ; ") + 3);
+string d1 = line.substr(0, line.find(" ; "));
+line.erase(0, line.find(" ; ") + 3);
+string d2 = line.substr(0, line.length());
 
 
-		reservationsVec.push_back(Reservation(name, type, type_type, n_people,Date(d1),Date(d2),c));
-	}
-	f.close();
+for (vector<Rent>::iterator it=rentsVec.begin(); it != rentsVec.end();it++)
+{
+if (name_rent == it.getName())
+c = *it;
+}
+
+
+reservationsVec.push_back(Reservation(name, type, type_type, n_people,Date(d1),Date(d2),c));
+}
+f.close();
 }*/
 
 /*void Corporation::makeReservation()
 {
-	string city;
-	cout << "City : ";
-	getline(cin, city);
+string city;
+cout << "City : ";
+getline(cin, city);
 
-	cout << "List of possibilities : " << endl;
-	for (int i = 0; i < rentsVec; i++)
-	{
-		if(city == rentsVec.at(i).getCity())
-		cout << " -> " << rentsVec.at(i) << endl;
-	}
+cout << "List of possibilities : " << endl;
+for (int i = 0; i < rentsVec; i++)
+{
+if(city == rentsVec.at(i).getCity())
+cout << " -> " << rentsVec.at(i) << endl;
+}
 
-	string d1, d2,name_rent;
-	Rent<T> c;
+string d1, d2,name_rent;
+Rent c;
 
-	cout << " Name of the Rent Place : ";
-	getline(cin, name_rent);
+cout << " Name of the Rent Place : ";
+getline(cin, name_rent);
 
-	for (int i = 0; i < rentsVec.size(); i++)
-	{
-		int n_people;
+for (int i = 0; i < rentsVec.size(); i++)
+{
+int n_people;
 
-		cout << "Number of persons : ";
-		cin >> n_people;
+cout << "Number of persons : ";
+cin >> n_people;
 
-		if (n_people > rentsVec.at(i).getNumOcupantes())
-		{
-			cout << "Invalid number of persons." << endl;
-			break;
-		}
+if (n_people > rentsVec.at(i).getNumOcupantes())
+{
+cout << "Invalid number of persons." << endl;
+break;
+}
 
-		if (name_rent == rentsVec.at(i).getName())
-		{
-			cout << " Date of check-in : ";
-			getline(cin, d1);
-			cout << "Date of check-out : ";
-			getline(cin, d2);
+if (name_rent == rentsVec.at(i).getName())
+{
+cout << " Date of check-in : ";
+getline(cin, d1);
+cout << "Date of check-out : ";
+getline(cin, d2);
 
-			Date d1 = Date(d1);
-			Date d2 = Date(d2);
+Date d1 = Date(d1);
+Date d2 = Date(d2);
 
-			if (d1 >= rentsVec.at(i).getDataInicio() && d2 <= rentsVec.at(i).getDataFim())
-			{
-				string answer;
-				cout << rentsVEc.at(i) << endl << "Do you want to confirm? ";
-				if (answer == "yes" || answer == "Yes")
-				{
-					reservationsVec.push_back(Reservation())
-						break;
-				}
-				else
-					continue;
-			}
-			else
-				cout << "invalid period of time" << endl;
-		}
-	}
+if (d1 >= rentsVec.at(i).getDataInicio() && d2 <= rentsVec.at(i).getDataFim())
+{
+string answer;
+cout << rentsVEc.at(i) << endl << "Do you want to confirm? ";
+if (answer == "yes" || answer == "Yes")
+{
+reservationsVec.push_back(Reservation(username,))
+break;
+}
+else
+continue;
+}
+else
+cout << "invalid period of time" << endl;
+}
+}
 
 
 
@@ -1029,15 +792,82 @@ bool Corporation::foundReservationsFile(string reservationsFile)
 
 /*void Corporation::saveReservations()
 {
-	ofstream f;
+ofstream f;
 
-	f.open(reservationsFile, ofstream::app);
+f.open(reservationsFile, ofstream::app);
 
-	for (size_t i = 0; i < reservationsVec.size(); i++) {
-		f << reservationsVec.at(i).getname() << " ; " << reservationsVec.at(i).getrent().getName() << " ; " << reservationsVec.at(i).gettype_rent << " ; " << reservationsVec.at(i).gettype_type_rent() << " ; " << reservationsVec.at(i).getn_people() << " ; " << reservationsVec.at(i).getDate1() << " ; " << reservationsVec.at(i).getDate2();
-	}
+for (size_t i = 0; i < reservationsVec.size(); i++) {
+f << reservationsVec.at(i).getname() << " ; " << reservationsVec.at(i).getrent().getName() << " ; " << reservationsVec.at(i).gettype_rent << " ; " << reservationsVec.at(i).gettype_type_rent() << " ; " << reservationsVec.at(i).getn_people() << " ; " << reservationsVec.at(i).getDate1() << " ; " << reservationsVec.at(i).getDate2();
+}
 
-	f.close();
+f.close();
 
-	return;
+return;
+}*/
+
+
+/*void Corporation::cancelReservation(string name)
+{
+#pragma warning(disable : 4996)
+time_t ti = time(0);
+struct tm * now = localtime(&ti);
+unsigned int year = 1900 + now->tm_year, month = 1 + now->tm_mon, day = now->tm_mday;
+Date real_date = Date(day, month, year);
+
+vector<Reservation>temp;
+unsigned int j = 0;
+cout << "List of your reservations : " << endl;
+for (int i = 0; i < reservationsVec.size(); i++)
+{
+if (username == reservationsVec.at(i).getname()) {
+cout << i + 1 << " -> " << reservationsVec.at(i) << endl;
+j++;
+temp.push_back(reservationsVec.at(i));
+}
+}
+
+unsigned int n;
+cout << " Which one would you like to cancel :";
+cin >> n;
+if (n > j || n < 0) {
+cout << "Invalid Input" << endl;
+Sleep(3000);
+return;
+}
+
+string answer;
+cout << "Do you want to confirm ? (yes|No)";
+getline(cin, answer);
+if (answer == "Yes" || answer == "yes")
+{
+for (int i = 0; i < temp.size(); i++)
+{
+if ((i + 1) == n) {
+Date x = temp.at(i).getDate1().minus(real_date);
+if (x.getYear() !=0 || x.getMonth >= 1)
+cout << " You will receive " << temp.at(i).getprice() << " euros." << endl;
+else if (x.getDay >= 15)
+cout << "You will receive " << temp.at(i).getprice() / 2 << " euros." << endl;
+else
+cout << "You will not receive any money." << endl;
+}
+}
+
+for (int i = 0; i < reservationsVec.size(); i++)
+{
+if (reservationsVec.at(i) == temp.at(n - 1)) {
+reservationsVec.erase(reservationsVec.begin() + i);
+cout << "Operation concluded!" << endl;
+Sleep(2000);
+return;
+}
+}
+}
+else
+{
+cout << "You canceled the operation." << endl;
+Sleep(2000);
+return;
+}
+
 }*/

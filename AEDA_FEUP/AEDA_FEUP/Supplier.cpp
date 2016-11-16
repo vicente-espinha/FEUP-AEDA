@@ -3,11 +3,6 @@
 #include <windows.h>
 #include <cstdlib>
 
-
-
-Utilities u1;
-
-
 Supplier::Supplier()
 {
 	
