@@ -18,13 +18,14 @@ class Corporation
 private:
 	static Corporation* singleton_instance;
 	string usersFile, suppliersFile, reservationsFile;
-	string username, supplierName;
 	vector<Users> usersVec;
 	vector<Reservation>reservationsVec;
 	vector<Supplier> suppliersVec;
 
 	
 public:
+	string username, supplierName;
+
 	static Corporation* instance();
 
 	void login();
