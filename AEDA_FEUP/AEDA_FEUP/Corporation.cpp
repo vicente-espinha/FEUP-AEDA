@@ -5,8 +5,6 @@ using namespace std;
 Utilities u1;
 Menu corpMenu;
 
-
-
 Corporation * Corporation::instance()
 {
 
@@ -584,35 +582,15 @@ void Corporation::makeRent() {
 
 	while (isIn) {
 
-		if (u1.invalidInputRetry())
-			continue;
-
-		if (!u1.invalidInputRetry()) { isIn = false; }
-
-		else {
-
-			cout << "\nThe program will now return.\n";
-			isIn = false;
-			return;
-
-		}
-
-		isIn = false;
-
-	}
-
-	isIn = true;
-	while (isIn) {
-
 		cout << "\nHow many rents do you wish to be made available?\n";
 		cin >> numIteration;
-		if (u1.invalidInputRetry())
+		/*if (u1.invalidInputRetry())
 			continue;
 		if (!u1.invalidInputRetry()) {
 			numIteration = 0;
 			isIn = false;
 		}
-	}
+	}*/
 
 	for (int i = 0; i < numIteration; i++)
 	{
@@ -871,3 +849,103 @@ return;
 }
 
 }*/
+
+string Corporation::cities() {
+
+	string *item = new string[18];
+	int counter = 1;
+	int option;
+	bool run = false;
+
+	item[0] = "Aveiro";
+	item[1] = "Beja";
+	item[2] = "Braga";
+	item[3] = "Bragança";
+	item[4] = "Castelo Branco";
+	item[5] = "Coimbra";
+	item[6] = "Evora";
+	item[7] = "Faro";
+	item[8] = "Guarda";
+	item[9] = "Leiria";
+	item[10] = "Lisboa";
+	item[11] = "Portalegre";
+	item[12] = "Porto";
+	item[13] = "Santarem";
+	item[14] = "Setubal";
+	item[15] = "Viana do Castelo";
+	item[16] = "Vila Real";
+	item[17] = "Viseu";
+
+	cout << "Cities available: \n";
+	for (size_t i = 0; i < 18; i++) {
+		cout << counter << " - " << item[i] << endl;
+		counter++;
+	}
+
+	while (run) {
+		u1.setColor(14); cout << "\nInsert the number corresponding to the city in which you wish to make your rent available:  "; u1.setColor(15);
+		cin >> option;
+
+		switch (option) {
+
+		case 1:
+			run = true;
+			return item[0];
+		case 2:
+			run = true;
+			return item[1];
+		case 3:
+			run = true;
+			return item[2];
+		case 4:
+			run = true;
+			return item[3];
+		case 5:
+			run = true;
+			return item[4];
+		case 6:
+			run = true;
+			return item[5];
+		case 7:
+			run = true;
+			return item[6];
+		case 8:
+			run = true;
+			return item[7];
+		case 9:
+			run = true;
+			return item[8];
+		case 10:
+			run = true;
+			return item[9];
+		case 11:
+			run = true;
+			return item[10];
+		case 12:
+			run = true;
+			return item[11];
+		case 13:
+			run = true;
+			return item[12];
+		case 14:
+			run = true;
+			return item[13];
+		case 15:
+			run = true;
+			return item[14];
+		case 16:
+			run = true;
+			return item[15];
+		case 17:
+			run = true;
+			return item[16];
+		case 18:
+			run = true;
+			return item[17];
+		default:
+			u1.setColor(12); cout << "  ERROR: Invalid option. Please try again.\n"; u1.setColor(15);
+
+		}
+	}
+
+}

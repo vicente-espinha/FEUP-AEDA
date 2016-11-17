@@ -1,4 +1,5 @@
 #include "Rent.h"
+#include "Corporation.h"
 
 
 Utilities u2;
@@ -27,8 +28,7 @@ Hotel Hotel::buildRent()
 	cout << "What is the name of the hotel?\n\n";
 	cin >> name;
 	bool isIn = true; // Este boleano é só um sistema que usei para implementar uma deteção de erro, com possibilidade de repetição
-	cout << "What is the city where you wish to make your hotel rent available?\n\n";
-	cin >> city;
+	city = Corporation::instance()->cities();
 	isIn = true;
 
 	while (isIn) // Preco

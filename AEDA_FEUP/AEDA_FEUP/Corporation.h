@@ -42,6 +42,8 @@ public:
 	void registerSupplier();
 	void makeRent();
 
+	string cities();
+
 	bool foundReservationsFile(string reservationsFile);
 	//void makeReservation();
 	//void loadReservations();
