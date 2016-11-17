@@ -41,8 +41,9 @@ int main() {
 
 	Corporation::instance()->loadUsers();
 	Corporation::instance()->loadSuppliers();
-
-	u.clearScreen();
+	//u.clearScreen();
+	//Corporation::instance()->printSuppliers();
+	//u.clearScreen();
 	menu.MainMenu();
 
 	u.clearScreen();
