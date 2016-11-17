@@ -9,6 +9,7 @@
 #include "Utilities.h"
 #include "Reservations.h"
 #include "Menu.h"
+#include <malloc.h>
 
 
 using namespace std;
@@ -17,10 +18,11 @@ class Corporation
 {
 private:
 	static Corporation* singleton_instance;
-	string usersFile, suppliersFile, reservationsFile;
+	string usersFile, suppliersFile, reservationsFile,rentsFile;
 	vector<Users> usersVec;
 	vector<Reservation>reservationsVec;
 	vector<Supplier> suppliersVec;
+	vector<Rent> rentsVec;
 
 	
 public:
@@ -41,12 +43,17 @@ public:
 	void addRentToSupplier(Supplier s);
 	void registerSupplier();
 	void makeRent();
+	void printSuppliers();
 
 	string cities();
 
 	bool foundReservationsFile(string reservationsFile);
 	//void makeReservation();
-	//void loadReservations();
+	void loadReservations();
 	//void saveReservations();
+	void cancelReservation();
+
+	bool foundRentsFile(string rentsFile);
+	void loadRents();
 };
 

@@ -206,4 +206,25 @@ int Date::minus(Date days)     // Retorna a diferenca das datas, para fins de pr
 	
 }
 
+ostream& operator<<(ostream& out, const Date & data) {
+	if (data.day < 10)
+		out << "0" << data.day;
+	else
+		out << data.day;
+	out << "/";
+	if (data.month < 10)
+		out << "0" << data.month;
+	else
+		out << data.month;
+	out << "/" << data.year;
 
+	return out;
+}
+
+bool operator==(const Date &d1, Date &d2)
+{
+	if (d1.day == d2.day && d1.month == d2.month && d1.year == d2.year)
+		return true;
+	else
+		return false;
+}
