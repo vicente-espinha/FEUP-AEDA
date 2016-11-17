@@ -220,3 +220,11 @@ ostream& operator<<(ostream& out, const Date & data) {
 
 	return out;
 }
+
+bool operator==(const Date &d1, Date &d2)
+{
+	if (d1.day == d2.day && d1.month == d2.month && d1.year == d2.year)
+		return true;
+	else
+		return false;
+}

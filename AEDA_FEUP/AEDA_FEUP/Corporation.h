@@ -9,6 +9,7 @@
 #include "Utilities.h"
 #include "Reservations.h"
 #include "Menu.h"
+#include <malloc.h>
 
 
 using namespace std;
@@ -46,9 +47,9 @@ public:
 
 	bool foundReservationsFile(string reservationsFile);
 	//void makeReservation();
-	//void loadReservations();
+	void loadReservations();
 	//void saveReservations();
-	//void cancelReservation();
+	void cancelReservation();
 
 	bool foundRentsFile(string rentsFile);
 	void loadRents();

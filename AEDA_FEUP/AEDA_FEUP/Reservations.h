@@ -21,4 +21,6 @@ public:
 	int getn_people() { return n_people; };
 	Rent getrent() { return *rent; };
 	string getcity() { return city; };
+	friend bool operator==(const Reservation &R1, Reservation &R2);
+	friend ostream& operator<<(ostream& out, Reservation & R1);
 };

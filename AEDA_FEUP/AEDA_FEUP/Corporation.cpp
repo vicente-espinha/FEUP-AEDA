@@ -808,9 +808,9 @@ bool Corporation::foundReservationsFile(string reservationsFile)
 }
 
 //Loads the users file to memory (Reservations vector)
-/*void Corporation::loadReservations()
+void Corporation::loadReservations()
 {
-	Rent *c;
+	Rent *c = nullptr;
 	fstream f;
 	string line;
 	f.open("reservations.txt");
@@ -835,17 +835,18 @@ bool Corporation::foundReservationsFile(string reservationsFile)
 		string d2 = line.substr(0, line.length());
 
 
-		for (vector<Rent>::iterator it = rentsVec.begin(); it != rentsVec.end(); it++)
+		for (int i = 0; i < rentsVec.size();i++)
 		{
-			if ((*it).getCity() == city && (*it).getName() == name_rent)
-				c = it;
+			if (rentsVec.at(i).getCity() == city && rentsVec.at(i).getName() == name_rent) {
+				c = &rentsVec.at(i);
+			}
 		}
-
 
 		reservationsVec.push_back(Reservation(name, city, type, type_type, n_people, Date(d1), Date(d2), c));
 	}
+	free(c);
 	f.close();
-}*/
+}
 
 
 /*void Corporation::makeReservation()
@@ -865,15 +866,15 @@ bool Corporation::foundReservationsFile(string reservationsFile)
 	cout << " Name of the Rent Place : ";
 	getline(cin, name_rent);
 
-	for (vector<Rent>::iterator it = rentsVec.begin(); it != rentsVec.end(); it++)
+	for (int i = 0; i << rentsVec.size();i++)
 	{
-		if (name_rent == (*it).getName()) {
+		if (name_rent == rentsVec.at(i).getName()) {
 
 			unsigned int n_people;
 			cout << "Number of persons : ";
 			cin >> n_people;
 
-			if (n_people > (*it).getNumPeople())
+			if (n_people > rentsVec.at(i).getNumPeople())
 			{
 				cout << "Invalid number of persons." << endl;
 				break;
@@ -886,14 +887,17 @@ bool Corporation::foundReservationsFile(string reservationsFile)
 
 				Date date1 = Date(d1);
 				Date date2 = Date(d2);
+				Rent * c = nullptr;
 
-				if (date1 >= (*it).getDataInicio() && date2 <= (*it).getDataFim())
+				if ((date1 > rentsVec.at(i).getDataInicio() || date1 == rentsVec.at(i).getDataInicio()) && (date2 < rentsVec.at(i).getDataFim()) || date2 == rentsVec.at(i).getDataFim())
 				{
 					string answer;
-					cout << (*it) << endl << "Do you want to confirm? ";
+					cout << rentsVec.at(i) << endl << "Do you want to confirm? ";
 					if (answer == "yes" || answer == "Yes")
 					{
-						reservationsVec.push_back(Reservation(username, city, (*it).getType(), (*it).getTypeRent(), n_people, date1, date2,it));
+						c = &rentsVec.at(i);
+						reservationsVec.push_back(Reservation(username, city, rentsVec.at(i).getType(), rentsVec.at(i).getTypeRent(), n_people, date1, date2,c));
+						free(c);
 						break;
 					}
 					else
@@ -922,7 +926,7 @@ bool Corporation::foundReservationsFile(string reservationsFile)
 }*/
 
 
-/*void Corporation::cancelReservation()
+void Corporation::cancelReservation()
 {
 #pragma warning(disable : 4996)
 	time_t ti = time(0);
@@ -959,10 +963,10 @@ bool Corporation::foundReservationsFile(string reservationsFile)
 		for (int i = 0; i < temp.size(); i++)
 		{
 			if ((i + 1) == n) {
-				Date x = temp.at(i).getDate1().minus(real_date);
-				if (x.getYear() != 0 || x.getMonth >= 1)
+				Date x = temp.at(i).getDate1() - real_date;
+				if (x.getYear() != 0 || x.getMonth() > 0)
 					cout << " You will receive " << temp.at(i).getprice() << " euros." << endl;
-				else if (x.getDay >= 15)
+				else if (x.getDay() >= 15)
 					cout << "You will receive " << temp.at(i).getprice() / 2 << " euros." << endl;
 				else
 					cout << "You will not receive any money." << endl;
@@ -986,7 +990,7 @@ bool Corporation::foundReservationsFile(string reservationsFile)
 		return;
 	}
 
-}*/
+}
 
 
 bool Corporation::foundRentsFile(string rentsFile)
