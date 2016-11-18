@@ -29,14 +29,14 @@ protected:
 								// assim por causa da extracao de um istream;
 								// Outra cena, é dataInicio e fim porque o fornecedor tem de explicitar
 								// quais sao as datas em que o aluguer esta disponivel;
-
+	string name;
 	float price;
 	int numPeople;              // O numero de pessoas que vai para um determinado aluguer, (quarto duplo, triplo, etc...)
 	string typeRent;
 	//vector<Clients, Date> reserved;
 public:
 	Rent() {}
-	Rent(string tipoRent, string cidade, Date dataI, Date dataF, float price, int numOcupantes);
+	Rent(string tipoRent, string name2, string cidade, Date dataI, Date dataF, float price, int numOcupantes);
 //	virtual vector<Clients, Date> getReservations() { return reserved; }
 	virtual int getNumPeople() { return numPeople;  }
 	virtual float getPrice() { return price; }
@@ -45,7 +45,7 @@ public:
 	virtual Date getDataFim() { return dataEnd; }
 	auto buildRent() {}
 	virtual string getTypeRent() { return typeRent; }
-	virtual string getName() { string x; return x; }
+	virtual string getName() { return name; }
 	virtual string getType() { string x; return x; }
 	virtual int getNumRooms() { int i =0; return i; }
 	virtual bool getKitchen() {bool i = true; return i; }
@@ -75,6 +75,7 @@ protected:
 	string namebnb;
 public:
 	bedNbreakfast(){}
+	string getType() { string x; return x; }
 	bedNbreakfast(string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes);
 	bedNbreakfast buildRent();
 	string getName() { return  namebnb; }
@@ -87,6 +88,7 @@ protected:
 	string nameSH;
 public:
 	sharedHouse() {}
+	string getType() { string x; return x; }
 	sharedHouse(string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes);
 	sharedHouse buildRent();
 	string getName() { return nameSH; }
@@ -100,6 +102,7 @@ protected:
 	bool hasKitchen;
 public:
 	flat() {}
+	string getType() { string x; return x; }
 	flat(string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes);
 	flat buildRent();
 	bool getKitchen() { return hasKitchen; }
@@ -114,6 +117,7 @@ protected:
 	bool hasKitchen, hasSuite, hasLivingRoom;
 public:
 	apartment() {}
+	string getType() { string x; return x; }
 	apartment(string tipoRent, string name, string cidade, Date dataI, Date dataF,float price, int numOcupantes, int numrooms, bool kitchen, bool suite, bool livingroom);
 	apartment buildRent();
 	string getName() { return nameApartment; }
