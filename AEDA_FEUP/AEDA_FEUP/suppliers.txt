@@ -1,5 +1,4 @@
 Gajo Bo ; asdasd ; 123456789 ; Macedo crl ; 1 ; Hotel ; Ibis ; Coimbra ; 1/1/2014 ; 3/3/2014 ; Simple Room ; 100 ; 1 ; 
 Hugh Mungus ; asdasdsad ; 21321312 ; Cenas ; 2 ; Bed'n'Breakfast ; Meu ; Leça, onde se esta bem ; 1/1/2014 ; 3/3/2014 ; 200 ; 3 ; Hotel ; Ibis ; Coimbra ; 1/1/2014 ; 3/3/2014 ; Simple Room ; 100 ; 1 ; 
 Ken Can Bone ; asdasdas ; 12312312 ; Cenas ; 1 ; Shared House ; Teu ; Onde o Diogo faz spawn de manha ; 1/1/2014 ; 3/3/2014 ; 200 ; 3 ; 
-Hugh Mungus22 ; asdasdsad2 ; 213213122 ; Cenas ; 2 ; Bed'n'Breakfast ; Meu ; Leça, onde se esta bem ; 1/1/2014 ; 3/3/2014 ; 200 ; 3 ; Hotel ; Ibis ; Coimbra ; 1/1/2014 ; 3/3/2014 ; Simple Room ; 100 ; 1 ; 
-Dio ; 1 ; 123456788 ; rgbjsdxn ; 0 ; 
+Hugh Mungus22 ; asdasdsad2 ; 213213122 ; Cenas ; 2 ; Bed'n'Breakfast ; Meu ; Leça, onde se esta bem ; 1/1/2014 ; 3/3/2014 ; 200 ; 3 ; Hotel ; Ibis ; Coimbra ; 1/1/2014 ; 3/3/2014 ; Simple Room ; 100 ; 1 ;

@@ -738,9 +738,17 @@ void Corporation::makeRent() {
 	}
 
 	isIn = true;
+	vector<Rent> x;
+	int xnum;
+	for (j = 0; j < suppliersVec.size(); j++)
+		if (suppliersVec[j].getName() == Corporation::instance()->username) {
+			x = suppliersVec[j].getVector();
+			xnum = j;
+		}
 
 	for (int i = 0; i < numIteration; i++) {
 
+		
 		u1.clearScreen();
 		cout << "What is the type of rent? \n1 - Hotel\n2 - Bed'n'Breakfast\n3 - Apartment\n4 - Flat\n5 - Shared House\n\n";
 		cout << "Select the number corresponding to the option you wish to select: ";
@@ -772,33 +780,33 @@ void Corporation::makeRent() {
 		if (choice == 1) {
 			u1.clearScreen();
 			Hotel h;
-			v.push_back(h.buildRent());
+			x.push_back(h.buildRent());
 		}
 		if (choice == 2) {
 			u1.clearScreen();
 			bedNbreakfast bnb;
-			v.push_back(bnb.buildRent());
+			x.push_back(bnb.buildRent());
 		}
 		if (choice == 3) {
 			u1.clearScreen();
 			flat fl;
-			v.push_back(fl.buildRent());
+			x.push_back(fl.buildRent());
 			break;
 		}
 		if (choice == 4) {
 			u1.clearScreen();
 			apartment ap;
-			v.push_back(ap.buildRent());
+			x.push_back(ap.buildRent());
 			break;
 		}
 		if (choice == 5) {
 			u1.clearScreen();
 			sharedHouse sh;
-			v.push_back(sh.buildRent());
+			x.push_back(sh.buildRent());
 			break;
 		}
 	}
-
+	suppliersVec[xnum].setVector(x);
 	u1.successMessage();
 
 	return;
