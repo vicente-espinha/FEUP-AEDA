@@ -107,6 +107,7 @@ string * Menu::SuppliersMenuItems() {
 void LoginOption() {
 
 	u.clearScreen();
+	u.setColor(14); cout << "\n  ::| LOGIN |::\n\n"; u.setColor(15);
 	Corporation::instance()->login();
 	u.clearScreen();
 

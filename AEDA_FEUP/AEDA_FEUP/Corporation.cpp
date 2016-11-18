@@ -248,7 +248,11 @@ void Corporation::loadSuppliers() {
 		unsigned int numRents = stoi(line.substr(0, line.find(" ; ")));
 		line.erase(0, line.find(" ; ") + 3);
 
-		for (int i = 0; numRents != 0; numRents--,i++)
+		if (numRents == 0) {
+			suppliersVec.push_back(Supplier(supplierName, password, nif, address, rent));
+		}
+
+		for (int i = 0; numRents != 0; numRents--, i++)
 		{
 			string typeRent = u1.trim(line.substr(0, line.find(" ; ")));
 			line.erase(0, line.find(" ; ") + 3);
@@ -410,7 +414,7 @@ void Corporation::loadSuppliers() {
 				float price = stof(line.substr(0, line.find(" ; ")));
 				line.erase(0, line.find(" ; ") + 3);
 				unsigned int numPeople = stoi(line.substr(0, line.find(" ; ")));
-				int numRooms = stof(line.substr(0, line.find(" ; ")));
+				int numRooms = stoi(line.substr(0, line.find(" ; ")));
 				bool k, s, l;
 				string x = line.substr(0, line.find(" ; "));
 				line.erase(0, line.find(" ; ") + 3);
@@ -431,12 +435,12 @@ void Corporation::loadSuppliers() {
 				else
 					l = false;
 				rent.push_back(apartment(typeRent, nameApartment, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople, numRooms, k, s, l));
-			//	cout << "NumRents : " << numRents << endl;
-			//	cout << "Rent.size: " << rent.size();
+				//	cout << "NumRents : " << numRents << endl;
+				//	cout << "Rent.size: " << rent.size();
 				if (numRents == 1)
 				{
 					suppliersVec.push_back(Supplier(supplierName, password, nif, address, rent));
-			//		cout << endl << "getVector.size() : " << suppliersVec[i].getVector().size() << endl;
+					//		cout << endl << "getVector.size() : " << suppliersVec[i].getVector().size() << endl;
 
 				}
 			}
@@ -523,7 +527,7 @@ void Corporation::saveSuppliers()
 		f << suppliersVec[i].getVector().size() << " ; ";
 		for (int j = 0; j < suppliersVec[i].getVector().size(); j++)
 		{
-			
+
 			if (suppliersVec[i].getVector()[j].getTypeRent() == "Hotel")
 			{
 
@@ -674,6 +678,8 @@ void Corporation::registerSupplier() {
 
 	cout << "\n Address:  "; cin >> address;
 
+	u1.cinClear();
+
 	for (unsigned int i = 0; i != suppliersVec.size(); i++) {
 		if (suppliersVec.at(i).getAddress() == address) {
 			u1.setColor(12); cerr << "  ERROR: The address you selected was already found in our system. Probably you already have an account. "; u1.setColor(15);
@@ -697,70 +703,103 @@ void Corporation::makeRent() {
 
 	bool isIn = true;
 	vector<Rent> v;
-	int choice;
 	Date d1, d2;
-	int numIteration;
+	string cinNumIter, cinChoice;
+	int numIteration, choice;
 
 	while (isIn) {
 
-		cout << "\nHow many rents do you wish to be made available?\n";
-		cin >> numIteration;
-		if (u1.invalidInputRetry())
-			continue;
-		if (!u1.invalidInputRetry()) {
-			numIteration = 0;
-			isIn = false;
+		u1.setColor(14); cout << "\n  ::| CREATE RENT |::\n"; u1.setColor(15);
+
+		cout << "\nHow many rents do you wish to be made available? :  ";
+		cin >> cinNumIter;
+
+		if (cin.eof()) {
+			u1.cancelMessage();
+			corpMenu.SuppliersMenu();
+		}
+
+		for (size_t i = 0; i < cinNumIter.size(); i++) {
+			if (!isdigit(cinNumIter.at(i))) {
+				u1.setColor(12); cerr << endl << "  ERROR: Input can only contain digits. "; u1.setColor(15);
+				Sleep(1500);
+				cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+				Sleep(1500);
+				u1.cinClear();
+				u1.clearScreen();
+			}
+			else {
+
+				numIteration = stoi(cinNumIter);
+				cin.clear();
+				isIn = false;
+			}
 		}
 	}
 
-	for (int i = 0; i < numIteration; i++)
-	{
+	isIn = true;
+
+	for (int i = 0; i < numIteration; i++) {
+
 		u1.clearScreen();
-		cout << "What is the type of rent? \n1 - Hotel\n2 - Bed'n'Breakfast\n3 - Apartment\n4 - Flat\n5 - Shared House";
-		cin >> choice;
-		if (u1.invalidInputRetry())
-		{
-			i--;
-			continue;
-		}
-		if (!u1.invalidInputRetry())
-		{
-			i = numIteration;
-			break;
+		cout << "What is the type of rent? \n1 - Hotel\n2 - Bed'n'Breakfast\n3 - Apartment\n4 - Flat\n5 - Shared House\n\n";
+		cout << "Select the number corresponding to the option you wish to select: ";
+		cin >> cinChoice;
+
+		if (cin.eof()) {
+			u1.cancelMessage();
+			corpMenu.SuppliersMenu();
 		}
 
-		if (choice == 1)
-		{
+		if (stoi(cinChoice) < 1 || stoi(cinChoice) > 5) {
+			u1.setColor(12); cerr << endl << "  ERROR: Input can only range from 1 to 5. "; u1.setColor(15);
+			Sleep(1500);
+			u1.cinClear();
+			corpMenu.SuppliersMenu();
+		}
+
+		for (size_t i = 0; i < cinChoice.size(); i++) {
+			if (!isdigit(cinChoice.at(i))) {
+				u1.setColor(12); cerr << endl << "  ERROR: Input can only contain digits. "; u1.setColor(15);
+				Sleep(1500);
+				u1.cinClear();
+				corpMenu.SuppliersMenu();
+			}
+		}
+
+		choice = stoi(cinChoice);
+
+		if (choice == 1) {
+			u1.clearScreen();
 			Hotel h;
 			v.push_back(h.buildRent());
 		}
-		if (choice == 2)
-		{
+		if (choice == 2) {
+			u1.clearScreen();
 			bedNbreakfast bnb;
 			v.push_back(bnb.buildRent());
 		}
-		if (choice == 3)
-		{
+		if (choice == 3) {
+			u1.clearScreen();
 			flat fl;
 			v.push_back(fl.buildRent());
 			break;
 		}
-		if (choice == 4)
-		{
+		if (choice == 4) {
+			u1.clearScreen();
 			apartment ap;
 			v.push_back(ap.buildRent());
 			break;
 		}
-		if (choice == 5)
-		{
+		if (choice == 5) {
+			u1.clearScreen();
 			sharedHouse sh;
 			v.push_back(sh.buildRent());
 			break;
 		}
 	}
 
-	cout << "\n\nThe program will now return to the main menu.\n\n";
-	Sleep(2000);
+	u1.successMessage();
 
 	return;
 
@@ -813,7 +852,7 @@ void Corporation::loadReservations()
 		string d2 = line.substr(0, line.length());
 
 
-		for (int i = 0; i < rentsVec.size();i++)
+		for (int i = 0; i < rentsVec.size(); i++)
 		{
 			if (rentsVec.at(i).getCity() == city && rentsVec.at(i).getName() == name_rent) {
 				c = &rentsVec.at(i);
@@ -1000,9 +1039,9 @@ void Corporation::loadRents()
 string Corporation::cities() {
 
 	string *item = new string[18];
-	int counter = 1;
-	int option;
-	bool run = false;
+	int counter = 1, option;
+	string cinOption;
+	bool run = true;
 
 	item[0] = "Aveiro";
 	item[1] = "Beja";
@@ -1023,79 +1062,84 @@ string Corporation::cities() {
 	item[16] = "Vila Real";
 	item[17] = "Viseu";
 
-	cout << "Cities available: \n";
+	u1.setColor(11); cout << "Cities available: \n\n"; u1.setColor(15);
 	for (size_t i = 0; i < 18; i++) {
 		cout << counter << " - " << item[i] << endl;
 		counter++;
 	}
 
-	while (run) {
-		u1.setColor(14); cout << "\nInsert the number corresponding to the city in which you wish to make your rent available:  "; u1.setColor(15);
-		cin >> option;
+		u1.setColor(14); cout << "\nInsert the number corresponding to the city\nin which you wish to make your rent available:  "; u1.setColor(15);
+		cin >> cinOption;
 
-		switch (option) {
-
-		case 1:
-			run = true;
-			return item[0];
-		case 2:
-			run = true;
-			return item[1];
-		case 3:
-			run = true;
-			return item[2];
-		case 4:
-			run = true;
-			return item[3];
-		case 5:
-			run = true;
-			return item[4];
-		case 6:
-			run = true;
-			return item[5];
-		case 7:
-			run = true;
-			return item[6];
-		case 8:
-			run = true;
-			return item[7];
-		case 9:
-			run = true;
-			return item[8];
-		case 10:
-			run = true;
-			return item[9];
-		case 11:
-			run = true;
-			return item[10];
-		case 12:
-			run = true;
-			return item[11];
-		case 13:
-			run = true;
-			return item[12];
-		case 14:
-			run = true;
-			return item[13];
-		case 15:
-			run = true;
-			return item[14];
-		case 16:
-			run = true;
-			return item[15];
-		case 17:
-			run = true;
-			return item[16];
-		case 18:
-			run = true;
-			return item[17];
-		default:
-			u1.setColor(12); cout << "  ERROR: Invalid option. Please try again.\n"; u1.setColor(15);
-
+		if (cin.eof()) {
+			u1.cancelMessage();
+			corpMenu.SuppliersMenu();
 		}
-	}
 
+		if (stoi(cinOption) < 1 || stoi(cinOption) > 18) {
+			u1.setColor(12); cerr << endl << "  ERROR: Input can only range from 1 to 18. "; u1.setColor(15);
+			Sleep(1500);
+			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+			Sleep(1500);
+			u1.cinClear();
+		}
+
+		for (size_t i = 0; i < cinOption.size(); i++) {
+			if (!isdigit(cinOption.at(i))) {
+				u1.setColor(12); cerr << endl << "  ERROR: Input can only contain digits. "; u1.setColor(15);
+				Sleep(1500);
+				cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+				Sleep(1500);
+				u1.cinClear();
+			}
+		}
+
+	option = stoi(cinOption);
+
+	switch (option) {
+
+	case 1:
+		u1.clearScreen();
+		cout << item[0];
+		Sleep(2000);
+		return item[0];
+	case 2:
+		return item[1];
+	case 3:
+		return item[2];
+	case 4:
+		return item[3];
+	case 5:
+		return item[4];
+	case 6:
+		return item[5];
+	case 7:
+		return item[6];
+	case 8:
+		return item[7];
+	case 9:
+		return item[8];
+	case 10:
+		return item[9];
+	case 11:
+		return item[10];
+	case 12:
+		return item[11];
+	case 13:
+		return item[12];
+	case 14:
+		return item[13];
+	case 15:
+		return item[14];
+	case 16:
+		return item[15];
+	case 17:
+		return item[16];
+	case 18:
+		return item[17];
+	}
 }
+
 
 /*
 	vector<Rent> rent;

@@ -12,10 +12,10 @@ Rent::Rent(string typeRent, string name2 ,string c, Date dataI, Date dataF, floa
 
 // HOTEL
 
-Hotel::Hotel(string typeRent, string name, string cidade, Date dataI, Date dataF, string tipo, float preco, int numOcupantes) : Rent(typeRent, name, cidade, dataI, dataF, preco, numOcupantes)
+Hotel::Hotel(string typeRent, string name, string cidade, Date dataI, Date dataF, string type, float preco, int numOcupantes) : Rent(typeRent, name, cidade, dataI, dataF, preco, numOcupantes)
 {
 	nameHotel = name;
-	type = tipo;
+	this->type = type;
 
 }
 
@@ -255,38 +255,41 @@ sharedHouse::sharedHouse(string typeRent, string name, string cidade, Date dataI
 
 sharedHouse sharedHouse::buildRent()
 {
-	string city;
+	string city, name;
 	int n;
 	float price;
 	bool isIn = true; // Este boleano é só um sistema que usei para implementar uma deteção de erro, com possibilidade de repetição
-	cout << "What is the city where you wish to make your shared-house rent available?\n\n";
-	cin >> city;
-	cout << "Under which name would you like to make the rent available?\n";
-	string name;
+
+	city = Corporation::instance()->cities();
+
+	u2.cinClear();
+
+	cout << "\nRent's name : ";
 	cin >> name;
+
 	while (isIn) // NumOcupantes
 	{
-		cout << "\nWhat is the number of people staying?\n\n" << endl;
+		cout << "\nNumber of people the house can accomodate:  ";
 		int numPeople;
 		cin >> numPeople;
-		if (cin.fail())
-		{
-			cin.clear();
-			cin.ignore(1000000, '\n');
+		if (cin.fail()){
+
+			u2.cinClear();
 			cout << "\n\n The input was invalid. Retrying last segment.\n\n";
 			continue;
 		}
+		isIn = false;
 	}
+	
 	isIn = true;
 
-	while (isIn) // Preco
+	while (isIn) // Price
 	{
-		cout << "\nWhat is the price it is going to cost?\n";
+		cout << "\nCost per night:  ";
 		cin >> price;
 		if (cin.fail())
 		{
-			cin.clear();
-			cin.ignore(1000000, '\n');
+			u2.cinClear();
 			cout << "\n\n The input was invalid. Retrying last segment.\n\n";
 			continue;
 		}
@@ -294,9 +297,9 @@ sharedHouse sharedHouse::buildRent()
 		{
 			this->price = price;
 			isIn = false;
-			break;
 		}
 	}
+
 	isIn = true;
 
 	int day1, day2, month1, month2, year1, year2;
@@ -321,8 +324,12 @@ sharedHouse sharedHouse::buildRent()
 		{
 			cout << "\nThis date is invalid. Repeating this date.\n";
 		}
+		else {
+			isIn = false;
+		}
 	}
 
+	isIn = true;
 	while (isIn) // Datas
 	{
 		cout << "/nEnding date:\nDay: ";
@@ -348,6 +355,9 @@ sharedHouse sharedHouse::buildRent()
 		{
 			cout << "Ending date is earlier than beginnig date. Repeating this date.\n";
 			continue;
+		}
+		else {
+			isIn = false;
 		}
 	}
 

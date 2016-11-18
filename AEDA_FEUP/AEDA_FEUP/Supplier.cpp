@@ -3,11 +3,7 @@
 #include <windows.h>
 #include <cstdlib>
 
-Supplier::Supplier()
-{
-	
-
-}
+Supplier::Supplier(){}
 
 Supplier::Supplier(string n, string password, unsigned int ni, string ad, vector<Rent> v)
 {

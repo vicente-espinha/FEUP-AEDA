@@ -33,6 +33,7 @@ protected:
 	float price;
 	int numPeople;              // O numero de pessoas que vai para um determinado aluguer, (quarto duplo, triplo, etc...)
 	string typeRent;
+	string type;
 	//vector<Clients, Date> reserved;
 public:
 	Rent() {}
@@ -46,7 +47,7 @@ public:
 	auto buildRent() {}
 	virtual string getTypeRent() { return typeRent; }
 	virtual string getName() { return name; }
-	virtual string getType() { string x; return x; }
+	virtual string getType() { return type; }
 	virtual int getNumRooms() { int i =0; return i; }
 	virtual bool getKitchen() {bool i = true; return i; }
 	virtual bool getSuite() { bool x = true; return x; }
@@ -57,11 +58,11 @@ class Hotel : public Rent
 {
 	string nameHotel;               // Podera ser utilizado para, apos fazer sort ao vetor de aluguer, fazer display bonito
 	int numPeople;                  // Definido pelo tipo de aluguer que é
-	string type;                    // Tipo de Quarto que quer
+                   // Tipo de Quarto que quer
 	
 public:
 	Hotel(){ }
-	Hotel(string typeRent, string nome, string cidade, Date dataI, Date dataF, string tipo, float preco, int numOcupantes);
+	Hotel(string typeRent, string nome, string cidade, Date dataI, Date dataF, string type, float preco, int numOcupantes);
 	string getType() { return type; }
 	string getName() { return nameHotel; }
 	Hotel buildRent(); // Pressupostamente constroi um hotel, mas ainda tenho que pensar como implementar isto
@@ -75,7 +76,6 @@ protected:
 	string namebnb;
 public:
 	bedNbreakfast(){}
-	string getType() { string x; return x; }
 	bedNbreakfast(string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes);
 	bedNbreakfast buildRent();
 	string getName() { return  namebnb; }
@@ -88,7 +88,6 @@ protected:
 	string nameSH;
 public:
 	sharedHouse() {}
-	string getType() { string x; return x; }
 	sharedHouse(string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes);
 	sharedHouse buildRent();
 	string getName() { return nameSH; }
@@ -102,7 +101,6 @@ protected:
 	bool hasKitchen;
 public:
 	flat() {}
-	string getType() { string x; return x; }
 	flat(string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes);
 	flat buildRent();
 	bool getKitchen() { return hasKitchen; }
@@ -117,8 +115,7 @@ protected:
 	bool hasKitchen, hasSuite, hasLivingRoom;
 public:
 	apartment() {}
-	string getType() { string x; return x; }
-	apartment(string tipoRent, string name, string cidade, Date dataI, Date dataF,float price, int numOcupantes, int numrooms, bool kitchen, bool suite, bool livingroom);
+	apartment(string tipoRent, string name, string cidade, Date dataI, Date dataF, float price, int numOcupantes, int numrooms, bool kitchen, bool suite, bool livingroom);
 	apartment buildRent();
 	string getName() { return nameApartment; }
 	int getNumRooms() { return numRooms; }
