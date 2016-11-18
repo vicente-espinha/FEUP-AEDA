@@ -705,13 +705,13 @@ void Corporation::makeRent() {
 
 		cout << "\nHow many rents do you wish to be made available?\n";
 		cin >> numIteration;
-		/*if (u1.invalidInputRetry())
+		if (u1.invalidInputRetry())
 			continue;
 		if (!u1.invalidInputRetry()) {
 			numIteration = 0;
 			isIn = false;
 		}
-	}*/
+	}
 
 	for (int i = 0; i < numIteration; i++)
 	{
@@ -994,8 +994,8 @@ void Corporation::loadRents()
 	string line;
 	fstream f;
 
-<<<<<<< HEAD
-}*/
+
+}
 
 string Corporation::cities() {
 
@@ -1096,7 +1096,8 @@ string Corporation::cities() {
 	}
 
 }
-=======
+
+/*
 	vector<Rent> rent;
 
 	f.open(suppliersFile);
@@ -1248,5 +1249,5 @@ string Corporation::cities() {
 	}
 	f.close();
 	return;
-}
->>>>>>> origin/master
+}*/
+
