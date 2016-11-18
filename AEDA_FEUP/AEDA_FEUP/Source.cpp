@@ -41,9 +41,9 @@ int main() {
 
 	Corporation::instance()->loadUsers();
 	Corporation::instance()->loadSuppliers();
-	//u.clearScreen();
-	Corporation::instance()->printSuppliers();
-	//u.clearScreen();
+	u.clearScreen();
+	//Corporation::instance()->printSuppliers();
+	
 	menu.MainMenu();
 
 	u.clearScreen();
@@ -52,9 +52,9 @@ int main() {
 	Corporation::instance()->saveUsers();
 	Corporation::instance()->saveSuppliers();
 	
-	//u.clearScreen();
-	//u.logo();
-	//u.aboutMessage();
+	u.clearScreen();
+	u.logo();
+	u.aboutMessage();
 	Sleep(3000);
 	return 0;
 }
