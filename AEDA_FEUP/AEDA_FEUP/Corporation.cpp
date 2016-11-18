@@ -827,7 +827,7 @@ void Corporation::loadReservations()
 }
 
 
-/*void Corporation::makeReservation()
+/*void Corporation::makeReservation() // o unico erro é como dar display das rents e ainda vai haver modificacoes na estrutura da funcao
 {
 	string city;
 	cout << "City : ";
@@ -888,20 +888,20 @@ void Corporation::loadReservations()
 }*/
 
 
-/*void Corporation::saveReservations()
+void Corporation::saveReservations()
 {
 	ofstream f;
 
 	f.open(reservationsFile, ofstream::app);
 
 	for (size_t i = 0; i < reservationsVec.size(); i++) {
-		f << reservationsVec.at(i).getusername() << " ; " << reservationsVec.at(i).getcity() << " ; " << reservationsVec.at(i).getrent().getName() << "; " << reservationsVec.at(i).gettype_rent << "; " << reservationsVec.at(i).gettype_type_rent() << "; " << reservationsVec.at(i).getn_people() << "; " << reservationsVec.at(i).getDate1() << "; " << reservationsVec.at(i).getDate2() << endl;
+		f << reservationsVec.at(i).getusername() << " ; " << reservationsVec.at(i).getcity() << " ; " << reservationsVec.at(i).getrent().getName() << "; " << reservationsVec.at(i).gettype_rent() << "; " << reservationsVec.at(i).gettype_type_rent() << "; " << reservationsVec.at(i).getn_people() << "; " << reservationsVec.at(i).getDate1() << "; " << reservationsVec.at(i).getDate2() << endl;
 	}
 
 	f.close();
 
 	return;
-}*/
+}
 
 
 void Corporation::cancelReservation()

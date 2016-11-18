@@ -50,7 +50,7 @@ public:
 	bool foundReservationsFile(string reservationsFile);
 	//void makeReservation();
 	void loadReservations();
-	//void saveReservations();
+	void saveReservations();
 	void cancelReservation();
 
 	bool foundRentsFile(string rentsFile);
