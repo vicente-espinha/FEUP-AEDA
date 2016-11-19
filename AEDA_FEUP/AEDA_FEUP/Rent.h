@@ -6,6 +6,7 @@
 #include "Utilities.h"
 #include "Date.h"
 #include "Clients.h"
+#include "Reservations.h"
 
 using namespace std;
 
@@ -34,11 +35,12 @@ protected:
 	int numPeople;              // O numero de pessoas que vai para um determinado aluguer, (quarto duplo, triplo, etc...)
 	string typeRent;
 	string type;
-	//vector<Clients, Date> reserved;
+	vector<Reservation> reserved;
 public:
 	Rent() {}
 	Rent(string tipoRent, string name2, string cidade, Date dataI, Date dataF, float price, int numOcupantes);
-//	virtual vector<Clients, Date> getReservations() { return reserved; }
+	virtual void setReservation(Reservation r) { reserved.push_back(r); }
+	virtual vector<Reservation> getReservations() { return reserved; }
 	virtual int getNumPeople() { return numPeople;  }
 	virtual float getPrice() { return price; }
 	virtual string getCity() { return city; }

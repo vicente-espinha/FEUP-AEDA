@@ -40,9 +40,8 @@ int main() {
 	}
 
 	Corporation::instance()->loadUsers();
-	
+	//Corporation::instance()->loadReservations();
 	Corporation::instance()->loadSuppliers();
-	Sleep(4000);
 	Corporation::instance()->orderSuppliersVec();
 	u.clearScreen();
 	//Corporation::instance()->printSuppliers();
@@ -58,5 +57,6 @@ int main() {
 	u.clearScreen();
 	u.logo();
 	u.aboutMessage();
+	sleep(1000);
 	return 0;
 }

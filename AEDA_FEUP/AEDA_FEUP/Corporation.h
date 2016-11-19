@@ -44,12 +44,10 @@ public:
 	bool foundSuppliersFile(string suppliersFile);
 	void loadSuppliers();
 	void saveSuppliers();
-	void addRentToSupplier(Supplier s);
 	void registerSupplier();
 	void orderSuppliersVec();
 	void makeRent();
-	void printSuppliers();
-
+	
 	string cities();
 
 	bool foundReservationsFile(string reservationsFile);
