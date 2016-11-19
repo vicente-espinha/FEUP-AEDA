@@ -7,7 +7,6 @@
 #include "Clients.h"
 #include "Supplier.h"
 #include "Utilities.h"
-#include "Reservations.h"
 #include "Menu.h"
 #include <malloc.h>
 
@@ -23,7 +22,6 @@ private:
 	static Corporation* singleton_instance;
 	string usersFile, suppliersFile, reservationsFile,rentsFile;
 	vector<Users> usersVec;
-	vector<Reservation>reservationsVec;
 	vector<Supplier> suppliersVec;
 	vector<Rent> rentsVec;
 

@@ -1,6 +1,1 @@
 Gajo Bo ; Hotel ; Ibis ; Coimbra ; 1/1/2014 ; 3/3/2014 ; Simple Room ; 100 ; 1
-Hugh Mungus ; Bed'n'Breakfast ; Meu ; Leça, onde se esta bem ; 1/1/2014 ; 3/3/2014 ; 200 ; 3
-Hugh Mungus ; Hotel ; Ibis ; Coimbra ; 1/1/2014 ; 3/3/2014 ; Simple Room ; 100 ; 1
-Hugh Mungus22 ; Shared House ; Teu ; Onde o Diogo faz spawn de manha ; 1/1/2014 ; 3/3/2014 ; 200 ; 3
-Ken Can Bone ; Bed'n'Breakfast ; Meu ; Leça, onde se esta bem ; 1/1/2014 ; 3/3/2014 ; 200 ; 3
-Ken Can Bone ; Hotel ; Ibis ; Coimbra ; 1/1/2014 ; 3/3/2014 ; Simple Room ; 100 ; 1
