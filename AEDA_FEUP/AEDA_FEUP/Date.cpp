@@ -88,34 +88,6 @@ bool Date::isValid()
 	return true;
 }
 
-bool Date::operator<(Date x)
-{
-	if (this->getYear() < x.getYear())
-		return true;
-	if (this->getYear() > x.getYear())
-		return false;
-	if (this->getMonth() < x.getMonth())
-		return true;
-	if (this->getMonth() > x.getMonth())
-		return false;
-	if (this->getDay() < x.getDay())
-		return true;
-	if (this->getDay() > x.getDay())
-		return false;
-	else
-		return true;
-}
-
-bool operator<=(const Date & D1, Date &D2)
-{
-		if (D2.year > D1.year ||
-			(D1.year == D2.year && D2.month > D1.month) ||
-			(D1.year == D2.year && D1.month == D2.month && D2.day > D1.day))
-			return true;
-		else
-			return false;
-}
-
 Date Date::operator+(Date days)
 {
 	if (this->getMonth() == 1 || this->getMonth() == 3 || this->getMonth() == 5 || this->getMonth() == 7 || this->getMonth() == 9 || this->getMonth() == 11)
@@ -216,6 +188,27 @@ ostream& operator<<(ostream& out, const Date & data) {
 bool operator==(const Date &d1, Date &d2)
 {
 	if (d1.day == d2.day && d1.month == d2.month && d1.year == d2.year)
+		return true;
+	else
+		return false;
+}
+
+bool operator>(const Date & D1, Date &D2)
+{
+	if (D2.year < D1.year ||
+		(D1.year == D2.year && D2.month < D1.month) ||
+		(D1.year == D2.year && D1.month == D2.month && D2.day < D1.day))
+		return true;
+	else
+		return false;
+}
+
+
+bool operator<(const Date & D1, Date &D2)
+{
+	if (D2.year > D1.year ||
+		(D1.year == D2.year && D2.month > D1.month) ||
+		(D1.year == D2.year && D1.month == D2.month && D2.day > D1.day))
 		return true;
 	else
 		return false;

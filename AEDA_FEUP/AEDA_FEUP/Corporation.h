@@ -49,10 +49,11 @@ public:
 	
 	string cities();
 
-	//void makeReservation();
+	void makeReservation();
 	void cancelReservation();
 
 	bool foundRentsFile(string rentsFile);
 	void loadRents();
+	void saveRents();
 };
 

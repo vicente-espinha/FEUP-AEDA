@@ -21,7 +21,8 @@ void Corporation::login() {
 	bool foundUser = false;
 	bool foundSupplier = false;
 
-	cout << "Username:  "; getline(cin, user);
+	cout << "Username:  ";
+	getline(cin, user);
 
 	if (cin.eof()) {
 		u1.cancelMessage();
@@ -225,43 +226,16 @@ bool Corporation::foundSuppliersFile(string suppliersFile) {
 	return true;
 }
 
-
-
-void Corporation::loadSuppliers() {
-
-	string line, lineRents;
-	fstream f, r;
-	int xPosition;
-	vector<Rent> xVec;
+void Corporation::loadRents()
+{
 	Rent tmp;
-	double price;
-	f.open(suppliersFile);
+	fstream r;
+	float price;
 	r.open("rents.txt");
-	while (getline(f, line)) {
-
-		string supplierName = line.substr(0, line.find(" ; "));
-		line.erase(0, line.find(" ; ") + 3);
-		string password = line.substr(0, line.find(" ; "));
-		line.erase(0, line.find(" ; ") + 3);
-		unsigned int nif = stoi(line.substr(0, line.find(" ; ")));
-		line.erase(0, line.find(" ; ") + 3);
-		string address = line;
-		line.erase(0, line.length());
-
-		suppliersVec.push_back(Supplier(supplierName, password, nif, address, xVec));
-	}
+	string lineRents;
 	while (getline(r, lineRents)) {
-		string name = u1.trim(lineRents.substr(0, lineRents.find(" ; ")));
+		int nif = stoi(u1.trim(lineRents.substr(0, lineRents.find(" ; "))));
 		lineRents.erase(0, lineRents.find(" ; ") + 3);
-		orderSuppliersVec();
-
-		for (int i = 0; i < suppliersVec.size(); i++)
-			if (name == suppliersVec[i].getName())
-			{
-				xPosition = i;
-				xVec = suppliersVec[i].getVector();
-			}
-
 
 		string typeRent = u1.trim(lineRents.substr(0, lineRents.find(" ; ")));
 		lineRents.erase(0, lineRents.find(" ; ") + 3);
@@ -288,7 +262,7 @@ void Corporation::loadSuppliers() {
 			lineRents.erase(0, lineRents.find(" ; ") + 3);
 			unsigned int numPeople = stoi(lineRents);
 			lineRents.erase(0, lineRents.length());
-			tmp = Hotel(typeRent, nameHotel, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), roomType, price, numPeople);
+			tmp = Hotel(nif, typeRent, nameHotel, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), roomType, price, numPeople);
 
 		}
 		else if (typeRent == "Bed'n'Breakfast") {
@@ -313,7 +287,7 @@ void Corporation::loadSuppliers() {
 			unsigned int numPeople = stoi(lineRents);
 			lineRents.erase(0, lineRents.length());
 
-			tmp = bedNbreakfast(typeRent, nameBB, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople);
+			tmp = bedNbreakfast(nif, typeRent, nameBB, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople);
 
 		}
 		else if (typeRent == "Shared House") {
@@ -337,7 +311,7 @@ void Corporation::loadSuppliers() {
 			lineRents.erase(0, lineRents.find(" ; ") + 3);
 			unsigned int numPeople = stoi(lineRents);
 			lineRents.erase(0, lineRents.length());
-			tmp = sharedHouse(typeRent, nameSH, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople);
+			tmp = sharedHouse(nif, typeRent, nameSH, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople);
 
 		}
 		else if (typeRent == "Flat") {
@@ -361,7 +335,7 @@ void Corporation::loadSuppliers() {
 			lineRents.erase(0, lineRents.find(" ; ") + 3);
 			unsigned int numPeople = stoi(lineRents);
 			lineRents.erase(0, lineRents.length());
-			tmp = flat(typeRent, nameFlat, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople);
+			tmp = flat(nif, typeRent, nameFlat, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople);
 		}
 		else if (typeRent == "Apartment") {
 			string nameApartment = u1.trim(lineRents.substr(0, lineRents.find(" ; ")));
@@ -404,9 +378,8 @@ void Corporation::loadSuppliers() {
 			else
 				l = false;
 
-			tmp = apartment(typeRent, nameApartment, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople, numRooms, k, s, l);
+			tmp = apartment(nif, typeRent, nameApartment, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople, numRooms, k, s, l);
 		}
-
 		string reservationsLine;
 		getline(r, reservationsLine);
 		int numIterations = stoi(u1.trim(reservationsLine.substr(0, reservationsLine.find(" ; "))));
@@ -429,14 +402,36 @@ void Corporation::loadSuppliers() {
 			price = (d2.minus(d1))*price;
 			Reservation newR(nifR, price, d1, d2);
 			tmp.setReservation(newR);
-			xVec.push_back(tmp);
-			suppliersVec[xPosition].setVector(xVec);
-
 		}
-
+		rentsVec.push_back(tmp);
 	}
+}
+
+void Corporation::loadSuppliers() {
+
+	string line, lineRents;
+	fstream f;
+	vector<Rent> xVec;
+
+	double price;
+	f.open(suppliersFile);
+
+	while (getline(f, line)) {
+
+		string supplierName = line.substr(0, line.find(" ; "));
+		line.erase(0, line.find(" ; ") + 3);
+		string password = line.substr(0, line.find(" ; "));
+		line.erase(0, line.find(" ; ") + 3);
+		unsigned int nif = stoi(line.substr(0, line.find(" ; ")));
+		line.erase(0, line.find(" ; ") + 3);
+		string address = line;
+		line.erase(0, line.length());
+
+		suppliersVec.push_back(Supplier(supplierName, password, nif, address));
+	}
+
 	f.close();
-	r.close();
+
 	return;
 }
 
@@ -449,95 +444,100 @@ void Corporation::saveSuppliers()
 	for (int i = 0; i < suppliersVec.size(); i++)
 	{
 		int j;
-		vector<Rent> x;
-		x = suppliersVec[i].getVector();
 		f << suppliersVec[i].getName() << " ; " << suppliersVec[i].getPassword() << " ; " << suppliersVec[i].getNif() << " ; " << suppliersVec[i].getAddress() << "\n";
-		for (j = 0; j < suppliersVec[i].getVector().size(); j++)
-		{
-			vector<Rent> x;
-			x = suppliersVec[i].getVector();
-			if (x[j].getTypeRent() == "Hotel")
-			{
-				r << suppliersVec[i].getName() << " ; ";
-				r << "Hotel ; " << x[j].getName() << " ; " << x[j].getCity() << " ; ";
-				r << x[j].getDataInicio().getDay() << "/" << x[j].getDataInicio().getMonth() << "/" << x[j].getDataInicio().getYear() << " ; ";
-				r << x[j].getDataFim().getDay() << "/" << x[j].getDataFim().getMonth() << "/" << x[j].getDataFim().getYear() << " ; ";
-				r << x[j].getType() << " ; " << x[j].getPrice() << " ; " << x[j].getNumPeople();
-				r << "\n";
-			}
-
-			if (x[j].getTypeRent() == "Bed'n'Breakfast")
-			{
-				r << suppliersVec[i].getName() << " ; ";
-				r << "Bed'n'Breakfast ; " << x[j].getName() << " ; " << u1.trim(x[j].getCity()) << " ; ";
-				r << x[j].getDataInicio().getDay() << "/" << x[j].getDataInicio().getMonth() << "/" << x[j].getDataInicio().getYear() << " ; ";
-				r << x[j].getDataFim().getDay() << "/" << x[j].getDataFim().getMonth() << "/" << x[j].getDataFim().getYear() << " ; ";
-				r << x[j].getPrice() << " ; " << x[j].getNumPeople();
-				r << "\n";
-			}
-			if (x[j].getTypeRent() == "Shared House")
-			{
-				r << suppliersVec[i].getName() << " ; ";
-				r << "Shared House ; " << x[j].getName() << " ; " << u1.trim(x[j].getCity()) << " ; ";
-				r << x[j].getDataInicio().getDay() << "/" << x[j].getDataInicio().getMonth() << "/" << x[j].getDataInicio().getYear() << " ; ";
-				r << x[j].getDataFim().getDay() << "/" << x[j].getDataFim().getMonth() << "/" << x[j].getDataFim().getYear() << " ; ";
-				r << x[j].getPrice() << " ; " << x[j].getNumPeople();
-				r << "\n";
-			}
-			if (x[j].getTypeRent() == "Flat")
-			{
-				r << suppliersVec[i].getName() << " ; ";
-				r << "Flat ; " << x[j].getName() << " ; " << u1.trim(x[j].getCity()) << " ; ";
-				r << x[j].getDataInicio().getDay() << "/" << x[j].getDataInicio().getMonth() << "/" << x[j].getDataInicio().getYear() << " ; ";
-				r << x[j].getDataFim().getDay() << "/" << x[j].getDataFim().getMonth() << "/" << x[j].getDataFim().getYear() << " ; ";
-				r << x[j].getPrice() << " ; " << x[j].getNumPeople();
-				f << "\n";
-			}
-			if (x[j].getTypeRent() == "Apartment")
-			{
-				r << suppliersVec[i].getName() << " ; ";
-				r << "Apartment ; " << x[j].getName() << " ; " << u1.trim(x[j].getCity()) << " ; ";
-				r << x[j].getDataInicio().getDay() << "/" << x[j].getDataInicio().getMonth() << "/" << x[j].getDataInicio().getYear() << " ; ";
-				r << x[j].getPrice() << " ; " << x[j].getNumPeople() << " ; ";
-				r << x[j].getNumRooms() << " ; ";
-				r << x[j].getKitchen() << " ; " << x[j].getSuite() << " ; " << x[j].getLivingRoom();
-				r << "\n";
-			}
-			if (!x.at(j).getReservations().empty())
-			{
-				r << x.at(i).getReservations().size() << " ; ";
-				for (int k = 0; k < x.at(j).getReservations().size(); k++)
-				{
-					if (k == (x.at(j).getReservations().size() - 1))
-						r << x.at(j).getReservations().at(k).getnif() << " ; " << x.at(j).getReservations().at(k).getDate1() << " ; " << x.at(j).getReservations().at(j).getDate2();
-					else
-						r << x.at(j).getReservations().at(k).getnif() << " ; " << x.at(j).getReservations().at(k).getDate1() << " ; " << x.at(j).getReservations().at(j).getDate2() << " ; ";
-				}
-				r << endl;
-			}
-
-		}
-
 	}
 
-	for (int k = 0; k < suppliersVec.size(); k++)
-		for (int l = 0; l < suppliersVec[k].getVector().size(); l++)
-			rentsVec.push_back(suppliersVec[k].getVector()[l]);
-	f.close();
 
+	f.close();
+	r.close();
 	remove(suppliersFile.c_str());
 	rename("tempSuppliers.txt", suppliersFile.c_str());
 
 	return;
 }
 
+void Corporation::saveRents()
+{
+	int j, i;
+	ofstream r("rents.txt");
+	for (j = 0; j < rentsVec.size(); j++)
+	{
+		vector<Rent> x;
+		x = rentsVec;
+		if (x[j].getTypeRent() == "Hotel")
+		{
+			r << rentsVec[j].getNif() << " ; ";
+			r << "Hotel ; " << x[j].getName() << " ; " << x[j].getCity() << " ; ";
+			r << x[j].getDataInicio().getDay() << "/" << x[j].getDataInicio().getMonth() << "/" << x[j].getDataInicio().getYear() << " ; ";
+			r << x[j].getDataFim().getDay() << "/" << x[j].getDataFim().getMonth() << "/" << x[j].getDataFim().getYear() << " ; ";
+			r << x[j].getType() << " ; " << x[j].getPrice() << " ; " << x[j].getNumPeople();
+			r << "\n";
+		}
+
+		if (x[j].getTypeRent() == "Bed'n'Breakfast")
+		{
+			r << rentsVec[j].getNif() << " ; ";
+			r << "Bed'n'Breakfast ; " << x[j].getName() << " ; " << u1.trim(x[j].getCity()) << " ; ";
+			r << x[j].getDataInicio().getDay() << "/" << x[j].getDataInicio().getMonth() << "/" << x[j].getDataInicio().getYear() << " ; ";
+			r << x[j].getDataFim().getDay() << "/" << x[j].getDataFim().getMonth() << "/" << x[j].getDataFim().getYear() << " ; ";
+			r << x[j].getPrice() << " ; " << x[j].getNumPeople();
+			r << "\n";
+		}
+		if (x[j].getTypeRent() == "Shared House")
+		{
+			r << rentsVec[j].getNif() << " ; ";
+			r << "Shared House ; " << x[j].getName() << " ; " << u1.trim(x[j].getCity()) << " ; ";
+			r << x[j].getDataInicio().getDay() << "/" << x[j].getDataInicio().getMonth() << "/" << x[j].getDataInicio().getYear() << " ; ";
+			r << x[j].getDataFim().getDay() << "/" << x[j].getDataFim().getMonth() << "/" << x[j].getDataFim().getYear() << " ; ";
+			r << x[j].getPrice() << " ; " << x[j].getNumPeople();
+			r << "\n";
+		}
+		if (x[j].getTypeRent() == "Flat")
+		{
+			r << rentsVec[j].getNif() << " ; ";
+			r << "Flat ; " << x[j].getName() << " ; " << u1.trim(x[j].getCity()) << " ; ";
+			r << x[j].getDataInicio().getDay() << "/" << x[j].getDataInicio().getMonth() << "/" << x[j].getDataInicio().getYear() << " ; ";
+			r << x[j].getDataFim().getDay() << "/" << x[j].getDataFim().getMonth() << "/" << x[j].getDataFim().getYear() << " ; ";
+			r << x[j].getPrice() << " ; " << x[j].getNumPeople();
+			r << "\n";
+		}
+		if (x[j].getTypeRent() == "Apartment")
+		{
+			r << rentsVec[j].getNif() << " ; ";
+			r << "Apartment ; " << x[j].getName() << " ; " << u1.trim(x[j].getCity()) << " ; ";
+			r << x[j].getDataInicio().getDay() << "/" << x[j].getDataInicio().getMonth() << "/" << x[j].getDataInicio().getYear() << " ; ";
+			r << x[j].getPrice() << " ; " << x[j].getNumPeople() << " ; ";
+			r << x[j].getNumRooms() << " ; ";
+			r << x[j].getKitchen() << " ; " << x[j].getSuite() << " ; " << x[j].getLivingRoom();
+			r << "\n";
+		}
+		if (x[j].getReservations().size() == 0)
+			r << x[j].getReservations().size() << " ;\n";
+
+		else {
+			r << x.at(j).getReservations().size() << " ; ";
+			for (int k = 0; k < x.at(j).getReservations().size(); k++)
+			{
+				if (k == (x.at(j).getReservations().size() - 1))
+					r << x.at(j).getReservations().at(k).getnif() << " ; " << x.at(j).getReservations().at(k).getDate1() << " ; " << x.at(j).getReservations().at(j).getDate2();
+				else
+					r << x.at(j).getReservations().at(k).getnif() << " ; " << x.at(j).getReservations().at(k).getDate1() << " ; " << x.at(j).getReservations().at(j).getDate2() << " ; ";
+			}
+			r << endl;
+		}
+
+	}
+	r.close();
+}
+
 //Adds a supplier to the suppliers vector
 void Corporation::registerSupplier() {
 
 	string user, password, nif, address;
-	vector<Rent> rent;
 
-	cout << "\n Name:  "; getline(cin, user);
+
+	cout << "\n Name:  ";
+	getline(cin, user);
 
 	if (cin.eof()) {
 		u1.cancelMessage();
@@ -627,7 +627,7 @@ void Corporation::registerSupplier() {
 		corpMenu.RegisterMenu();
 	}
 
-	suppliersVec.push_back(Supplier(user, password, stoi(nif), address, rent));
+	suppliersVec.push_back(Supplier(user, password, stoi(nif), address));
 	u1.clearScreen();
 	return;
 }
@@ -654,18 +654,17 @@ void Corporation::orderSuppliersVec()
 
 void Corporation::orderRentsVec()
 {
-	int i, j;
-	for (i = 0; i < (suppliersVec.size() - 1); i++) {
-		for (j = 0; j < suppliersVec.size() - 1; j++)
+	int i;
+	if (rentsVec.size() == 1)
+		return;
+	for (i = 0; i < (rentsVec.size() - 1); i++) {
+		if (rentsVec[i].getPrice() > rentsVec[i + 1].getPrice())
 		{
-			if (suppliersVec[i].getVector()[j].getPrice() > suppliersVec[i].getVector()[j + 1].getPrice())
-			{
-				Supplier before, after;
-				after = suppliersVec[j];
-				before = suppliersVec[j + 1];
-				suppliersVec[j + 1] = after;
-				suppliersVec[j] = before;
-			}
+			Rent before, after;
+			after = rentsVec[i];
+			before = rentsVec[i + 1];
+			rentsVec[i + 1] = after;
+			rentsVec[i] = before;
 		}
 	}
 
@@ -675,7 +674,6 @@ void Corporation::orderRentsVec()
 void Corporation::makeRent() {
 
 	bool isIn = true;
-	vector<Rent> v;
 	Date d1, d2;
 	string cinNumIter, cinChoice;
 	int numIteration, choice;
@@ -709,15 +707,13 @@ void Corporation::makeRent() {
 			}
 		}
 	}
-
+	int nif;
 	isIn = true;
-	vector<Rent> x;
-	int xnum;
-	for (int j = 0; j < suppliersVec.size(); j++)
-		if (suppliersVec[j].getName() == Corporation::instance()->username) {
-			x = suppliersVec[j].getVector();
-			xnum = j;
-		}
+	for (int j = 0; j < rentsVec.size(); j++)
+		for (int i = 0; i < suppliersVec.size(); i++)
+			if (suppliersVec[i].getName() == Corporation::instance()->username) {
+				nif = suppliersVec[i].getNif();
+			}
 
 	for (int i = 0; i < numIteration; i++) {
 
@@ -753,98 +749,213 @@ void Corporation::makeRent() {
 		if (choice == 1) {
 			u1.clearScreen();
 			Hotel h;
-			x.push_back(h.buildRent());
+			rentsVec.push_back(h.buildRent(nif));
 		}
 		if (choice == 2) {
 			u1.clearScreen();
 			bedNbreakfast bnb;
-			x.push_back(bnb.buildRent());
+			rentsVec.push_back(bnb.buildRent(nif));
 		}
 		if (choice == 3) {
 			u1.clearScreen();
 			flat fl;
-			x.push_back(fl.buildRent());
+			rentsVec.push_back(fl.buildRent(nif));
 			break;
 		}
 		if (choice == 4) {
 			u1.clearScreen();
 			apartment ap;
-			x.push_back(ap.buildRent());
+			rentsVec.push_back(ap.buildRent(nif));
 			break;
 		}
 		if (choice == 5) {
 			u1.clearScreen();
 			sharedHouse sh;
-			x.push_back(sh.buildRent());
+			rentsVec.push_back(sh.buildRent(nif));
 			break;
 		}
 	}
-	suppliersVec[xnum].setVector(x);
 	u1.successMessage();
 
 	return;
 
 }
 
-/*void Corporation::makeReservation() // o unico erro é como dar display das rents e ainda vai haver modificacoes na estrutura da funcao
+
+
+void Corporation::makeReservation() // o unico erro é como dar display das rents e ainda vai haver modificacoes na estrutura da funcao
 {
-	string city;
-	cout << "City : ";
-	getline(cin, city);
 
-	cout << "List of possibilities : " << endl;
-	for (int i = 0; i < rentsVec.size(); i++)
-	{
-		if (city == rentsVec.at(i).getCity())
-			cout << " -> " << rentsVec.at(i) << endl; // maneira de display?
-	}
-	string d1, d2, name_rent;
+	string city, nameRent, typeRent, type;
+	unsigned int n_people, n, counter = 1, option;
+	bool isIn = true;
+	float xPrice;
 
-	cout << " Name of the Rent Place : ";
-	getline(cin, name_rent);
+#pragma warning(disable : 4996)
+	time_t ti = time(0);
+	struct tm * now = localtime(&ti);
+	unsigned int year = 1900 + now->tm_year, month = 1 + now->tm_mon, day = now->tm_mday;
+	Date real_date = Date(day, month, year);
 
-	for (int i = 0; i << rentsVec.size();i++)
-	{
-		if (name_rent == rentsVec.at(i).getName()) {
+	city = Corporation::instance()->cities();
+	u1.clearScreen();
 
-			unsigned int n_people;
-			cout << "Number of persons : ";
-			cin >> n_people;
+	string dateB, dateE;
 
-			if (n_people > rentsVec.at(i).getNumPeople())
-			{
-				cout << "Invalid number of persons." << endl;
-				break;
-			}
+	while (isIn) {
+		cout << "\nDate of check-in: "; cin >> dateB;
 
-				cout << " Date of check-in : ";
-				getline(cin, d1);
-				cout << "Date of check-out : ";
-				getline(cin, d2);
+		Date date1 = Date(dateB);
 
-				Date date1 = Date(d1);
-				Date date2 = Date(d2);
-				Rent * c = nullptr;
+		if (cin.eof()) {
+			u1.cancelMessage();
+			corpMenu.UsersMenu();
+		}
 
-				if ((date1 > rentsVec.at(i).getDataInicio() || date1 == rentsVec.at(i).getDataInicio()) && (date2 < rentsVec.at(i).getDataFim()) || date2 == rentsVec.at(i).getDataFim())
-				{
-					string answer;
-					cout << rentsVec.at(i) << endl << "Do you want to confirm? ";
-					if (answer == "yes" || answer == "Yes")
-					{
-						c = &rentsVec.at(i);
-						reservationsVec.push_back(Reservation(username, city, rentsVec.at(i).getType(), rentsVec.at(i).getTypeRent(), n_people, date1, date2,c));
-						free(c);
-						break;
-					}
-					else
-						continue;
-				}
-				else
-					cout << "invalid period of time" << endl;
+		if (!date1.isValid() || (real_date > date1)) {
+			u1.setColor(12); cerr << endl << "  ERROR: The date you inserted is not valid."; u1.setColor(15);
+			Sleep(1500);
+			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+			Sleep(1500);
+			u1.cinClear();
+			u1.clearScreen();
+		}
+		else {
+			u1.cinClear();
+			isIn = false;
 		}
 	}
-}*/
+
+	isIn = true;
+	while (isIn) {
+		cout << "\nDate of check-out : "; cin >> dateE; cout << endl;
+
+		Date date2 = Date(dateE);
+
+		if (cin.eof()) {
+			u1.cancelMessage();
+			corpMenu.UsersMenu();
+		}
+
+		if (!date2.isValid() || (real_date > date2)) {
+			u1.setColor(12); cerr << endl << "  ERROR: The date you inserted is not valid. Please use the format dd/mm/yyyy"; u1.setColor(15);
+			Sleep(2000);
+			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+			Sleep(1500);
+			u1.cinClear();
+			u1.clearScreen();
+		}
+		else {
+			u1.cinClear();
+			isIn = false;
+		}
+	}
+
+	Date date1 = Date(dateB);
+	Date date2 = Date(dateE);
+	Rent * c = nullptr;
+
+	isIn = true;
+
+	while (isIn) {
+		u1.setColor(11); cout << "Rooms available between " << date1 << " and " << date2 << " in " << city << ": \n\n"; u1.setColor(15);
+
+		for (size_t i = 0; i < rentsVec.size(); i++, counter++) {
+			if (rentsVec[i].isValid(date1, date2)) {
+				if (rentsVec.at(i).getTypeRent() == "Hotel") {
+					cout << "Option " << counter << endl;
+					cout << "Type of accommodation: " << rentsVec.at(i).getTypeRent() << endl;
+					cout << "Name: " << rentsVec.at(i).getName() << endl;
+					cout << "Available from: " << rentsVec.at(i).getDataInicio();
+					cout << "  To: " << rentsVec.at(i).getDataFim() << endl;
+					cout << "Room type: " << rentsVec.at(i).getType() << endl;
+					cout << "Price per night: " << rentsVec.at(i).getPrice() << endl;
+					cout << "Room's capacity: " << rentsVec.at(i).getNumPeople() << endl << endl;
+				}
+				else if (rentsVec.at(i).getTypeRent() == "Apartment") {
+					cout << "Option " << counter << endl;
+					cout << "Type of accommodation: " << rentsVec.at(i).getTypeRent() << endl;
+					cout << "Name: " << rentsVec.at(i).getName() << endl;
+					cout << "Available from: " << rentsVec.at(i).getDataInicio();
+					cout << "  To: " << rentsVec.at(i).getDataFim() << endl;
+					cout << "Has Kitchen: " << rentsVec.at(i).getKitchen() << endl;
+					cout << "Has Living Room: " << rentsVec.at(i).getLivingRoom() << endl;
+					cout << "Has Suite: " << rentsVec.at(i).getSuite() << endl;
+					cout << "Price per night: " << rentsVec.at(i).getPrice() << endl;
+					cout << "Room's capacity: " << rentsVec.at(i).getNumPeople() << endl << endl;
+				}
+				else {
+					cout << "Option " << counter << endl;
+					cout << "Type of accommodation: " << rentsVec.at(i).getTypeRent() << endl;
+					cout << "Name: " << rentsVec.at(i).getName() << endl;
+					cout << "Available from: " << rentsVec.at(i).getDataInicio();
+					cout << "  To: " << rentsVec.at(i).getDataFim() << endl;
+					cout << "Price per night: " << rentsVec.at(i).getPrice() << endl;
+					cout << "Room's capacity: " << rentsVec.at(i).getNumPeople() << endl << endl;
+				}
+			}
+		}
+
+		cout << "Insert the option's number: ";
+		cin >> option;
+
+		xPrice = rentsVec[option - 1].getPrice();
+
+		if (cin.eof()) {
+			u1.cancelMessage();
+			corpMenu.UsersMenu();
+		}
+
+		if (cin.fail()) {
+			u1.setColor(12); cerr << endl << "  ERROR: Input is not an integer."; u1.setColor(15);
+			Sleep(1500);
+			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+			Sleep(1500);
+			u1.cinClear();
+			u1.clearScreen();
+		}
+	}
+
+	isIn = true;
+
+	while (isIn) {
+		u1.setColor(14); cout << "\n\nCity: " << city << "  From: " << date1 << "  To: " << date2 << endl;
+		cout << "\nNumber of people: ";
+		cin >> n_people;
+
+		if (cin.eof()) {
+			u1.cancelMessage();
+			corpMenu.UsersMenu();
+		}
+
+		if (cin.fail()) {
+			u1.setColor(12); cerr << endl << "  ERROR: Input is not an integer."; u1.setColor(15);
+			Sleep(1500);
+			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+			Sleep(1500);
+			u1.cinClear();
+			u1.clearScreen();
+		}
+
+		for (int i = 0; i < rentsVec.size(); i++) {
+			if (n_people > rentsVec.at(i).getNumPeople()) {
+				u1.setColor(12); cerr << endl << "  ERROR: The value you inserted exceeds the room's maximum capacity."; u1.setColor(15);
+				Sleep(1500);
+				cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+				Sleep(1500);
+				u1.cinClear();
+			}
+			else {
+				cin.clear();
+				isIn = false;
+			}
+		}
+	}
+	int nif = rentsVec[option - 1].getNif();
+	float totalPrice = xPrice*(date2.minus(date1));
+	rentsVec[option - 1].setReservation(Reservation(nif, totalPrice, date1, date2));
+
+}
 
 /*
 void Corporation::cancelReservation()
@@ -912,7 +1023,7 @@ void Corporation::cancelReservation()
 	string name_answer;
 	cout << " Which one would you like to cancel :";
 	getline(cin, name_answer);
-	
+
 	vector<Reservation>x_vec;
 	for (int i = 0; i < rentsVec.size(); i++)
 	{

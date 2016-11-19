@@ -26,8 +26,8 @@ public:
 	void setYear(int);//!< a function that sets the year.
 	int getYear();//!< a function that returns the year.
 	bool isValid();//!< a function that returns true if the date is valid,if not returns false.
-	bool operator<(Date time1);//!< a function that overloads the operator "<".
-	friend bool operator<=(const Date & D1,Date &D2);//!< a function that overloads the operator ">".
+	friend bool operator<(const Date & D1,Date &D2);//!< a function that overloads the operator "<".
+	friend bool operator>(const Date & D1, Date &D2);//!< a function that overloads the operator ">".
 	friend bool operator==(const Date &d1, Date &d2);//!< a function that overloads the operator "==".
 	Date operator+(Date days);//!< a function that returns the result of the sum of the dates.
 	Date operator-(Date days);//!< a function that returns the result of the subtraction of the dates.

@@ -5,21 +5,39 @@
 Utilities u2;
 
 // ALUGUER
-Rent::Rent(string typeRent, string name2 ,string c, Date dataI, Date dataF, float p, int n)
+Rent::Rent(int nif, string typeRent, string name2 ,string c, Date dataI, Date dataF, float p, int n)
 {
-	city = c; dataBegin = dataI; dataEnd = dataF; numPeople = n; price = p; this->typeRent = typeRent; name = name2;
+	city = c; dataBegin = dataI; dataEnd = dataF; numPeople = n; price = p; this->typeRent = typeRent; name = name2; this->nif = nif;
+}
+
+bool Rent::isValid(Date d1, Date d2)
+{
+	if (this->getDataInicio() > d1 || this->getDataFim() < d2)
+		return false;
+	for (int i = 0; i < reserved.size(); i++)
+	{
+		if ((reserved[i].getDate1() < d2) && (reserved[i].getDate2() > d2))
+			return false;
+		if ((reserved[i].getDate1() < d1) && (reserved[i].getDate2() > d1))
+			return false;
+		if ((reserved[i].getDate1() > d1) && (reserved[i].getDate2() < d2))
+			return false;
+		else
+			return true;
+	}
+
 }
 
 // HOTEL
 
-Hotel::Hotel(string typeRent, string name, string cidade, Date dataI, Date dataF, string type, float preco, int numOcupantes) : Rent(typeRent, name, cidade, dataI, dataF, preco, numOcupantes)
+Hotel::Hotel(int nif, string typeRent, string name, string cidade, Date dataI, Date dataF, string type, float preco, int numOcupantes) : Rent(nif, typeRent, name, cidade, dataI, dataF, preco, numOcupantes)
 {
 	nameHotel = name;
 	this->type = type;
 
 }
 
-Hotel Hotel::buildRent()
+Hotel Hotel::buildRent(int nif)
 {
 	string city;
 	int n;
@@ -112,19 +130,19 @@ Hotel Hotel::buildRent()
 
 		if (n == 1) {
 			numPeople = 1;
-			return Hotel("Hotel", name, city, d1, d2, "Simple Room", price, numPeople);
+			return Hotel(nif, "Hotel", name, city, d1, d2, "Simple Room", price, numPeople);
 		}
 		else if (n == 2) {
 			numPeople = 2;
-			return Hotel("Hotel", name, city, d1, d2, "Double Room", price, numPeople);
+			return Hotel(nif,"Hotel", name, city, d1, d2, "Double Room", price, numPeople);
 		}
 		else if (n == 3) {
 			numPeople = 3;
-			return Hotel("Hotel", name, city, d1, d2, "Double Room with additional bed", price, numPeople);
+			return Hotel(nif, "Hotel", name, city, d1, d2, "Double Room with additional bed", price, numPeople);
 		}
 		else if (n == 4) {
 			numPeople = 3;
-			return Hotel("Hotel", name, city, d1, d2, "Triple Room", price, numPeople);
+			return Hotel(nif, "Hotel", name, city, d1, d2, "Triple Room", price, numPeople);
 		}
 		else
 		{
@@ -137,12 +155,12 @@ Hotel Hotel::buildRent()
 
 // BED'N'BREAKFAST
 
-bedNbreakfast::bedNbreakfast(string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes) : Rent(typeRent, name ,cidade, dataI, dataF, preco, numOcupantes)
+bedNbreakfast::bedNbreakfast(int nif, string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes) : Rent(nif, typeRent, name ,cidade, dataI, dataF, preco, numOcupantes)
 {
 	this->namebnb = name;
 }
 
-bedNbreakfast bedNbreakfast::buildRent()
+bedNbreakfast bedNbreakfast::buildRent(int nif)
 {
 	Utilities u;
 	string city;
@@ -239,7 +257,7 @@ bedNbreakfast bedNbreakfast::buildRent()
 			continue;
 		}
 	}
-	return bedNbreakfast("Bed'n'Breakfast", name, city, d1, d2, price, numPeople);
+	return bedNbreakfast(nif, "Bed'n'Breakfast", name, city, d1, d2, price, numPeople);
 
 
 }
@@ -247,13 +265,13 @@ bedNbreakfast bedNbreakfast::buildRent()
 
 // SHARED-HOUSE
 
-sharedHouse::sharedHouse(string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes) : Rent(typeRent, name, cidade, dataI, dataF, preco, numOcupantes)
+sharedHouse::sharedHouse(int nif, string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes) : Rent(nif, typeRent, name, cidade, dataI, dataF, preco, numOcupantes)
 {
 	this->nameSH = name;
 }
 
 
-sharedHouse sharedHouse::buildRent()
+sharedHouse sharedHouse::buildRent(int nif)
 {
 	string city, name;
 	int n;
@@ -361,17 +379,17 @@ sharedHouse sharedHouse::buildRent()
 		}
 	}
 
-	return sharedHouse("Shared House", name, city, d1, d2, price, numPeople);
+	return sharedHouse(nif,"Shared House", name, city, d1, d2, price, numPeople);
 }
 
 // FLAT
 
-flat::flat(string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes) : Rent(typeRent, name ,cidade, dataI, dataF,preco, numOcupantes)
+flat::flat(int nif, string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes) : Rent(nif, typeRent, name ,cidade, dataI, dataF,preco, numOcupantes)
 {
 	this->nameFlat = name;
 }
 
-flat flat::buildRent()
+flat flat::buildRent(int nif)
 {
 	string city;
 	int n;
@@ -470,13 +488,13 @@ flat flat::buildRent()
 		}
 	}
 
-	return flat("Flat", name, city, d1, d2, price, numPeople);
+	return flat(nif, "Flat", name, city, d1, d2, price, numPeople);
 
 }
 
 // APARTMENT
 
-apartment::apartment(string tipoRent, string name, string cidade, Date dataI, Date dataF, float price, int numOcupantes, int numrooms, bool kitchen, bool suite, bool livingroom) : Rent(tipoRent, name, cidade, dataI, dataF, price, numOcupantes)
+apartment::apartment(int nif, string tipoRent, string name, string cidade, Date dataI, Date dataF, float price, int numOcupantes, int numrooms, bool kitchen, bool suite, bool livingroom) : Rent(nif, tipoRent, name, cidade, dataI, dataF, price, numOcupantes)
 {
 	nameApartment = name;
 	hasKitchen = kitchen;
@@ -484,7 +502,7 @@ apartment::apartment(string tipoRent, string name, string cidade, Date dataI, Da
 	hasLivingRoom = livingroom;
 }
 
-apartment apartment::buildRent()
+apartment apartment::buildRent(int nif)
 {
 	string city;
 	int n;
@@ -669,5 +687,5 @@ apartment apartment::buildRent()
 			continue;
 		}
 	}
-	return apartment("Apartment", name, city, d1, d2, price, people, rooms, k, s, lr);
+	return apartment(nif, "Apartment", name, city, d1, d2, price, people, rooms, k, s, lr);
 }

@@ -5,12 +5,12 @@
 
 Supplier::Supplier(){}
 
-Supplier::Supplier(string n, string password, unsigned int ni, string ad, vector<Rent> v)
+Supplier::Supplier(string n, string password, unsigned int ni, string ad)
 {
 	name = n;
 	this->password = password;
 	address = ad;
 	nif = ni;
-	this->v = v;
+
 }
 

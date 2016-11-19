@@ -42,6 +42,7 @@ int main() {
 	Corporation::instance()->loadUsers();
 	//Corporation::instance()->loadReservations();
 	Corporation::instance()->loadSuppliers();
+	Corporation::instance()->loadRents();
 	Corporation::instance()->orderRentsVec();
 	u.clearScreen();
 	//Corporation::instance()->printSuppliers();
@@ -53,7 +54,7 @@ int main() {
 
 	Corporation::instance()->saveUsers();
 	Corporation::instance()->saveSuppliers();
-	
+	Corporation::instance()->saveRents();
 	u.clearScreen();
 	u.logo();
 	u.aboutMessage();
