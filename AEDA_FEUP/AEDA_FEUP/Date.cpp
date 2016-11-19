@@ -48,15 +48,18 @@ int Date::getMonth()
 	return month;
 }
 
-void Date::setYear(int year){
+void Date::setYear(int year)
+{
 	this->year = year;
 }
 
-int Date::getYear(){
+int Date::getYear()
+{
 	return year;
 }
 
-bool Date::isValid(){
+bool Date::isValid()
+{
 
 	if (this->getMonth() < 1 || this->getMonth() > 12)
 	{
@@ -85,29 +88,6 @@ bool Date::isValid(){
 	return true;
 }
 
-<<<<<<< HEAD
-bool operator>(const Date & D1, Date &D2)
-{
-	if (D2.year < D1.year ||
-		(D1.year == D2.year && D2.month < D1.month) ||
-		(D1.year == D2.year && D1.month == D2.month && D2.day < D1.day))
-		return true;
-	else
-		return false;
-}
-
-bool operator<(const Date & D1, Date &D2)
-{
-	if (D2.year > D1.year ||
-		(D1.year == D2.year && D2.month > D1.month) ||
-		(D1.year == D2.year && D1.month == D2.month && D2.day > D1.day))
-		return true;
-	else
-		return false;
-}
-
-=======
->>>>>>> origin/master
 Date Date::operator+(Date days)
 {
 	if (this->getMonth() == 1 || this->getMonth() == 3 || this->getMonth() == 5 || this->getMonth() == 7 || this->getMonth() == 9 || this->getMonth() == 11)
@@ -185,9 +165,9 @@ int Date::minus(Date days)     // Retorna a diferenca das datas, para fins de pr
 		return (this->getDay() - (this->getDay() - days.getDay()) + 31);
 	else if (this->getMonth() == 2)
 		return (this->getDay() - (this->getDay() - days.getDay()));
-	else 
+	else
 		return (this->getDay() - (this->getDay() - days.getDay()) + 30);
-	
+
 }
 
 ostream& operator<<(ostream& out, const Date & data) {

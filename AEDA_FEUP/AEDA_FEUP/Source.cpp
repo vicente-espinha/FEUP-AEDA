@@ -49,10 +49,8 @@ int main() {
 	//Corporation::instance()->loadReservations();
 	Corporation::instance()->loadSuppliers();
 	Corporation::instance()->loadRents();
-<<<<<<< HEAD
-=======
+
 	Corporation::instance()->orderRentsVec();
->>>>>>> origin/master
 	u.clearScreen();
 	//Corporation::instance()->printSuppliers();
 	

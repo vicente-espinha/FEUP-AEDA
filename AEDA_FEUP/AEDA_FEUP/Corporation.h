@@ -14,21 +14,20 @@
 using namespace std;
 /*! \brief Brief description.
 *
-*  
+*
 */
 class Corporation
 {
 private:
 	static Corporation* singleton_instance;
-	string usersFile, suppliersFile,rentsFile;
+	string usersFile, suppliersFile, rentsFile;
 	vector<Users> usersVec;
 	vector<Supplier> suppliersVec;
 	vector<Rent> rentsVec;
 
-	
+
 public:
 	string username, supplierName;
-	unsigned int nif;
 
 	static Corporation* instance();
 
@@ -47,17 +46,10 @@ public:
 	void orderSuppliersVec();
 	void orderRentsVec();
 	void makeRent();
-	
+
 	string cities();
 
-<<<<<<< HEAD
-	bool foundReservationsFile(string reservationsFile);
 	void makeReservation();
-	void loadReservations();
-	void saveReservations();
-=======
-	void makeReservation();
->>>>>>> origin/master
 	void cancelReservation();
 
 	bool foundRentsFile(string rentsFile);
