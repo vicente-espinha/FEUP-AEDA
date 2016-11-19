@@ -151,10 +151,7 @@ void UserOption() {
 void MakeReservationOption() {
 
 	u.clearScreen();
-	m.gotoxy(25, 10);
-	cout << Corporation::instance()->username;
-	cout << "You have selected menu option (#1)" << endl;
-	u.pressToContinueMessage();
+	Corporation::instance()->makeReservation();
 	u.clearScreen();
 }
 

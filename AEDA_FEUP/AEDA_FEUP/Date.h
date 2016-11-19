@@ -22,8 +22,8 @@ public:
 	void setYear(int);
 	int getYear();
 	bool isValid();
-	bool operator<(Date time1);
-	bool operator>(Date time1);
+	friend bool operator<(const Date &D1, Date &D2);
+	friend bool operator>(const Date &D1, Date &D2);
 	friend bool operator==(const Date &d1, Date &d2);
 	Date operator+(Date days);    // Retorna o resultado das datas
 	Date operator-(Date days);    

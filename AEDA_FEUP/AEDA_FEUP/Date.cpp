@@ -48,18 +48,15 @@ int Date::getMonth()
 	return month;
 }
 
-void Date::setYear(int year)
-{
+void Date::setYear(int year){
 	this->year = year;
 }
 
-int Date::getYear()
-{
+int Date::getYear(){
 	return year;
 }
 
-bool Date::isValid()
-{
+bool Date::isValid(){
 
 	if (this->getMonth() < 1 || this->getMonth() > 12)
 	{
@@ -88,40 +85,24 @@ bool Date::isValid()
 	return true;
 }
 
-bool Date::operator<(Date x)
+bool operator>(const Date & D1, Date &D2)
 {
-	if (this->getYear() < x.getYear())
+	if (D2.year < D1.year ||
+		(D1.year == D2.year && D2.month < D1.month) ||
+		(D1.year == D2.year && D1.month == D2.month && D2.day < D1.day))
 		return true;
-	if (this->getYear() > x.getYear())
-		return false;
-	if (this->getMonth() < x.getMonth())
-		return true;
-	if (this->getMonth() > x.getMonth())
-		return false;
-	if (this->getDay() < x.getDay())
-		return true;
-	if (this->getDay() > x.getDay())
-		return false;
 	else
-		return true;
+		return false;
 }
 
-bool Date::operator>(Date x)
+bool operator<(const Date & D1, Date &D2)
 {
-	if (this->getYear() > x.getYear())
+	if (D2.year > D1.year ||
+		(D1.year == D2.year && D2.month > D1.month) ||
+		(D1.year == D2.year && D1.month == D2.month && D2.day > D1.day))
 		return true;
-	if (this->getYear() < x.getYear())
-		return false;
-	if (this->getMonth() > x.getMonth())
-		return true;
-	if (this->getMonth() < x.getMonth())
-		return false;
-	if (this->getDay() > x.getDay())
-		return true;
-	if (this->getDay() < x.getDay())
-		return false;
 	else
-		return true;
+		return false;
 }
 
 Date Date::operator+(Date days)

@@ -27,6 +27,7 @@ private:
 	
 public:
 	string username, supplierName;
+	unsigned int nif;
 
 	static Corporation* instance();
 
@@ -40,7 +41,6 @@ public:
 	bool foundSuppliersFile(string suppliersFile);
 	void loadSuppliers();
 	void saveSuppliers();
-	void addRentToSupplier(Supplier s);
 	void registerSupplier();
 	void makeRent();
 	void printSuppliers();
@@ -48,7 +48,7 @@ public:
 	string cities();
 
 	bool foundReservationsFile(string reservationsFile);
-	//void makeReservation();
+	void makeReservation();
 	void loadReservations();
 	void saveReservations();
 	void cancelReservation();

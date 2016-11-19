@@ -10,7 +10,7 @@ Corporation* Corporation::singleton_instance = 0;
 
 int main() {
 
-	string usersFile, suppliersFile;
+	string usersFile, suppliersFile, rentsFile;
 
 	//Objetos da classe. 
 	Menu menu;
@@ -25,6 +25,8 @@ int main() {
 	u.setColor(14); getline(cin, usersFile); u.setColor(15);
 	cout << "\n  Suppliers file:   ";
 	u.setColor(14); getline(cin, suppliersFile); u.setColor(15);
+	cout << "\n  Rents file:       ";
+	u.setColor(14); getline(cin, rentsFile); u.setColor(15);
 
 	if (cin.eof()) {
 		u.cancelMessage();
@@ -39,8 +41,13 @@ int main() {
 		return 0;
 	}
 
+	if (!(Corporation::instance()->foundRentsFile(rentsFile))) {
+		return 0;
+	}
+
 	Corporation::instance()->loadUsers();
 	Corporation::instance()->loadSuppliers();
+	Corporation::instance()->loadRents();
 	u.clearScreen();
 	//Corporation::instance()->printSuppliers();
 	
