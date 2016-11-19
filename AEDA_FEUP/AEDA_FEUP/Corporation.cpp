@@ -519,6 +519,10 @@ void Corporation::saveSuppliers()
 		}
 
 	}
+
+	for (int k = 0; k < suppliersVec.size(); k++)
+		for (int l = 0; l < suppliersVec[k].getVector().size(); l++)
+			rentsVec.push_back(suppliersVec[k].getVector()[l]);
 	f.close();
 
 	remove(suppliersFile.c_str());
@@ -642,6 +646,25 @@ void Corporation::orderSuppliersVec()
 				before = suppliersVec[j + 1].getName();
 				suppliersVec[j + 1].setName(after);
 				suppliersVec[j].setName(before);
+			}
+		}
+	}
+
+}
+
+void Corporation::orderRentsVec()
+{
+	int i, j;
+	for (i = 0; i < (suppliersVec.size() - 1); i++) {
+		for (j = 0; j < suppliersVec.size() - 1; j++)
+		{
+			if (suppliersVec[i].getVector()[j].getPrice() > suppliersVec[i].getVector()[j + 1].getPrice())
+			{
+				Supplier before, after;
+				after = suppliersVec[j];
+				before = suppliersVec[j + 1];
+				suppliersVec[j + 1] = after;
+				suppliersVec[j] = before;
 			}
 		}
 	}
@@ -946,13 +969,6 @@ bool Corporation::foundRentsFile(string rentsFile)
 	return true;
 }
 
-void Corporation::loadRents()
-{
-	string line;
-	fstream f;
-
-
-}
 
 string Corporation::cities() {
 

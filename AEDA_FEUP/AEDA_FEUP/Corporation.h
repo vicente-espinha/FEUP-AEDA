@@ -44,6 +44,7 @@ public:
 	void saveSuppliers();
 	void registerSupplier();
 	void orderSuppliersVec();
+	void orderRentsVec();
 	void makeRent();
 	
 	string cities();

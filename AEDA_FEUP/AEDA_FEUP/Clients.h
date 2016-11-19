@@ -12,7 +12,6 @@ class Clients
 {
 public:
 	Clients();
-	//void makeReservation();
 
 };
 

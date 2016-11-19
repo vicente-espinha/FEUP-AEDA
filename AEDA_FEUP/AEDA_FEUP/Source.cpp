@@ -42,7 +42,7 @@ int main() {
 	Corporation::instance()->loadUsers();
 	//Corporation::instance()->loadReservations();
 	Corporation::instance()->loadSuppliers();
-	Corporation::instance()->orderSuppliersVec();
+	Corporation::instance()->orderRentsVec();
 	u.clearScreen();
 	//Corporation::instance()->printSuppliers();
 	
