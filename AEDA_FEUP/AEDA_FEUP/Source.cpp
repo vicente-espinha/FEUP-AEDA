@@ -40,7 +40,9 @@ int main() {
 	}
 
 	Corporation::instance()->loadUsers();
+	
 	Corporation::instance()->loadSuppliers();
+	Corporation::instance()->orderSuppliersVec();
 	u.clearScreen();
 	//Corporation::instance()->printSuppliers();
 	

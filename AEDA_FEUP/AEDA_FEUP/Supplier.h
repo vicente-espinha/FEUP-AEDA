@@ -19,6 +19,7 @@ public:
 	Supplier();
 	Supplier(string n, string password, unsigned int ni, string ad, vector<Rent> v);
 	string getName() { return name; }
+	void setName(string s) { name = s; }
 	string getPassword() { return password; }
 	string getAddress() { return address; }
 	void setVector(vector<Rent> v2) { v.erase(v.begin(), v.end()); v = v2; }

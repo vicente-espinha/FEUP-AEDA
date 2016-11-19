@@ -37,11 +37,13 @@ public:
 	void saveUsers();
 	void registerUser();
 
+
 	bool foundSuppliersFile(string suppliersFile);
 	void loadSuppliers();
 	void saveSuppliers();
 	void addRentToSupplier(Supplier s);
 	void registerSupplier();
+	void orderSuppliersVec();
 	void makeRent();
 	void printSuppliers();
 
