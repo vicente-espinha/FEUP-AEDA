@@ -1,6 +1,12 @@
 Gajo Bo ; Hotel ; Ibis ; Coimbra ; 1/1/2014 ; 3/3/2014 ; Simple Room ; 100 ; 1
+1 ; 123123123 ; 2/2/2014 ; 1/1/2014 
 Hugh Mungus ; Bed'n'Breakfast ; Meu ; Leça, onde se esta bem ; 1/1/2014 ; 3/3/2014 ; 200 ; 3
+3 ; 123123113 ; 2/2/2014 ; 1/1/2014 ; 121313123 ; 2/2/2014 ; 1/1/2014 ; 123143123 ; 2/2/2014 ; 1/1/2014 
 Hugh Mungus ; Hotel ; Ibis ; Coimbra ; 1/1/2014 ; 3/3/2014 ; Simple Room ; 100 ; 1
+0 ;
 Hugh Mungus22 ; Shared House ; Teu ; Onde o Diogo faz spawn de manha ; 1/1/2014 ; 3/3/2014 ; 200 ; 3
+0 ;
 Ken Can Bone ; Bed'n'Breakfast ; Meu ; Leça, onde se esta bem ; 1/1/2014 ; 3/3/2014 ; 200 ; 3
+0 ;
 Ken Can Bone ; Hotel ; Ibis ; Coimbra ; 1/1/2014 ; 3/3/2014 ; Simple Room ; 100 ; 1
+0 ;

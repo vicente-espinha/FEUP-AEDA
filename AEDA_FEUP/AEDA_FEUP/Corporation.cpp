@@ -225,14 +225,16 @@ bool Corporation::foundSuppliersFile(string suppliersFile) {
 	return true;
 }
 
+
+
 void Corporation::loadSuppliers() {
 
 	string line, lineRents;
 	fstream f, r;
 	int xPosition;
 	vector<Rent> xVec;
-
-	
+	Rent tmp;
+	double price;
 	f.open(suppliersFile);
 	r.open("rents.txt");
 	while (getline(f, line)) {
@@ -252,7 +254,7 @@ void Corporation::loadSuppliers() {
 		string name = u1.trim(lineRents.substr(0, lineRents.find(" ; ")));
 		lineRents.erase(0, lineRents.find(" ; ") + 3);
 		orderSuppliersVec();
-		
+
 		for (int i = 0; i < suppliersVec.size(); i++)
 			if (name == suppliersVec[i].getName())
 			{
@@ -282,13 +284,12 @@ void Corporation::loadSuppliers() {
 			lineRents.erase(0, lineRents.find(" ; ") + 3);
 			string roomType = u1.trim(lineRents.substr(0, lineRents.find(" ; ")));
 			lineRents.erase(0, lineRents.find(" ; ") + 3);
-			float price = stof(lineRents.substr(0, lineRents.find(" ; ")));
+			price = stof(lineRents.substr(0, lineRents.find(" ; ")));
 			lineRents.erase(0, lineRents.find(" ; ") + 3);
 			unsigned int numPeople = stoi(lineRents);
 			lineRents.erase(0, lineRents.length());
-			xVec.push_back(Hotel(typeRent, nameHotel, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), roomType, price, numPeople));
-			suppliersVec[xPosition].setVector(xVec);
-			continue;
+			tmp = Hotel(typeRent, nameHotel, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), roomType, price, numPeople);
+
 		}
 		else if (typeRent == "Bed'n'Breakfast") {
 			string nameBB = lineRents.substr(0, lineRents.find(" ; "));
@@ -307,15 +308,13 @@ void Corporation::loadSuppliers() {
 			lineRents.erase(0, lineRents.find("/") + 1);
 			unsigned int endYear = stoi(lineRents.substr(0, lineRents.find(" ; ")));
 			lineRents.erase(0, lineRents.find(" ; ") + 3);
-			float price = stof(lineRents.substr(0, lineRents.find(" ; ")));
+			price = stof(lineRents.substr(0, lineRents.find(" ; ")));
 			lineRents.erase(0, lineRents.find(" ; ") + 3);
 			unsigned int numPeople = stoi(lineRents);
 			lineRents.erase(0, lineRents.length());
 
-			xVec.push_back(bedNbreakfast(typeRent, nameBB, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople));
-			suppliersVec[xPosition].setVector(xVec);
+			tmp = bedNbreakfast(typeRent, nameBB, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople);
 
-			continue;
 		}
 		else if (typeRent == "Shared House") {
 			string nameSH = lineRents.substr(0, lineRents.find(" ; "));
@@ -334,16 +333,12 @@ void Corporation::loadSuppliers() {
 			lineRents.erase(0, lineRents.find("/") + 1);
 			unsigned int endYear = stoi(lineRents.substr(0, lineRents.find(" ; ")));
 			lineRents.erase(0, lineRents.find(" ; ") + 3);
-			float price = stof(lineRents.substr(0, lineRents.find(" ; ")));
+			price = stof(lineRents.substr(0, lineRents.find(" ; ")));
 			lineRents.erase(0, lineRents.find(" ; ") + 3);
 			unsigned int numPeople = stoi(lineRents);
 			lineRents.erase(0, lineRents.length());
+			tmp = sharedHouse(typeRent, nameSH, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople);
 
-			xVec.push_back(sharedHouse(typeRent, nameSH, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople));
-			suppliersVec[xPosition].setVector(xVec);
-			//cout << lineRents << endl;
-
-			continue;
 		}
 		else if (typeRent == "Flat") {
 			string nameFlat = lineRents.substr(0, lineRents.find(" ; "));
@@ -362,13 +357,11 @@ void Corporation::loadSuppliers() {
 			lineRents.erase(0, lineRents.find("/") + 1);
 			unsigned int endYear = stoi(lineRents.substr(0, lineRents.find(" ; ")));
 			lineRents.erase(0, lineRents.find(" ; ") + 3);
-			float price = stof(lineRents.substr(0, lineRents.find(" ; ")));
+			price = stof(lineRents.substr(0, lineRents.find(" ; ")));
 			lineRents.erase(0, lineRents.find(" ; ") + 3);
 			unsigned int numPeople = stoi(lineRents);
 			lineRents.erase(0, lineRents.length());
-	
-			xVec.push_back(flat(typeRent, nameFlat, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople));
-			suppliersVec[xPosition].setVector(xVec);
+			tmp = flat(typeRent, nameFlat, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople);
 		}
 		else if (typeRent == "Apartment") {
 			string nameApartment = u1.trim(lineRents.substr(0, lineRents.find(" ; ")));
@@ -387,7 +380,7 @@ void Corporation::loadSuppliers() {
 			lineRents.erase(0, lineRents.find("/") + 1);
 			unsigned int endYear = stoi(lineRents.substr(0, lineRents.find(" ; ")));
 			lineRents.erase(0, lineRents.find(" ; ") + 3);
-			float price = stof(lineRents.substr(0, lineRents.find(" ; ")));
+			price = stof(lineRents.substr(0, lineRents.find(" ; ")));
 			lineRents.erase(0, lineRents.find(" ; ") + 3);
 			unsigned int numPeople = stoi(lineRents.substr(0, lineRents.find(" ; ")));
 			int numRooms = stoi(lineRents.substr(0, lineRents.find(" ; ")));
@@ -411,14 +404,40 @@ void Corporation::loadSuppliers() {
 			else
 				l = false;
 
-			xVec.push_back(apartment(typeRent, nameApartment, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople, numRooms, k, s, l));
-			suppliersVec[xPosition].setVector(xVec);
+			tmp = apartment(typeRent, nameApartment, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople, numRooms, k, s, l);
 		}
-		f.close();
-		r.close();
-		return;
+
+		string reservationsLine;
+		getline(r, reservationsLine);
+		int numIterations = stoi(u1.trim(reservationsLine.substr(0, reservationsLine.find(" ; "))));
+		reservationsLine.erase(0, reservationsLine.find(" ; ") + 3);
+		for (int j = 0; j < numIterations; j++) {
+
+			float nifR = stoi(u1.trim(reservationsLine.substr(0, reservationsLine.find(" ; "))));
+			reservationsLine.erase(0, reservationsLine.find(" ; ") + 3);
+
+			Date d1, d2;
+			d1 = reservationsLine.substr(0, reservationsLine.find(" ; "));
+			reservationsLine.erase(0, reservationsLine.find(" ; ") + 3);
+
+			d2 = reservationsLine.substr(0, reservationsLine.find(" ; "));
+
+			if (j == (numIterations - 1))
+				reservationsLine.erase(0, reservationsLine.length());
+			else
+				reservationsLine.erase(0, reservationsLine.find(" ; ") + 3);
+			price = (d2.minus(d1))*price;
+			Reservation newR(nifR, price, d1, d2);
+			tmp.setReservation(newR);
+			xVec.push_back(tmp);
+			suppliersVec[xPosition].setVector(xVec);
+
+		}
 
 	}
+	f.close();
+	r.close();
+	return;
 }
 
 //Loads suppliersVec to the .txt file
@@ -429,8 +448,11 @@ void Corporation::saveSuppliers()
 
 	for (int i = 0; i < suppliersVec.size(); i++)
 	{
+		int j;
+		vector<Rent> x;
+		x = suppliersVec[i].getVector();
 		f << suppliersVec[i].getName() << " ; " << suppliersVec[i].getPassword() << " ; " << suppliersVec[i].getNif() << " ; " << suppliersVec[i].getAddress() << "\n";
-		for (int j = 0; j < suppliersVec[i].getVector().size(); j++)
+		for (j = 0; j < suppliersVec[i].getVector().size(); j++)
 		{
 			vector<Rent> x;
 			x = suppliersVec[i].getVector();
@@ -481,7 +503,6 @@ void Corporation::saveSuppliers()
 				r << x[j].getKitchen() << " ; " << x[j].getSuite() << " ; " << x[j].getLivingRoom();
 				r << "\n";
 			}
-
 			if (!x.at(j).getReservations().empty())
 			{
 				r << x.at(i).getReservations().size() << " ; ";
@@ -494,6 +515,7 @@ void Corporation::saveSuppliers()
 				}
 				r << endl;
 			}
+
 		}
 
 	}
@@ -741,9 +763,6 @@ void Corporation::makeRent() {
 
 }
 
-
-
-
 /*void Corporation::makeReservation() // o unico erro é como dar display das rents e ainda vai haver modificacoes na estrutura da funcao
 {
 	string city;
@@ -804,8 +823,7 @@ void Corporation::makeRent() {
 	}
 }*/
 
-
-
+/*
 void Corporation::cancelReservation()
 {
 #pragma warning(disable : 4996)
@@ -908,7 +926,7 @@ void Corporation::cancelReservation()
 	}
 
 }
-
+*/
 
 bool Corporation::foundRentsFile(string rentsFile)
 {
