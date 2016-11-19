@@ -1,5 +1,4 @@
 #include "Date.h"
-#include "Rent.h"
 
 using namespace std;
 
@@ -15,8 +14,8 @@ private:
 	double price;/*!< total price of the reservation */
 public:
 	Reservation(unsigned int nif,double price, Date d1, Date d2);
-	Date getDate1() {return d1;};//!< a function that returns the date of the check-in.
-	Date getDate2() { return d2;};//!< a function that returns the date of the check-out.
+	Date getDate1() {return d1;}//!< a function that returns the date of the check-in.
+	Date getDate2() { return d2;}//!< a function that returns the date of the check-out.
 	double getPrice() { return price; }//!< a function that returns the price.
-	unsigned int getnif() { return nif; };//!< a function that returns the city where they will stay.
+	unsigned int getnif() { return nif; }//!< a function that returns the city where they will stay.
 };

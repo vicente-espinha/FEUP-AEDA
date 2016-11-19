@@ -41,6 +41,7 @@ public:
 	Rent(string tipoRent, string name2, string cidade, Date dataI, Date dataF, float price, int numOcupantes);
 	virtual void setReservation(Reservation r) { reserved.push_back(r); }
 	virtual vector<Reservation> getReservations() { return reserved; }
+	virtual void setReservationVector(vector<Reservation>v) { reserved = v; }
 	virtual int getNumPeople() { return numPeople;  }
 	virtual float getPrice() { return price; }
 	virtual string getCity() { return city; }

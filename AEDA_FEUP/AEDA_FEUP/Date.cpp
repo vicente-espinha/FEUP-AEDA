@@ -106,22 +106,14 @@ bool Date::operator<(Date x)
 		return true;
 }
 
-bool Date::operator>(Date x)
+bool operator<=(const Date & D1, Date &D2)
 {
-	if (this->getYear() > x.getYear())
-		return true;
-	if (this->getYear() < x.getYear())
-		return false;
-	if (this->getMonth() > x.getMonth())
-		return true;
-	if (this->getMonth() < x.getMonth())
-		return false;
-	if (this->getDay() > x.getDay())
-		return true;
-	if (this->getDay() < x.getDay())
-		return false;
-	else
-		return true;
+		if (D2.year > D1.year ||
+			(D1.year == D2.year && D2.month > D1.month) ||
+			(D1.year == D2.year && D1.month == D2.month && D2.day > D1.day))
+			return true;
+		else
+			return false;
 }
 
 Date Date::operator+(Date days)

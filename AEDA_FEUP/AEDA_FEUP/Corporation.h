@@ -7,7 +7,6 @@
 #include "Clients.h"
 #include "Supplier.h"
 #include "Utilities.h"
-#include "Reservations.h"
 #include "Menu.h"
 #include <malloc.h>
 
@@ -21,9 +20,8 @@ class Corporation
 {
 private:
 	static Corporation* singleton_instance;
-	string usersFile, suppliersFile, reservationsFile,rentsFile;
+	string usersFile, suppliersFile,rentsFile;
 	vector<Users> usersVec;
-	vector<Reservation>reservationsVec;
 	vector<Supplier> suppliersVec;
 	vector<Rent> rentsVec;
 
@@ -50,10 +48,7 @@ public:
 	
 	string cities();
 
-	bool foundReservationsFile(string reservationsFile);
 	//void makeReservation();
-	void loadReservations();
-	void saveReservations();
 	void cancelReservation();
 
 	bool foundRentsFile(string rentsFile);

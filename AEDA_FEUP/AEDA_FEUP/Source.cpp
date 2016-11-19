@@ -57,6 +57,5 @@ int main() {
 	u.clearScreen();
 	u.logo();
 	u.aboutMessage();
-	sleep(1000);
 	return 0;
 }
