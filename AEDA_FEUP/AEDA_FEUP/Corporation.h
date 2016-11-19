@@ -7,20 +7,21 @@
 #include "Clients.h"
 #include "Supplier.h"
 #include "Utilities.h"
-#include "Reservations.h"
 #include "Menu.h"
 #include <malloc.h>
 
 
 using namespace std;
-
+/*! \brief Brief description.
+*
+*  
+*/
 class Corporation
 {
 private:
 	static Corporation* singleton_instance;
-	string usersFile, suppliersFile, reservationsFile,rentsFile;
+	string usersFile, suppliersFile,rentsFile;
 	vector<Users> usersVec;
-	vector<Reservation>reservationsVec;
 	vector<Supplier> suppliersVec;
 	vector<Rent> rentsVec;
 
@@ -38,22 +39,29 @@ public:
 	void saveUsers();
 	void registerUser();
 
+
 	bool foundSuppliersFile(string suppliersFile);
 	void loadSuppliers();
 	void saveSuppliers();
 	void registerSupplier();
+	void orderSuppliersVec();
+	void orderRentsVec();
 	void makeRent();
-	void printSuppliers();
-
+	
 	string cities();
 
+<<<<<<< HEAD
 	bool foundReservationsFile(string reservationsFile);
 	void makeReservation();
 	void loadReservations();
 	void saveReservations();
+=======
+	void makeReservation();
+>>>>>>> origin/master
 	void cancelReservation();
 
 	bool foundRentsFile(string rentsFile);
 	void loadRents();
+	void saveRents();
 };
 

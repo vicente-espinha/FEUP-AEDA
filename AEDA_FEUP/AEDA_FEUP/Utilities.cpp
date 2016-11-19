@@ -40,7 +40,7 @@ bool Utilities::invalidInputRetry()
 	}
 }
 
-bool Utilities::invalidInputNoRetry() // Serve para fazer codigo bonitinho, num ciclo while, em que não pode fazer retry
+bool Utilities::invalidInputNoRetry()  
 {
 	if (cin.fail())
 	{

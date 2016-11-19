@@ -7,22 +7,23 @@
 
 using namespace std;
 
-
+/*! \brief Brief description.
+*
+*  Classe de Suppliers contains the information about the Supplier(name,password,address and nif) and a vector that contains his rents
+*/
 class Supplier
 {
 protected:
-	string name, password, address;
-	unsigned int nif;
-	vector<Rent> v;
-	
+	string name, password, address;/*!< "name" is the username of the Supplier,"password" is the password of the account of the supplier and the "address" is the adrees of the Supplier*/
+	unsigned int nif;/*!< "nif" is the numero de identificacao fiscal do Supplier*/
 public:	
 	Supplier();
-	Supplier(string n, string password, unsigned int ni, string ad, vector<Rent> v);
-	string getName() { return name; }
-	string getPassword() { return password; }
-	string getAddress() { return address; }
-	void setVector(vector<Rent> v2) { v.erase(v.begin(), v.end()); v = v2; }
-	void addRent(Rent r) { v.push_back(r); }
-	unsigned int getNif() { return nif; }
-	vector<Rent> getVector() { return v; }
+	Supplier(string n, string password, unsigned int ni, string ad);
+	string getName() { return name; }//!< a function that returns the name.
+	void setName(string s) { name = s; }//!< a function that sets the name.
+	string getPassword() { return password; }//!< a function that returns the password.
+	string getAddress() { return address; }//!< a function that returns the address.
+	
+	unsigned int getNif() { return nif; }//!< a function that returns the nif.
+
 };
