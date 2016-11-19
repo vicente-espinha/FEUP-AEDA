@@ -13,7 +13,10 @@
 
 
 using namespace std;
-
+/*! \brief Brief description.
+*
+*  
+*/
 class Corporation
 {
 private:
