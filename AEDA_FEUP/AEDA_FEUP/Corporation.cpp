@@ -513,17 +513,21 @@ void Corporation::saveRents()
 			r << x[j].getKitchen() << " ; " << x[j].getSuite() << " ; " << x[j].getLivingRoom();
 			r << "\n";
 		}
-		if (x[j].getReservations().size() == 0)
+		//cout << x.at(j).getReservations() << " " << x[j].getReservations().size();
+		if (x[j].getReservations().size() == 0) 
 			r << x[j].getReservations().size() << " ;\n";
 
 		else {
 			r << x.at(j).getReservations().size() << " ; ";
-			for (int k = 0; k < x.at(j).getReservations().size(); k++)
+			for (int p = 0; p < x.at(j).getReservations().size(); p++)
 			{
-				if (k == (x.at(j).getReservations().size() - 1))
-					r << x.at(j).getReservations().at(k).getnif() << " ; " << x.at(j).getReservations().at(k).getDate1() << " ; " << x.at(j).getReservations().at(j).getDate2();
-				else
-					r << x.at(j).getReservations().at(k).getnif() << " ; " << x.at(j).getReservations().at(k).getDate1() << " ; " << x.at(j).getReservations().at(j).getDate2() << " ; ";
+				if (p == (x.at(j).getReservations().size() - 1)) {
+					r << x[j].getReservations()[p].getnif() << " ; " << x[j].getReservations()[p].getDate1() << " ; " << x[j].getReservations()[p].getDate2();
+				}
+				else {
+				
+					r << x[j].getReservations()[p].getnif() << " ; " << x[j].getReservations()[p].getDate1() << " ; " << x[j].getReservations()[p].getDate2() << " ; ";
+				}
 			}
 			r << endl;
 		}
@@ -1137,8 +1141,12 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 /*
+>>>>>>> origin/master
+=======
+
 >>>>>>> origin/master
 void Corporation::cancelReservation()
 {
@@ -1243,8 +1251,12 @@ void Corporation::cancelReservation()
 
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 */
+>>>>>>> origin/master
+=======
+
 >>>>>>> origin/master
 
 bool Corporation::foundRentsFile(string rentsFile)
@@ -1487,6 +1499,7 @@ string Corporation::cities() {
 	f.close();
 	return;
 
+<<<<<<< HEAD
 	/*string line;
 	fstream f;
 
@@ -1744,3 +1757,5 @@ string Corporation::cities() {
 		return item[17];
 	}
 }
+=======
+>>>>>>> origin/master
