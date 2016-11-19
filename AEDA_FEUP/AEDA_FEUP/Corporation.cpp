@@ -230,9 +230,10 @@ void Corporation::loadSuppliers() {
 
 	string line, lineRents;
 	fstream f, r;
+	int xPosition;
+	vector<Rent> xVec;
 
-	vector<Rent> rent;
-
+	
 	f.open(suppliersFile);
 	r.open("rents.txt");
 	while (getline(f, line)) {
@@ -246,28 +247,26 @@ void Corporation::loadSuppliers() {
 		string address = line.substr(0, line.find(" ; "));
 		line.erase(0, line.find(" ; ") + 3);
 
-		suppliersVec.push_back(Supplier(supplierName, password, nif, address, rent));
+		suppliersVec.push_back(Supplier(supplierName, password, nif, address, xVec));
 	}
 	while (getline(r, lineRents)) {
-
-		vector<Rent> xVec;
 		string name = u1.trim(lineRents.substr(0, lineRents.find(" ; ")));
 		lineRents.erase(0, lineRents.find(" ; ") + 3);
 		orderSuppliersVec();
-		int x;
+		
 		for (int i = 0; i < suppliersVec.size(); i++)
 			if (name == suppliersVec[i].getName())
 			{
-				x = i;
+				xPosition = i;
 				xVec = suppliersVec[i].getVector();
 			}
 
 
-		lineRents.erase(0, lineRents.find(" ; ") + 3);
 		string typeRent = u1.trim(lineRents.substr(0, lineRents.find(" ; ")));
+		cout << "TypeRent: " << typeRent << endl;
 		lineRents.erase(0, lineRents.find(" ; ") + 3);
 		if (typeRent == "Hotel") {
-
+			cout << lineRents << endl;
 			string nameHotel = lineRents.substr(0, lineRents.find(" ; "));
 			lineRents.erase(0, lineRents.find(" ; ") + 3);
 			string city = lineRents.substr(0, lineRents.find(" ; "));
@@ -289,11 +288,10 @@ void Corporation::loadSuppliers() {
 			float price = stof(lineRents.substr(0, lineRents.find(" ; ")));
 			lineRents.erase(0, lineRents.find(" ; ") + 3);
 			unsigned int numPeople = stoi(lineRents.substr(0, lineRents.find(" ;")));
-			lineRents.erase(0, lineRents.find(" ;") + 2);
-
-			rent.push_back(Hotel(typeRent, nameHotel, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), roomType, price, numPeople));
-
-			suppliersVec[x].setVector(xVec.push_back(rent));
+			lineRents.erase(0, lineRents.length());
+			xVec.push_back(Hotel(typeRent, nameHotel, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), roomType, price, numPeople));
+			suppliersVec[xPosition].setVector(xVec);
+			continue;
 		}
 		else if (typeRent == "Bed'n'Breakfast") {
 			cout << lineRents << endl;
@@ -316,25 +314,16 @@ void Corporation::loadSuppliers() {
 			float price = stof(lineRents.substr(0, lineRents.find(" ; ")));
 			lineRents.erase(0, lineRents.find(" ; ") + 3);
 			unsigned int numPeople = stoi(lineRents.substr(0, lineRents.find(" ;")));
-			lineRents.erase(0, lineRents.find(" ;") + 2);
+			lineRents.erase(0, lineRents.length());
 
-			rent.push_back(bedNbreakfast(typeRent, nameBB, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople));
-			cout << "NumRents : " << numRents << endl;
-			cout << "Rent.size: " << rent.size();
-			if (numRents == 1)
-			{
-
-				cout << "sera que ";
-				suppliersVec.push_back(Supplier(supplierName, password, nif, address, rent));
-				//		cout << endl << "getVector.size() : " << suppliersVec[i].getVector().size() << endl;
-
-			}
-			cout << lineRents << " merda " << numRents << " " << endl;
+			xVec.push_back(bedNbreakfast(typeRent, nameBB, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople));
+			suppliersVec[xPosition].setVector(xVec);
 
 			continue;
 		}
 		else if (typeRent == "Shared House") {
 			cout << lineRents << endl;
+			//cout << lineRents << endl;
 			string nameSH = lineRents.substr(0, lineRents.find(" ; "));
 			lineRents.erase(0, lineRents.find(" ; ") + 3);
 			string city = lineRents.substr(0, lineRents.find(" ; "));
@@ -354,18 +343,11 @@ void Corporation::loadSuppliers() {
 			float price = stof(lineRents.substr(0, lineRents.find(" ; ")));
 			lineRents.erase(0, lineRents.find(" ; ") + 3);
 			unsigned int numPeople = stoi(lineRents.substr(0, lineRents.find(" ;")));
-			lineRents.erase(0, lineRents.find(" ;") + 2);
+			lineRents.erase(0, lineRents.length());
 
-			rent.push_back(sharedHouse(typeRent, nameSH, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople));
-			cout << "NumRents : " << numRents << endl;
-			cout << "Rent.size: " << rent.size();
-			if (numRents == 1)
-			{
-				suppliersVec.push_back(Supplier(supplierName, password, nif, address, rent));
-				//		cout << endl << "getVector.size() : " << suppliersVec[i].getVector().size() << endl;
-
-			}
-			cout << lineRents << endl;
+			xVec.push_back(sharedHouse(typeRent, nameSH, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople));
+			suppliersVec[xPosition].setVector(xVec);
+			//cout << lineRents << endl;
 
 			continue;
 		}
@@ -390,18 +372,11 @@ void Corporation::loadSuppliers() {
 			float price = stof(lineRents.substr(0, lineRents.find(" ; ")));
 			lineRents.erase(0, lineRents.find(" ; ") + 3);
 			unsigned int numPeople = stoi(lineRents.substr(0, lineRents.find(" ;")));
-			lineRents.erase(0, lineRents.find(" ;") + 2);
+			lineRents.erase(0, lineRents.length());
 			cout << lineRents << endl;
 
-			rent.push_back(flat(typeRent, nameFlat, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople));
-			cout << "NumRents : " << numRents << endl;
-			cout << "Rent.size: " << rent.size();
-			if (numRents == 1)
-			{
-				suppliersVec.push_back(Supplier(supplierName, password, nif, address, rent));
-				//		cout << endl << "getVector.size() : " << suppliersVec[i].getVector().size() << endl;
-
-			}
+			xVec.push_back(flat(typeRent, nameFlat, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople));
+			suppliersVec[xPosition].setVector(xVec);
 			cout << lineRents << endl;
 
 
@@ -441,23 +416,14 @@ void Corporation::loadSuppliers() {
 			else
 				s = false;
 			x = lineRents.substr(0, lineRents.find(" ;"));
-			lineRents.erase(0, lineRents.find(" ;") + 2);
+			lineRents.erase(0, lineRents.length());
 			if (x == "true")
 				l = true;
 			else
 				l = false;
-			rent.push_back(apartment(typeRent, nameApartment, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople, numRooms, k, s, l));
-			//	cout << "NumRents : " << numRents << endl;
-			//	cout << "Rent.size: " << rent.size();
-			if (numRents == 1)
-			{
-				suppliersVec.push_back(Supplier(supplierName, password, nif, address, rent));
-				//		cout << endl << "getVector.size() : " << suppliersVec[i].getVector().size() << endl;
 
-			}
-
-
-
+			xVec.push_back(apartment(typeRent, nameApartment, city, Date(startDay, startMonth, startYear), Date(endDay, endMonth, endYear), price, numPeople, numRooms, k, s, l));
+			suppliersVec[xPosition].setVector(xVec);
 		}
 		f.close();
 		r.close();
@@ -550,7 +516,6 @@ void Corporation::saveSuppliers()
 				r << suppliersVec[i].getVector()[j].getDataFim().getDay() << "/" << suppliersVec[i].getVector()[j].getDataFim().getMonth() << "/" << suppliersVec[i].getVector()[j].getDataFim().getYear() << " ; ";
 				r << suppliersVec[i].getVector()[j].getType() << " ; " << suppliersVec[i].getVector()[j].getPrice() << " ; " << suppliersVec[i].getVector()[j].getNumPeople();
 				r << " ; \n";
-
 			}
 
 			if (suppliersVec[i].getVector()[j].getTypeRent() == "Bed'n'Breakfast")
