@@ -712,23 +712,7 @@ void Corporation::makeRent() {
 			}
 		}
 	}
-<<<<<<< HEAD
 
-	int nif;
-	isIn = true;
-
-	for (int j = 0; j < rentsVec.size(); j++)
-		for (int i = 0; i < suppliersVec.size(); i++)
-			if (suppliersVec[i].getName() == Corporation::instance()->username) {
-				nif = suppliersVec[i].getNif();
-			}
-
-	for (int i = 0; i < numIteration; i++) {
-
-		u1.clearScreen();
-		cout << "What is the type of rent you wish to create? \n\n"; cout << "1 - Hotel\n2 - Bed'n'Breakfast\n3 - Apartment\n4 - Flat\n5 - Shared House\n\n";
-		u1.setColor(14); cout << "Select the number corresponding to the option you wish to select: "; u1.setColor(15);
-=======
 	long nif;
 	isIn = true;
 
@@ -744,7 +728,6 @@ void Corporation::makeRent() {
 		//u1.clearScreen();
 		cout << "What is the type of rent? \n1 - Hotel\n2 - Bed'n'Breakfast\n3 - Apartment\n4 - Flat\n5 - Shared House\n\n";
 		cout << "Select the number corresponding to the option you wish to select: ";
->>>>>>> origin/master
 		cin >> cinChoice;
 
 		if (cin.eof()) {
@@ -1005,7 +988,7 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 
 	Date date1 = Date(dateB);
 	Date date2 = Date(dateE);
-	cout << "nif: " << rentsVec[option - 1].getNif() << " price: " << xPrice*(date2.minus(date1));
+	
 
 	int nif = rentsVec[option - 1].getNif();
 	float totalPrice = xPrice*(date2.minus(date1));
