@@ -211,6 +211,69 @@ void Corporation::registerUser() {
 	return;
 }
 
+void Corporation::printSuppliersRents()
+{
+	int counter = 1;
+	for (int i = 0; i < rentsVec.size(); i++)
+		for (int j = 0; j < suppliersVec.size(); j++)
+			if (rentsVec[i].getNif() == suppliersVec[j].getNif()) {
+				Rent x = rentsVec[i];
+				cout << "The rent number " << counter << "is in " << x.getCity() << ", starts on " << x.getDataInicio() << ", ends on " << x.getDataFim() << ".\n";
+				if (x.getTypeRent() == "Hotel")
+				{
+					cout << "It is a hotel, more specifically a " << x.getType() << ", named " << x.getName() << ", with " << x.getNumPeople() << "ocupants. \nIt's price per night is " << x.getPrice() << ".\n";
+					counter++;
+				}
+				if (x.getTypeRent() == "Apartment")
+				{
+					cout << "It is an apartment, under the name of " << x.getName() << "housing " << x.getNumPeople() << "ocupants, from " << x.getDataInicio() << " to " << x.getDataFim() << ".\n";
+					if (x.getKitchen())
+						cout << "It has a kitchen, ";
+					else
+						cout << "It has no kitchen, ";
+					if (x.getSuite())
+						cout << "has a suite, ";
+					else
+						cout << "doesn't have a suite, ";
+					if (x.getLivingRoom)
+						cout << " and has a living room.";
+					else
+						cout << " and it doesn't have a living room.";
+					cout << "The total price per night is " << x.getPrice() << ".\n";
+					counter++;
+				}
+				if (x.getTypeRent() == "Flat")
+				{
+					cout << "It is a flat, under the name of " << x.getName() << "housing " << x.getNumPeople() << "ocupants, from " << x.getDataInicio() << " to " << x.getDataFim() << ".\n";
+					if (x.getKitchen())
+						cout << "It has a kitchen, ";
+					else
+						cout << "It has no kitchen, ";
+
+					cout << "and the total price per night is " << x.getPrice() << ".\n";
+					counter++;
+				}
+				if (x.getTypeRent() == "Shared House")
+				{
+					cout << "It is a shared house, under the name of " << x.getName() << "housing " << x.getNumPeople() << "ocupants, from " << x.getDataInicio() << " to " << x.getDataFim() << ".\n";
+
+					cout << "The the total price per night is " << x.getPrice() << ".\n";
+					counter++;
+				}
+				else
+				{
+					cout << "It is a Bed'n'Breakfast, named of " << x.getName() << "housing " << x.getNumPeople() << "ocupants, from " << x.getDataInicio() << " to " << x.getDataFim() << ".\n";
+
+					cout << "The the total price per night is " << x.getPrice() << ".\n";
+					counter++;
+				}
+
+			}
+	if (counter == 1) 
+		cout << "You currently have no rents... You can add a rent in the Menu.\n";
+	Sleep(1000);
+}
+
 bool Corporation::foundSuppliersFile(string suppliersFile) {
 
 	fstream f;
@@ -716,11 +779,11 @@ void Corporation::makeRent() {
 	long nif;
 	isIn = true;
 
-	for (int i = 0; i < suppliersVec.size(); i++) 
+	for (int i = 0; i < suppliersVec.size(); i++)
 		if (suppliersVec[i].getName() == Corporation::instance()->supplierName) {
 			nif = suppliersVec[i].getNif();
 		}
-	
+
 
 	for (int i = 0; i < numIteration; i++) {
 
@@ -734,7 +797,7 @@ void Corporation::makeRent() {
 			u1.cancelMessage();
 			corpMenu.SuppliersMenu();
 		}
-		
+
 		if (stoi(cinChoice) < 1 || stoi(cinChoice) > 5) {
 			u1.setColor(12); cerr << endl << "  ERROR: Input can only range from 1 to 5. "; u1.setColor(15);
 			Sleep(1500);
@@ -752,7 +815,7 @@ void Corporation::makeRent() {
 		}
 
 		choice = stoi(cinChoice);
-	
+
 
 		if (choice == 1) {
 			u1.clearScreen();
@@ -917,7 +980,7 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 		cout << "Insert the option's number: ";
 		cin >> option;
 
-		xPrice = rentsVec[counter+temp].getPrice();
+		xPrice = rentsVec[counter + temp].getPrice();
 
 		if (cin.eof()) {
 			u1.cancelMessage();
@@ -988,7 +1051,7 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 
 	Date date1 = Date(dateB);
 	Date date2 = Date(dateE);
-	
+
 
 	int nif = rentsVec[option - 1].getNif();
 	float totalPrice = xPrice*(date2.minus(date1));
@@ -1127,19 +1190,17 @@ void Corporation::printUsersReservations()
 		{
 			vector<Reservation> x = rentsVec[i].getReservations();
 			for (int j = 0; j < x.size(); j++)
-				if (x[j].getnif() == Corporation::instance()->nif)
-				{
-					cout << "Reservation " << counter << ":\nBeginning date: " << x[j].getDate1().getDay() << "/" << x[j].getDate1().getMonth() << "/" << x[j].getDate1().getYear() << ", whose price totals " << x[j].getPrice() << ".\n";
-					counter++;
-
-				}
+			{
+				cout << "Reservation " << counter << ":\nBeginning date: " << x[j].getDate1().getDay() << "/" << x[j].getDate1().getMonth() << "/" << x[j].getDate1().getYear() << ", whose price totals " << x[j].getPrice() << ".\n";
+				counter++;
+			}
 			Sleep(1000);
 		}
 	if (counter == 1)
-	{
-		cout << "There are currently no reservations made in your name...";
-		Sleep(1000);
-	}
+		cout << "There are currently no reservations made in your name... \nYou can add a reservation in your name in the Menu.\n";
+	
+	Sleep(1000);
+
 }
 
 bool Corporation::foundRentsFile(string rentsFile)
