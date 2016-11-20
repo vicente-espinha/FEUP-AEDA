@@ -1,8 +1,8 @@
-123456789 ; Hotel ; Ibis ; Coimbra ; 1/1/2014 ; 3/3/2014 ; Simple Room ; 100 ; 1
+123456789 ; Hotel ; Ibis ; Coimbra ; 1/1/2014 ; 3/3/2017 ; Simple Room ; 100 ; 1
 1 ; 123123120 ; 02/02/2014 ; 01/12/2016
 21321312 ; Hotel ; Ibis ; Coimbra ; 1/1/2014 ; 3/3/2014 ; Simple Room ; 100 ; 1
 0 ;
 213213122 ; Hotel ; Ibis ; Coimbra ; 1/1/2014 ; 3/3/2014 ; Simple Room ; 100 ; 1
 0 ;
-21321312 ; Bed'n'Breakfast ; Meu ; Leça, onde se esta bem ; 1/1/2014 ; 3/3/2014 ; 200 ; 3
-3 ; 
+21321312 ; Bed'n'Breakfast ; Meu ; Leça, onde se esta bem ; 01/01/2017 ; 04/12/2017 ; 200 ; 3
+3 ; 123123120 ; 02/02/2017 ; 03/04/2017 ; 123321120 ; 04/04/2017 ; 05/04/2017 ; 321123120 ; 31/11/2017 ; 03/12/2017 
