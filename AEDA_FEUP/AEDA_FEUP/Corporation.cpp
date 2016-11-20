@@ -216,9 +216,10 @@ void Corporation::printSuppliersRents()
 	int counter = 1;
 	for (int i = 0; i < rentsVec.size(); i++)
 		for (int j = 0; j < suppliersVec.size(); j++)
-			if (rentsVec[i].getNif() == suppliersVec[j].getNif()) {
+			if (Corporation::instance()->supplierName == suppliersVec[j].getName()) {
 				Rent x = rentsVec[i];
-				cout << "The rent number " << counter << "is in " << x.getCity() << ", starts on " << x.getDataInicio() << ", ends on " << x.getDataFim() << ".\n";
+				cout << counter << "- ";
+				cout << "The rent is in " << x.getCity() << ", starts on " << x.getDataInicio() << ", ends on " << x.getDataFim() << ".\n";
 				if (x.getTypeRent() == "Hotel")
 				{
 					cout << "It is a hotel, more specifically a " << x.getType() << ", named " << x.getName() << ", with " << x.getNumPeople() << "ocupants. \nIt's price per night is " << x.getPrice() << ".\n";
@@ -595,6 +596,144 @@ void Corporation::saveRents()
 	}
 	r.close();
 	return;
+}
+
+void Corporation::deleteRents()
+{
+	bool isIn = true;
+	int i;
+	int nif;
+	vector <int> v;
+	for (int k = 0; k < suppliersVec.size(); k++)
+		if (suppliersVec[k].getName() == Corporation::instance()->supplierName) {
+			nif = suppliersVec[k].getNif();
+		}
+	while (isIn) {
+		//u1.clearScreen();
+		u1.setColor(14); cout << "\n  ::| DELETE RENT |::\n"; u1.setColor(15);
+		cout << "\n\nHere are all your available rents. Type the number of the rent you wish to delete.\n\n";
+		int counter = 1, tmp = 0;
+		for (i = 0; i < rentsVec.size(); i++) {
+			if (nif == rentsVec[i].getNif())
+			{
+				Rent x = rentsVec[i];
+				cout << counter << "- ";
+				cout << "City: " << x.getCity() << endl << "Beginning date: " << x.getDataInicio() << "\nEnd date: " << x.getDataFim() << endl;
+				if (x.getTypeRent() == "Hotel")
+				{
+					cout << "Hotel - " << x.getName() << endl << "Type: " << x.getType() << "\nNumber of ocupants: " << x.getNumPeople() << "\nPrice: " << x.getPrice() << endl << endl;
+					counter++;
+					v.push_back(i);
+				}
+				if (x.getTypeRent() == "Apartment")
+				{
+					cout << "Apartment - " << x.getName() << "Beginning date: " << x.getDataInicio() << "\nEnd date: " << x.getDataFim() << "\nNumber of people: " << x.getNumPeople() << endl;
+					if (x.getKitchen())
+						cout << "With kitchen, ";
+					else
+						cout << "No kitchen, ";
+					if (x.getSuite())
+						cout << "with suite, ";
+					else
+						cout << "no suite, ";
+					if (x.getLivingRoom())
+						cout << "and with living room\n";
+					else
+						cout << " and without living room\n";
+					cout << "Price: " << x.getPrice() << endl << endl;
+					counter++;
+					v.push_back(i);
+				}
+				if (x.getTypeRent() == "Flat")
+				{
+					cout << "Flat -" << x.getName() << "\nBeginning date: " << x.getDataInicio() << "\nEnd date:" << x.getDataFim() << "\nNumber of people: " << x.getNumPeople() << endl;
+					if (x.getKitchen())
+						cout << "With kitchen.\n";
+					else
+						cout << "Without kitchen.\n";
+
+					cout << "Price " << x.getPrice() << endl << endl;
+					counter++;
+					v.push_back(i);
+				}
+				if (x.getTypeRent() == "Shared House")
+				{
+					cout << "Shared House - " << x.getName() << "\nBeginning date: " << x.getDataInicio() << "\nEnd date:" << x.getDataFim() << "\nNumber of people: " << x.getNumPeople() << endl;
+
+					cout << "\nPrice :" << x.getPrice() << ".\n" << endl;
+					counter++;
+					v.push_back(i);
+				}
+				if (x.getTypeRent() == "Bed'n'Breakfast")
+				{
+					cout << "Bed'n'Breakfast - " << x.getName() << "\nBeginning date: " << x.getDataInicio() << "\nEnd date:" << x.getDataFim() << "\nNumber of people: " << x.getNumPeople() << endl;
+
+					cout << "Price : " << x.getPrice() << endl << endl;
+					counter++;
+					v.push_back(i);
+				}
+
+
+			}
+		}
+		if (counter == 1) {
+			cout << "You currently have no rents... You can add a rent in the Menu.\n";
+			break;
+		}
+		isIn = false;
+	}
+	isIn = true;
+	while (isIn) {
+
+		int choice;
+		cout << "Option: ";
+		cin >> choice;
+
+		if (cin.fail()) {
+			cout << "\nInvalid input. Retrying last step.\n";
+			continue;
+		}
+		if (cin.eof()) {
+			u1.cancelMessage();
+			corpMenu.SuppliersMenu();
+		}
+
+		if (choice < 1 || choice > i) {
+			u1.setColor(12); cerr << endl << "  ERROR: Input can only range positive numbers.\n"; u1.setColor(15);
+			Sleep(1500);
+			u1.cinClear();
+			corpMenu.SuppliersMenu();
+		}
+
+
+		if (rentsVec[v[choice-1]].getReservations().size() > 0) {
+			u1.setColor(12); cout << "WARNING : There are already reservations in that rent! Do you wish to continue? (y/n)\n"; u1.setColor(15);
+			string option;
+			cin >> option;
+			if (option == "yes" || option == "y") {
+				rentsVec.erase(rentsVec.begin() + (v[choice-1]));
+				cout << "\n  Operation completed successfully.\n";
+				Sleep(1000);
+			}
+			else {
+				cout << "\n  Returning to Main Menu.\n";
+				Sleep(1000);
+			}
+			isIn = false;
+			break;
+
+		}
+		else
+		{
+			rentsVec.erase(rentsVec.begin() + (v[choice - 1]));
+			cout << "\n  Operation completed successfully.\n";
+			Sleep(1000);
+		}
+
+		isIn = false;
+	}
+	u1.clearScreen();
+
 }
 
 //Adds a supplier to the suppliers vector
@@ -1197,11 +1336,11 @@ void Corporation::printUsersReservations()
 				counter++;
 			}
 			Sleep(1000);
-			for (int j = 0; j < rentsVec[i].getReservations().size(); j++){
-					cout << "Reservation numeber " << counter << " starting on date " << rentsVec[i].getReservations()[j].getDate1()  << " ,finishing on date " << rentsVec[i].getReservations()[j].getDate2() << " ,whose price totals " << rentsVec[i].getReservations()[j].getPrice() << ".\n";
-					counter++;
-				}
-	}
+			for (int j = 0; j < rentsVec[i].getReservations().size(); j++) {
+				cout << "Reservation numeber " << counter << " starting on date " << rentsVec[i].getReservations()[j].getDate1() << " ,finishing on date " << rentsVec[i].getReservations()[j].getDate2() << " ,whose price totals " << rentsVec[i].getReservations()[j].getPrice() << ".\n";
+				counter++;
+			}
+		}
 	if (counter == 1) {
 		cout << "There are currently no reservations made in your name... \nYou can add a reservation in your name in the Menu.\n";
 	}

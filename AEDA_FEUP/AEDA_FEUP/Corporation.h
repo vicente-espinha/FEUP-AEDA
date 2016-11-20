@@ -55,5 +55,7 @@ public:
 	bool foundRentsFile(string rentsFile);
 	void loadRents();
 	void saveRents();
+
+	void deleteRents();
 };
 

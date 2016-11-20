@@ -180,18 +180,14 @@ void CreateRentOption() {
 void DeleteRentOption() {
 
 	u.clearScreen();
-	m.gotoxy(25, 10);
-	cout << "You have selected menu option (#2)" << endl;
-	u.pressToContinueMessage();
+	Corporation::instance()->deleteRents();
 	u.clearScreen();
 }
 
 void ViewAllRentsOption() {
 
 	u.clearScreen();
-	m.gotoxy(25, 10);
-	cout << "You have selected menu option (#3)" << endl;
-	u.pressToContinueMessage();
+	Corporation::instance()->printSuppliersRents();
 	u.clearScreen();
 }
 
