@@ -1195,7 +1195,12 @@ void Corporation::printUsersReservations()
 				counter++;
 			}
 			Sleep(1000);
-		}
+			for (int j = 0; j < rentsVec[i].getReservations().size(); j++){
+					cout << "Reservation numeber " << counter << " starting on date " << rentsVec[i].getReservations()[j].getDate1()  << " ,finishing on date " << rentsVec[i].getReservations()[j].getDate2() << " ,whose price totals " << rentsVec[i].getReservations()[j].getPrice() << ".\n";
+					counter++;
+				}
+			u1.pressToContinueMessage();
+	}
 	if (counter == 1)
 		cout << "There are currently no reservations made in your name... \nYou can add a reservation in your name in the Menu.\n";
 	
