@@ -48,7 +48,7 @@ public:
 	void makeRent();
 
 	string cities();
-
+	void printUsersReservations();
 	void makeReservation();
 	void cancelReservation();
 

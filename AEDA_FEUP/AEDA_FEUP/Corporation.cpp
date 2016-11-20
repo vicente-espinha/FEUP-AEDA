@@ -1095,7 +1095,7 @@ void Corporation::cancelReservation()
 
 					x_vec = rentsVec.at(i).getReservations();
 					x_vec.erase(x_vec.begin() + j);
-					Sleep(4000);
+					Sleep(2000);
 				}
 				else
 				{
@@ -1104,18 +1104,43 @@ void Corporation::cancelReservation()
 					return;
 				}
 			}
-			rentsVec.at(i).setReservationVector(x_vec);
 		}
 	}
 
-	for (int i = 0; i < x_vec.size(); i++)
+	for (int i = 0; i < rentsVec.size(); i++)
 	{
-		cout << x_vec.at(i).getnif() << "  " << x_vec.at(i).getDate1() << "   " << x_vec.at(i).getDate2() << endl;
+		for (int j = 0; j < rentsVec.at(i).getReservations().size(); j++)
+		{
+			if (name_answer == rentsVec.at(i).getName() && nif_user == rentsVec.at(i).getReservations().at(j).getnif())
+			{
+				rentsVec.at(i).setReservationVector(x_vec);
+			}
+		}
 	}
-
-	Sleep(4000);
 }
 
+void Corporation::printUsersReservations()
+{
+	int counter = 1;
+	for (int i = 0; i < rentsVec.size(); i++)
+		if (Corporation::instance()->username == usersVec[i].getUsername())
+		{
+			vector<Reservation> x = rentsVec[i].getReservations();
+			for (int j = 0; j < x.size(); j++)
+				if (x[j].getnif() == Corporation::instance()->nif)
+				{
+					cout << "Reservation " << counter << ":\nBeginning date: " << x[j].getDate1().getDay() << "/" << x[j].getDate1().getMonth() << "/" << x[j].getDate1().getYear() << ", whose price totals " << x[j].getPrice() << ".\n";
+					counter++;
+
+				}
+			Sleep(1000);
+		}
+	if (counter == 1)
+	{
+		cout << "There are currently no reservations made in your name...";
+		Sleep(1000);
+	}
+}
 
 bool Corporation::foundRentsFile(string rentsFile)
 {
