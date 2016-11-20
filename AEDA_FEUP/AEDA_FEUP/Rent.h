@@ -25,7 +25,7 @@ class Rent
 protected:
 
 	// Todas estas variaveis sao comuns a todos os alugueres, por isso é que as ponho aqui
-	int nif;
+	long nif;
 	string city;                // Pretty obvious, I guess
 	Date dataBegin, dataEnd;    // Será melhor pormos a data como float ou whatevs? Acho melhor
 								// assim por causa da extracao de um istream;
@@ -41,9 +41,9 @@ public:
 	Rent() {}
 	virtual bool isValid(Date, Date);
 
-	virtual int getNif() { return nif; }
+	virtual long getNif() { return nif; }
 	virtual void setNif(int n) { nif = n; }
-	Rent(int nif, string tipoRent, string name2, string cidade, Date dataI, Date dataF, float price, int numOcupantes);
+	Rent(long nif, string tipoRent, string name2, string cidade, Date dataI, Date dataF, float price, int numOcupantes);
 	virtual void setReservation(Reservation r) { reserved.push_back(r); }
 	virtual vector<Reservation> getReservations() { return reserved; }
 	virtual void setReservationVector(vector<Reservation>v) { reserved = v; }
@@ -70,10 +70,10 @@ class Hotel : public Rent
 	
 public:
 	Hotel(){ }
-	Hotel(int nif, string typeRent, string nome, string cidade, Date dataI, Date dataF, string type, float preco, int numOcupantes);
+	Hotel(long nif, string typeRent, string nome, string cidade, Date dataI, Date dataF, string type, float preco, int numOcupantes);
 	string getType() { return type; }
 	string getName() { return nameHotel; }
-	Hotel buildRent(int nif); // Pressupostamente constroi um hotel, mas ainda tenho que pensar como implementar isto
+	Hotel buildRent(long nif); // Pressupostamente constroi um hotel, mas ainda tenho que pensar como implementar isto
 	
 };
 
@@ -84,8 +84,8 @@ protected:
 	string namebnb;
 public:
 	bedNbreakfast(){}
-	bedNbreakfast(int nif, string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes);
-	bedNbreakfast buildRent(int nif);
+	bedNbreakfast(long nif, string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes);
+	bedNbreakfast buildRent(long nif);
 	string getName() { return  namebnb; }
 };
 
@@ -96,8 +96,8 @@ protected:
 	string nameSH;
 public:
 	sharedHouse() {}
-	sharedHouse(int nif, string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes);
-	sharedHouse buildRent(int nif);
+	sharedHouse(long nif, string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes);
+	sharedHouse buildRent(long nif);
 	string getName() { return nameSH; }
 };
 
@@ -109,8 +109,8 @@ protected:
 	bool hasKitchen;
 public:
 	flat() {}
-	flat(int nif, string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes);
-	flat buildRent(int nif);
+	flat(long nif, string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes);
+	flat buildRent(long nif);
 	bool getKitchen() { return hasKitchen; }
 	string getName() { return nameFlat; }
 };
@@ -123,8 +123,8 @@ protected:
 	bool hasKitchen, hasSuite, hasLivingRoom;
 public:
 	apartment() {}
-	apartment(int nif, string tipoRent, string name, string cidade, Date dataI, Date dataF, float price, int numOcupantes, int numrooms, bool kitchen, bool suite, bool livingroom);
-	apartment buildRent(int nif);
+	apartment(long nif, string tipoRent, string name, string cidade, Date dataI, Date dataF, float price, int numOcupantes, int numrooms, bool kitchen, bool suite, bool livingroom);
+	apartment buildRent(long nif);
 	string getName() { return nameApartment; }
 	int getNumRooms() { return numRooms; }
 	bool getKitchen() { return hasKitchen; }

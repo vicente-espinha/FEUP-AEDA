@@ -5,7 +5,7 @@
 
 Supplier::Supplier(){}
 
-Supplier::Supplier(string n, string password, unsigned int ni, string ad)
+Supplier::Supplier(string n, string password, long ni, string ad)
 {
 	name = n;
 	this->password = password;

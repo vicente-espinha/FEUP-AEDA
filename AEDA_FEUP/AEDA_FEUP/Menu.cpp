@@ -158,9 +158,7 @@ void MakeReservationOption() {
 void CancelReservationOption() {
 
 	u.clearScreen();
-	m.gotoxy(25, 10);
-	cout << "You have selected menu option (#2)" << endl;
-	u.pressToContinueMessage();
+	Corporation::instance()->cancelReservation();
 	u.clearScreen();
 }
 

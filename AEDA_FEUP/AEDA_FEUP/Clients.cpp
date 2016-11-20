@@ -2,7 +2,7 @@
 
 Clients::Clients(){}
 
-Users::Users(string username, string password, unsigned int nif, unsigned int points){
+Users::Users(string username, string password, long nif,  int points){
 
 	this->username = username;
 	this->password = password;
@@ -15,9 +15,9 @@ string Users::getUsername() { return username; }
 
 string Users::getPassword() { return password; }
 
-unsigned int Users::getPoints() { return points; }
+int Users::getPoints() { return points; }
 
-unsigned int Users::getNif() { return nif; }
+long Users::getNif() { return nif; }
 
 
 

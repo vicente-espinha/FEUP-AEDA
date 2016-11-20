@@ -712,6 +712,7 @@ void Corporation::makeRent() {
 			}
 		}
 	}
+<<<<<<< HEAD
 
 	int nif;
 	isIn = true;
@@ -727,13 +728,30 @@ void Corporation::makeRent() {
 		u1.clearScreen();
 		cout << "What is the type of rent you wish to create? \n\n"; cout << "1 - Hotel\n2 - Bed'n'Breakfast\n3 - Apartment\n4 - Flat\n5 - Shared House\n\n";
 		u1.setColor(14); cout << "Select the number corresponding to the option you wish to select: "; u1.setColor(15);
+=======
+	long nif;
+	isIn = true;
+
+	for (int i = 0; i < suppliersVec.size(); i++) 
+		if (suppliersVec[i].getName() == Corporation::instance()->supplierName) {
+			nif = suppliersVec[i].getNif();
+		}
+	
+
+	for (int i = 0; i < numIteration; i++) {
+
+
+		//u1.clearScreen();
+		cout << "What is the type of rent? \n1 - Hotel\n2 - Bed'n'Breakfast\n3 - Apartment\n4 - Flat\n5 - Shared House\n\n";
+		cout << "Select the number corresponding to the option you wish to select: ";
+>>>>>>> origin/master
 		cin >> cinChoice;
 
 		if (cin.eof()) {
 			u1.cancelMessage();
 			corpMenu.SuppliersMenu();
 		}
-
+		
 		if (stoi(cinChoice) < 1 || stoi(cinChoice) > 5) {
 			u1.setColor(12); cerr << endl << "  ERROR: Input can only range from 1 to 5. "; u1.setColor(15);
 			Sleep(1500);
@@ -751,6 +769,7 @@ void Corporation::makeRent() {
 		}
 
 		choice = stoi(cinChoice);
+	
 
 		if (choice == 1) {
 			u1.clearScreen();
@@ -1005,7 +1024,7 @@ void Corporation::cancelReservation()
 	unsigned int year = 1900 + now->tm_year, month = 1 + now->tm_mon, day = now->tm_mday;
 	Date real_date = Date(day, month, year);
 
-	unsigned int nif_user;
+	long nif_user;
 	for (int i = 0; i < usersVec.size(); i++)
 	{
 		if (usersVec.at(i).getUsername() == username)
@@ -1026,7 +1045,7 @@ void Corporation::cancelReservation()
 
 	if (found)
 	{
-		cout << "List of your reservations : " << endl;
+		cout << "List of your reservations : " << endl << endl;
 		for (int j = 0; j < rentsVec.size(); j++)
 		{
 			for (int k = 0; k < rentsVec.at(j).getReservations().size(); k++)
@@ -1039,7 +1058,7 @@ void Corporation::cancelReservation()
 					cout << "Date of Check-in : " << rentsVec.at(j).getReservations().at(k).getDate1();
 					cout << "Date of Check-out : " << rentsVec.at(j).getReservations().at(k).getDate2() << endl;
 					cout << "Price : " << rentsVec.at(j).getReservations().at(k).getPrice() << endl;
-					cout << "Room's capacity: " << rentsVec.at(j).getNumPeople() << endl << endl;
+					cout << "Room's capacity: " << rentsVec.at(j).getNumPeople() << endl;
 					if (rentsVec.at(j).getLivingRoom() && rentsVec.at(j).getSuite() && rentsVec.at(j).getKitchen())
 						cout << "Includes : LivingRoom, Suite and Kitchen" << endl;
 					else if (rentsVec.at(j).getLivingRoom() && rentsVec.at(j).getKitchen())
@@ -1055,8 +1074,15 @@ void Corporation::cancelReservation()
 					else if (rentsVec.at(j).getLivingRoom())
 						cout << "Includes : LivingRoom" << endl;
 				}
+				cout << endl;
 			}
 		}
+	}
+	else
+	{
+		cout << " You havent made any reservations yet!" << endl;
+		Sleep(2000);
+		return;
 	}
 
 	string name_answer;
@@ -1082,6 +1108,11 @@ void Corporation::cancelReservation()
 						cout << "You will receive " << rentsVec.at(i).getReservations().at(j).getPrice() / 2 << " euros." << endl;
 					else
 						cout << "You will not receive any money." << endl;
+
+
+					x_vec = rentsVec.at(i).getReservations();
+					x_vec.erase(x_vec.begin() + j);
+					Sleep(4000);
 				}
 				else
 				{
@@ -1090,14 +1121,16 @@ void Corporation::cancelReservation()
 					return;
 				}
 			}
-			else
-			{
-				x_vec.push_back(rentsVec.at(i).getReservations().at(j));
-			}
+			rentsVec.at(i).setReservationVector(x_vec);
 		}
-		rentsVec.at(i).setReservationVector(x_vec);
 	}
 
+	for (int i = 0; i < x_vec.size(); i++)
+	{
+		cout << x_vec.at(i).getnif() << "  " << x_vec.at(i).getDate1() << "   " << x_vec.at(i).getDate2() << endl;
+	}
+
+	Sleep(4000);
 }
 
 
