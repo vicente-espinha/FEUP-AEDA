@@ -235,7 +235,7 @@ void Corporation::printSuppliersRents()
 						cout << "has a suite, ";
 					else
 						cout << "doesn't have a suite, ";
-					if (x.getLivingRoom)
+					if (x.getLivingRoom())
 						cout << " and has a living room.";
 					else
 						cout << " and it doesn't have a living room.";
