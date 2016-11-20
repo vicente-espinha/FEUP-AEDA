@@ -973,7 +973,7 @@ void Corporation::cancelReservation()
 	unsigned int year = 1900 + now->tm_year, month = 1 + now->tm_mon, day = now->tm_mday;
 	Date real_date = Date(day, month, year);
 
-	unsigned int nif_user;
+	long nif_user;
 	for (int i = 0; i < usersVec.size(); i++)
 	{
 		if (usersVec.at(i).getUsername() == username)
@@ -994,7 +994,7 @@ void Corporation::cancelReservation()
 
 	if (found)
 	{
-		cout << "List of your reservations : " << endl;
+		cout << "List of your reservations : " << endl << endl;
 		for (int j = 0; j < rentsVec.size(); j++)
 		{
 			for (int k = 0; k < rentsVec.at(j).getReservations().size(); k++)
@@ -1007,7 +1007,7 @@ void Corporation::cancelReservation()
 					cout << "Date of Check-in : " << rentsVec.at(j).getReservations().at(k).getDate1();
 					cout << "Date of Check-out : " << rentsVec.at(j).getReservations().at(k).getDate2() << endl;
 					cout << "Price : " << rentsVec.at(j).getReservations().at(k).getPrice() << endl;
-					cout << "Room's capacity: " << rentsVec.at(j).getNumPeople() << endl << endl;
+					cout << "Room's capacity: " << rentsVec.at(j).getNumPeople() << endl;
 					if (rentsVec.at(j).getLivingRoom() && rentsVec.at(j).getSuite() && rentsVec.at(j).getKitchen())
 						cout << "Includes : LivingRoom, Suite and Kitchen" << endl;
 					else if (rentsVec.at(j).getLivingRoom() && rentsVec.at(j).getKitchen())
@@ -1023,8 +1023,15 @@ void Corporation::cancelReservation()
 					else if (rentsVec.at(j).getLivingRoom())
 						cout << "Includes : LivingRoom" << endl;
 				}
+				cout << endl;
 			}
 		}
+	}
+	else
+	{
+		cout << " You havent made any reservations yet!" << endl;
+		Sleep(2000);
+		return;
 	}
 
 	string name_answer;
@@ -1050,6 +1057,11 @@ void Corporation::cancelReservation()
 						cout << "You will receive " << rentsVec.at(i).getReservations().at(j).getPrice() / 2 << " euros." << endl;
 					else
 						cout << "You will not receive any money." << endl;
+
+
+					x_vec = rentsVec.at(i).getReservations();
+					x_vec.erase(x_vec.begin() + j);
+					Sleep(4000);
 				}
 				else
 				{
@@ -1058,14 +1070,16 @@ void Corporation::cancelReservation()
 					return;
 				}
 			}
-			else
-			{
-				x_vec.push_back(rentsVec.at(i).getReservations().at(j));
-			}
+			rentsVec.at(i).setReservationVector(x_vec);
 		}
-		rentsVec.at(i).setReservationVector(x_vec);
 	}
 
+	for (int i = 0; i < x_vec.size(); i++)
+	{
+		cout << x_vec.at(i).getnif() << "  " << x_vec.at(i).getDate1() << "   " << x_vec.at(i).getDate2() << endl;
+	}
+
+	Sleep(4000);
 }
 
 
