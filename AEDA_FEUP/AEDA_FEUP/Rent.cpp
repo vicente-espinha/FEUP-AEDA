@@ -841,16 +841,12 @@ apartment apartment::buildRent(long nif)
 
 		if (people < 0 || people > 4)
 		{
-<<<<<<< HEAD
 			u2.setColor(12); cerr << endl << "  ERROR: Invalid number of people per room."; u2.setColor(15);
 			Sleep(1500);
 			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
 			Sleep(1500);
 			u2.cinClear();
 			u2.clearScreen();
-=======
-			cout << "\nToo many people per room. Repeating last step.\n";
->>>>>>> origin/master
 			continue;
 		}
 		isIn = false;
