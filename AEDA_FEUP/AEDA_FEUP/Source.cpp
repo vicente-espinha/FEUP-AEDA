@@ -58,11 +58,6 @@ int main() {
 	u.clearScreen();
 	u.logo();
 
-	Corporation::instance()->saveUsers();
-	Corporation::instance()->saveSuppliers();
-	Corporation::instance()->saveRents();
-	u.clearScreen();
-	u.logo();
-	u.aboutMessage();
+	
 	return 0;
 }

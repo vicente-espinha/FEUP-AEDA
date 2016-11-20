@@ -65,7 +65,7 @@ bool Date::isValid()
 	{
 		return false;
 	}
-	if (this->getYear() < 1969 || this->getYear() > 2016)
+	if (this->getYear() < 1969)
 	{
 		return false;
 	}

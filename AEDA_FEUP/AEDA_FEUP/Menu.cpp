@@ -202,7 +202,17 @@ void ViewAllRentsOption() {
 /*-------Return and exit options--------*/
 void Logout() { u.clearScreen(); m.MainMenu(); }
 
-void ExitOption() { isRunning = false; }
+void ExitOption() { 
+	Corporation::instance()->saveUsers();
+	Corporation::instance()->saveSuppliers();
+	Corporation::instance()->saveRents();
+	u.clearScreen();
+	u.logo();
+	u.aboutMessage();
+	isRunning = false;
+	Sleep(1000);
+	exit(0);
+}
 
 
 //////////////////////////

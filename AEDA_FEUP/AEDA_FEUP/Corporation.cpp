@@ -687,7 +687,7 @@ void Corporation::makeRent() {
 
 		u1.setColor(14); cout << "\n  ::| CREATE RENT |::\n"; u1.setColor(15);
 
-		cout << "\nHow many rents do you wish to be made available? :  ";
+		cout << "\nHow many rents do you wish to be made available:  ";
 		cin >> cinNumIter;
 
 		if (cin.eof()) {
@@ -712,8 +712,10 @@ void Corporation::makeRent() {
 			}
 		}
 	}
+
 	int nif;
 	isIn = true;
+
 	for (int j = 0; j < rentsVec.size(); j++)
 		for (int i = 0; i < suppliersVec.size(); i++)
 			if (suppliersVec[i].getName() == Corporation::instance()->username) {
@@ -722,10 +724,9 @@ void Corporation::makeRent() {
 
 	for (int i = 0; i < numIteration; i++) {
 
-
 		u1.clearScreen();
-		cout << "What is the type of rent? \n1 - Hotel\n2 - Bed'n'Breakfast\n3 - Apartment\n4 - Flat\n5 - Shared House\n\n";
-		cout << "Select the number corresponding to the option you wish to select: ";
+		cout << "What is the type of rent you wish to create? \n\n"; cout << "1 - Hotel\n2 - Bed'n'Breakfast\n3 - Apartment\n4 - Flat\n5 - Shared House\n\n";
+		u1.setColor(14); cout << "Select the number corresponding to the option you wish to select: "; u1.setColor(15);
 		cin >> cinChoice;
 
 		if (cin.eof()) {
@@ -755,29 +756,31 @@ void Corporation::makeRent() {
 			u1.clearScreen();
 			Hotel h;
 			rentsVec.push_back(h.buildRent(nif));
+			continue;
 		}
 		if (choice == 2) {
 			u1.clearScreen();
 			bedNbreakfast bnb;
 			rentsVec.push_back(bnb.buildRent(nif));
+			continue;
 		}
 		if (choice == 3) {
 			u1.clearScreen();
 			flat fl;
 			rentsVec.push_back(fl.buildRent(nif));
-			break;
+			continue;
 		}
 		if (choice == 4) {
 			u1.clearScreen();
 			apartment ap;
 			rentsVec.push_back(ap.buildRent(nif));
-			break;
+			continue;
 		}
 		if (choice == 5) {
 			u1.clearScreen();
 			sharedHouse sh;
 			rentsVec.push_back(sh.buildRent(nif));
-			break;
+			continue;
 		}
 	}
 	u1.successMessage();
@@ -786,14 +789,13 @@ void Corporation::makeRent() {
 
 }
 
-
-
 void Corporation::makeReservation() // o unico erro é como dar display das rents e ainda vai haver modificacoes na estrutura da funcao
 {
 
 	string city, nameRent, typeRent, type;
 	unsigned int n_people, n, counter = 1, option;
 	bool isIn = true;
+	int temp = 0;
 	float xPrice;
 
 #pragma warning(disable : 4996)
@@ -824,15 +826,13 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 			Sleep(1500);
 			u1.cinClear();
 			u1.clearScreen();
+			continue;
 		}
 		else {
 			u1.cinClear();
 			isIn = false;
 		}
-	}
 
-	isIn = true;
-	while (isIn) {
 		cout << "\nDate of check-out : "; cin >> dateE; cout << endl;
 
 		Date date2 = Date(dateE);
@@ -849,26 +849,21 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 			Sleep(1500);
 			u1.cinClear();
 			u1.clearScreen();
+			continue;
 		}
 		else {
 			u1.cinClear();
 			isIn = false;
 		}
-	}
 
-	Date date1 = Date(dateB);
-	Date date2 = Date(dateE);
-	Rent * c = nullptr;
+		Rent * c = nullptr;
 
-	isIn = true;
-
-	while (isIn) {
 		u1.setColor(11); cout << "Rooms available between " << date1 << " and " << date2 << " in " << city << ": \n\n"; u1.setColor(15);
 
-		for (size_t i = 0; i < rentsVec.size(); i++, counter++) {
-			if (rentsVec[i].isValid(date1, date2)) {
+		for (size_t i = 0; i < rentsVec.size(); i++) {
+			if (rentsVec[i].isValid(date1, date2) && (rentsVec[i].getCity() == city)) {
 				if (rentsVec.at(i).getTypeRent() == "Hotel") {
-					cout << "Option " << counter << endl;
+					u1.setColor(14); cout << "Option " << counter << endl; u1.setColor(15);
 					cout << "Type of accommodation: " << rentsVec.at(i).getTypeRent() << endl;
 					cout << "Name: " << rentsVec.at(i).getName() << endl;
 					cout << "Available from: " << rentsVec.at(i).getDataInicio();
@@ -876,9 +871,10 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 					cout << "Room type: " << rentsVec.at(i).getType() << endl;
 					cout << "Price per night: " << rentsVec.at(i).getPrice() << endl;
 					cout << "Room's capacity: " << rentsVec.at(i).getNumPeople() << endl << endl;
+					counter++;
 				}
 				else if (rentsVec.at(i).getTypeRent() == "Apartment") {
-					cout << "Option " << counter << endl;
+					u1.setColor(14); cout << "Option " << counter << endl; u1.setColor(15);
 					cout << "Type of accommodation: " << rentsVec.at(i).getTypeRent() << endl;
 					cout << "Name: " << rentsVec.at(i).getName() << endl;
 					cout << "Available from: " << rentsVec.at(i).getDataInicio();
@@ -888,23 +884,38 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 					cout << "Has Suite: " << rentsVec.at(i).getSuite() << endl;
 					cout << "Price per night: " << rentsVec.at(i).getPrice() << endl;
 					cout << "Room's capacity: " << rentsVec.at(i).getNumPeople() << endl << endl;
+					counter++;
+
 				}
 				else {
-					cout << "Option " << counter << endl;
+					u1.setColor(14); cout << "Option " << counter << endl; u1.setColor(15);
 					cout << "Type of accommodation: " << rentsVec.at(i).getTypeRent() << endl;
 					cout << "Name: " << rentsVec.at(i).getName() << endl;
 					cout << "Available from: " << rentsVec.at(i).getDataInicio();
 					cout << "  To: " << rentsVec.at(i).getDataFim() << endl;
 					cout << "Price per night: " << rentsVec.at(i).getPrice() << endl;
 					cout << "Room's capacity: " << rentsVec.at(i).getNumPeople() << endl << endl;
+					counter++;
 				}
 			}
+			else
+				temp++;
+		}
+
+		if (counter == 1) {
+			u1.setColor(12); cerr << endl << "  There are no rents available between the dates specified."; u1.setColor(15);
+			Sleep(1500);
+			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+			Sleep(1500);
+			u1.cinClear();
+			u1.clearScreen();
+			continue;
 		}
 
 		cout << "Insert the option's number: ";
 		cin >> option;
 
-		xPrice = rentsVec[option - 1].getPrice();
+		xPrice = rentsVec[counter+temp].getPrice();
 
 		if (cin.eof()) {
 			u1.cancelMessage();
@@ -918,48 +929,71 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 			Sleep(1500);
 			u1.cinClear();
 			u1.clearScreen();
+			continue;
+		}
+		else {
+			u1.cinClear();
+			isIn = false;
 		}
 	}
 
 	isIn = true;
 
 	while (isIn) {
-		u1.setColor(14); cout << "\n\nCity: " << city << "  From: " << date1 << "  To: " << date2 << endl;
-		cout << "\nNumber of people: ";
-		cin >> n_people;
 
-		if (cin.eof()) {
-			u1.cancelMessage();
-			corpMenu.UsersMenu();
-		}
+		Date date1 = Date(dateB);
+		Date date2 = Date(dateE);
 
-		if (cin.fail()) {
-			u1.setColor(12); cerr << endl << "  ERROR: Input is not an integer."; u1.setColor(15);
-			Sleep(1500);
-			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
-			Sleep(1500);
-			u1.cinClear();
-			u1.clearScreen();
-		}
+		u1.setColor(14); cout << "\n\nCity: " << city << "  From: " << date1 << "  To: " << date2 << endl; u1.setColor(15);
 
-		for (int i = 0; i < rentsVec.size(); i++) {
-			if (n_people > rentsVec.at(i).getNumPeople()) {
-				u1.setColor(12); cerr << endl << "  ERROR: The value you inserted exceeds the room's maximum capacity."; u1.setColor(15);
+		if (!(rentsVec[counter + temp].getTypeRent() == "Hotel")) {
+			cout << "\nNumber of people: ";
+			cin >> n_people;
+
+			if (cin.eof()) {
+				u1.cancelMessage();
+				corpMenu.UsersMenu();
+			}
+
+			if (cin.fail()) {
+				u1.setColor(12); cerr << endl << "  ERROR: Input is not an integer."; u1.setColor(15);
 				Sleep(1500);
 				cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
 				Sleep(1500);
 				u1.cinClear();
+				u1.clearScreen();
+				continue;
 			}
-			else {
-				cin.clear();
-				isIn = false;
+
+			for (int index = 0; index < rentsVec.size(); index++) {
+				if (n_people > rentsVec.at(index).getNumPeople()) {
+					u1.setColor(12); cerr << endl << "  ERROR: The value you inserted exceeds the room's maximum capacity."; u1.setColor(15);
+					Sleep(1500);
+					cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+					Sleep(1500);
+					u1.cinClear();
+					continue;
+				}
+				else {
+					cin.clear();
+					isIn = false;
+				}
 			}
 		}
+
+		isIn = false;
 	}
+
+	Date date1 = Date(dateB);
+	Date date2 = Date(dateE);
+	cout << "nif: " << rentsVec[option - 1].getNif() << " price: " << xPrice*(date2.minus(date1));
+
 	int nif = rentsVec[option - 1].getNif();
 	float totalPrice = xPrice*(date2.minus(date1));
-	rentsVec[option - 1].setReservation(Reservation(nif, totalPrice, date1, date2));
+	rentsVec[counter + temp].setReservation(Reservation(nif, totalPrice, date1, date2));
 
+	u1.successMessage();
+	return;
 }
 
 
