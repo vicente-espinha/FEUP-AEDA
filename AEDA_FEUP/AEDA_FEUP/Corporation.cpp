@@ -930,8 +930,9 @@ void Corporation::makeRent() {
 
 
 		//u1.clearScreen();
-		cout << "What is the type of rent? \n1 - Hotel\n2 - Bed'n'Breakfast\n3 - Apartment\n4 - Flat\n5 - Shared House\n\n";
-		cout << "Select the number corresponding to the option you wish to select: ";
+		u1.setColor(11); cout << "What is the type of rent?\n\n"; u1.setColor(15);
+		cout << "1 - Hotel\n2 - Bed'n'Breakfast\n3 - Apartment\n4 - Flat\n5 - Shared House\n\n";
+		u1.setColor(14); cout << "Select the number corresponding to the option you wish to select: "; u1.setColor(15);
 		cin >> cinChoice;
 
 		if (cin.eof()) {
@@ -972,14 +973,14 @@ void Corporation::makeRent() {
 		}
 		if (choice == 3) {
 			u1.clearScreen();
-			flat fl;
-			rentsVec.push_back(fl.buildRent(nif));
+			apartment ap;
+			rentsVec.push_back(ap.buildRent(nif));
 			continue;
 		}
 		if (choice == 4) {
 			u1.clearScreen();
-			apartment ap;
-			rentsVec.push_back(ap.buildRent(nif));
+			flat fl;
+			rentsVec.push_back(fl.buildRent(nif));
 			continue;
 		}
 		if (choice == 5) {
@@ -989,8 +990,8 @@ void Corporation::makeRent() {
 			continue;
 		}
 	}
-	u1.successMessage();
 
+	u1.successMessage();
 	return;
 
 }
