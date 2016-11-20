@@ -14,48 +14,48 @@
 using namespace std;
 /*! \brief Brief description.
 *
-*
+* Classe Base that contains every function that changes the information of the suppliers,users,rents and reservations(create,delete,register)
 */
 class Corporation
 {
 private:
-	static Corporation* singleton_instance;
-	string usersFile, suppliersFile, rentsFile;
-	vector<Users> usersVec;
-	vector<Supplier> suppliersVec;
-	vector<Rent> rentsVec;
+	static Corporation* singleton_instance;/*!<  "singleton_instance" instances variables*/ 
+	string usersFile, suppliersFile, rentsFile;/*!< "usersFile" is the file that contais the information about the users,"suppliersFile" is the file that contais the information about the suppliers and "rentsFile" is the file that contais the information about the rents and reservations,*/ 
+	vector<Users> usersVec; /*!<  "usersVec" is the vector that contains the users information*/ 
+	vector<Supplier> suppliersVec;/*!<  "suppliersVec" is the vector that contains the suppliers information*/ 
+	vector<Rent> rentsVec;/*!<  "rentsVec" is the vector that contains the rents and reservations information*/ 
 
 
 public:
-	string username, supplierName;
+	string username, supplierName;//!< saves the username and password that were loged in.
 
-	static Corporation* instance();
+	static Corporation* instance();//!< a function instances variables.
 
-	void login();
+	void login();//!< a function that logins
 
-	bool foundUsersFile(string userFiles);
-	void loadUsers();
-	void saveUsers();
-	void registerUser();
+	bool foundUsersFile(string userFiles);//!< a function that checks if the file is correct.
+	void loadUsers();//!< a function that saves the information that of the file in the vector
+	void saveUsers();//!< a function that saves the information that of the vector in the file
+	void registerUser();//!< a function that registers a user
 
-	void printSuppliersRents();
-	bool foundSuppliersFile(string suppliersFile);
-	void loadSuppliers();
-	void saveSuppliers();
-	void registerSupplier();
-	void orderSuppliersVec();
-	void orderRentsVec();
-	void makeRent();
+	void printSuppliersRents();//!< a function that prints the suppliers rents
+	bool foundSuppliersFile(string suppliersFile);//!< a function that checks if the file is correct.
+	void loadSuppliers();//!< a function that saves the information that of the file in the vector
+	void saveSuppliers();//!< a function that saves the information that of the vector in the file
+	void registerSupplier();//!< a function that registers a supplier
+	void orderSuppliersVec();//!< a function that puts in order the suppliersVec
+	void orderRentsVec();//!< a function that puts in order the rentsVec
+	void makeRent();//!< a function that creates a rent
 
-	string cities();
-	void printUsersReservations();
-	void makeReservation();
-	void cancelReservation();
+	string cities();//!< a function that helps you choose the cities
+	void printUsersReservations();//!< a function that prints the reservations
+	void makeReservation();//!< a function that creates a reservation
+	void cancelReservation();//!< a function that cancels the reservation
 
-	bool foundRentsFile(string rentsFile);
-	void loadRents();
-	void saveRents();
+	bool foundRentsFile(string rentsFile);//!< a function that checks if the file is correct.
+	void loadRents();//!< a function that saves the information that of the file in the vector
+	void saveRents();//!< a function that saves the information that of the vector in the file
 
-	void deleteRents();
+	void deleteRents();//!< a function that deletes the rents
 };
 
