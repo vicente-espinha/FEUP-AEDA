@@ -688,7 +688,7 @@ void Corporation::deleteRents()
 		int choice;
 		cout << "Option: ";
 		cin >> choice;
-
+		 
 		if (cin.fail()) {
 			cout << "\nInvalid input. Retrying last step.\n";
 			continue;
