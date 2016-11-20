@@ -50,12 +50,14 @@ Hotel Hotel::buildRent(long nif)
 	unsigned int year = 1900 + now->tm_year, month = 1 + now->tm_mon, day = now->tm_mday;
 	Date real_date = Date(day, month, year);
 
-	cout << "Rent's name: ";
-	cin >> name;
+	cout << "\nRent's name: ";
+	getline(cin, name);
+	u2.cinClear();
 	cout << endl << endl;
 	bool isIn = true; // Este boleano é só um sistema que usei para implementar uma deteção de erro, com possibilidade de repetição
+
 	city = Corporation::instance()->cities();
-	u2.cinClear();
+	u2.clearScreen();
 
 	while (isIn) // Preco
 	{
@@ -86,7 +88,7 @@ Hotel Hotel::buildRent(long nif)
 	Date d1, d2;
 
 	while (isIn) {
-		cout << "\nDate of check-in: "; cin >> date1;
+		cout << "\nStart date: "; cin >> date1;
 
 		Date d1 = Date(date1);
 
@@ -109,7 +111,7 @@ Hotel Hotel::buildRent(long nif)
 			isIn = false;
 		}
 
-		cout << "\nDate of check-out : "; cin >> date2; cout << endl;
+		cout << "\nEnd date : "; cin >> date2; cout << endl;
 
 		Date d2 = Date(date2);
 
@@ -133,8 +135,13 @@ Hotel Hotel::buildRent(long nif)
 		}
 	}
 
+	isIn = true;
+
 	while (isIn) // NumOcupantes
 	{
+		Date d1 = Date(date1);
+		Date d2 = Date(date2);
+
 		u2.setColor(11); cout << "\nWhat is the type of room you want to add? You may add:" << endl << endl; u2.setColor(15);
 		cout << "1 - Simple Room\n2 - Double room\n3 - Double room with aditional bed\n4 - Triple Room" << endl;
 		cin >> n;
@@ -173,104 +180,126 @@ bedNbreakfast::bedNbreakfast(long nif, string typeRent, string name, string cida
 
 bedNbreakfast bedNbreakfast::buildRent(long nif)
 {
-	Utilities u;
 	string city;
 	int n;
 	float price;
 	bool isIn = true; // Este boleano é só um sistema que usei para implementar uma deteção de erro, com possibilidade de repetição
-	cout << "What is the city where you wish to make your Bed'n'Breakfast rent available?\n\n";
-	cin >> city;
-	cout << "\n What is the name of the B'n'B?\nName:";
+
+#pragma warning(disable : 4996)
+	time_t ti = time(0);
+	struct tm * now = localtime(&ti);
+	unsigned int year = 1900 + now->tm_year, month = 1 + now->tm_mon, day = now->tm_mday;
+	Date real_date = Date(day, month, year);
+
+	city = Corporation::instance()->cities();
+	u2.clearScreen();
+	u2.cinClear();
+
 	string name;
-	cin >> name;
+	cout << "\nRent's name: ";
+	getline(cin, name);
 
 	while (isIn) // NumOcupantes
 	{
-		cout << "\nWhat is the number of people staying in the B'n'B?\n\n" << endl;
+		cout << "\nNumber of people it can accommodate: ";
 		int numPeople;
 		cin >> numPeople;
+
 		if (cin.fail())
 		{
+			u2.setColor(12); cerr << endl << "  ERROR: Input is invalid. "; u2.setColor(15);
+			Sleep(1500);
+			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+			Sleep(1500);
 			u2.cinClear();
-			cout << "\n\n The input was invalid. Retrying last segment.\n\n";
+			u2.clearScreen();
 			continue;
 		}
+		u2.cinClear();
+		break;
 	}
 	isIn = true;
 
 	while (isIn) // Preco
 	{
-		cout << "\nWhat is the price it is going to cost?\n";
+		cout << "\nPrice per night: ";
 		cin >> price;
+
 		if (cin.fail())
 		{
+			u2.setColor(12); cerr << endl << "  ERROR: Input is invalid. "; u2.setColor(15);
+			Sleep(1500);
+			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+			Sleep(1500);
 			u2.cinClear();
-			cout << "\n\n The input was invalid. Retrying last segment.\n\n";
+			u2.clearScreen();
 			continue;
 		}
 		else
 		{
 			this->price = price;
+			u2.cinClear();
 			isIn = false;
 			break;
 		}
 	}
+
 	isIn = true;
 
-	int day1, day2, month1, month2, year1, year2;
-	Date d1, d2;
+	string date1, date2;
 
 	while (isIn) // Datas
 	{
-		cout << "/nBeginning date:\nDay: ";
-		cin >> day1;
-		if (u2.invalidInputNoRetry())
+		cout << "\nStart date: "; cin >> date1;
+
+		Date d1 = Date(date1);
+
+		if (cin.eof()) {
+			u2.cancelMessage();
+			rentMenu.SuppliersMenu();
+		}
+
+		if (!d1.isValid() || (real_date > d1)) {
+			u2.setColor(12); cerr << endl << "  ERROR: The date you inserted is not valid."; u2.setColor(15);
+			Sleep(1500);
+			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+			Sleep(1500);
+			u2.cinClear();
+			u2.clearScreen();
 			continue;
-		cout << "\nMonth:";
-		cin >> month1;
-		if (u2.invalidInputNoRetry())
+		}
+		else {
+			u2.cinClear();
+		}
+
+		cout << "\nEnd date : "; cin >> date2; cout << endl;
+
+		Date d2 = Date(date2);
+
+		if (cin.eof()) {
+			u2.cancelMessage();
+			rentMenu.UsersMenu();
+		}
+
+		if (!d2.isValid() || (real_date > d2)) {
+			u2.setColor(12); cerr << endl << "  ERROR: The date you inserted is not valid. Please use the format dd/mm/yyyy"; u2.setColor(15);
+			Sleep(2000);
+			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+			Sleep(1500);
+			u2.cinClear();
+			u2.clearScreen();
 			continue;
-		cout << "\nYear:";
-		cin >> year1;
-		if (u2.invalidInputNoRetry())
-			continue;
-		d1 = Date(day1, month1, year1);
-		if (d1.isValid() == false)
-		{
-			cout << "\nThis date is invalid. Repeating this date.\n";
+		}
+		else {
+			u2.cinClear();
+			break;
 		}
 	}
 
-	while (isIn) // Datas
-	{
-		cout << "/nEnding date:\nDay: ";
-		cin >> day2;
-		if (u2.invalidInputNoRetry())
-			continue;
-		cout << "\nMonth:";
-		cin >> month2;
-		if (u2.invalidInputNoRetry())
-			continue;
-		cout << "\nYear:";
-		cin >> year2;
-		if (u2.invalidInputNoRetry())
-			continue;
-		d2 = Date(day2, month2, year2);
+	Date d1 = Date(date1);
+	Date d2 = Date(date2);
 
-		if (d2.isValid() == false)
-		{
-			cout << "\nThis date is invalid. Repeating this date.\n";
-		}
-
-		if (d2 < d1)
-		{
-			cout << "Ending date is earlier than beginnig date. Repeating this date.\n";
-			continue;
-		}
-	}
 	return bedNbreakfast(nif, "Bed'n'Breakfast", name, city, d1, d2, price, numPeople);
-
-
 }
 
 
@@ -289,12 +318,19 @@ sharedHouse sharedHouse::buildRent(long nif)
 	float price;
 	bool isIn = true; // Este boleano é só um sistema que usei para implementar uma deteção de erro, com possibilidade de repetição
 
+#pragma warning(disable : 4996)
+	time_t ti = time(0);
+	struct tm * now = localtime(&ti);
+	unsigned int year = 1900 + now->tm_year, month = 1 + now->tm_mon, day = now->tm_mday;
+	Date real_date = Date(day, month, year);
+
 	city = Corporation::instance()->cities();
 
+	u2.clearScreen();
 	u2.cinClear();
 
-	cout << "\nRent's name : ";
-	cin >> name;
+	cout << "\n\nRent's name : ";
+	getline(cin, name);
 
 	while (isIn) // NumOcupantes
 	{
@@ -303,11 +339,16 @@ sharedHouse sharedHouse::buildRent(long nif)
 		cin >> numPeople;
 		if (cin.fail()){
 
+			u2.setColor(12); cerr << endl << "  ERROR: Input can only contain digits. "; u2.setColor(15);
+			Sleep(1500);
+			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+			Sleep(1500);
 			u2.cinClear();
-			cout << "\n\n The input was invalid. Retrying last segment.\n\n";
+			u2.clearScreen();
 			continue;
 		}
-		isIn = false;
+		u2.cinClear();
+		break;
 	}
 	
 	isIn = true;
@@ -318,77 +359,76 @@ sharedHouse sharedHouse::buildRent(long nif)
 		cin >> price;
 		if (cin.fail())
 		{
+			u2.setColor(12); cerr << endl << "  ERROR: Input can only contain digits. "; u2.setColor(15);
+			Sleep(1500);
+			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+			Sleep(1500);
 			u2.cinClear();
-			cout << "\n\n The input was invalid. Retrying last segment.\n\n";
+			u2.clearScreen();
 			continue;
 		}
 		else
 		{
 			this->price = price;
+			u2.cinClear();
 			isIn = false;
 		}
 	}
 
 	isIn = true;
 
-	int day1, day2, month1, month2, year1, year2;
-	Date d1, d2;
+	string date1, date2;
 
 	while (isIn) // Datas
 	{
-		cout << "/nBeginning date:\nDay: ";
-		cin >> day1;
-		if (u2.invalidInputNoRetry())
+		cout << "\nStart date: "; cin >> date1;
+
+		Date d1 = Date(date1);
+
+		if (cin.eof()) {
+			u2.cancelMessage();
+			rentMenu.SuppliersMenu();
+		}
+
+		if (!d1.isValid() || (real_date > d1)) {
+			u2.setColor(12); cerr << endl << "  ERROR: The date you inserted is not valid."; u2.setColor(15);
+			Sleep(1500);
+			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+			Sleep(1500);
+			u2.cinClear();
+			u2.clearScreen();
 			continue;
-		cout << "\nMonth:";
-		cin >> month1;
-		if (u2.invalidInputNoRetry())
-			continue;
-		cout << "\nYear:";
-		cin >> year1;
-		if (u2.invalidInputNoRetry())
-			continue;
-		d1 = Date(day1, month1, year1);
-		if (d1.isValid() == false)
-		{
-			cout << "\nThis date is invalid. Repeating this date.\n";
 		}
 		else {
+			u2.cinClear();
+		}
+
+		cout << "\nEnd date : "; cin >> date2; cout << endl;
+
+		Date d2 = Date(date2);
+
+		if (cin.eof()) {
+			u2.cancelMessage();
+			rentMenu.UsersMenu();
+		}
+
+		if (!d2.isValid() || (real_date > d2)) {
+			u2.setColor(12); cerr << endl << "  ERROR: The date you inserted is not valid. Please use the format dd/mm/yyyy"; u2.setColor(15);
+			Sleep(2000);
+			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+			Sleep(1500);
+			u2.cinClear();
+			u2.clearScreen();
+			continue;
+		}
+		else {
+			u2.cinClear();
 			isIn = false;
 		}
 	}
 
-	isIn = true;
-	while (isIn) // Datas
-	{
-		cout << "/nEnding date:\nDay: ";
-		cin >> day2;
-		if (u2.invalidInputNoRetry())
-			continue;
-		cout << "\nMonth:";
-		cin >> month2;
-		if (u2.invalidInputNoRetry())
-			continue;
-		cout << "\nYear:";
-		cin >> year2;
-		if (u2.invalidInputNoRetry())
-			continue;
-		d2 = Date(day2, month2, year2);
-
-		if (d2.isValid() == false)
-		{
-			cout << "\nThis date is invalid. Repeating this date.\n";
-		}
-
-		if (d2 < d1)
-		{
-			cout << "Ending date is earlier than beginnig date. Repeating this date.\n";
-			continue;
-		}
-		else {
-			isIn = false;
-		}
-	}
+	Date d1 = Date(date1);
+	Date d2 = Date(date2);
 
 	return sharedHouse(nif,"Shared House", name, city, d1, d2, price, numPeople);
 }
@@ -406,98 +446,120 @@ flat flat::buildRent(long nif)
 	int n;
 	float price;
 	bool isIn = true; // Este boleano é só um sistema que usei para implementar uma deteção de erro, com possibilidade de repetição
-	cout << "What is the city where you wish to make your shared-house rent available?\n\n";
-	cin >> city;
+
+#pragma warning(disable : 4996)
+	time_t ti = time(0);
+	struct tm * now = localtime(&ti);
+	unsigned int year = 1900 + now->tm_year, month = 1 + now->tm_mon, day = now->tm_mday;
+	Date real_date = Date(day, month, year);
+
+	city = Corporation::instance()->cities();
+	u2.clearScreen();
+	u2.cinClear();
+
 	string name;
-	cout << "\nUnder which name would you like to make the rent available?\n";
-	cin >> name;
+	cout << "\n\nRent's name: ";
+	getline(cin, name);
+
+	u2.cinClear();
 
 	while (isIn) // NumOcupantes
 	{
-		cout << "\nWhat is the number of people staying?\n\n" << endl;
+		cout << "\nNumber of people the house can accomodate: ";
 		int numPeople;
 		cin >> numPeople;
 		if (cin.fail())
 		{
-			cin.clear();
-			cin.ignore(1000000, '\n');
-			cout << "\n\n The input was invalid. Retrying last segment.\n\n";
+			u2.setColor(12); cerr << endl << "  ERROR: Input can only contain digits. "; u2.setColor(15);
+			Sleep(1500);
+			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+			Sleep(1500);
+			u2.cinClear();
+			u2.clearScreen();
 			continue;
 		}
+		u2.cinClear();
+		break;
 	}
 	isIn = true;
 
 	while (isIn) // Preco
 	{
-		cout << "\nWhat is the price it is going to cost?\n";
+		cout << "\nPrice per night: ";
 		cin >> price;
 		if (cin.fail())
 		{
-			cin.clear();
-			cin.ignore(1000000, '\n');
-			cout << "\n\n The input was invalid. Retrying last segment.\n\n";
+			u2.setColor(12); cerr << endl << "  ERROR: Input can only contain digits. "; u2.setColor(15);
+			Sleep(1500);
+			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+			Sleep(1500);
+			u2.cinClear();
+			u2.clearScreen();
 			continue;
 		}
 		else
 		{
 			this->price = price;
+			u2.cinClear();
 			isIn = false;
 			break;
 		}
 	}
 	isIn = true;
 
-	int day1, day2, month1, month2, year1, year2;
-	Date d1, d2;
+	string date1, date2;
 
 	while (isIn) // Datas
 	{
-		cout << "/nBeginning date:\nDay: ";
-		cin >> day1;
-		if (u2.invalidInputNoRetry())
+		cout << "\nStart date: "; cin >> date1;
+
+		Date d1 = Date(date1);
+
+		if (cin.eof()) {
+			u2.cancelMessage();
+			rentMenu.SuppliersMenu();
+		}
+
+		if (!d1.isValid() || (real_date > d1)) {
+			u2.setColor(12); cerr << endl << "  ERROR: The date you inserted is not valid."; u2.setColor(15);
+			Sleep(1500);
+			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+			Sleep(1500);
+			u2.cinClear();
+			u2.clearScreen();
 			continue;
-		cout << "\nMonth:";
-		cin >> month1;
-		if (u2.invalidInputNoRetry())
+		}
+		else {
+			u2.cinClear();
+			isIn = false;
+		}
+
+		cout << "\nEnd date : "; cin >> date2; cout << endl;
+
+		Date d2 = Date(date2);
+
+		if (cin.eof()) {
+			u2.cancelMessage();
+			rentMenu.UsersMenu();
+		}
+
+		if (!d2.isValid() || (real_date > d2)) {
+			u2.setColor(12); cerr << endl << "  ERROR: The date you inserted is not valid. Please use the format dd/mm/yyyy"; u2.setColor(15);
+			Sleep(2000);
+			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+			Sleep(1500);
+			u2.cinClear();
+			u2.clearScreen();
 			continue;
-		cout << "\nYear:";
-		cin >> year1;
-		if (u2.invalidInputNoRetry())
-			continue;
-		d1 = Date(day1, month1, year1);
-		if (d1.isValid() == false)
-		{
-			cout << "\nThis date is invalid. Repeating this date.\n";
+		}
+		else {
+			u2.cinClear();
+			isIn = false;
 		}
 	}
 
-	while (isIn) // Datas
-	{
-		cout << "/nEnding date:\nDay: ";
-		cin >> day2;
-		if (u2.invalidInputNoRetry())
-			continue;
-		cout << "\nMonth:";
-		cin >> month2;
-		if (u2.invalidInputNoRetry())
-			continue;
-		cout << "\nYear:";
-		cin >> year2;
-		if (u2.invalidInputNoRetry())
-			continue;
-		d2 = Date(day2, month2, year2);
-
-		if (d2.isValid() == false)
-		{
-			cout << "\nThis date is invalid. Repeating this date.\n";
-		}
-
-		if (d2 < d1)
-		{
-			cout << "Ending date is earlier than beginnig date. Repeating this date.\n";
-			continue;
-		}
-	}
+	Date d1 = Date(date1);
+	Date d2 = Date(date2);
 
 	return flat(nif, "Flat", name, city, d1, d2, price, numPeople);
 
@@ -519,42 +581,61 @@ apartment apartment::buildRent(long nif)
 	int n;
 	float price;
 	bool isIn = true; // Este boleano é só um sistema que usei para implementar uma deteção de erro, com possibilidade de repetição
-	cout << "What is the city where you wish to make your apartment rent available?\n\n";
-	cin >> city;
+	
+#pragma warning(disable : 4996)
+	time_t ti = time(0);
+	struct tm * now = localtime(&ti);
+	unsigned int year = 1900 + now->tm_year, month = 1 + now->tm_mon, day = now->tm_mday;
+	Date real_date = Date(day, month, year);
+
+	Corporation::instance()->cities();
+	u2.clearScreen();
+	u2.cinClear();
 
 	string name;
-	cout << "\nUnder which name would you like to make the rent available?\n";
-	cin >> name;
+	cout << "\nRent's name: ";
+	getline(cin, name);
 
 	while (isIn) // NumOcupantes
 	{
-		cout << "\nWhat is the number of people staying?\n\n" << endl;
+		cout << "\nNumber of people the apartment can accommodate: ";
 		int numPeople;
 		cin >> numPeople;
+
 		if (cin.fail())
 		{
-			cin.clear();
-			cin.ignore(1000000, '\n');
-			cout << "\n\n The input was invalid. Retrying last segment.\n\n";
+			u2.setColor(12); cerr << endl << "  ERROR: Input can only contain digits. "; u2.setColor(15);
+			Sleep(1500);
+			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+			Sleep(1500);
+			u2.cinClear();
+			u2.clearScreen();
 			continue;
 		}
+		u2.cinClear();
+		break;
 	}
 	isIn = true;
 
 	while (isIn) // Preco
 	{
-		cout << "\nWhat is the price it is going to cost?\n";
+		cout << "\nPrice per night: ";
 		cin >> price;
+
 		if (cin.fail())
 		{
-			cin.clear();
-			cin.ignore(1000000, '\n');
-			cout << "\n\n The input was invalid. Retrying last segment.\n\n";
+			u2.setColor(12); cerr << endl << "  ERROR: Input can only contain digits. "; u2.setColor(15);
+			Sleep(1500);
+			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+			Sleep(1500);
+			u2.cinClear();
+			u2.clearScreen();
 			continue;
 		}
 		else
 		{
 			this->price = price;
+			u2.cinClear();
 			isIn = false;
 			break;
 		}
@@ -565,138 +646,167 @@ apartment apartment::buildRent(long nif)
 	string x;
 	while (isIn)
 	{
-		cout << "Is it a suite? (y/n)\n";
+		cout << "\nIs it a suite? (Y for yes)\n";
 		cin >> x;
 		if (x == "Y" || x == "y" || x == "yes")
 		{
 			s = true;
 			isIn = false;
-			break;
-		}
-		if (x == "n" || x == "no" || x == "N")
-		{
-			s = false;
-			isIn = false;
+			u2.cinClear();
 			break;
 		}
 		else
 		{
-			cout << "\nInvalid input. Retrying.\n";
-			continue;
+			s = false;
+			isIn = false;
+			u2.cinClear();
+			break;
 		}
 	}
+
+	isIn = true;
 	while (isIn)
 	{
 		cout << "Does it have a living room? (Y for yes)\n";
 		cin >> x;
 		if (x == "Y" || x == "y" || x == "yes")
 		{
-			lr = "Yes";
+			lr = true;
 			isIn = false;
+			u2.cinClear();
 			break;
 		}
-		if (x == "n" || x == "no" || x == "N")
+		else
 		{
 			lr = false;
 			isIn = false;
+			u2.cinClear();
 			break;
-		}
-		else
-		{
-			cout << "\nInvalid input. Retrying.\n";
-			continue;
 		}
 	}
 
+	isIn = true;
+
 	while (isIn)
 	{
-		cout << "Does it have a kitchen? (y/n)\n";
+		cout << "Does it have a kitchen? (Y for yes)\n";
 		cin >> x;
 		if (x == "Y" || x == "y" || x == "yes")
 		{
-			k = "Yes";
+			k = true;
 			isIn = false;
-			break;
-		}
-		if (x == "n" || x == "no" || x == "N")
-		{
-			k = false;
-			isIn = false;
+			u2.cinClear();
 			break;
 		}
 		else
 		{
-			cout << "\nInvalid input. Retrying.\n";
-			continue;
+			k = false;
+			isIn = false;
+			u2.cinClear();
+			break;
 		}
 	}
-	int day1, day2, month1, month2, year1, year2;
-	Date d1, d2;
+
+	isIn = true;
+	string date1, date2;
 
 	while (isIn) // Datas
 	{
-		cout << "/nBeginning date:\nDay: ";
-		cin >> day1;
-		if (u2.invalidInputNoRetry())
+		cout << "\nStart date: "; cin >> date1;
+
+		Date d1 = Date(date1);
+
+		if (cin.eof()) {
+			u2.cancelMessage();
+			rentMenu.SuppliersMenu();
+		}
+
+		if (!d1.isValid() || (real_date > d1)) {
+			u2.setColor(12); cerr << endl << "  ERROR: The date you inserted is not valid."; u2.setColor(15);
+			Sleep(1500);
+			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+			Sleep(1500);
+			u2.cinClear();
+			u2.clearScreen();
 			continue;
-		cout << "\nMonth:";
-		cin >> month1;
-		if (u2.invalidInputNoRetry())
+		}
+		else {
+			u2.cinClear();
+			isIn = false;
+		}
+
+		cout << "\nEnd date: "; cin >> date2; cout << endl;
+
+		Date d2 = Date(date2);
+
+		if (cin.eof()) {
+			u2.cancelMessage();
+			rentMenu.UsersMenu();
+		}
+
+		if (!d2.isValid() || (real_date > d2)) {
+			u2.setColor(12); cerr << endl << "  ERROR: The date you inserted is not valid. Please use the format dd/mm/yyyy"; u2.setColor(15);
+			Sleep(2000);
+			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+			Sleep(1500);
+			u2.cinClear();
+			u2.clearScreen();
 			continue;
-		cout << "\nYear:";
-		cin >> year1;
-		if (u2.invalidInputNoRetry())
-			continue;
-		d1 = Date(day1, month1, year1);
-		if (d1.isValid() == false)
-		{
-			cout << "\nThis date is invalid. Repeating this date.\n";
+		}
+		else {
+			u2.cinClear();
+			isIn = false;
 		}
 	}
+
+	isIn = true;
+
 	int people, rooms;
 	while (isIn)
 	{
-		cout << "How many rooms will there be available?\n";
+		cout << "Number of rooms available: ";
 		cin >> rooms;
-		if (u2.invalidInputNoRetry())
+
+		if (cin.fail())
+		{
+			u2.setColor(12); cerr << endl << "  ERROR: Input can only contain digits. "; u2.setColor(15);
+			Sleep(1500);
+			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+			Sleep(1500);
+			u2.cinClear();
+			u2.clearScreen();
 			continue;
-		cout << "How many people per room?\n";
+		}
+
+		cout << "People per room: ";
 		cin >> people;
-		if (u2.invalidInputNoRetry())
+
+		if (cin.fail())
+		{
+			u2.setColor(12); cerr << endl << "  ERROR: Input can only contain digits. "; u2.setColor(15);
+			Sleep(1500);
+			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+			Sleep(1500);
+			u2.cinClear();
+			u2.clearScreen();
 			continue;
+		}
+
 		if (people < 0 || people > 4)
 		{
-			cout << "\nToo many people per room. Repeating last step.\n";
+			u2.setColor(12); cerr << endl << "  ERROR: Invalid number of people per room. "; u2.setColor(15);
+			Sleep(1500);
+			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+			Sleep(1500);
+			u2.cinClear();
+			u2.clearScreen();
 			continue;
 		}
 		isIn = false;
 	}
-	while (isIn) // Datas
-	{
-		cout << "/nEnding date:\nDay: ";
-		cin >> day2;
-		if (u2.invalidInputNoRetry())
-			continue;
-		cout << "\nMonth:";
-		cin >> month2;
-		if (u2.invalidInputNoRetry())
-			continue;
-		cout << "\nYear:";
-		cin >> year2;
-		if (u2.invalidInputNoRetry())
-			continue;
-		d2 = Date(day2, month2, year2);
+	
+	Date d1 = Date(date1);
+	Date d2 = Date(date2);
 
-		if (d2.isValid() == false)
-		{
-			cout << "\nThis date is invalid. Repeating this date.\n";
-		}
-
-		if (d2 < d1)
-		{
-			cout << "Ending date is earlier than beginning date. Repeating this date.\n";
-			continue;
-		}
-	}
 	return apartment(nif, "Apartment", name, city, d1, d2, price, people, rooms, k, s, lr);
 }

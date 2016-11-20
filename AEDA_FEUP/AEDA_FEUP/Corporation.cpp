@@ -139,6 +139,16 @@ void Corporation::registerUser() {
 		corpMenu.RegisterMenu();
 	}
 
+	for (unsigned int index = 0; index != usersVec.size(); index++) {
+		if (usersVec.at(index).getUsername() == user) {
+			u1.setColor(12); cerr << "  ERROR: That name already exists. "; u1.setColor(15);
+			Sleep(3000);
+			u1.clearScreen();
+			u1.cinClear();
+			corpMenu.RegisterMenu();
+		}
+	}
+
 	for (unsigned int index = 0; index != user.size(); index++) {
 		if (!isalpha(user[index]) && user[index] != ' ') {
 			u1.setColor(12); cerr << "  ERROR: Name must only contain alphabetic characters. "; u1.setColor(15);
@@ -726,7 +736,8 @@ void Corporation::makeRent() {
 
 
 		//u1.clearScreen();
-		cout << "What is the type of rent? \n1 - Hotel\n2 - Bed'n'Breakfast\n3 - Apartment\n4 - Flat\n5 - Shared House\n\n";
+		u1.setColor(11); cout << "What is the type of rent?"; u1.setColor(15);
+		cout << "\n1 - Hotel\n2 - Bed'n'Breakfast\n3 - Apartment\n4 - Flat\n5 - Shared House\n\n";
 		cout << "Select the number corresponding to the option you wish to select: ";
 		cin >> cinChoice;
 
@@ -768,14 +779,14 @@ void Corporation::makeRent() {
 		}
 		if (choice == 3) {
 			u1.clearScreen();
-			flat fl;
-			rentsVec.push_back(fl.buildRent(nif));
+			apartment ap;
+			rentsVec.push_back(ap.buildRent(nif));
 			continue;
 		}
 		if (choice == 4) {
 			u1.clearScreen();
-			apartment ap;
-			rentsVec.push_back(ap.buildRent(nif));
+			flat fl;
+			rentsVec.push_back(fl.buildRent(nif));
 			continue;
 		}
 		if (choice == 5) {
@@ -1125,15 +1136,11 @@ void Corporation::printUsersReservations()
 	for (int i = 0; i < rentsVec.size(); i++)
 		if (Corporation::instance()->username == usersVec[i].getUsername())
 		{
-			vector<Reservation> x = rentsVec[i].getReservations();
-			for (int j = 0; j < x.size(); j++)
-				if (x[j].getnif() == Corporation::instance()->nif)
-				{
-					cout << "Reservation " << counter << ":\nBeginning date: " << x[j].getDate1().getDay() << "/" << x[j].getDate1().getMonth() << "/" << x[j].getDate1().getYear() << ", whose price totals " << x[j].getPrice() << ".\n";
-					counter++;
-
-				}
-			Sleep(1000);
+			for (int j = 0; j < rentsVec[i].getReservations().size(); j++) {
+				cout << "Reservation numeber " << counter << " starting on date " << rentsVec[i].getReservations()[j].getDate1() << " ,finishing on date " << rentsVec[i].getReservations()[j].getDate2() << " ,whose price totals " << rentsVec[i].getReservations()[j].getPrice() << ".\n";
+				counter++;
+			}
+			u1.pressToContinueMessage();
 		}
 	if (counter == 1)
 	{
