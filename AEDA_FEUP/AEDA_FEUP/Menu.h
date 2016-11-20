@@ -10,6 +10,10 @@
 
 using namespace std;
 
+/*! \brief Brief description.
+*
+* Classe that is a menu
+*/
 class Menu {
 	//Menu functionalities
 	HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -17,18 +21,18 @@ class Menu {
 
 public:
 	// Option Names //
-	string * UsersMenuItems(); // A function that returns the name of a menu item.
-	string * RegisterItems();
-	string * MainMenuItems();
-	string * SuppliersMenuItems();
+	string * UsersMenuItems(); //!< a function that returns the user menu items
+	string * RegisterItems();//!< a function that returns the register Itmes
+	string * MainMenuItems();//!< a function that returns the main menu items
+	string * SuppliersMenuItems();//!< a function that returns the suppliers menu items
 
 	// Menu functionalities //
-	void gotoxy(int, int); /* With this function you can goto any position on the cmd line screen */
-	void ChangeCursorStatus(bool);
+	void gotoxy(int, int); //!< a function that gets you to a position in the cmd line screen
+	void ChangeCursorStatus(bool);//!< a function that changes the position of the cursor
 
 	// Menus //
-	int MainMenu();
-	int RegisterMenu();
-	int UsersMenu();
-	int SuppliersMenu();
+	int MainMenu();//!< a function that returns the  main menu
+	int RegisterMenu();//!< a function that returns the register menu
+	int UsersMenu();//!< a function that returns the  users menu
+	int SuppliersMenu();//!< a function that returns the suppliers menu
 };

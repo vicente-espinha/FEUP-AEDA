@@ -31,12 +31,13 @@ void Corporation::login() {
 
 	cout << "\nPassword:  "; cin >> password;
 
-	u1.cinClear();
-
 	if (cin.eof()) {
 		u1.cancelMessage();
-		corpMenu.MainMenu();
+		corpMenu.RegisterMenu();
 	}
+
+	u1.cinClear();
+
 
 	for (size_t i = 0; i != usersVec.size(); i++) {
 		if (usersVec.at(i).getUsername() == user && usersVec.at(i).getPassword() == password) {
@@ -59,8 +60,8 @@ void Corporation::login() {
 	}
 
 	if (!foundUser && !foundSupplier) {
-		cout << "\n  ERROR: The username/password you inserted do not exist.";
-		Sleep(1500);
+		cout << "\n  ERROR: The username/password you inserted does not exist.";
+		Sleep(1000);
 		u1.cinClear();
 		return;
 	}
@@ -130,7 +131,15 @@ void Corporation::saveUsers() {
 //Adds a user to the users vector
 void Corporation::registerUser() {
 
+
+
 	string user, password, nif;
+
+	if (user == "")
+	{
+		u1.setColor(12); cerr << "  ERROR: Must register from Main Menu, please log out first. "; u1.setColor(15); Sleep(1500);
+		return;
+	}
 
 	cout << "\n Name:  "; getline(cin, user);
 
@@ -160,7 +169,10 @@ void Corporation::registerUser() {
 	}
 
 	cout << "\n Password:  "; cin >> password;
-
+	if (cin.eof()) {
+		u1.cancelMessage();
+		corpMenu.RegisterMenu();
+	}
 	u1.cinClear();
 
 	for (unsigned int index3 = 0; index3 != password.size(); index3++) {
@@ -173,6 +185,10 @@ void Corporation::registerUser() {
 	}
 
 	cout << "\n NIF:  "; cin >> nif;
+	if (cin.eof()) {
+		u1.cancelMessage();
+		corpMenu.RegisterMenu();
+	}
 	u1.cinClear();
 
 	for (unsigned int index4 = 0; index4 != nif.size(); index4++) {
@@ -201,10 +217,7 @@ void Corporation::registerUser() {
 		corpMenu.RegisterMenu();
 	}
 
-	if (cin.eof()) {
-		u1.cancelMessage();
-		corpMenu.RegisterMenu();
-	}
+
 
 	usersVec.push_back(Users(user, password, stoi(nif), 0));
 	u1.clearScreen();
@@ -688,7 +701,10 @@ void Corporation::deleteRents()
 		int choice;
 		cout << "Option: ";
 		cin >> choice;
-		 
+		if (cin.eof()) {
+			u1.cancelMessage();
+			corpMenu.RegisterMenu();
+		}
 		if (cin.fail()) {
 			cout << "\nInvalid input. Retrying last step.\n";
 			continue;
@@ -706,12 +722,12 @@ void Corporation::deleteRents()
 		}
 
 
-		if (rentsVec[v[choice-1]].getReservations().size() > 0) {
+		if (rentsVec[v[choice - 1]].getReservations().size() > 0) {
 			u1.setColor(12); cout << "WARNING : There are already reservations in that rent! Do you wish to continue? (y/n)\n"; u1.setColor(15);
 			string option;
 			cin >> option;
 			if (option == "yes" || option == "y") {
-				rentsVec.erase(rentsVec.begin() + (v[choice-1]));
+				rentsVec.erase(rentsVec.begin() + (v[choice - 1]));
 				cout << "\n  Operation completed successfully.\n";
 				Sleep(1000);
 			}
@@ -740,7 +756,11 @@ void Corporation::deleteRents()
 void Corporation::registerSupplier() {
 
 	string user, password, nif, address;
-
+	if (user == "")
+	{
+		u1.setColor(12); cerr << "  ERROR: Must register from Main Menu, please log out first. "; u1.setColor(15); Sleep(1500);
+		return;
+	}
 
 	cout << "\n Name:  ";
 	getline(cin, user);
@@ -761,6 +781,7 @@ void Corporation::registerSupplier() {
 		}
 	}
 
+
 	for (unsigned int index2 = 0; index2 != suppliersVec.size(); index2++) {
 		if (suppliersVec.at(index2).getName() == user) {
 			u1.setColor(12); cerr << "  ERROR: The username you selected already exists. Please choose another one. "; u1.setColor(15);
@@ -771,8 +792,12 @@ void Corporation::registerSupplier() {
 		}
 	}
 
-	cout << "\n Password:  "; cin >> password;
 
+	cout << "\n Password:  "; cin >> password;
+	if (cin.eof()) {
+		u1.cancelMessage();
+		corpMenu.RegisterMenu();
+	}
 	u1.cinClear();
 
 	for (unsigned int index3 = 0; index3 != password.size(); index3++) {
@@ -785,6 +810,10 @@ void Corporation::registerSupplier() {
 	}
 
 	cout << "\n NIF:  "; cin >> nif;
+	if (cin.eof()) {
+		u1.cancelMessage();
+		corpMenu.RegisterMenu();
+	}
 	u1.cinClear();
 
 	for (unsigned int index4 = 0; index4 != nif.size(); index4++) {
@@ -813,12 +842,12 @@ void Corporation::registerSupplier() {
 		corpMenu.RegisterMenu();
 	}
 
+	cout << "\n Address:  "; cin >> address;
+
 	if (cin.eof()) {
 		u1.cancelMessage();
 		corpMenu.RegisterMenu();
 	}
-
-	cout << "\n Address:  "; cin >> address;
 
 	u1.cinClear();
 
@@ -831,10 +860,7 @@ void Corporation::registerSupplier() {
 		}
 	}
 
-	if (cin.eof()) {
-		u1.cancelMessage();
-		corpMenu.RegisterMenu();
-	}
+
 
 	suppliersVec.push_back(Supplier(user, password, stoi(nif), address));
 	u1.clearScreen();
@@ -866,17 +892,19 @@ void Corporation::orderRentsVec()
 	int i;
 	if (rentsVec.size() == 1)
 		return;
-	for (i = 0; i < (rentsVec.size() - 1); i++) {
-		if (rentsVec[i].getPrice() > rentsVec[i + 1].getPrice())
-		{
-			Rent before, after;
-			after = rentsVec[i];
-			before = rentsVec[i + 1];
-			rentsVec[i + 1] = after;
-			rentsVec[i] = before;
+	for (int k = 0; k < (rentsVec.size() - 1); k++) {
+		for (i = 0; i < (rentsVec.size() - 1); i++) {
+			if (rentsVec[i].getPrice() > rentsVec[i + 1].getPrice())
+			{
+				Rent before, after;
+				after = rentsVec[i];
+				before = rentsVec[i + 1];
+				rentsVec[i + 1] = after;
+				rentsVec[i] = before;
+			}
 		}
+		i = 0;
 	}
-
 }
 
 //Adds rent to logged-in supplier
@@ -1010,14 +1038,15 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 	struct tm * now = localtime(&ti);
 	unsigned int year = 1900 + now->tm_year, month = 1 + now->tm_mon, day = now->tm_mday;
 	Date real_date = Date(day, month, year);
-
+	vector<int> v;
 	city = Corporation::instance()->cities();
 	u1.clearScreen();
+
 
 	string dateB, dateE;
 
 	while (isIn) {
-		cout << "\nDate of check-in: "; cin >> dateB;
+		cout << "Date of check-in: "; cin >> dateB;
 
 		Date date1 = Date(dateB);
 
@@ -1027,8 +1056,7 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 		}
 
 		if (!date1.isValid() || (real_date > date1)) {
-			u1.setColor(12); cerr << endl << "  ERROR: The date you inserted is not valid."; u1.setColor(15);
-			Sleep(1500);
+			u1.setColor(12); cerr << endl << " ERROR: The date you inserted is not valid."; u1.setColor(15); Sleep(500);
 			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
 			Sleep(1500);
 			u1.cinClear();
@@ -1050,7 +1078,7 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 		}
 
 		if (!date2.isValid() || (real_date > date2)) {
-			u1.setColor(12); cerr << endl << "  ERROR: The date you inserted is not valid. Please use the format dd/mm/yyyy"; u1.setColor(15);
+			u1.setColor(12); cerr << "  ERROR: The date you inserted is not valid. Please use the format dd/mm/yyyy"; u1.setColor(15);
 			Sleep(2000);
 			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
 			Sleep(1500);
@@ -1079,6 +1107,7 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 					cout << "Price per night: " << rentsVec.at(i).getPrice() << endl;
 					cout << "Room's capacity: " << rentsVec.at(i).getNumPeople() << endl << endl;
 					counter++;
+					v.push_back(i);
 				}
 				else if (rentsVec.at(i).getTypeRent() == "Apartment") {
 					u1.setColor(14); cout << "Option " << counter << endl; u1.setColor(15);
@@ -1092,6 +1121,7 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 					cout << "Price per night: " << rentsVec.at(i).getPrice() << endl;
 					cout << "Room's capacity: " << rentsVec.at(i).getNumPeople() << endl << endl;
 					counter++;
+					v.push_back(i);
 
 				}
 				else {
@@ -1103,6 +1133,8 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 					cout << "Price per night: " << rentsVec.at(i).getPrice() << endl;
 					cout << "Room's capacity: " << rentsVec.at(i).getNumPeople() << endl << endl;
 					counter++;
+					v.push_back(i);
+
 				}
 			}
 			else
@@ -1110,19 +1142,16 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 		}
 
 		if (counter == 1) {
-			u1.setColor(12); cerr << endl << "  There are no rents available between the dates specified."; u1.setColor(15);
-			Sleep(1500);
-			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
-			Sleep(1500);
-			u1.cinClear();
-			u1.clearScreen();
-			continue;
+			u1.setColor(12); cerr << "  There are no rents available between the dates specified.\nReturning to Main Menu."; u1.setColor(15);
+			Sleep(1000);
+			return;
+			
 		}
 
 		cout << "Insert the option's number: ";
 		cin >> option;
 
-		xPrice = rentsVec[counter + temp].getPrice();
+		xPrice = rentsVec[v[option - 1]].getPrice();
 
 		if (cin.eof()) {
 			u1.cancelMessage();
@@ -1151,9 +1180,8 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 		Date date1 = Date(dateB);
 		Date date2 = Date(dateE);
 
-		u1.setColor(14); cout << "\n\nCity: " << city << "  From: " << date1 << "  To: " << date2 << endl; u1.setColor(15);
 
-		if (!(rentsVec[counter + temp].getTypeRent() == "Hotel")) {
+		if (!(rentsVec[v[option - 1]].getTypeRent() == "Hotel")) {
 			cout << "\nNumber of people: ";
 			cin >> n_people;
 
@@ -1190,22 +1218,49 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 
 		isIn = false;
 	}
-
 	Date date1 = Date(dateB);
 	Date date2 = Date(dateE);
+	int nif;
+	isIn = true;
+	while (isIn) {
+		if (Corporation::instance()->username == "")
+		{
+			cout << "What is your NIF?\nNIF:" << endl;
+			cin >> nif;
+			if (cin.eof()) {
+				u1.cancelMessage();
+				corpMenu.RegisterMenu();
+			}
+			if (cin.fail())
+			{
+				cout << "\nInvalid input. Retrying last step.\n";
+				continue;
+			}
+		}
+		else
+		{
+			nif = rentsVec[v[option - 1]].getNif();
+			isIn = false;
+		}
+		isIn = false;
 
+	}
 
-	int nif = rentsVec[option - 1].getNif();
 	float totalPrice = xPrice*(date2.minus(date1));
-	rentsVec[counter + temp].setReservation(Reservation(nif, totalPrice, date1, date2));
+	rentsVec[v[option - 1]].setReservation(Reservation(nif, totalPrice, date1, date2));
 
 	u1.successMessage();
 	return;
 }
 
-
 void Corporation::cancelReservation()
 {
+	if (Corporation::instance()->username == "")
+	{
+		u1.setColor(14);
+		cout << "Only registered users can access this feature. Sign in to take full advantage of our service!";  u1.setColor(15);
+		return;
+	}
 #pragma warning(disable : 4996)
 	time_t ti = time(0);
 	struct tm * now = localtime(&ti);
@@ -1268,7 +1323,7 @@ void Corporation::cancelReservation()
 	}
 	else
 	{
-		cout << " You havent made any reservations yet!" << endl;
+		cout << " \n You havent made any reservations yet!" << endl;
 		Sleep(2000);
 		return;
 	}
@@ -1287,6 +1342,10 @@ void Corporation::cancelReservation()
 				string answer;
 				cout << "Do you want to confirm ? (yes|No)";
 				getline(cin, answer);
+				if (cin.eof()) {
+					u1.cancelMessage();
+					corpMenu.RegisterMenu();
+				}
 				if (answer == "Yes" || answer == "yes")
 				{
 					Date x = rentsVec.at(i).getReservations().at(j).getDate1() - real_date;
@@ -1431,9 +1490,6 @@ string Corporation::cities() {
 	switch (option) {
 
 	case 1:
-		u1.clearScreen();
-		cout << item[0];
-		Sleep(2000);
 		return item[0];
 	case 2:
 		return item[1];

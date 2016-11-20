@@ -8,6 +8,10 @@
 
 using namespace std;
 
+/*! \brief Brief description.
+*
+* Class of clients
+*/
 class Clients
 {
 public:
@@ -15,6 +19,10 @@ public:
 
 };
 
+/*! \brief Brief description.
+*
+*Class of the users.Users can make reservations
+*/
 class Users : public Clients {
 
 protected:
@@ -27,7 +35,7 @@ public:
 	string getPassword();//!< a function that returns the password.
 	int getPoints();//!< a function that returns the points.
 	long getNif();//!< a function that returns the nif.
-	bool checkExistance(string username, string password);
+	bool checkExistance(string username, string password);//!< a function that checks existance
 };
 
 

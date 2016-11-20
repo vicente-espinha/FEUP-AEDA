@@ -156,7 +156,6 @@ void MakeReservationOption() {
 }
 
 void CancelReservationOption() {
-
 	u.clearScreen();
 	Corporation::instance()->cancelReservation();
 	u.clearScreen();
