@@ -73,7 +73,7 @@ public:
 	Hotel(long nif, string typeRent, string nome, string cidade, Date dataI, Date dataF, string type, float preco, int numOcupantes);
 	string getType() { return type; }
 	string getName() { return nameHotel; }
-	Hotel buildRent(int nif); // Pressupostamente constroi um hotel, mas ainda tenho que pensar como implementar isto
+	Hotel buildRent(long nif); // Pressupostamente constroi um hotel, mas ainda tenho que pensar como implementar isto
 	
 };
 
@@ -85,7 +85,7 @@ protected:
 public:
 	bedNbreakfast(){}
 	bedNbreakfast(long nif, string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes);
-	bedNbreakfast buildRent(int nif);
+	bedNbreakfast buildRent(long nif);
 	string getName() { return  namebnb; }
 };
 
@@ -97,7 +97,7 @@ protected:
 public:
 	sharedHouse() {}
 	sharedHouse(long nif, string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes);
-	sharedHouse buildRent(int nif);
+	sharedHouse buildRent(long nif);
 	string getName() { return nameSH; }
 };
 
@@ -110,7 +110,7 @@ protected:
 public:
 	flat() {}
 	flat(long nif, string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes);
-	flat buildRent(int nif);
+	flat buildRent(long nif);
 	bool getKitchen() { return hasKitchen; }
 	string getName() { return nameFlat; }
 };
@@ -124,7 +124,7 @@ protected:
 public:
 	apartment() {}
 	apartment(long nif, string tipoRent, string name, string cidade, Date dataI, Date dataF, float price, int numOcupantes, int numrooms, bool kitchen, bool suite, bool livingroom);
-	apartment buildRent(int nif);
+	apartment buildRent(long nif);
 	string getName() { return nameApartment; }
 	int getNumRooms() { return numRooms; }
 	bool getKitchen() { return hasKitchen; }

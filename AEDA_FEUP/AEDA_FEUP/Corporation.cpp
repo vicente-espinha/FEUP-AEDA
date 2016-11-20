@@ -712,18 +712,19 @@ void Corporation::makeRent() {
 			}
 		}
 	}
-	int nif;
+	long nif;
 	isIn = true;
-	for (int j = 0; j < rentsVec.size(); j++)
-		for (int i = 0; i < suppliersVec.size(); i++)
-			if (suppliersVec[i].getName() == Corporation::instance()->username) {
-				nif = suppliersVec[i].getNif();
-			}
+
+	for (int i = 0; i < suppliersVec.size(); i++) 
+		if (suppliersVec[i].getName() == Corporation::instance()->supplierName) {
+			nif = suppliersVec[i].getNif();
+		}
+	
 
 	for (int i = 0; i < numIteration; i++) {
 
 
-		u1.clearScreen();
+		//u1.clearScreen();
 		cout << "What is the type of rent? \n1 - Hotel\n2 - Bed'n'Breakfast\n3 - Apartment\n4 - Flat\n5 - Shared House\n\n";
 		cout << "Select the number corresponding to the option you wish to select: ";
 		cin >> cinChoice;
@@ -732,7 +733,7 @@ void Corporation::makeRent() {
 			u1.cancelMessage();
 			corpMenu.SuppliersMenu();
 		}
-
+		
 		if (stoi(cinChoice) < 1 || stoi(cinChoice) > 5) {
 			u1.setColor(12); cerr << endl << "  ERROR: Input can only range from 1 to 5. "; u1.setColor(15);
 			Sleep(1500);
@@ -750,6 +751,7 @@ void Corporation::makeRent() {
 		}
 
 		choice = stoi(cinChoice);
+	
 
 		if (choice == 1) {
 			u1.clearScreen();

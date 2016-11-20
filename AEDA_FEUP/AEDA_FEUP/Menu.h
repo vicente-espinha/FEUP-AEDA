@@ -11,17 +11,6 @@
 using namespace std;
 
 class Menu {
-
-	//Variables
-	fstream f;
-
-	string usersFile, suppliersFile;
-
-	//vector<Supplier> suppliersVec;
-
-	string username, password;
-	unsigned int nif, points;
-
 	//Menu functionalities
 	HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 	COORD CursorPosition;

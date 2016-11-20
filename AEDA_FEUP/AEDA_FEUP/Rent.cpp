@@ -37,7 +37,7 @@ Hotel::Hotel(long nif, string typeRent, string name, string cidade, Date dataI, 
 
 }
 
-Hotel Hotel::buildRent(int nif)
+Hotel Hotel::buildRent(long nif)
 {
 	string city;
 	int n;
@@ -160,7 +160,7 @@ bedNbreakfast::bedNbreakfast(long nif, string typeRent, string name, string cida
 	this->namebnb = name;
 }
 
-bedNbreakfast bedNbreakfast::buildRent(int nif)
+bedNbreakfast bedNbreakfast::buildRent(long nif)
 {
 	Utilities u;
 	string city;
@@ -271,7 +271,7 @@ sharedHouse::sharedHouse(long nif, string typeRent, string name, string cidade, 
 }
 
 
-sharedHouse sharedHouse::buildRent(int nif)
+sharedHouse sharedHouse::buildRent(long nif)
 {
 	string city, name;
 	int n;
@@ -389,7 +389,7 @@ flat::flat(long nif, string typeRent, string name, string cidade, Date dataI, Da
 	this->nameFlat = name;
 }
 
-flat flat::buildRent(int nif)
+flat flat::buildRent(long nif)
 {
 	string city;
 	int n;
@@ -502,7 +502,7 @@ apartment::apartment(long nif, string tipoRent, string name, string cidade, Date
 	hasLivingRoom = livingroom;
 }
 
-apartment apartment::buildRent(int nif)
+apartment apartment::buildRent(long nif)
 {
 	string city;
 	int n;
