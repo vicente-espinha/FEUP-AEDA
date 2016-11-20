@@ -1,6 +1,6 @@
 #include "Reservations.h"
 
-Reservation::Reservation(unsigned int nif, double price, Date d1, Date d2)
+Reservation::Reservation(long nif, double price, Date d1, Date d2)
 {
 	this->nif = nif;
 	this->price = price;

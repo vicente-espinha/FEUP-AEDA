@@ -5,7 +5,7 @@
 Utilities u2;
 
 // ALUGUER
-Rent::Rent(int nif, string typeRent, string name2 ,string c, Date dataI, Date dataF, float p, int n)
+Rent::Rent(long nif, string typeRent, string name2 ,string c, Date dataI, Date dataF, float p, int n)
 {
 	city = c; dataBegin = dataI; dataEnd = dataF; numPeople = n; price = p; this->typeRent = typeRent; name = name2; this->nif = nif;
 }
@@ -30,7 +30,7 @@ bool Rent::isValid(Date d1, Date d2)
 
 // HOTEL
 
-Hotel::Hotel(int nif, string typeRent, string name, string cidade, Date dataI, Date dataF, string type, float preco, int numOcupantes) : Rent(nif, typeRent, name, cidade, dataI, dataF, preco, numOcupantes)
+Hotel::Hotel(long nif, string typeRent, string name, string cidade, Date dataI, Date dataF, string type, float preco, int numOcupantes) : Rent(nif, typeRent, name, cidade, dataI, dataF, preco, numOcupantes)
 {
 	nameHotel = name;
 	this->type = type;
@@ -155,7 +155,7 @@ Hotel Hotel::buildRent(int nif)
 
 // BED'N'BREAKFAST
 
-bedNbreakfast::bedNbreakfast(int nif, string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes) : Rent(nif, typeRent, name ,cidade, dataI, dataF, preco, numOcupantes)
+bedNbreakfast::bedNbreakfast(long nif, string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes) : Rent(nif, typeRent, name ,cidade, dataI, dataF, preco, numOcupantes)
 {
 	this->namebnb = name;
 }
@@ -265,7 +265,7 @@ bedNbreakfast bedNbreakfast::buildRent(int nif)
 
 // SHARED-HOUSE
 
-sharedHouse::sharedHouse(int nif, string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes) : Rent(nif, typeRent, name, cidade, dataI, dataF, preco, numOcupantes)
+sharedHouse::sharedHouse(long nif, string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes) : Rent(nif, typeRent, name, cidade, dataI, dataF, preco, numOcupantes)
 {
 	this->nameSH = name;
 }
@@ -384,7 +384,7 @@ sharedHouse sharedHouse::buildRent(int nif)
 
 // FLAT
 
-flat::flat(int nif, string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes) : Rent(nif, typeRent, name ,cidade, dataI, dataF,preco, numOcupantes)
+flat::flat(long nif, string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes) : Rent(nif, typeRent, name ,cidade, dataI, dataF,preco, numOcupantes)
 {
 	this->nameFlat = name;
 }
@@ -494,7 +494,7 @@ flat flat::buildRent(int nif)
 
 // APARTMENT
 
-apartment::apartment(int nif, string tipoRent, string name, string cidade, Date dataI, Date dataF, float price, int numOcupantes, int numrooms, bool kitchen, bool suite, bool livingroom) : Rent(nif, tipoRent, name, cidade, dataI, dataF, price, numOcupantes)
+apartment::apartment(long nif, string tipoRent, string name, string cidade, Date dataI, Date dataF, float price, int numOcupantes, int numrooms, bool kitchen, bool suite, bool livingroom) : Rent(nif, tipoRent, name, cidade, dataI, dataF, price, numOcupantes)
 {
 	nameApartment = name;
 	hasKitchen = kitchen;
