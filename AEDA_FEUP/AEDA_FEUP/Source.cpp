@@ -46,7 +46,6 @@ int main() {
 	}
 
 	Corporation::instance()->loadUsers();
-	//Corporation::instance()->loadReservations();
 	Corporation::instance()->loadSuppliers();
 	Corporation::instance()->loadRents();
 
