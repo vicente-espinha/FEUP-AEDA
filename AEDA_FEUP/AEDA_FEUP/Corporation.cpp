@@ -1125,15 +1125,11 @@ void Corporation::printUsersReservations()
 	for (int i = 0; i < rentsVec.size(); i++)
 		if (Corporation::instance()->username == usersVec[i].getUsername())
 		{
-			vector<Reservation> x = rentsVec[i].getReservations();
-			for (int j = 0; j < x.size(); j++)
-				if (x[j].getnif() == Corporation::instance()->nif)
-				{
-					cout << "Reservation " << counter << ":\nBeginning date: " << x[j].getDate1().getDay() << "/" << x[j].getDate1().getMonth() << "/" << x[j].getDate1().getYear() << ", whose price totals " << x[j].getPrice() << ".\n";
+			for (int j = 0; j < rentsVec[i].getReservations().size(); j++){
+					cout << "Reservation numeber " << counter << " starting on date " << rentsVec[i].getReservations()[j].getDate1()  << " ,finishing on date " << rentsVec[i].getReservations()[j].getDate2() << " ,whose price totals " << rentsVec[i].getReservations()[j].getPrice() << ".\n";
 					counter++;
-
 				}
-			Sleep(1000);
+			u1.pressToContinueMessage();
 		}
 	if (counter == 1)
 	{
