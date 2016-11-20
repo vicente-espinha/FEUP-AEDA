@@ -38,7 +38,7 @@ public:
 	void saveUsers();
 	void registerUser();
 
-
+	void printSuppliersRents();
 	bool foundSuppliersFile(string suppliersFile);
 	void loadSuppliers();
 	void saveSuppliers();
