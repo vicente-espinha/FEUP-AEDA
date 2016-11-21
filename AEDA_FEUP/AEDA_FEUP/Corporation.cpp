@@ -1141,12 +1141,10 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 		}
 
 		if (counter == 1) {
-			u1.setColor(12); cerr << "  There are no rents available between the dates specified."; u1.setColor(15);
-			Sleep(500);
-			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+			u1.setColor(12); cerr << "  There are no rents available between the dates specified.\nReturning to Main Menu."; u1.setColor(15);
 			Sleep(1000);
-			u1.clearScreen();
-			continue;
+			return;
+			
 		}
 
 		cout << "Insert the option's number: ";
