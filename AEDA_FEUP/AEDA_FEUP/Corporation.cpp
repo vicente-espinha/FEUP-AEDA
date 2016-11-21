@@ -103,8 +103,7 @@ void Corporation::loadUsers() {
 		line.erase(0, line.find(" ; ") + 3);
 		unsigned int nif = stoi(line.substr(0, line.find(" ; ")));
 		line.erase(0, line.find(" ; ") + 3);
-		unsigned int points = stoi(line.substr(0, line.length()));
-
+		unsigned int points = stoi(line);
 		usersVec.push_back(Users(username, password, nif, points));
 	}
 	f.close();
@@ -1258,7 +1257,7 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 }
 
 void Corporation::cancelReservation()
-{
+{/*
 	if (Corporation::instance()->username == "")
 	{
 		u1.setColor(14);
@@ -1274,18 +1273,20 @@ void Corporation::cancelReservation()
 	long nif_user;
 	for (int i = 0; i < usersVec.size(); i++)
 	{
-		if (usersVec.at(i).getUsername() == username)
-			nif_user = usersVec.at(i).getNif();
+		if (usersVec[i].getUsername() == Corporation::instance()->username)
+			nif_user = usersVec.[i].getNif();
 	}
 
 	bool found = false;
+	
 	for (int j = 0; j < rentsVec.size(); j++)
 	{
 		for (int k = 0; k < rentsVec.at(j).getReservations().size(); k++)
 		{
-			if (rentsVec.at(j).getReservations().at(k).getnif() == nif_user)
+			if (rentsVec[j].getReservations()[k].getnif() == nif_user)
 			{
 				found = true;
+			
 			}
 		}
 	}
@@ -1384,7 +1385,7 @@ void Corporation::cancelReservation()
 				rentsVec.at(i).setReservationVector(x_vec);
 			}
 		}
-	}
+	}*/
 }
 
 void Corporation::printUsersReservations()

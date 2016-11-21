@@ -48,7 +48,6 @@ int main() {
 	Corporation::instance()->loadUsers();
 	Corporation::instance()->loadSuppliers();
 	Corporation::instance()->loadRents();
-
 	Corporation::instance()->orderRentsVec();
 	u.clearScreen();
 	//Corporation::instance()->printSuppliers();
