@@ -30,7 +30,7 @@ void Corporation::login() {
 	}
 
 	cout << "\nPassword:  "; cin >> password;
-	
+
 	if (cin.eof()) {
 		u1.cancelMessage();
 		corpMenu.RegisterMenu();
@@ -131,7 +131,7 @@ void Corporation::saveUsers() {
 //Adds a user to the users vector
 void Corporation::registerUser() {
 
-	
+
 
 	string user, password, nif;
 
@@ -722,12 +722,12 @@ void Corporation::deleteRents()
 		}
 
 
-		if (rentsVec[v[choice-1]].getReservations().size() > 0) {
+		if (rentsVec[v[choice - 1]].getReservations().size() > 0) {
 			u1.setColor(12); cout << "WARNING : There are already reservations in that rent! Do you wish to continue? (y/n)\n"; u1.setColor(15);
 			string option;
 			cin >> option;
 			if (option == "yes" || option == "y") {
-				rentsVec.erase(rentsVec.begin() + (v[choice-1]));
+				rentsVec.erase(rentsVec.begin() + (v[choice - 1]));
 				cout << "\n  Operation completed successfully.\n";
 				Sleep(1000);
 			}
@@ -791,7 +791,7 @@ void Corporation::registerSupplier() {
 			corpMenu.RegisterMenu();
 		}
 	}
-	
+
 
 	cout << "\n Password:  "; cin >> password;
 	if (cin.eof()) {
@@ -824,7 +824,7 @@ void Corporation::registerSupplier() {
 			corpMenu.RegisterMenu();
 		}
 	}
-	
+
 	for (unsigned int index5 = 0; index5 != suppliersVec.size(); index5++) {
 		if (suppliersVec.at(index5).getNif() == stoi(nif)) {
 			u1.setColor(12); cerr << "  ERROR: The NIF you selected was already found in our system. Probably you already have an account. "; u1.setColor(15);
@@ -892,17 +892,19 @@ void Corporation::orderRentsVec()
 	int i;
 	if (rentsVec.size() == 1)
 		return;
-	for (i = 0; i < (rentsVec.size() - 1); i++) {
-		if (rentsVec[i].getPrice() > rentsVec[i + 1].getPrice())
-		{
-			Rent before, after;
-			after = rentsVec[i];
-			before = rentsVec[i + 1];
-			rentsVec[i + 1] = after;
-			rentsVec[i] = before;
+	for (int k = 0; k < (rentsVec.size() - 1); k++) {
+		for (i = 0; i < (rentsVec.size() - 1); i++) {
+			if (rentsVec[i].getPrice() > rentsVec[i + 1].getPrice())
+			{
+				Rent before, after;
+				after = rentsVec[i];
+				before = rentsVec[i + 1];
+				rentsVec[i + 1] = after;
+				rentsVec[i] = before;
+			}
 		}
+		i = 0;
 	}
-
 }
 
 //Adds rent to logged-in supplier
@@ -1039,7 +1041,7 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 	city = Corporation::instance()->cities();
 	u1.clearScreen();
 
-	
+
 	string dateB, dateE;
 
 	while (isIn) {
@@ -1075,7 +1077,7 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 		}
 
 		if (!date2.isValid() || (real_date > date2)) {
-			u1.setColor(12); cerr <<"  ERROR: The date you inserted is not valid. Please use the format dd/mm/yyyy"; u1.setColor(15);
+			u1.setColor(12); cerr << "  ERROR: The date you inserted is not valid. Please use the format dd/mm/yyyy"; u1.setColor(15);
 			Sleep(2000);
 			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
 			Sleep(1500);
@@ -1129,7 +1131,7 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 					cout << "  To: " << rentsVec.at(i).getDataFim() << endl;
 					cout << "Price per night: " << rentsVec.at(i).getPrice() << endl;
 					cout << "Room's capacity: " << rentsVec.at(i).getNumPeople() << endl << endl;
-					counter++;		
+					counter++;
 					v.push_back(i);
 
 				}
@@ -1150,7 +1152,7 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 		cout << "Insert the option's number: ";
 		cin >> option;
 
-		xPrice = rentsVec[v[option-1]].getPrice();
+		xPrice = rentsVec[v[option - 1]].getPrice();
 
 		if (cin.eof()) {
 			u1.cancelMessage();
@@ -1238,13 +1240,13 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 		}
 		else
 		{
-			nif = rentsVec[v[option -1]].getNif();
+			nif = rentsVec[v[option - 1]].getNif();
 			isIn = false;
 		}
 		isIn = false;
-			
+
 	}
-	
+
 	float totalPrice = xPrice*(date2.minus(date1));
 	rentsVec[v[option - 1]].setReservation(Reservation(nif, totalPrice, date1, date2));
 
