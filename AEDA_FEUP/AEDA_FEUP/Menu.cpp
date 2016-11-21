@@ -157,7 +157,7 @@ void MakeReservationOption() {
 
 void CancelReservationOption() {
 	u.clearScreen();
-	Corporation::instance()->cancelReservation();
+	cout << "\n\n                 Unfortunately we failed to finish this function in time... Very close, though!"; Sleep(2000);
 	u.clearScreen();
 }
 
