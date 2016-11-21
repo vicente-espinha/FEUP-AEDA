@@ -666,7 +666,7 @@ apartment apartment::buildRent(long nif)
 			continue;
 		if (people < 0 || people > 4)
 		{
-			cout << "\nInvalid number of people per room. Repeating last step.\n";
+			cout << "\nToo many people per room. Repeating last step.\n";
 			continue;
 		}
 		isIn = false;
