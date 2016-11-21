@@ -1144,7 +1144,7 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 			u1.setColor(12); cerr << "  There are no rents available between the dates specified.\nReturning to Main Menu."; u1.setColor(15);
 			Sleep(1000);
 			return;
-			
+
 		}
 
 		cout << "Insert the option's number: ";
@@ -1243,7 +1243,7 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 				if (usersVec[l].getUsername() == Corporation::instance()->username)
 					nif = usersVec[l].getNif();
 			}
-			
+
 		}
 		isIn = false;
 
@@ -1278,7 +1278,7 @@ void Corporation::cancelReservation()
 	}
 
 	bool found = false;
-	
+
 	for (int j = 0; j < rentsVec.size(); j++)
 	{
 		for (int k = 0; k < rentsVec.at(j).getReservations().size(); k++)
@@ -1286,7 +1286,7 @@ void Corporation::cancelReservation()
 			if (rentsVec[j].getReservations()[k].getnif() == nif_user)
 			{
 				found = true;
-			
+
 			}
 		}
 	}
