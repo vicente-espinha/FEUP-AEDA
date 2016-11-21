@@ -131,7 +131,15 @@ void Corporation::saveUsers() {
 //Adds a user to the users vector
 void Corporation::registerUser() {
 
+	
+
 	string user, password, nif;
+
+	if (user == "")
+	{
+		u1.setColor(12); cerr << "  ERROR: Must register from Main Menu, please log out first. "; u1.setColor(15); Sleep(1500);
+		return;
+	}
 
 	cout << "\n Name:  "; getline(cin, user);
 
@@ -748,7 +756,11 @@ void Corporation::deleteRents()
 void Corporation::registerSupplier() {
 
 	string user, password, nif, address;
-
+	if (user == "")
+	{
+		u1.setColor(12); cerr << "  ERROR: Must register from Main Menu, please log out first. "; u1.setColor(15); Sleep(1500);
+		return;
+	}
 
 	cout << "\n Name:  ";
 	getline(cin, user);
@@ -1041,8 +1053,7 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 		}
 
 		if (!date1.isValid() || (real_date > date1)) {
-			u1.setColor(12); cerr << endl << "  ERROR: The date you inserted is not valid."; u1.setColor(15);
-			Sleep(1500);
+			u1.setColor(12); cerr << endl << " ERROR: The date you inserted is not valid."; u1.setColor(15); Sleep(500);
 			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
 			Sleep(1500);
 			u1.cinClear();
@@ -1064,7 +1075,7 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 		}
 
 		if (!date2.isValid() || (real_date > date2)) {
-			u1.setColor(12); cerr << endl << "  ERROR: The date you inserted is not valid. Please use the format dd/mm/yyyy"; u1.setColor(15);
+			u1.setColor(12); cerr <<"  ERROR: The date you inserted is not valid. Please use the format dd/mm/yyyy"; u1.setColor(15);
 			Sleep(2000);
 			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
 			Sleep(1500);
@@ -1128,11 +1139,10 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 		}
 
 		if (counter == 1) {
-			u1.setColor(12); cerr << endl << "  There are no rents available between the dates specified."; u1.setColor(15);
-			Sleep(1500);
+			u1.setColor(12); cerr << "  There are no rents available between the dates specified."; u1.setColor(15);
+			Sleep(500);
 			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
-			Sleep(1500);
-			u1.cinClear();
+			Sleep(1000);
 			u1.clearScreen();
 			continue;
 		}
