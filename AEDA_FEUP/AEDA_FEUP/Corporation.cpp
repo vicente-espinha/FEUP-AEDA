@@ -1009,10 +1009,11 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 	struct tm * now = localtime(&ti);
 	unsigned int year = 1900 + now->tm_year, month = 1 + now->tm_mon, day = now->tm_mday;
 	Date real_date = Date(day, month, year);
-
+	vector<int> v;
 	city = Corporation::instance()->cities();
 	u1.clearScreen();
 
+	
 	string dateB, dateE;
 
 	while (isIn) {
@@ -1078,6 +1079,7 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 					cout << "Price per night: " << rentsVec.at(i).getPrice() << endl;
 					cout << "Room's capacity: " << rentsVec.at(i).getNumPeople() << endl << endl;
 					counter++;
+					v.push_back(i);
 				}
 				else if (rentsVec.at(i).getTypeRent() == "Apartment") {
 					u1.setColor(14); cout << "Option " << counter << endl; u1.setColor(15);
@@ -1091,6 +1093,7 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 					cout << "Price per night: " << rentsVec.at(i).getPrice() << endl;
 					cout << "Room's capacity: " << rentsVec.at(i).getNumPeople() << endl << endl;
 					counter++;
+					v.push_back(i);
 
 				}
 				else {
@@ -1101,7 +1104,9 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 					cout << "  To: " << rentsVec.at(i).getDataFim() << endl;
 					cout << "Price per night: " << rentsVec.at(i).getPrice() << endl;
 					cout << "Room's capacity: " << rentsVec.at(i).getNumPeople() << endl << endl;
-					counter++;
+					counter++;		
+					v.push_back(i);
+
 				}
 			}
 			else
@@ -1121,7 +1126,7 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 		cout << "Insert the option's number: ";
 		cin >> option;
 
-		xPrice = rentsVec[counter + temp].getPrice();
+		xPrice = rentsVec[v[option-1]].getPrice();
 
 		if (cin.eof()) {
 			u1.cancelMessage();
@@ -1150,9 +1155,8 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 		Date date1 = Date(dateB);
 		Date date2 = Date(dateE);
 
-		u1.setColor(14); cout << "\n\nCity: " << city << "  From: " << date1 << "  To: " << date2 << endl; u1.setColor(15);
 
-		if (!(rentsVec[counter + temp].getTypeRent() == "Hotel")) {
+		if (!(rentsVec[v[option - 1]].getTypeRent() == "Hotel")) {
 			cout << "\nNumber of people: ";
 			cin >> n_people;
 
@@ -1189,14 +1193,33 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 
 		isIn = false;
 	}
-
+	cout << "option " << option <<  "[v[option - 1]]" << v[option - 1] << endl; Sleep(1000);
 	Date date1 = Date(dateB);
 	Date date2 = Date(dateE);
-
-
-	int nif = rentsVec[option - 1].getNif();
+	int nif;
+	isIn = true;
+	while (isIn) {
+		if (Corporation::instance()->username == "")
+		{
+			cout << "What is your NIF?\nNIF:" << endl;
+			cin >> nif;
+			if (cin.fail())
+			{
+				cout << "\nInvalid input. Retrying last step.\n";
+				continue;
+			}
+		}
+		else
+		{
+			nif = rentsVec[v[option -1]].getNif();
+			isIn = false;
+		}
+		isIn = false;
+			
+	}
+	
 	float totalPrice = xPrice*(date2.minus(date1));
-	rentsVec[counter + temp].setReservation(Reservation(nif, totalPrice, date1, date2));
+	rentsVec[v[option - 1]].setReservation(Reservation(nif, totalPrice, date1, date2));
 
 	u1.successMessage();
 	return;
@@ -1205,6 +1228,12 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 
 void Corporation::cancelReservation()
 {
+	if (Corporation::instance()->username == "")
+	{
+		u1.setColor(14);
+		cout << "Only registered users can access this feature. Sign in to take full advantage of our service!";  u1.setColor(15);
+		return;
+	}
 #pragma warning(disable : 4996)
 	time_t ti = time(0);
 	struct tm * now = localtime(&ti);
@@ -1267,7 +1296,7 @@ void Corporation::cancelReservation()
 	}
 	else
 	{
-		cout << " You havent made any reservations yet!" << endl;
+		cout << " \n You havent made any reservations yet!" << endl;
 		Sleep(2000);
 		return;
 	}
