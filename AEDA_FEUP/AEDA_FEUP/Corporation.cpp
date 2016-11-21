@@ -1244,7 +1244,7 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 				if (usersVec[l].getUsername() == Corporation::instance()->username)
 					nif = usersVec[l].getNif();
 			}
-			isIn = false;
+			
 		}
 		isIn = false;
 

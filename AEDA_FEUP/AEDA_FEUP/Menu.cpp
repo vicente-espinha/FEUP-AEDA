@@ -374,6 +374,7 @@ int Menu::UsersMenu() {
 	MenuOption[3] = Logout;
 	MenuOption[4] = ExitOption;
 
+
 	while (1) {
 
 		for (int i = 0; i < ItemCount; i++) { // Draw the m.
