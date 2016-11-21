@@ -1239,7 +1239,11 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 		}
 		else
 		{
-			nif = rentsVec[v[option - 1]].getNif();
+			for (int l = 0; l < usersVec.size(); l++)
+			{
+				if (usersVec[l].getUsername() == Corporation::instance()->username)
+					nif = usersVec[l].getNif();
+			}
 			isIn = false;
 		}
 		isIn = false;
