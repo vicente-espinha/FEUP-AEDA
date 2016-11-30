@@ -134,11 +134,7 @@ void Corporation::registerUser() {
 
 	string user, password, nif;
 
-	if (user == "")
-	{
-		u1.setColor(12); cerr << "  ERROR: Must register from Main Menu, please log out first. "; u1.setColor(15); Sleep(1500);
-		return;
-	}
+
 
 	cout << "\n Name:  "; getline(cin, user);
 
@@ -227,8 +223,9 @@ void Corporation::printSuppliersRents()
 {
 	int counter = 1;
 	for (int i = 0; i < rentsVec.size(); i++)
-		for (int j = 0; j < suppliersVec.size(); j++)
+		for (int j = 0; j < suppliersVec.size(); j++) {
 			if (Corporation::instance()->supplierName == suppliersVec[j].getName()) {
+
 				Rent x = rentsVec[i];
 				cout << counter << "- ";
 				cout << "The rent is in " << x.getCity() << ", starts on " << x.getDataInicio() << ", ends on " << x.getDataFim() << ".\n";
@@ -280,8 +277,8 @@ void Corporation::printSuppliersRents()
 					cout << "The the total price per night is " << x.getPrice() << ".\n";
 					counter++;
 				}
-
 			}
+		}
 	if (counter == 1) {
 		cout << "You currently have no rents... You can add a rent in the Menu.\n";
 	}
@@ -755,11 +752,6 @@ void Corporation::deleteRents()
 void Corporation::registerSupplier() {
 
 	string user, password, nif, address;
-	if (user == "")
-	{
-		u1.setColor(12); cerr << "  ERROR: Must register from Main Menu, please log out first. "; u1.setColor(15); Sleep(1500);
-		return;
-	}
 
 	cout << "\n Name:  ";
 	getline(cin, user);
@@ -1141,8 +1133,8 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 		}
 
 		if (counter == 1) {
-			u1.setColor(12); cerr << "  There are no rents available between the dates specified.\nReturning to Main Menu."; u1.setColor(15);
-			Sleep(1000);
+			u1.setColor(12); cerr << "  There are no rents available between the dates specified.\n  Returning to the menu."; u1.setColor(15);
+			Sleep(2000);
 			return;
 
 		}
@@ -1391,7 +1383,9 @@ void Corporation::cancelReservation()
 void Corporation::printUsersReservations()
 {
 	int counter = 1;
-	for (int i = 0; i < rentsVec.size(); i++)
+
+	for (int i = 0; i < rentsVec.size(); i++) {
+
 		if (Corporation::instance()->username == usersVec[i].getUsername())
 		{
 			vector<Reservation> x = rentsVec[i].getReservations();
@@ -1402,10 +1396,11 @@ void Corporation::printUsersReservations()
 			}
 			Sleep(1000);
 			for (int j = 0; j < rentsVec[i].getReservations().size(); j++) {
-				cout << "Reservation numeber " << counter << " starting on date " << rentsVec[i].getReservations()[j].getDate1() << " ,finishing on date " << rentsVec[i].getReservations()[j].getDate2() << " ,whose price totals " << rentsVec[i].getReservations()[j].getPrice() << ".\n";
+				cout << "Reservation number " << counter << " starting on date " << rentsVec[i].getReservations()[j].getDate1() << " ,finishing on date " << rentsVec[i].getReservations()[j].getDate2() << " ,whose price totals " << rentsVec[i].getReservations()[j].getPrice() << ".\n";
 				counter++;
 			}
 		}
+	}
 	if (counter == 1) {
 		cout << "There are currently no reservations made in your name... \nYou can add a reservation in your name in the Menu.\n";
 	}
@@ -1442,7 +1437,7 @@ string Corporation::cities() {
 	item[0] = "Aveiro";
 	item[1] = "Beja";
 	item[2] = "Braga";
-	item[3] = "Bragança";
+	item[3] = "Braganca";
 	item[4] = "Castelo Branco";
 	item[5] = "Coimbra";
 	item[6] = "Evora";
@@ -1457,78 +1452,82 @@ string Corporation::cities() {
 	item[15] = "Viana do Castelo";
 	item[16] = "Vila Real";
 	item[17] = "Viseu";
+	while (run) {
+		counter = 1;
+		u1.setColor(11); cout << "Cities available: \n\n"; u1.setColor(15);
+		for (size_t i = 0; i < 18; i++) {
+			cout << counter << " - " << item[i] << endl;
+			counter++;
+		}
 
-	u1.setColor(11); cout << "Cities available: \n\n"; u1.setColor(15);
-	for (size_t i = 0; i < 18; i++) {
-		cout << counter << " - " << item[i] << endl;
-		counter++;
-	}
+		u1.setColor(14); cout << "\nInsert the number corresponding to the city\nin which you wish to make your rent available:  "; u1.setColor(15);
+		cin >> cinOption;
 
-	u1.setColor(14); cout << "\nInsert the number corresponding to the city\nin which you wish to make your rent available:  "; u1.setColor(15);
-	cin >> cinOption;
+		if (cin.eof()) {
+			u1.cancelMessage();
+			corpMenu.UsersMenu();
+		}
 
-	if (cin.eof()) {
-		u1.cancelMessage();
-		corpMenu.SuppliersMenu();
-	}
-
-	if (stoi(cinOption) < 1 || stoi(cinOption) > 18) {
-		u1.setColor(12); cerr << endl << "  ERROR: Input can only range from 1 to 18. "; u1.setColor(15);
-		Sleep(1500);
-		cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
-		Sleep(1500);
-		u1.cinClear();
-	}
-
-	for (size_t i = 0; i < cinOption.size(); i++) {
-		if (!isdigit(cinOption.at(i))) {
-			u1.setColor(12); cerr << endl << "  ERROR: Input can only contain digits. "; u1.setColor(15);
+		if (stoi(cinOption) < 1 || stoi(cinOption) > 18) {
+			u1.setColor(12); cerr << endl << "  ERROR: Input can only range from 1 to 18. "; u1.setColor(15);
 			Sleep(1500);
 			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
 			Sleep(1500);
-			u1.cinClear();
+			u1.clearScreen();
+			continue;
 		}
-	}
 
-	option = stoi(cinOption);
+		for (size_t i = 0; i < cinOption.size(); i++) {
+			if (!isdigit(cinOption.at(i))) {
+				u1.setColor(12); cerr << endl << "  ERROR: Input can only contain digits. "; u1.setColor(15);
+				Sleep(1500);
+				cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+				Sleep(1500);
+				u1.clearScreen();
+				continue;
+			}
+		}
 
-	switch (option) {
+		option = stoi(cinOption);
 
-	case 1:
-		return item[0];
-	case 2:
-		return item[1];
-	case 3:
-		return item[2];
-	case 4:
-		return item[3];
-	case 5:
-		return item[4];
-	case 6:
-		return item[5];
-	case 7:
-		return item[6];
-	case 8:
-		return item[7];
-	case 9:
-		return item[8];
-	case 10:
-		return item[9];
-	case 11:
-		return item[10];
-	case 12:
-		return item[11];
-	case 13:
-		return item[12];
-	case 14:
-		return item[13];
-	case 15:
-		return item[14];
-	case 16:
-		return item[15];
-	case 17:
-		return item[16];
-	case 18:
-		return item[17];
+		switch (option) {
+
+		case 1:
+			return item[0];
+		case 2:
+			return item[1];
+		case 3:
+			return item[2];
+		case 4:
+			return item[3];
+		case 5:
+			return item[4];
+		case 6:
+			return item[5];
+		case 7:
+			return item[6];
+		case 8:
+			return item[7];
+		case 9:
+			return item[8];
+		case 10:
+			return item[9];
+		case 11:
+			return item[10];
+		case 12:
+			return item[11];
+		case 13:
+			return item[12];
+		case 14:
+			return item[13];
+		case 15:
+			return item[14];
+		case 16:
+			return item[15];
+		case 17:
+			return item[16];
+		case 18:
+			return item[17];
+		}
 	}
 }

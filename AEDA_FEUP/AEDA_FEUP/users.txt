@@ -2,3 +2,6 @@ Diogo Dores ; kms ; 123456789 ; 123
 Maria Josefina ; sdfghj ; 123456788 ; 123
 Carlos Gomes ; asdasd2123 ; 123123120 ; 123
 Rui Pereira ; 123abc ; 123456783 ; 123
+Joao Silva ; joaosilva123 ; 121221211 ; 0
+Pedro Silva ; pedro ; 121200000 ; 0
+Manuel ; manuel ; 123123999 ; 0

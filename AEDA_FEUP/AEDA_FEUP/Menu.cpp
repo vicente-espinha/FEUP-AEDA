@@ -191,7 +191,7 @@ void ViewAllRentsOption() {
 }
 
 /*-------Return and exit options--------*/
-void Logout() { u.clearScreen(); m.MainMenu(); }
+void Logout() { u.clearScreen(); Corporation::instance()->username = ""; Corporation::instance()->supplierName = ""; m.MainMenu(); }
 
 void ExitOption() { 
 	Corporation::instance()->saveUsers();
