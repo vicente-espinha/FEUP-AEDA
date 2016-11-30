@@ -44,6 +44,7 @@ Hotel Hotel::buildRent(long nif)
 	float price;
 	string name;
 
+	//Gets the PC's date
 #pragma warning(disable : 4996)
 	time_t ti = time(0);
 	struct tm * now = localtime(&ti);
@@ -51,28 +52,36 @@ Hotel Hotel::buildRent(long nif)
 	Date real_date = Date(day, month, year);
 
 	city = Corporation::instance()->cities();
-	u2.cinClear();
 	u2.clearScreen();
+	u2.cinClear();
+
+	u2.setColor(11); cout << "Rent: \n\n"; u2.setColor(15);
+	u2.setColor(14); cout << "City: " << city << endl << endl; u2.setColor(15);
 
 	cout << "Rent's name: ";
 	getline(cin, name);
 
 	if (cin.eof()) {
 		u2.cancelMessage();
-		rentMenu.RegisterMenu();
+		rentMenu.SuppliersMenu();
 	}
 	
-	u2.cinClear();
+	u2.clearScreen();
+
 	bool isIn = true; // Este boleano é só um sistema que usei para implementar uma deteção de erro, com possibilidade de repetição
 	
 	while (isIn) // Preco
 	{
+
+		u2.setColor(11); cout << "Rent: \n\n"; u2.setColor(15);
+		u2.setColor(14); cout << "City: " << city << "\nRent's name: " << name << endl; u2.setColor(15);
+
 		cout << "\nPrice per night: ";
 		cin >> price;
 
 		if (cin.eof()) {
 			u2.cancelMessage();
-			rentMenu.RegisterMenu();
+			rentMenu.SuppliersMenu();
 		}
 
 		if (cin.fail())
@@ -89,6 +98,7 @@ Hotel Hotel::buildRent(long nif)
 		{
 			this->price = price;
 			isIn = false;
+			u2.clearScreen();
 		}
 	}
 
@@ -98,6 +108,10 @@ Hotel Hotel::buildRent(long nif)
 	Date d1, d2;
 
 	while (isIn) {
+
+		u2.setColor(11); cout << "Rent: \n\n"; u2.setColor(15);
+		u2.setColor(14); cout << "City: " << city << "\nRent's name: " << name << "\nPrice per night: " << price << endl; u2.setColor(15);
+
 		cout << "\nBegin date: "; cin >> date1;
 
 		Date d1 = Date(date1);
@@ -140,6 +154,7 @@ Hotel Hotel::buildRent(long nif)
 		}
 		else {
 			u2.cinClear();
+			u2.clearScreen();
 			isIn = false;
 		}
 	}
@@ -147,8 +162,12 @@ Hotel Hotel::buildRent(long nif)
 	isIn = true;
 	while (isIn) // NumOcupantes
 	{
+
 		Date d1 = Date(date1);
 		Date d2 = Date(date2);
+
+		u2.setColor(11); cout << "Rent: \n\n"; u2.setColor(15);
+		u2.setColor(14); cout << "City: " << city << "\nRent's name: " << name << "\nPrice per night: " << price << "\nBegin Date: " << d1 << "    End Date: " << d2 << endl; u2.setColor(15);
 
 		u2.setColor(11); cout << "\nWhat is the type of room you want to add? You may add:" << endl << endl; u2.setColor(15);
 		cout << "1 - Simple Room\n2 - Double room\n3 - Double room with aditional bed\n4 - Triple Room" << endl << endl;
@@ -211,15 +230,29 @@ bedNbreakfast bedNbreakfast::buildRent(long nif)
 	u2.clearScreen();
 	u2.cinClear();
 
-	cout << "\nRent's name:";
+	u2.setColor(11); cout << "Rent: \n\n"; u2.setColor(15);
+	u2.setColor(14); cout << "City: " << city << endl << endl; u2.setColor(15);
+
+	cout << "Rent's name: ";
 	string name;
 	getline(cin, name);
 
+	if (cin.eof()) {
+		u2.cancelMessage();
+		rentMenu.SuppliersMenu();
+	}
+
+	u2.clearScreen();
+
 	while (isIn) // NumOcupantes
 	{
+
+		u2.setColor(11); cout << "Rent: \n\n"; u2.setColor(15);
+		u2.setColor(14); cout << "City: " << city << "\nRent's name: " << name << endl; u2.setColor(15);
+
 		cout << "\nNumber of people the B'n'B can accommodate: ";
-		int numPeople;
-		cin >> numPeople;
+		int people;
+		cin >> people;
 
 		if (cin.fail())
 		{
@@ -232,12 +265,18 @@ bedNbreakfast bedNbreakfast::buildRent(long nif)
 			continue;
 		}
 		u2.cinClear();
+		this->numPeople = people;
+		u2.clearScreen();
 		break;
 	}
 	isIn = true;
 
 	while (isIn) // Preco
 	{
+
+		u2.setColor(11); cout << "Rent: \n\n"; u2.setColor(15);
+		u2.setColor(14); cout << "City: " << city << "\nRent's name: " << name << "\nBed n' Breakfast capacity: " << numPeople << endl; u2.setColor(15);
+
 		cout << "\nPrice per night: ";
 		cin >> price;
 		if (cin.fail())
@@ -254,7 +293,7 @@ bedNbreakfast bedNbreakfast::buildRent(long nif)
 		{
 			u2.cinClear();
 			this->price = price;
-			isIn = false;
+			u2.clearScreen();
 			break;
 		}
 	}
@@ -264,6 +303,10 @@ bedNbreakfast bedNbreakfast::buildRent(long nif)
 
 	while (isIn) // Datas
 	{
+
+		u2.setColor(11); cout << "Rent: \n\n"; u2.setColor(15);
+		u2.setColor(14); cout << "City: " << city << "\nRent's name: " << name << "\nBed n' Breakfast capacity: " << numPeople << "\nPrice per night: " << price << endl; u2.setColor(15);
+
 		cout << "\nBegin date: "; cin >> date1;
 
 		Date d1 = Date(date1);
@@ -306,6 +349,7 @@ bedNbreakfast bedNbreakfast::buildRent(long nif)
 		}
 		else {
 			u2.cinClear();
+			u2.clearScreen();
 			isIn = false;
 		}
 	}
@@ -344,23 +388,32 @@ sharedHouse sharedHouse::buildRent(long nif)
 	u2.cinClear();
 	u2.clearScreen();
 
-	cout << "\nRent's name : ";
+	u2.setColor(11); cout << "Rent: \n\n"; u2.setColor(15);
+	u2.setColor(14); cout << "City: " << city << endl << endl; u2.setColor(15);
+
+	cout << "Rent's name: ";
 	getline(cin, name);
 
 	if (cin.eof()) {
 		u2.cancelMessage();
-		rentMenu.RegisterMenu();
+		rentMenu.SuppliersMenu();
 	}
+
+	u2.clearScreen();
 
 	while (isIn) // NumOcupantes
 	{
+
+		u2.setColor(11); cout << "Rent: \n\n"; u2.setColor(15);
+		u2.setColor(14); cout << "City: " << city << "\nRent's name: " << name << endl; u2.setColor(15);
+
 		cout << "\nNumber of people the house can accomodate:  ";
-		int numPeople;
-		cin >> numPeople;
+		int people;
+		cin >> people;
 
 		if (cin.eof()) {
 			u2.cancelMessage();
-			rentMenu.RegisterMenu();
+			rentMenu.SuppliersMenu();
 		}
 
 		if (cin.fail()){
@@ -372,6 +425,8 @@ sharedHouse sharedHouse::buildRent(long nif)
 			u2.clearScreen();
 			continue;
 		}
+		this->numPeople = people;
+		u2.clearScreen();
 		isIn = false;
 	}
 	
@@ -379,12 +434,16 @@ sharedHouse sharedHouse::buildRent(long nif)
 
 	while (isIn) // Price
 	{
+
+		u2.setColor(11); cout << "Rent: \n\n"; u2.setColor(15);
+		u2.setColor(14); cout << "City: " << city << "\nRent's name: " << name << "\nShared House capacity: " << numPeople << endl; u2.setColor(15);
+
 		cout << "\nCost per night:  ";
 		cin >> price;
 
 		if (cin.eof()) {
 			u2.cancelMessage();
-			rentMenu.RegisterMenu();
+			rentMenu.SuppliersMenu();
 		}
 
 		if (cin.fail())
@@ -400,6 +459,7 @@ sharedHouse sharedHouse::buildRent(long nif)
 		else
 		{
 			this->price = price;
+			u2.clearScreen();
 			isIn = false;
 		}
 	}
@@ -410,6 +470,10 @@ sharedHouse sharedHouse::buildRent(long nif)
 
 	while (isIn) // Datas
 	{
+
+		u2.setColor(11); cout << "Rent: \n\n"; u2.setColor(15);
+		u2.setColor(14); cout << "City: " << city << "\nRent's name: " << name << "\nShared House capacity: " << numPeople << "\nPrice per night: " << price << endl; u2.setColor(15);
+
 		cout << "\nBegin date: "; cin >> date1;
 
 		Date d1 = Date(date1);
@@ -452,6 +516,7 @@ sharedHouse sharedHouse::buildRent(long nif)
 		}
 		else {
 			u2.cinClear();
+			u2.clearScreen();
 			isIn = false;
 		}
 	}
@@ -488,21 +553,29 @@ flat flat::buildRent(long nif)
 	u2.clearScreen();
 	u2.cinClear();
 
+	u2.setColor(11); cout << "Rent: \n\n"; u2.setColor(15);
+	u2.setColor(14); cout << "City: " << city << endl << endl; u2.setColor(15);
+
 	string name;
-	cout << "\nRent's name: ";
+	cout << "Rent's name: ";
 	getline(cin, name);
 
 	if (cin.eof()) {
 		u2.cancelMessage();
-		rentMenu.RegisterMenu();
+		rentMenu.SuppliersMenu();
 	}
+
+	u2.clearScreen();
 
 	while (isIn) // NumOcupantes
 	{
+		u2.setColor(11); cout << "Rent: \n\n"; u2.setColor(15);
+		u2.setColor(14); cout << "City: " << city << "\nRent's name: " << name << endl; u2.setColor(15);
+
 		cout << "\nNumber of people the flat can accommodate: ";
 
-		int numPeople;
-		cin >> numPeople;
+		int people;
+		cin >> people;
 
 		if (cin.fail())
 		{
@@ -514,6 +587,8 @@ flat flat::buildRent(long nif)
 			u2.clearScreen();
 			continue;
 		}
+		this->numPeople = people;
+		u2.clearScreen();
 		u2.cinClear();
 		break;
 	}
@@ -521,12 +596,16 @@ flat flat::buildRent(long nif)
 
 	while (isIn) // Preco
 	{
+
+		u2.setColor(11); cout << "Rent: \n\n"; u2.setColor(15);
+		u2.setColor(14); cout << "City: " << city << "\nRent's name: " << name << "\nFlat's capacity: " << numPeople << endl; u2.setColor(15);
+
 		cout << "\nPrice per night: ";
 		cin >> price;
 
 		if (cin.eof()) {
 			u2.cancelMessage();
-			rentMenu.RegisterMenu();
+			rentMenu.SuppliersMenu();
 		}
 
 		if (cin.fail())
@@ -542,7 +621,7 @@ flat flat::buildRent(long nif)
 		else
 		{
 			this->price = price;
-			isIn = false;
+			u2.clearScreen();
 			break;
 		}
 	}
@@ -552,6 +631,10 @@ flat flat::buildRent(long nif)
 
 	while (isIn) // Datas
 	{
+
+		u2.setColor(11); cout << "Rent: \n\n"; u2.setColor(15);
+		u2.setColor(14); cout << "City: " << city << "\nRent's name: " << name << "\nFlat's capacity: " << numPeople << "\nPrice per night: " << price << endl; u2.setColor(15);
+
 		cout << "\nBegin date: "; cin >> date1;
 
 		Date d1 = Date(date1);
@@ -594,7 +677,7 @@ flat flat::buildRent(long nif)
 		}
 		else {
 			u2.cinClear();
-			isIn = false;
+			break;
 		}
 	}
 
@@ -615,6 +698,7 @@ apartment::apartment(long nif, string tipoRent, string name, string cidade, Date
 	hasKitchen = kitchen;
 	hasSuite = suite;
 	hasLivingRoom = livingroom;
+	numRooms = numrooms;
 }
 
 apartment apartment::buildRent(long nif)
@@ -622,6 +706,7 @@ apartment apartment::buildRent(long nif)
 	string city;
 	int n;
 	float price;
+	int people;
 	bool isIn = true; // Este boleano é só um sistema que usei para implementar uma deteção de erro, com possibilidade de repetição
 
 #pragma warning(disable : 4996)
@@ -634,24 +719,32 @@ apartment apartment::buildRent(long nif)
 	u2.clearScreen();
 	u2.cinClear();
 
+	u2.setColor(11); cout << "Rent: \n\n"; u2.setColor(15);
+	u2.setColor(14); cout << "City: " << city << endl << endl; u2.setColor(15);
+
 	string name;
-	cout << "\nRent's name: ";
+	cout << "Rent's name: ";
 	getline(cin, name);
 
 	if (cin.eof()) {
 		u2.cancelMessage();
-		rentMenu.RegisterMenu();
+		rentMenu.SuppliersMenu();
 	}
+
+	u2.clearScreen();
 
 	while (isIn) // NumOcupantes
 	{
+
+		u2.setColor(11); cout << "Rent: \n\n"; u2.setColor(15);
+		u2.setColor(14); cout << "City: " << city << "\nRent's name: " << name << endl; u2.setColor(15);
+
 		cout << "\nNumber of people the apartment can accommodate: ";
-		int numPeople;
-		cin >> numPeople;
+		cin >> people;
 
 		if (cin.eof()) {
 			u2.cancelMessage();
-			rentMenu.RegisterMenu();
+			rentMenu.SuppliersMenu();
 		}
 
 		if (cin.fail())
@@ -664,18 +757,110 @@ apartment apartment::buildRent(long nif)
 			u2.clearScreen();
 			continue;
 		}
+		this->numPeople = people;
+		u2.clearScreen();
 		break;
 	}
+
 	isIn = true;
+
+	int peoplePerRoom, rooms;
+	while (isIn)
+	{
+
+		u2.setColor(11); cout << "Rent: \n\n"; u2.setColor(15);
+		u2.setColor(14); cout << "City: " << city << "\nRent's name: " << name << "\nApartment's capacity: " << numPeople << endl; u2.setColor(15);
+
+		cout << "\nRooms available: ";
+		cin >> rooms;
+
+		if (rooms > numPeople) {
+			u2.setColor(12); cerr << endl << "  ERROR: Number of rooms cannot exceed the number of people the apartment can accommodate."; u2.setColor(15);
+			Sleep(1500);
+			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+			Sleep(1500);
+			u2.cinClear();
+			u2.clearScreen();
+			continue;
+		}
+
+		if (cin.eof()) {
+			u2.cancelMessage();
+			rentMenu.SuppliersMenu();
+		}
+
+		if (cin.fail())
+		{
+			u2.setColor(12); cerr << endl << "  ERROR: Input is not an integer."; u2.setColor(15);
+			Sleep(1500);
+			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+			Sleep(1500);
+			u2.cinClear();
+			u2.clearScreen();
+			continue;
+		}
+
+		this->numRooms = rooms;
+
+		cout << "\nPeople per room: ";
+		cin >> peoplePerRoom;
+
+		if (cin.eof()) {
+			u2.cancelMessage();
+			rentMenu.SuppliersMenu();
+		}
+
+		if (peoplePerRoom > (people / numRooms)) {
+			u2.setColor(12); cerr << endl << "  ERROR: The number of people per room cannot be greater than the number of people\n         the apartment can accomodate and the number of rooms ratio."; u2.setColor(15);
+			Sleep(2000);
+			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+			Sleep(1500);
+			u2.cinClear();
+			u2.clearScreen();
+			continue;
+		}
+
+		if (cin.fail())
+		{
+			u2.setColor(12); cerr << endl << "  ERROR: Input is not an integer."; u2.setColor(15);
+			Sleep(1500);
+			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+			Sleep(1500);
+			u2.cinClear();
+			u2.clearScreen();
+			continue;
+		}
+
+		if (peoplePerRoom < 0 || peoplePerRoom > 4)
+		{
+			u2.setColor(12); cerr << endl << "  ERROR: Invalid number of people per room."; u2.setColor(15);
+			Sleep(1500);
+			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+			Sleep(1500);
+			u2.cinClear();
+			u2.clearScreen();
+			continue;
+		}
+
+		u2.clearScreen();
+		isIn = false;
+	}
+
+	isIn = true;
+	u2.cinClear();
 
 	while (isIn) // Preco
 	{
+
+		u2.setColor(11); cout << "Rent: \n\n"; u2.setColor(15);
+		u2.setColor(14); cout << "City: " << city << "\nRent's name: " << name << "\nApartment's capacity: " << numPeople << "\nNumber of rooms: " << rooms << "\nPeople per room: " << peoplePerRoom << endl; u2.setColor(15);
+
 		cout << "\nPrice per night: ";
 		cin >> price;
 
 		if (cin.eof()) {
 			u2.cancelMessage();
-			rentMenu.RegisterMenu();
+			rentMenu.SuppliersMenu();
 		}
 
 		if (cin.fail())
@@ -691,7 +876,7 @@ apartment apartment::buildRent(long nif)
 		else
 		{
 			this->price = price;
-			isIn = false;
+			u2.clearScreen();
 			break;
 		}
 	}
@@ -701,12 +886,17 @@ apartment apartment::buildRent(long nif)
 	string x;
 	while (isIn)
 	{
+
+		u2.setColor(11); cout << "Rent: \n\n"; u2.setColor(15);
+		u2.setColor(14); cout << "City: " << city << "\nRent's name: " << name << "\nApartment's capacity: " << numPeople << "\nNumber of rooms: " << rooms << "\nPeople per room: " << peoplePerRoom
+							  << "\nPrice per night : " << price << endl; u2.setColor(15);
+
 		cout << "\nIs it a suite? (y/n) ";
 		cin >> x;
 
 		if (cin.eof()) {
 			u2.cancelMessage();
-			rentMenu.RegisterMenu();
+			rentMenu.SuppliersMenu();
 		}
 
 		if (x == "Y" || x == "y" || x == "yes")
@@ -724,6 +914,7 @@ apartment apartment::buildRent(long nif)
 		else
 		{
 			cout << "\nInvalid input. Retrying.\n";
+			u2.clearScreen();
 			continue;
 		}
 	}
@@ -733,17 +924,18 @@ apartment apartment::buildRent(long nif)
 
 	while (isIn)
 	{
+	
 		cout << "\nDoes it have a living room? (y/n) ";
 		cin >> x;
 
 		if (cin.eof()) {
 			u2.cancelMessage();
-			rentMenu.RegisterMenu();
+			rentMenu.SuppliersMenu();
 		}
 
 		if (x == "Y" || x == "y" || x == "yes")
 		{
-			lr = "Yes";
+			lr = true;
 			isIn = false;
 			break;
 		}
@@ -756,6 +948,7 @@ apartment apartment::buildRent(long nif)
 		else
 		{
 			cout << "\nInvalid input. Retrying.\n";
+			u2.clearScreen();
 			continue;
 		}
 	}
@@ -770,12 +963,12 @@ apartment apartment::buildRent(long nif)
 
 		if (cin.eof()) {
 			u2.cancelMessage();
-			rentMenu.RegisterMenu();
+			rentMenu.SuppliersMenu();
 		}
 
 		if (x == "Y" || x == "y" || x == "yes")
 		{
-			k = "Yes";
+			k = true;
 			isIn = false;
 			break;
 		}
@@ -788,75 +981,47 @@ apartment apartment::buildRent(long nif)
 		else
 		{
 			cout << "\nInvalid input. Retrying.\n";
+			u2.clearScreen();
 			continue;
 		}
 	}
 
+	u2.clearScreen();
 	isIn = true;
 	
 	string date1, date2;
 
-	int people, rooms;
-	while (isIn)
-	{
-		cout << "Rooms available: ";
-		cin >> rooms;
-
-		if (cin.eof()) {
-			u2.cancelMessage();
-			rentMenu.RegisterMenu();
-		}
-
-		if (cin.fail())
-		{
-			u2.setColor(12); cerr << endl << "  ERROR: Input is not an integer."; u2.setColor(15);
-			Sleep(1500);
-			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
-			Sleep(1500);
-			u2.cinClear();
-			u2.clearScreen();
-			continue;
-		}
-
-		cout << "People per room: ";
-		cin >> people;
-
-		if (cin.eof()) {
-			u2.cancelMessage();
-			rentMenu.RegisterMenu();
-		}
-
-		if (cin.fail())
-		{
-			u2.setColor(12); cerr << endl << "  ERROR: Input is not an integer."; u2.setColor(15);
-			Sleep(1500);
-			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
-			Sleep(1500);
-			u2.cinClear();
-			u2.clearScreen();
-			continue;
-		}
-
-		u2.cinClear();
-
-		if (people < 0 || people > 4)
-		{
-			u2.setColor(12); cerr << endl << "  ERROR: Invalid number of people per room."; u2.setColor(15);
-			Sleep(1500);
-			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
-			Sleep(1500);
-			u2.cinClear();
-			u2.clearScreen();
-			continue;
-		}
-		isIn = false;
-	}
-
-	isIn = true;
-	u2.cinClear();
-
 	while (isIn) // Datas
 	{
+
+		u2.setColor(11); cout << "Rent: \n\n"; u2.setColor(15);
+		u2.setColor(14); cout << "City: " << city << "\nRent's name: " << name << "\nApartment's capacity: " << numPeople << "\nNumber of rooms: " << rooms << "\nPeople per room: " << peoplePerRoom
+			                  << "\nPrice per night : " << price;
+
+		if (s) {
+			cout << "\nSuite: Yes";
+		}
+		else {
+			cout << "\nSuite: No";
+		}
+
+		if (lr) {
+			cout << "\nLiving Room: Yes";
+		}
+		else {
+			cout << "\nLiving Room: No";
+		}
+
+		if (k) {
+			cout << "\nKitchen: Yes\n";
+		}
+		else {
+			cout << "\nKitchen: No\n";
+		}
+
+		u2.setColor(15);
+
+
 		cout << "\nBegin date: "; cin >> date1;
 
 		Date d1 = Date(date1);
@@ -906,7 +1071,11 @@ apartment apartment::buildRent(long nif)
 	Date d1 = Date(date1);
 	Date d2 = Date(date2);
 
+	cout << numRooms;
+	Sleep(4000);
+
+
 	u2.clearScreen();
 
-	return apartment(nif, "Apartment", name, city, d1, d2, price, people, rooms, k, s, lr);
+	return apartment(nif, "Apartment", name, city, d1, d2, price, numPeople, numRooms, k, s, lr);
 }

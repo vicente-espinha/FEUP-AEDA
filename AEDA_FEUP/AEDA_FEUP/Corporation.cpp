@@ -33,7 +33,7 @@ void Corporation::login() {
 
 	if (cin.eof()) {
 		u1.cancelMessage();
-		corpMenu.RegisterMenu();
+		corpMenu.MainMenu();
 	}
 
 	u1.cinClear();
@@ -130,11 +130,7 @@ void Corporation::saveUsers() {
 //Adds a user to the users vector
 void Corporation::registerUser() {
 
-
-
 	string user, password, nif;
-
-
 
 	cout << "\n Name:  "; getline(cin, user);
 
@@ -699,7 +695,7 @@ void Corporation::deleteRents()
 		cin >> choice;
 		if (cin.eof()) {
 			u1.cancelMessage();
-			corpMenu.RegisterMenu();
+			corpMenu.SuppliersMenu();
 		}
 		if (cin.fail()) {
 			cout << "\nInvalid input. Retrying last step.\n";
@@ -912,6 +908,7 @@ void Corporation::makeRent() {
 
 		cout << "\nHow many rents do you wish to be made available:  ";
 		cin >> cinNumIter;
+		cout << endl;
 
 		if (cin.eof()) {
 			u1.cancelMessage();
@@ -976,7 +973,6 @@ void Corporation::makeRent() {
 		}
 
 		choice = stoi(cinChoice);
-
 
 		if (choice == 1) {
 			u1.clearScreen();
@@ -1216,11 +1212,12 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 	while (isIn) {
 		if (Corporation::instance()->username == "")
 		{
-			cout << "What is your NIF?\nNIF:" << endl;
+			cout << "\nNIF : ";
 			cin >> nif;
+
 			if (cin.eof()) {
 				u1.cancelMessage();
-				corpMenu.RegisterMenu();
+				corpMenu.UsersMenu();
 			}
 			if (cin.fail())
 			{
@@ -1341,7 +1338,7 @@ void Corporation::cancelReservation()
 				getline(cin, answer);
 				if (cin.eof()) {
 					u1.cancelMessage();
-					corpMenu.RegisterMenu();
+					corpMenu.UsersMenu();
 				}
 				if (answer == "Yes" || answer == "yes")
 				{
@@ -1452,6 +1449,7 @@ string Corporation::cities() {
 	item[15] = "Viana do Castelo";
 	item[16] = "Vila Real";
 	item[17] = "Viseu";
+
 	while (run) {
 		counter = 1;
 		u1.setColor(11); cout << "Cities available: \n\n"; u1.setColor(15);
@@ -1465,7 +1463,8 @@ string Corporation::cities() {
 
 		if (cin.eof()) {
 			u1.cancelMessage();
-			corpMenu.UsersMenu();
+			u1.clearScreen();
+			corpMenu.SuppliersMenu();
 		}
 
 		if (stoi(cinOption) < 1 || stoi(cinOption) > 18) {
@@ -1484,6 +1483,7 @@ string Corporation::cities() {
 				cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
 				Sleep(1500);
 				u1.clearScreen();
+				u1.cinClear();
 				continue;
 			}
 		}
@@ -1528,6 +1528,8 @@ string Corporation::cities() {
 			return item[16];
 		case 18:
 			return item[17];
+		default:
+			continue;
 		}
 	}
 }
