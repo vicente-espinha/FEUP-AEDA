@@ -5,8 +5,7 @@ using namespace std;
 Utilities u1;
 Menu corpMenu;
 
-Corporation * Corporation::instance()
-{
+Corporation * Corporation::instance() {
 
 	if (!singleton_instance) {
 		singleton_instance = new Corporation;
@@ -20,52 +19,55 @@ void Corporation::login() {
 	string password, user;
 	bool foundUser = false;
 	bool foundSupplier = false;
+	bool isIn = true;
 
-	cout << "Username:  ";
-	getline(cin, user);
+	while (isIn) {
+		cout << "Username:  ";
+		getline(cin, user);
 
-	if (cin.eof()) {
-		u1.cancelMessage();
-		corpMenu.MainMenu();
-	}
-
-	cout << "\nPassword:  "; cin >> password;
-
-	if (cin.eof()) {
-		u1.cancelMessage();
-		corpMenu.MainMenu();
-	}
-
-	u1.cinClear();
-
-
-	for (size_t i = 0; i != usersVec.size(); i++) {
-		if (usersVec.at(i).getUsername() == user && usersVec.at(i).getPassword() == password) {
-			Corporation::instance()->username = user;
-			foundUser = true;
-			u1.clearScreen();
-			corpMenu.UsersMenu();
-			return;
+		if (cin.eof()) {
+			u1.cancelMessage();
+			corpMenu.MainMenu();
 		}
-	}
 
-	for (size_t i = 0; i != suppliersVec.size(); i++) {
-		if (suppliersVec.at(i).getName() == user && suppliersVec.at(i).getPassword() == password) {
-			Corporation::instance()->supplierName = user;
-			foundSupplier = true;
-			u1.clearScreen();
-			corpMenu.SuppliersMenu();
-			return;
+		cout << "\nPassword:  "; cin >> password;
+
+		if (cin.eof()) {
+			u1.cancelMessage();
+			corpMenu.MainMenu();
 		}
-	}
 
-	if (!foundUser && !foundSupplier) {
-		cout << "\n  ERROR: The username/password you inserted does not exist.";
-		Sleep(1000);
 		u1.cinClear();
-		return;
-	}
 
+		for (size_t i = 0; i != usersVec.size(); i++) {
+			if (usersVec.at(i).getUsername() == user && usersVec.at(i).getPassword() == password) {
+				Corporation::instance()->username = user;
+				foundUser = true;
+				u1.clearScreen();
+				corpMenu.UsersMenu();
+				return;
+			}
+		}
+
+		for (size_t i = 0; i != suppliersVec.size(); i++) {
+			if (suppliersVec.at(i).getName() == user && suppliersVec.at(i).getPassword() == password) {
+				Corporation::instance()->supplierName = user;
+				foundSupplier = true;
+				u1.clearScreen();
+				corpMenu.SuppliersMenu();
+				return;
+			}
+		}
+
+		if (!foundUser && !foundSupplier) {
+			cout << "\n  ERROR: The username/password combination you inserted does not exist.";
+			Sleep(1500);
+			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+			Sleep(1500);
+			u1.clearScreen();
+			continue;
+		}
+	}
 }
 
 //Checks existance of the users file
@@ -131,88 +133,104 @@ void Corporation::saveUsers() {
 void Corporation::registerUser() {
 
 	string user, password, nif;
+	bool isIn = true;
 
-	cout << "\n Name:  "; getline(cin, user);
+	while (isIn) {
+		cout << "\n Username:  "; getline(cin, user);
 
-	if (cin.eof()) {
-		u1.cancelMessage();
-		corpMenu.RegisterMenu();
-	}
-
-	for (unsigned int index = 0; index != user.size(); index++) {
-		if (!isalpha(user[index]) && user[index] != ' ') {
-			u1.setColor(12); cerr << "  ERROR: Name must only contain alphabetic characters. "; u1.setColor(15);
-			Sleep(3000);
-			u1.clearScreen();
-			u1.cinClear();
-			corpMenu.RegisterMenu();
-		}
-	}
-
-	for (unsigned int index2 = 0; index2 != usersVec.size(); index2++) {
-		if (usersVec.at(index2).getUsername() == user) {
-			u1.setColor(12); cerr << "  ERROR: The username you selected already exists. Please choose another one. "; u1.setColor(15);
-			Sleep(3000);
-			u1.clearScreen();
-			u1.cinClear();
-			corpMenu.RegisterMenu();
-		}
-	}
-
-	cout << "\n Password:  "; cin >> password;
-	if (cin.eof()) {
-		u1.cancelMessage();
-		corpMenu.RegisterMenu();
-	}
-	u1.cinClear();
-
-	for (unsigned int index3 = 0; index3 != password.size(); index3++) {
-		if (!isalnum(password[index3])) {
-			u1.setColor(12); cerr << "  ERROR: Password cannot contain special characters. "; u1.setColor(15);
-			Sleep(3000);
-			u1.clearScreen();
-			corpMenu.RegisterMenu();
-		}
-	}
-
-	cout << "\n NIF:  "; cin >> nif;
-	if (cin.eof()) {
-		u1.cancelMessage();
-		corpMenu.RegisterMenu();
-	}
-	u1.cinClear();
-
-	for (unsigned int index4 = 0; index4 != nif.size(); index4++) {
-		if (!isdigit(nif[index4])) {
-			u1.setColor(12); cerr << "  ERROR: NIF can only contain digits. "; u1.setColor(15);
-			Sleep(3000);
-			u1.clearScreen();
-			corpMenu.RegisterMenu();
-		}
-	}
-
-	for (unsigned int index5 = 0; index5 != usersVec.size(); index5++) {
-		if (usersVec.at(index5).getNif() == stoi(nif)) {
-			u1.setColor(12); cerr << "  ERROR: The NIF you selected was already found in our system. Probably you already have an account. "; u1.setColor(15);
-			Sleep(3000);
-			u1.clearScreen();
+		if (cin.eof()) {
+			u1.cancelMessage();
 			corpMenu.RegisterMenu();
 		}
 
+		for (unsigned int index = 0; index != user.size(); index++) {
+			if (!isalpha(user[index]) && user[index] != ' ') {
+				u1.setColor(12); cerr << "  ERROR: Name must only contain alphabetic characters."; u1.setColor(15);
+				Sleep(1500);
+				cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+				Sleep(1500);
+				u1.cinClear();
+				u1.clearScreen();
+				continue;
+			}
+		}
+
+		for (unsigned int index2 = 0; index2 != usersVec.size(); index2++) {
+			if (usersVec.at(index2).getUsername() == user) {
+				u1.setColor(12); cerr << "  ERROR: The username you selected already exists. Please choose another one. "; u1.setColor(15);
+				Sleep(1500);
+				cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+				Sleep(1500);
+				u1.cinClear();
+				u1.clearScreen();
+				continue;
+			}
+		}
+
+		cout << "\n Password:  "; cin >> password;
+
+		if (cin.eof()) {
+			u1.cancelMessage();
+			corpMenu.RegisterMenu();
+		}
+		u1.cinClear();
+
+		for (unsigned int index3 = 0; index3 != password.size(); index3++) {
+			if (!isalnum(password[index3])) {
+				u1.setColor(12); cerr << "  ERROR: Password cannot contain special characters. "; u1.setColor(15);
+				Sleep(1500);
+				cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+				Sleep(1500);
+				u1.clearScreen();
+				continue;
+			}
+		}
+
+		cout << "\n NIF:  "; cin >> nif;
+
+		if (cin.eof()) {
+			u1.cancelMessage();
+			corpMenu.RegisterMenu();
+		}
+		u1.cinClear();
+
+		for (unsigned int index4 = 0; index4 != nif.size(); index4++) {
+			if (!isdigit(nif[index4])) {
+				u1.setColor(12); cerr << "  ERROR: NIF can only contain digits. "; u1.setColor(15);
+				Sleep(1500);
+				cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+				Sleep(1500);
+				u1.clearScreen();
+				continue;
+			}
+		}
+
+		for (unsigned int index5 = 0; index5 != usersVec.size(); index5++) {
+			if (usersVec.at(index5).getNif() == stoi(nif)) {
+				u1.setColor(12); cerr << "  ERROR: The NIF you selected was already found in our system. Probably you already have an account. "; u1.setColor(15);
+				Sleep(2000);
+				cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+				Sleep(1500);
+				u1.clearScreen();
+				continue;
+			}
+
+		}
+
+		if (nif.size() != 9) {
+			u1.setColor(12); cerr << "  ERROR: The NIF must have 9 digits. "; u1.setColor(15);
+			Sleep(1500);
+			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+			Sleep(1500);
+			u1.clearScreen();
+			continue;
+		}
+		break;
 	}
-
-	if (nif.size() != 9) {
-		u1.setColor(12); cerr << "  ERROR: The NIF must have 9 digits. "; u1.setColor(15);
-		Sleep(3000);
-		u1.clearScreen();
-		corpMenu.RegisterMenu();
-	}
-
-
 
 	usersVec.push_back(Users(user, password, stoi(nif), 0));
 	u1.clearScreen();
-	return;
+	corpMenu.MainMenu();
 }
 
 void Corporation::printSuppliersRents()
@@ -460,7 +478,7 @@ void Corporation::loadRents()
 		reservationsLine.erase(0, reservationsLine.find(" ; ") + 3);
 		for (int j = 0; j < numIterations; j++) {
 
-			float nifR = stoi(u1.trim(reservationsLine.substr(0, reservationsLine.find(" ; "))));
+			float nifR = stof(u1.trim(reservationsLine.substr(0, reservationsLine.find(" ; "))));
 			reservationsLine.erase(0, reservationsLine.find(" ; ") + 3);
 
 			Date d1, d2;
@@ -761,7 +779,6 @@ void Corporation::registerSupplier() {
 		if (!isalpha(user.at(index)) && user.at(index) != ' ') {
 			u1.setColor(12); cerr << "  ERROR: Name must only contain alphabetic characters. "; u1.setColor(15);
 			Sleep(1500);
-			cerr << "  ERROR: Name must only contain alphabetic characters. ";
 			u1.clearScreen();
 			u1.cinClear();
 			corpMenu.RegisterMenu();
@@ -923,18 +940,18 @@ void Corporation::makeRent() {
 				Sleep(1500);
 				u1.cinClear();
 				u1.clearScreen();
+				continue;
 			}
 			else {
 
 				numIteration = stoi(cinNumIter);
 				cin.clear();
-				isIn = false;
+				break;
 			}
 		}
 	}
 
 	long nif;
-	isIn = true;
 
 	for (int i = 0; i < suppliersVec.size(); i++)
 		if (suppliersVec[i].getName() == Corporation::instance()->supplierName) {
@@ -1082,7 +1099,7 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 
 		u1.setColor(11); cout << "Rooms available between " << date1 << " and " << date2 << " in " << city << ": \n\n"; u1.setColor(15);
 
-		for (size_t i = 0; i < rentsVec.size(); i++) {
+		for (int i = 0; i < rentsVec.size(); i++) {
 			if (rentsVec[i].isValid(date1, date2) && (rentsVec[i].getCity() == city)) {
 				if (rentsVec.at(i).getTypeRent() == "Hotel") {
 					u1.setColor(14); cout << "Option " << counter << endl; u1.setColor(15);
@@ -1188,7 +1205,7 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 			}
 
 			for (int index = 0; index < rentsVec.size(); index++) {
-				if (n_people > rentsVec.at(index).getNumPeople()) {
+				if (n_people != rentsVec.at(index).getNumPeople()) {
 					u1.setColor(12); cerr << endl << "  ERROR: The value you inserted exceeds the room's maximum capacity."; u1.setColor(15);
 					Sleep(1500);
 					cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
@@ -1246,13 +1263,14 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 }
 
 void Corporation::cancelReservation()
-{/*
+{
 	if (Corporation::instance()->username == "")
 	{
 		u1.setColor(14);
 		cout << "Only registered users can access this feature. Sign in to take full advantage of our service!";  u1.setColor(15);
 		return;
 	}
+
 #pragma warning(disable : 4996)
 	time_t ti = time(0);
 	struct tm * now = localtime(&ti);
@@ -1260,10 +1278,10 @@ void Corporation::cancelReservation()
 	Date real_date = Date(day, month, year);
 
 	long nif_user;
-	for (int i = 0; i < usersVec.size(); i++)
+	for (size_t i = 0; i < usersVec.size(); i++)
 	{
 		if (usersVec[i].getUsername() == Corporation::instance()->username)
-			nif_user = usersVec.[i].getNif();
+			nif_user = usersVec.at(i).getNif();
 	}
 
 	bool found = false;
@@ -1374,7 +1392,7 @@ void Corporation::cancelReservation()
 				rentsVec.at(i).setReservationVector(x_vec);
 			}
 		}
-	}*/
+	}
 }
 
 void Corporation::printUsersReservations()
