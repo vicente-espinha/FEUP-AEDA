@@ -918,6 +918,8 @@ void Corporation::makeRent() {
 	Date d1, d2;
 	string cinNumIter, cinChoice;
 	int numIteration, choice;
+	vector<Rent> confirmRents;
+	int counter = 1;
 
 	while (isIn) {
 
@@ -942,13 +944,11 @@ void Corporation::makeRent() {
 				u1.clearScreen();
 				continue;
 			}
-			else {
-
-				numIteration = stoi(cinNumIter);
-				cin.clear();
-				break;
-			}
 		}
+
+		numIteration = stoi(cinNumIter);
+		cin.clear();
+		break;
 	}
 
 	long nif;
@@ -960,9 +960,6 @@ void Corporation::makeRent() {
 
 
 	for (int i = 0; i < numIteration; i++) {
-
-
-		//u1.clearScreen();
 		u1.setColor(11); cout << "What is the type of rent?\n\n"; u1.setColor(15);
 		cout << "1 - Hotel\n2 - Bed'n'Breakfast\n3 - Apartment\n4 - Flat\n5 - Shared House\n\n";
 		u1.setColor(14); cout << "Select the number corresponding to the option you wish to select: "; u1.setColor(15);
@@ -995,31 +992,70 @@ void Corporation::makeRent() {
 			u1.clearScreen();
 			Hotel h;
 			rentsVec.push_back(h.buildRent(nif));
+			confirmRents.push_back(rentsVec.back());
 			continue;
 		}
 		if (choice == 2) {
 			u1.clearScreen();
 			bedNbreakfast bnb;
 			rentsVec.push_back(bnb.buildRent(nif));
+			confirmRents.push_back(rentsVec.back());
 			continue;
 		}
 		if (choice == 3) {
 			u1.clearScreen();
 			apartment ap;
 			rentsVec.push_back(ap.buildRent(nif));
+			confirmRents.push_back(rentsVec.back());
 			continue;
 		}
 		if (choice == 4) {
 			u1.clearScreen();
 			flat fl;
 			rentsVec.push_back(fl.buildRent(nif));
+			confirmRents.push_back(rentsVec.back());
 			continue;
 		}
 		if (choice == 5) {
 			u1.clearScreen();
 			sharedHouse sh;
 			rentsVec.push_back(sh.buildRent(nif));
+			confirmRents.push_back(rentsVec.back());
 			continue;
+		}
+	}
+
+	u1.setColor(14); cout << "Rents: \n\n"; u1.setColor(15);
+	for (size_t i = 0; i < confirmRents.size(); i++) {
+		if (confirmRents.at(i).getTypeRent() == "Hotel") {
+			cout << "Type of accommodation: " << confirmRents.at(i).getTypeRent() << endl;
+			cout << "Name: " << confirmRents.at(i).getName() << endl;
+			cout << "Available from: " << confirmRents.at(i).getDataInicio();
+			cout << "  To: " << confirmRents.at(i).getDataFim() << endl;
+			cout << "Room type: " << confirmRents.at(i).getType() << endl;
+			cout << "Price per night: " << confirmRents.at(i).getPrice() << endl;
+			cout << "Room's capacity: " << confirmRents.at(i).getNumPeople() << endl << endl;
+		}
+		else if (confirmRents.at(i).getTypeRent() == "Apartment") {
+			cout << "Type of accommodation: " << confirmRents.at(i).getTypeRent() << endl;
+			cout << "Name: " << confirmRents.at(i).getName() << endl;
+			cout << "Available from: " << confirmRents.at(i).getDataInicio();
+			cout << "  To: " << confirmRents.at(i).getDataFim() << endl;
+			cout << "Has Kitchen: " << confirmRents.at(i).getKitchen() << endl;
+			cout << "Has Living Room: " << confirmRents.at(i).getLivingRoom() << endl;
+			cout << "Has Suite: " << confirmRents.at(i).getSuite() << endl;
+			cout << "Price per night: " << confirmRents.at(i).getPrice() << endl;
+			cout << "Room's capacity: " << confirmRents.at(i).getNumPeople() << endl << endl;
+
+		}
+		else {
+			cout << "Type of accommodation: " << confirmRents.at(i).getTypeRent() << endl;
+			cout << "Name: " << confirmRents.at(i).getName() << endl;
+			cout << "Available from: " << confirmRents.at(i).getDataInicio();
+			cout << "  To: " << confirmRents.at(i).getDataFim() << endl;
+			cout << "Price per night: " << confirmRents.at(i).getPrice() << endl;
+			cout << "Room's capacity: " << confirmRents.at(i).getNumPeople() << endl << endl;
+
 		}
 	}
 

@@ -1077,5 +1077,6 @@ apartment apartment::buildRent(long nif)
 
 	u2.clearScreen();
 
+	
 	return apartment(nif, "Apartment", name, city, d1, d2, price, numPeople, numRooms, k, s, lr);
 }

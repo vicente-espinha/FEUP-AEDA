@@ -22,6 +22,8 @@
 0 ;
 122121212 ; Hotel ; Hotel do Pedro ; Bragança ; 12/01/2017 ; 30/12/2017 ; Triple Room ; 40 ; 3
 0 ;
+123456789 ; Apartment ; Come over here ; Coimbra ; 19/01/2017 ; 31/12/2018 ; 40 ; 12 ; 0 ; 1 ; 1 ; 1
+0 ;
 123456789 ; Hotel ; Hotel Viana ; Viana do Castelo ; 27/12/2016 ; 09/09/2018 ; Simple Room ; 60 ; 1
 0 ;
 123456789 ; Hotel ; Ibis ; Coimbra ; 01/01/2014 ; 03/03/2017 ; Simple Room ; 100 ; 1
@@ -34,5 +36,13 @@
 1 ; 123124000 ; 01/01/2017 ; 02/01/2017
 213213122 ; Bed'n'Breakfast ; Joaquim dos Santos ; Aveiro ; 01/01/2017 ; 04/12/2017 ; 200 ; 3
 3 ; 123123120 ; 02/02/2017 ; 03/04/2017 ; 123321120 ; 04/04/2017 ; 05/04/2017 ; 321123136 ; 31/11/2017 ; 03/12/2017
-123456789 ; Apartment ; Come over here ; Coimbra ; 19/01/2017 ; 31/12/2018 ; 40 ; 12 ; 0 ; 1 ; 1 ; 1
+123456789 ; Hotel ; Hotel Aveiro ; Aveiro ; 30/12/2016 ; 02/01/2017 ; Double Room ; 250 ; 2
+0 ;
+123456789 ; Bed'n'Breakfast ; Porto BNB ; Porto ; 19/12/2016 ; 08/11/2017 ; 200 ; 15
+0 ;
+123456789 ; Apartment ; Guarda test ; Guarda ; 12/12/2017 ; 30/06/2018 ; 120 ; 12 ; 0 ; 1 ; 1 ; 1
+0 ;
+123456789 ; Flat ; Catelo Branco Flat ; Castelo Branco ; 06/12/2016 ; 20/07/2020 ; 100 ; 5
+0 ;
+123456789 ; Shared House ; SH Beja ; Beja ; 24/03/2017 ; 04/04/2017 ; 200 ; 6
 0 ;
