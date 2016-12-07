@@ -1070,18 +1070,18 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 	string city, nameRent, typeRent, type;
 	unsigned int n_people, n, counter = 1, option;
 	bool isIn = true;
-	int temp = 0;
 	float xPrice;
+	vector<int> v;
 
 #pragma warning(disable : 4996)
 	time_t ti = time(0);
 	struct tm * now = localtime(&ti);
 	unsigned int year = 1900 + now->tm_year, month = 1 + now->tm_mon, day = now->tm_mday;
 	Date real_date = Date(day, month, year);
-	vector<int> v;
+
+
 	city = Corporation::instance()->cities();
 	u1.clearScreen();
-
 
 	string dateB, dateE;
 
@@ -1145,7 +1145,7 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 					cout << "  To: " << rentsVec.at(i).getDataFim() << endl;
 					cout << "Room type: " << rentsVec.at(i).getType() << endl;
 					cout << "Price per night: " << rentsVec.at(i).getPrice() << endl;
-					cout << "Room's capacity: " << rentsVec.at(i).getNumPeople() << endl << endl;
+					cout << "Capacity: " << rentsVec.at(i).getNumPeople() << endl << endl;
 					counter++;
 					v.push_back(i);
 				}
@@ -1159,7 +1159,7 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 					cout << "Has Living Room: " << rentsVec.at(i).getLivingRoom() << endl;
 					cout << "Has Suite: " << rentsVec.at(i).getSuite() << endl;
 					cout << "Price per night: " << rentsVec.at(i).getPrice() << endl;
-					cout << "Room's capacity: " << rentsVec.at(i).getNumPeople() << endl << endl;
+					cout << "Capacity: " << rentsVec.at(i).getNumPeople() << endl << endl;
 					counter++;
 					v.push_back(i);
 
@@ -1171,14 +1171,12 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 					cout << "Available from: " << rentsVec.at(i).getDataInicio();
 					cout << "  To: " << rentsVec.at(i).getDataFim() << endl;
 					cout << "Price per night: " << rentsVec.at(i).getPrice() << endl;
-					cout << "Room's capacity: " << rentsVec.at(i).getNumPeople() << endl << endl;
+					cout << "Capacity: " << rentsVec.at(i).getNumPeople() << endl << endl;
 					counter++;
 					v.push_back(i);
 
 				}
 			}
-			else
-				temp++;
 		}
 
 		if (counter == 1) {
@@ -1241,7 +1239,7 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 			}
 
 			for (int index = 0; index < rentsVec.size(); index++) {
-				if (n_people != rentsVec.at(index).getNumPeople()) {
+				if (n_people > rentsVec.at(index).getNumPeople()) {
 					u1.setColor(12); cerr << endl << "  ERROR: The value you inserted exceeds the room's maximum capacity."; u1.setColor(15);
 					Sleep(1500);
 					cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
@@ -1262,10 +1260,15 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 	Date date2 = Date(dateE);
 	int nif;
 	isIn = true;
+
+	float totalPrice = xPrice*(date2.minus(date1));
+	u1.setColor(14); cout << "/nThis reservation will be a total of " << totalPrice << "€."; u1.setColor(15);
+	Sleep(2000);
+
 	while (isIn) {
 		if (Corporation::instance()->username == "")
 		{
-			cout << "\nNIF : ";
+			cout << "\nNIF: ";
 			cin >> nif;
 
 			if (cin.eof()) {
@@ -1291,7 +1294,7 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 
 	}
 
-	float totalPrice = xPrice*(date2.minus(date1));
+	//ALTERAR O CONSTRUTOR DE RENTS
 	rentsVec[v[option - 1]].setReservation(Reservation(nif, totalPrice, date1, date2));
 
 	u1.successMessage();
@@ -1300,12 +1303,9 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 
 void Corporation::cancelReservation()
 {
-	if (Corporation::instance()->username == "")
-	{
-		u1.setColor(14);
-		cout << "Only registered users can access this feature. Sign in to take full advantage of our service!";  u1.setColor(15);
-		return;
-	}
+	long nif_user;
+	int counter = 1, option;
+	vector<int> v;
 
 #pragma warning(disable : 4996)
 	time_t ti = time(0);
@@ -1313,7 +1313,13 @@ void Corporation::cancelReservation()
 	unsigned int year = 1900 + now->tm_year, month = 1 + now->tm_mon, day = now->tm_mday;
 	Date real_date = Date(day, month, year);
 
-	long nif_user;
+	if (Corporation::instance()->username == "")
+	{
+		u1.setColor(14); cout << "Only registered users can access this feature. Sign in to take full advantage of our service!";  u1.setColor(15);
+		Sleep(2000);
+		return;
+	}
+
 	for (size_t i = 0; i < usersVec.size(); i++)
 	{
 		if (usersVec[i].getUsername() == Corporation::instance()->username)
@@ -1322,112 +1328,107 @@ void Corporation::cancelReservation()
 
 	bool found = false;
 
-	for (int j = 0; j < rentsVec.size(); j++)
-	{
-		for (int k = 0; k < rentsVec.at(j).getReservations().size(); k++)
-		{
-			if (rentsVec[j].getReservations()[k].getnif() == nif_user)
-			{
+	for (int j = 0; j < rentsVec.size(); j++) {
+		for (int k = 0; k < rentsVec.at(j).getReservations().size(); k++) {
+			if (rentsVec[j].getReservations()[k].getnif() == nif_user) {
 				found = true;
-
 			}
 		}
 	}
 
 	if (found)
 	{
-		cout << "List of your reservations : " << endl << endl;
-		for (int j = 0; j < rentsVec.size(); j++)
-		{
-			for (int k = 0; k < rentsVec.at(j).getReservations().size(); k++)
-			{
-				if (rentsVec.at(j).getReservations().at(k).getnif() == nif_user)
-				{
-					cout << "City : " << rentsVec.at(j).getCity() << endl;
-					cout << "Type of accommodation : " << rentsVec.at(j).getTypeRent() << endl;
-					cout << "Name : " << rentsVec.at(j).getName() << endl;
-					cout << "Date of Check-in : " << rentsVec.at(j).getReservations().at(k).getDate1();
-					cout << "Date of Check-out : " << rentsVec.at(j).getReservations().at(k).getDate2() << endl;
-					cout << "Price : " << rentsVec.at(j).getReservations().at(k).getPrice() << endl;
-					cout << "Room's capacity: " << rentsVec.at(j).getNumPeople() << endl;
-					if (rentsVec.at(j).getLivingRoom() && rentsVec.at(j).getSuite() && rentsVec.at(j).getKitchen())
-						cout << "Includes : LivingRoom, Suite and Kitchen" << endl;
-					else if (rentsVec.at(j).getLivingRoom() && rentsVec.at(j).getKitchen())
-						cout << "Includes : LivingRoom and Kitchen" << endl;
-					else if (rentsVec.at(j).getLivingRoom() && rentsVec.at(j).getSuite())
-						cout << "Includes : LivingRoom and Suite" << endl;
-					else if (rentsVec.at(j).getSuite() && rentsVec.at(j).getKitchen())
-						cout << "Includes : Suite and Kitchen" << endl;
-					else if (rentsVec.at(j).getKitchen())
-						cout << "Includes : Kitchen" << endl;
-					else if (rentsVec.at(j).getSuite())
-						cout << "Includes : Suite" << endl;
-					else if (rentsVec.at(j).getLivingRoom())
-						cout << "Includes : LivingRoom" << endl;
+		cout << "List of your reservations: " << endl << endl;
+		for (int j = 0; j < rentsVec.size(); j++) {
+			for (int k = 0; k < rentsVec.at(j).getReservations().size(); k++) {
+				if (rentsVec.at(j).getReservations().at(k).getnif() == nif_user) {
+					if (rentsVec.at(j).getTypeRent() == "Hotel") {
+						u1.setColor(14); cout << "Option " << counter << endl; u1.setColor(15);
+						cout << "Type of accommodation: " << rentsVec.at(j).getTypeRent() << endl;
+						cout << "Name: " << rentsVec.at(j).getName() << endl;
+						cout << "Available from: " << rentsVec.at(j).getDataInicio();
+						cout << "  To: " << rentsVec.at(j).getDataFim() << endl;
+						cout << "Room type: " << rentsVec.at(j).getType() << endl;
+						cout << "Price per night: " << rentsVec.at(j).getPrice() << endl;
+						cout << "Capacity: " << rentsVec.at(j).getNumPeople() << endl << endl;
+						counter++;
+						v.push_back(j);
+					}
+					else if (rentsVec.at(j).getTypeRent() == "Apartment") {
+						u1.setColor(14); cout << "Option " << counter << endl; u1.setColor(15);
+						cout << "Type of accommodation: " << rentsVec.at(j).getTypeRent() << endl;
+						cout << "Name: " << rentsVec.at(j).getName() << endl;
+						cout << "Available from: " << rentsVec.at(j).getDataInicio();
+						cout << "  To: " << rentsVec.at(j).getDataFim() << endl;
+						cout << "Has Kitchen: " << rentsVec.at(j).getKitchen() << endl;
+						cout << "Has Living Room: " << rentsVec.at(j).getLivingRoom() << endl;
+						cout << "Has Suite: " << rentsVec.at(j).getSuite() << endl;
+						cout << "Price per night: " << rentsVec.at(j).getPrice() << endl;
+						cout << "Capacity: " << rentsVec.at(j).getNumPeople() << endl << endl;
+						counter++;
+						v.push_back(j);
+
+					}
+					else {
+						u1.setColor(14); cout << "Option " << counter << endl; u1.setColor(15);
+						cout << "Type of accommodation: " << rentsVec.at(j).getTypeRent() << endl;
+						cout << "Name: " << rentsVec.at(j).getName() << endl;
+						cout << "Available from: " << rentsVec.at(j).getDataInicio();
+						cout << "  To: " << rentsVec.at(j).getDataFim() << endl;
+						cout << "Price per night: " << rentsVec.at(j).getPrice() << endl;
+						cout << "Capacity: " << rentsVec.at(j).getNumPeople() << endl << endl;
+						counter++;
+						v.push_back(j);
+
+					}
 				}
-				cout << endl;
 			}
 		}
 	}
 	else
 	{
-		cout << " \n You havent made any reservations yet!" << endl;
+		cout << "\n  You havent made any reservations yet!" << endl;
 		Sleep(2000);
 		return;
 	}
 
-	string name_answer;
-	cout << " Which one would you like to cancel :";
-	getline(cin, name_answer);
+	u1.setColor(14); cout << "Insert the option's number: "; u1.setColor(15);
+	cin >> option;
+
 
 	vector<Reservation>x_vec;
-	for (int i = 0; i < rentsVec.size(); i++)
-	{
-		for (int j = 0; j < rentsVec.at(i).getReservations().size(); j++)
-		{
-			if (name_answer == rentsVec.at(i).getName() && nif_user == rentsVec.at(i).getReservations().at(j).getnif())
-			{
-				string answer;
-				cout << "Do you want to confirm ? (yes|No)";
-				getline(cin, answer);
-				if (cin.eof()) {
-					u1.cancelMessage();
-					corpMenu.UsersMenu();
-				}
-				if (answer == "Yes" || answer == "yes")
-				{
-					Date x = rentsVec.at(i).getReservations().at(j).getDate1() - real_date;
-					if (x.getYear() != 0 || x.getMonth() > 0)
-						cout << " You will receive " << rentsVec.at(i).getReservations().at(j).getPrice() << " euros." << endl;
-					else if (x.getDay() >= 15)
-						cout << "You will receive " << rentsVec.at(i).getReservations().at(j).getPrice() / 2 << " euros." << endl;
-					else
-						cout << "You will not receive any money." << endl;
 
+	string answer;
+	cout << "Do you want to confirm ? (yes|No)";
+	getline(cin, answer);
 
-					x_vec = rentsVec.at(i).getReservations();
-					x_vec.erase(x_vec.begin() + j);
-					Sleep(2000);
-				}
-				else
-				{
-					cout << "You canceled the operation." << endl;
-					Sleep(2000);
-					return;
-				}
-			}
-		}
+	if (cin.eof()) {
+		u1.cancelMessage();
+		corpMenu.UsersMenu();
 	}
 
-	for (int i = 0; i < rentsVec.size(); i++)
+	if (answer == "Yes" || answer == "yes")
 	{
-		for (int j = 0; j < rentsVec.at(i).getReservations().size(); j++)
-		{
-			if (name_answer == rentsVec.at(i).getName() && nif_user == rentsVec.at(i).getReservations().at(j).getnif())
-			{
-				rentsVec.at(i).setReservationVector(x_vec);
-			}
-		}
+		Date x = rentsVec.at(v.at(option - 1)).getReservations().at(v.at(option - 1)).getDate1() - real_date;
+		u1.setColor(14);
+		if (x.getYear() != 0 || x.getMonth() > 0)
+			cout << " You will receive " << rentsVec.at(v.at(option - 1)).getReservations().at(v.at(option - 1)).getPrice() << "€." << endl;
+		else if (x.getDay() >= 15)
+			cout << "You will receive " << rentsVec.at(v.at(option - 1)).getReservations().at(v.at(option - 1)).getPrice() / 2 << "€." << endl;
+		else
+			cout << "Unfortunately, we cannot refund your reservation since its beginning date is less than 15 days from now." << endl; u1.setColor(15);
+
+
+		x_vec = rentsVec.at(v.at(option - 1)).getReservations();
+		x_vec.erase(x_vec.begin() + v.at(option - 1));
+		rentsVec.at(v.at(option - 1)).setReservationVector(x_vec);
+		Sleep(2000);
+	}
+	else
+	{
+		cout << "You canceled the operation." << endl;
+		Sleep(2000);
+		return;
 	}
 }
 
