@@ -33,7 +33,8 @@ protected:
 public:
 	Rent() {}
 	virtual bool isValid(Date, Date);//!< a function that checks if dates are valid
-
+	int lastRent();
+	bool operator<(Rent x);
 	virtual long getNif() { return nif; }//!< a function that returns nif of supplier
 	virtual void setNif(int n) { nif = n; }//!< a function that sets nif
 	Rent(long nif, string tipoRent, string name2, string cidade, Date dataI, Date dataF, float price, int numOcupantes);

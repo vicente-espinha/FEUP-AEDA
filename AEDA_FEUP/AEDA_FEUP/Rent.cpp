@@ -11,6 +11,38 @@ Rent::Rent(long nif, string typeRent, string name2 ,string c, Date dataI, Date d
 	city = c; dataBegin = dataI; dataEnd = dataF; numPeople = n; price = p; this->typeRent = typeRent; name = name2; this->nif = nif;
 }
 
+int Rent::lastRent()
+{
+	//Gets the PC's date
+#pragma warning(disable : 4996)
+	time_t ti = time(0);
+	struct tm * now = localtime(&ti);
+	unsigned int year = 1900 + now->tm_year, month = 1 + now->tm_mon, day = now->tm_mday;
+	Date real_date = Date(day, month, year);
+	
+	Date final = reserved[0].getDate1();
+		for (int i = 0; i < reserved.size() - 1; i++)
+		{
+			if (reserved[i].getDate1() < reserved[i + 1].getDate1())
+			{
+				final = reserved[i + 1].getDate1();
+			}
+		}
+	return real_date.minus(final);
+}
+
+
+
+bool Rent::operator<(Rent x)
+{
+	if (lastRent() > x.lastRent())
+		return true;
+	else
+		return false;
+}
+
+
+
 bool Rent::isValid(Date d1, Date d2)
 {
 	bool valid = true;
@@ -36,6 +68,8 @@ Hotel::Hotel(long nif, string typeRent, string name, string cidade, Date dataI, 
 	this->type = type;
 
 }
+
+
 
 Hotel Hotel::buildRent(long nif)
 {

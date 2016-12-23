@@ -3,7 +3,7 @@
 #include <string>
 #include <fstream>
 #include <vector>
-
+#include <queue>
 #include "Clients.h"
 #include "Supplier.h"
 #include "Utilities.h"
@@ -24,10 +24,12 @@ private:
 	vector<Users> usersVec; /*!<  "usersVec" is the vector that contains the users information*/ 
 	vector<Supplier> suppliersVec;/*!<  "suppliersVec" is the vector that contains the suppliers information*/ 
 	vector<Rent> rentsVec;/*!<  "rentsVec" is the vector that contains the rents and reservations information*/ 
-
+	priority_queue<Rent> discountsRents;
 
 public:
 	string username, supplierName;//!< saves the username and password that were loged in.
+	
+	void createPriorityQueueFromRents();
 
 	static Corporation* instance();//!< a function instances variables.
 

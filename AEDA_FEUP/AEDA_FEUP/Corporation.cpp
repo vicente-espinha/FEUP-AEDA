@@ -14,6 +14,11 @@ Corporation * Corporation::instance() {
 	return singleton_instance;
 }
 
+void Corporation::createPriorityQueueFromRents()
+{
+
+}
+
 void Corporation::login() {
 
 	string password, user;
