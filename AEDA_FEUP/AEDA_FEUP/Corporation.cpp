@@ -26,7 +26,7 @@ void Corporation::setDiscounts()
 {
 	priority_queue<Rent> tmp;
 
-	for (int i = 0 ; i < rentsVec.size(); i++)
+	for (int i = 0; i < rentsVec.size(); i++)
 	{
 		float newPrice;
 
@@ -36,12 +36,145 @@ void Corporation::setDiscounts()
 			newPrice = rentsVec[i].getPrice() - 0.1 * rentsVec[i].getPrice();
 		else if (rentsVec[i].lastRent() > 20)
 			newPrice = rentsVec[i].getPrice() - 0.05 * rentsVec[i].getPrice();
-		
+
 		rentsVec[i].setPrice(newPrice);
 		tmp.push(rentsVec[i]);
 	}
 
 	discountsRents = tmp;
+
+}
+
+void Corporation::displayDiscounts()
+{
+	priority_queue<Rent> tmp = discountsRents;
+
+	string city, nameRent, typeRent, type;
+	unsigned int n_people, n, counter = 1, option;
+	bool isIn = true;
+	float xPrice;
+	vector<int> v;
+
+#pragma warning(disable : 4996)
+	time_t ti = time(0);
+	struct tm * now = localtime(&ti);
+	unsigned int year = 1900 + now->tm_year, month = 1 + now->tm_mon, day = now->tm_mday;
+	Date real_date = Date(day, month, year);
+
+
+	city = Corporation::instance()->cities();
+	u1.clearScreen();
+
+	string dateB, dateE;
+
+	while (isIn) {
+		cout << "Date of check-in: "; cin >> dateB;
+
+		Date date1 = Date(dateB);
+
+		if (cin.eof()) {
+			u1.cancelMessage();
+			corpMenu.UsersMenu();
+		}
+
+		if (!date1.isValid() || (real_date > date1)) {
+			u1.setColor(12); cerr << endl << " ERROR: The date you inserted is not valid."; u1.setColor(15); Sleep(500);
+			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+			Sleep(1500);
+			u1.cinClear();
+			u1.clearScreen();
+			continue;
+		}
+		else {
+			u1.cinClear();
+			isIn = false;
+		}
+
+		cout << "\nDate of check-out : "; cin >> dateE; cout << endl;
+
+		Date date2 = Date(dateE);
+
+		if (cin.eof()) {
+			u1.cancelMessage();
+			corpMenu.UsersMenu();
+		}
+
+		if (!date2.isValid() || (real_date > date2)) {
+			u1.setColor(12); cerr << "  ERROR: The date you inserted is not valid. Please use the format dd/mm/yyyy"; u1.setColor(15);
+			Sleep(2000);
+			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+			Sleep(1500);
+			u1.cinClear();
+			u1.clearScreen();
+			continue;
+		}
+		else {
+			u1.cinClear();
+			isIn = false;
+		}
+
+		Rent * c = nullptr;
+
+		u1.setColor(11); cout << "Rooms available between " << date1 << " and " << date2 << " in " << city << "that are available at a discount: \n\n"; u1.setColor(15);
+
+		while (!discountsRents.empty())
+		{
+			Rent x = discountsRents.top();
+			if (x.isValid(date1, date2) && (x.getCity() == city) && (x.lastRent > 20)) {
+				if (x.getTypeRent() == "Hotel") {
+					u1.setColor(14); cout << "Option " << counter << endl; u1.setColor(15);
+					cout << "Type of accommodation: " << x.getTypeRent() << endl;
+					cout << "Name: " << x.getName() << endl;
+					cout << "Available from: " << x.getDataInicio();
+					cout << "  To: " << x.getDataFim() << endl;
+					cout << "Room type: " << x.getType() << endl;
+					cout << "Price per night used to be: ";
+					if (x.lastRent() > 20 && x.lastRent() < 50)
+						cout << x.getPrice() + 0.05* x.getPrice() << " and now is " << x.getPrice();
+					else if (x.lastRent() >= 50 && x.lastRent() < 100)
+						cout << x.getPrice() + 0.1* x.getPrice() << " and now is " << x.getPrice();
+					else if (x.lastRent() >= 100)
+						cout << x.getPrice() + 0.2* x.getPrice() << " and now is " << x.getPrice();
+					cout << "Capacity: " << x.getNumPeople() << endl << endl;
+					counter++;
+				}
+				else if (rentsVec.at(i).getTypeRent() == "Apartment") {
+					u1.setColor(14); cout << "Option " << counter << endl; u1.setColor(15);
+					cout << "Type of accommodation: " << rentsVec.at(i).getTypeRent() << endl;
+					cout << "Name: " << rentsVec.at(i).getName() << endl;
+					cout << "Available from: " << rentsVec.at(i).getDataInicio();
+					cout << "  To: " << rentsVec.at(i).getDataFim() << endl;
+					cout << "Has Kitchen: " << rentsVec.at(i).getKitchen() << endl;
+					cout << "Has Living Room: " << rentsVec.at(i).getLivingRoom() << endl;
+					cout << "Has Suite: " << rentsVec.at(i).getSuite() << endl;
+					cout << "Price per night: " << rentsVec.at(i).getPrice() << endl;
+					cout << "Capacity: " << rentsVec.at(i).getNumPeople() << endl << endl;
+					counter++;
+				}
+				else {
+					u1.setColor(14); cout << "Option " << counter << endl; u1.setColor(15);
+					cout << "Type of accommodation: " << rentsVec.at(i).getTypeRent() << endl;
+					cout << "Name: " << rentsVec.at(i).getName() << endl;
+					cout << "Available from: " << rentsVec.at(i).getDataInicio();
+					cout << "  To: " << rentsVec.at(i).getDataFim() << endl;
+					cout << "Price per night: " << rentsVec.at(i).getPrice() << endl;
+					cout << "Capacity: " << rentsVec.at(i).getNumPeople() << endl << endl;
+					counter++;
+
+				}
+			}
+		}
+
+		if (counter == 1) {
+			u1.setColor(12); cerr << "  There are no rents available between the dates specified.\n  Returning to the menu."; u1.setColor(15);
+			Sleep(2000);
+			return;
+
+		}
+	}
+	cout << "\n In order to make a reservation, please proceed to the appropriate menu.\n";
+	u1.successMessage();
+	return;
 
 }
 

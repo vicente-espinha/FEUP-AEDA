@@ -31,6 +31,7 @@ public:
 	
 	void createPriorityQueueFromRents();
 	void setDiscounts();
+	void displayDiscounts();
 
 	static Corporation* instance();//!< a function instances variables.
 
