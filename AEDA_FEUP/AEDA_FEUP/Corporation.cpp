@@ -9,7 +9,7 @@ Corporation * Corporation::instance() {
 
 	if (!singleton_instance) {
 		singleton_instance = new Corporation;
-	}
+	} 
 
 	return singleton_instance;
 }
@@ -120,7 +120,7 @@ void Corporation::displayDiscounts()
 		while (!discountsRents.empty())
 		{
 			Rent x = discountsRents.top();
-			if (x.isValid(date1, date2) && (x.getCity() == city) && (x.lastRent > 20)) {
+			if (x.isValid(date1, date2) && (x.getCity() == city) && (x.lastRent() > 20)) {
 				if (x.getTypeRent() == "Hotel") {
 					u1.setColor(14); cout << "Option " << counter << endl; u1.setColor(15);
 					cout << "Type of accommodation: " << x.getTypeRent() << endl;
@@ -138,27 +138,37 @@ void Corporation::displayDiscounts()
 					cout << "Capacity: " << x.getNumPeople() << endl << endl;
 					counter++;
 				}
-				else if (rentsVec.at(i).getTypeRent() == "Apartment") {
+				else if (x.getTypeRent() == "Apartment" && x.lastRent() > 20) {
 					u1.setColor(14); cout << "Option " << counter << endl; u1.setColor(15);
-					cout << "Type of accommodation: " << rentsVec.at(i).getTypeRent() << endl;
-					cout << "Name: " << rentsVec.at(i).getName() << endl;
-					cout << "Available from: " << rentsVec.at(i).getDataInicio();
-					cout << "  To: " << rentsVec.at(i).getDataFim() << endl;
-					cout << "Has Kitchen: " << rentsVec.at(i).getKitchen() << endl;
-					cout << "Has Living Room: " << rentsVec.at(i).getLivingRoom() << endl;
-					cout << "Has Suite: " << rentsVec.at(i).getSuite() << endl;
-					cout << "Price per night: " << rentsVec.at(i).getPrice() << endl;
-					cout << "Capacity: " << rentsVec.at(i).getNumPeople() << endl << endl;
+					cout << "Type of accommodation: " << x.getTypeRent() << endl;
+					cout << "Name: " << x.getName() << endl;
+					cout << "Available from: " << x.getDataInicio();
+					cout << "  To: " << x.getDataFim() << endl;
+					cout << "Has Kitchen: " << x.getKitchen() << endl;
+					cout << "Has Living Room: " << x.getLivingRoom() << endl;
+					cout << "Has Suite: " << x.getSuite() << endl;
+					if (x.lastRent() > 20 && x.lastRent() < 50)
+						cout << x.getPrice() + 0.05* x.getPrice() << " and now is " << x.getPrice();
+					else if (x.lastRent() >= 50 && x.lastRent() < 100)
+						cout << x.getPrice() + 0.1* x.getPrice() << " and now is " << x.getPrice();
+					else if (x.lastRent() >= 100)
+						cout << x.getPrice() + 0.2* x.getPrice() << " and now is " << x.getPrice();
+					cout << "Capacity: " << x.getNumPeople() << endl << endl;
 					counter++;
 				}
 				else {
 					u1.setColor(14); cout << "Option " << counter << endl; u1.setColor(15);
-					cout << "Type of accommodation: " << rentsVec.at(i).getTypeRent() << endl;
-					cout << "Name: " << rentsVec.at(i).getName() << endl;
-					cout << "Available from: " << rentsVec.at(i).getDataInicio();
-					cout << "  To: " << rentsVec.at(i).getDataFim() << endl;
-					cout << "Price per night: " << rentsVec.at(i).getPrice() << endl;
-					cout << "Capacity: " << rentsVec.at(i).getNumPeople() << endl << endl;
+					cout << "Type of accommodation: " << x.getTypeRent() << endl;
+					cout << "Name: " << x.getName() << endl;
+					cout << "Available from: " << x.getDataInicio();
+					cout << "  To: " << x.getDataFim() << endl;
+					if (x.lastRent() > 20 && x.lastRent() < 50)
+						cout << x.getPrice() + 0.05* x.getPrice() << " and now is " << x.getPrice();
+					else if (x.lastRent() >= 50 && x.lastRent() < 100)
+						cout << x.getPrice() + 0.1* x.getPrice() << " and now is " << x.getPrice();
+					else if (x.lastRent() >= 100)
+						cout << x.getPrice() + 0.2* x.getPrice() << " and now is " << x.getPrice();
+					cout << "Capacity: " << x.getNumPeople() << endl << endl;
 					counter++;
 
 				}
