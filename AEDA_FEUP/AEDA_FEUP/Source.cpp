@@ -49,7 +49,7 @@ int main() {
 	Corporation::instance()->loadSuppliers();
 	Corporation::instance()->loadRents();
 	Corporation::instance()->orderRentsVec();
-	u.clearScreen();
+	Corporation::instance()->createPriorityQueueFromRents();
 	//Corporation::instance()->printSuppliers();
 	
 	menu.MainMenu();

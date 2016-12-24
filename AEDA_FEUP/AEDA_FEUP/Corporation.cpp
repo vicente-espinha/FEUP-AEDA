@@ -16,6 +16,32 @@ Corporation * Corporation::instance() {
 
 void Corporation::createPriorityQueueFromRents()
 {
+	for (int i = 0; i < rentsVec.size(); i++)
+	{
+		discountsRents.push(rentsVec[i]);
+	}
+}
+
+void Corporation::setDiscounts()
+{
+	priority_queue<Rent> tmp;
+
+	for (int i = 0 ; i < rentsVec.size(); i++)
+	{
+		float newPrice;
+
+		if (rentsVec[i].lastRent() > 100)
+			newPrice = rentsVec[i].getPrice() - 0.2 * rentsVec[i].getPrice();
+		else if (rentsVec[i].lastRent() > 50)
+			newPrice = rentsVec[i].getPrice() - 0.1 * rentsVec[i].getPrice();
+		else if (rentsVec[i].lastRent() > 20)
+			newPrice = rentsVec[i].getPrice() - 0.05 * rentsVec[i].getPrice();
+		
+		rentsVec[i].setPrice(newPrice);
+		tmp.push(rentsVec[i]);
+	}
+
+	discountsRents = tmp;
 
 }
 

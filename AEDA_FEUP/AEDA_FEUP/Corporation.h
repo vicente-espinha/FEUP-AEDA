@@ -30,6 +30,7 @@ public:
 	string username, supplierName;//!< saves the username and password that were loged in.
 	
 	void createPriorityQueueFromRents();
+	void setDiscounts();
 
 	static Corporation* instance();//!< a function instances variables.
 

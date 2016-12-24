@@ -33,16 +33,17 @@ protected:
 public:
 	Rent() {}
 	virtual bool isValid(Date, Date);//!< a function that checks if dates are valid
-	int lastRent();
-	bool operator<(Rent x);
+	int lastRent() const;
+	bool operator<(const Rent x) const;
 	virtual long getNif() { return nif; }//!< a function that returns nif of supplier
 	virtual void setNif(int n) { nif = n; }//!< a function that sets nif
+	virtual void setPrice(float n) { price = n; }//!< a function that sets price
 	Rent(long nif, string tipoRent, string name2, string cidade, Date dataI, Date dataF, float price, int numOcupantes);
 	virtual void setReservation(Reservation r) { reserved.push_back(r); }//!< a function that adds reservation to "reserved"
 	virtual vector<Reservation> getReservations() { return reserved; }//!< a function that returns the vector of reservations
 	virtual void setReservationVector(vector<Reservation>v) { reserved = v; }//!< a function that sets the "reserved"
 	virtual int getNumPeople() { return numPeople;  }//!< a function that returns number of people
-	virtual float getPrice() { return price; }//!< a function that returns the price
+	virtual float getPrice() const { return price; }//!< a function that returns the price
 	virtual string getCity() { return city; }//!< a function that returns the city
 	virtual Date getDataInicio() { return dataBegin; }//!< a function that returns the date of begin
 	virtual Date getDataFim() { return dataEnd; }//!< a function that returns the date of end
@@ -54,6 +55,7 @@ public:
 	virtual bool getKitchen() {bool i = true; return i; }//!< a function that returns true if has kitchen, if not returns false
 	virtual bool getSuite() { bool x = true; return x; }//!< a function that returns true if has Suite, if not returns false
 	virtual bool getLivingRoom() { bool x = true; return x; }//!< a function that returns true if has LivingRoom, if not returns false
+
 };
 
 

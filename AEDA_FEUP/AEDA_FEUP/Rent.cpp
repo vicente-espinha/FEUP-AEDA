@@ -6,12 +6,12 @@ Utilities u2;
 Menu rentMenu;
 
 // ALUGUER
-Rent::Rent(long nif, string typeRent, string name2 ,string c, Date dataI, Date dataF, float p, int n)
+Rent::Rent(long nif, string typeRent, string name2, string c, Date dataI, Date dataF, float p, int n)
 {
 	city = c; dataBegin = dataI; dataEnd = dataF; numPeople = n; price = p; this->typeRent = typeRent; name = name2; this->nif = nif;
 }
 
-int Rent::lastRent()
+int Rent::lastRent() const
 {
 	//Gets the PC's date
 #pragma warning(disable : 4996)
@@ -19,26 +19,26 @@ int Rent::lastRent()
 	struct tm * now = localtime(&ti);
 	unsigned int year = 1900 + now->tm_year, month = 1 + now->tm_mon, day = now->tm_mday;
 	Date real_date = Date(day, month, year);
-	
+
+	if (reserved.size() == 0)
+		return 100000;
+
 	Date final = reserved[0].getDate1();
-		for (int i = 0; i < reserved.size() - 1; i++)
+	for (int i = 0; i < reserved.size() - 1; i++)
+	{
+		if (reserved[i].getDate1() < reserved[i + 1].getDate1())
 		{
-			if (reserved[i].getDate1() < reserved[i + 1].getDate1())
-			{
-				final = reserved[i + 1].getDate1();
-			}
+			final = reserved[i + 1].getDate1();
 		}
+	}
+	if (real_date < final)
+		return 0;
 	return real_date.minus(final);
 }
 
-
-
-bool Rent::operator<(Rent x)
+bool Rent::operator<(const Rent x) const
 {
-	if (lastRent() > x.lastRent())
-		return true;
-	else
-		return false;
+	return (lastRent() < x.lastRent());
 }
 
 
@@ -99,11 +99,11 @@ Hotel Hotel::buildRent(long nif)
 		u2.cancelMessage();
 		rentMenu.SuppliersMenu();
 	}
-	
+
 	u2.clearScreen();
 
 	bool isIn = true; // Este boleano é só um sistema que usei para implementar uma deteção de erro, com possibilidade de repetição
-	
+
 	while (isIn) // Preco
 	{
 
@@ -221,7 +221,7 @@ Hotel Hotel::buildRent(long nif)
 		}
 		else if (n == 2) {
 			numPeople = 2;
-			return Hotel(nif,"Hotel", name, city, d1, d2, "Double Room", price, numPeople);
+			return Hotel(nif, "Hotel", name, city, d1, d2, "Double Room", price, numPeople);
 		}
 		else if (n == 3) {
 			numPeople = 3;
@@ -242,7 +242,7 @@ Hotel Hotel::buildRent(long nif)
 
 // BED'N'BREAKFAST
 
-bedNbreakfast::bedNbreakfast(long nif, string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes) : Rent(nif, typeRent, name ,cidade, dataI, dataF, preco, numOcupantes)
+bedNbreakfast::bedNbreakfast(long nif, string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes) : Rent(nif, typeRent, name, cidade, dataI, dataF, preco, numOcupantes)
 {
 	this->namebnb = name;
 }
@@ -450,7 +450,7 @@ sharedHouse sharedHouse::buildRent(long nif)
 			rentMenu.SuppliersMenu();
 		}
 
-		if (cin.fail()){
+		if (cin.fail()) {
 			u2.setColor(12); cerr << endl << "  ERROR: Input is not an integer."; u2.setColor(15);
 			Sleep(1500);
 			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
@@ -463,7 +463,7 @@ sharedHouse sharedHouse::buildRent(long nif)
 		u2.clearScreen();
 		isIn = false;
 	}
-	
+
 	isIn = true;
 
 	while (isIn) // Price
@@ -560,12 +560,12 @@ sharedHouse sharedHouse::buildRent(long nif)
 
 	u2.clearScreen();
 
-	return sharedHouse(nif,"Shared House", name, city, d1, d2, price, numPeople);
+	return sharedHouse(nif, "Shared House", name, city, d1, d2, price, numPeople);
 }
 
 // FLAT
 
-flat::flat(long nif, string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes) : Rent(nif, typeRent, name ,cidade, dataI, dataF,preco, numOcupantes)
+flat::flat(long nif, string typeRent, string name, string cidade, Date dataI, Date dataF, float preco, int numOcupantes) : Rent(nif, typeRent, name, cidade, dataI, dataF, preco, numOcupantes)
 {
 	this->nameFlat = name;
 }
@@ -582,7 +582,7 @@ flat flat::buildRent(long nif)
 	struct tm * now = localtime(&ti);
 	unsigned int year = 1900 + now->tm_year, month = 1 + now->tm_mon, day = now->tm_mday;
 	Date real_date = Date(day, month, year);
-	
+
 	city = Corporation::instance()->cities();
 	u2.clearScreen();
 	u2.cinClear();
@@ -748,7 +748,7 @@ apartment apartment::buildRent(long nif)
 	struct tm * now = localtime(&ti);
 	unsigned int year = 1900 + now->tm_year, month = 1 + now->tm_mon, day = now->tm_mday;
 	Date real_date = Date(day, month, year);
-	
+
 	city = Corporation::instance()->cities();
 	u2.clearScreen();
 	u2.cinClear();
@@ -923,7 +923,7 @@ apartment apartment::buildRent(long nif)
 
 		u2.setColor(11); cout << "Rent: \n\n"; u2.setColor(15);
 		u2.setColor(14); cout << "City: " << city << "\nRent's name: " << name << "\nApartment's capacity: " << numPeople << "\nNumber of rooms: " << rooms << "\nPeople per room: " << peoplePerRoom
-							  << "\nPrice per night : " << price << endl; u2.setColor(15);
+			<< "\nPrice per night : " << price << endl; u2.setColor(15);
 
 		cout << "\nIs it a suite? (y/n) ";
 		cin >> x;
@@ -958,7 +958,7 @@ apartment apartment::buildRent(long nif)
 
 	while (isIn)
 	{
-	
+
 		cout << "\nDoes it have a living room? (y/n) ";
 		cin >> x;
 
@@ -1022,7 +1022,7 @@ apartment apartment::buildRent(long nif)
 
 	u2.clearScreen();
 	isIn = true;
-	
+
 	string date1, date2;
 
 	while (isIn) // Datas
@@ -1030,7 +1030,7 @@ apartment apartment::buildRent(long nif)
 
 		u2.setColor(11); cout << "Rent: \n\n"; u2.setColor(15);
 		u2.setColor(14); cout << "City: " << city << "\nRent's name: " << name << "\nApartment's capacity: " << numPeople << "\nNumber of rooms: " << rooms << "\nPeople per room: " << peoplePerRoom
-			                  << "\nPrice per night : " << price;
+			<< "\nPrice per night : " << price;
 
 		if (s) {
 			cout << "\nSuite: Yes";
@@ -1111,6 +1111,6 @@ apartment apartment::buildRent(long nif)
 
 	u2.clearScreen();
 
-	
+
 	return apartment(nif, "Apartment", name, city, d1, d2, price, numPeople, numRooms, k, s, lr);
 }
