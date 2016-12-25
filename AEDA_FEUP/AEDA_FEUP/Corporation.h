@@ -30,7 +30,7 @@ public:
 	string username, supplierName;//!< saves the username and password that were loged in.
 	
 	void createPriorityQueueFromRents();
-	void setDiscounts();
+	vector<Rent> setDiscounts(vector<Rent> v);
 	void displayDiscounts();
 
 	static Corporation* instance();//!< a function instances variables.
