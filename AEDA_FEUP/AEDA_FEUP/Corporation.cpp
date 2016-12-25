@@ -16,10 +16,12 @@ Corporation * Corporation::instance() {
 
 void Corporation::createPriorityQueueFromRents()
 {
+	priority_queue<Rent> tmp;
 	for (int i = 0; i < rentsVec.size(); i++)
 	{
-		discountsRents.push(rentsVec[i]);
+		tmp.push(rentsVec[i]);
 	}
+	discountsRents = tmp;
 }
 
 void Corporation::setDiscounts()
@@ -1470,7 +1472,7 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 
 	//ALTERAR O CONSTRUTOR DE RENTS
 	rentsVec[v[option - 1]].setReservation(Reservation(nif, totalPrice, date1, date2));
-
+	createPriorityQueueFromRents();
 	u1.successMessage();
 	return;
 }
@@ -1583,6 +1585,8 @@ void Corporation::cancelReservation()
 
 	if (answer == "Yes" || answer == "yes")
 	{
+		
+
 		Date x = rentsVec.at(v.at(option - 1)).getReservations().at(v.at(option - 1)).getDate1() - real_date;
 		u1.setColor(14);
 		if (x.getYear() != 0 || x.getMonth() > 0)
@@ -1596,6 +1600,8 @@ void Corporation::cancelReservation()
 		x_vec = rentsVec.at(v.at(option - 1)).getReservations();
 		x_vec.erase(x_vec.begin() + v.at(option - 1));
 		rentsVec.at(v.at(option - 1)).setReservationVector(x_vec);
+		createPriorityQueueFromRents();
+
 		Sleep(2000);
 	}
 	else
