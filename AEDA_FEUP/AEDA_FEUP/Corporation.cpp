@@ -1727,3 +1727,73 @@ string Corporation::cities() {
 		}
 	}
 }
+
+
+void Corporation::createHashUsersInactive() {
+
+	unordered_set<Users, hstr, eqstr>temp;
+
+#pragma warning(disable : 4996)
+	time_t ti = time(0);
+	struct tm * now = localtime(&ti);
+	unsigned int year = 1900 + now->tm_year, month = 1 + now->tm_mon, day = now->tm_mday;
+	Date real_date = Date(day, month, year);
+
+	for (int k = 0; k < usersVec.size(); k++) {
+
+		int num_days = 0;
+		bool have_reservations = false;
+
+		for (int i = 0; i < rentsVec.size(); i++) {
+
+			vector<Reservation> x = rentsVec[i].getReservations();
+
+			for (int j = 0; j < x.size(); j++)
+			{
+				if (usersVec.at(k).getNif() == x.at(j).getnif()) {
+
+					have_reservations = true;
+
+					if (num_days != 0 && real_date.minus(x.at(j).getDate2()) > num_days)
+						num_days = real_date.minus(x.at(j).getDate2());
+
+					if (num_days == 0)
+						num_days= real_date.minus(x.at(j).getDate2());
+				}
+			}
+		}
+
+		if (num_days > 60 || !have_reservations)
+			temp.insert(usersVec.at(k));
+	}
+
+	usersInactives = temp;
+}
+
+
+
+void Corporation::displayUsersInactive() {
+
+	Ash_Users_inactive::iterator it = usersInactives.begin();
+
+	while (it != usersInactives.end()) {
+
+		cout << (*it).getUsername() << endl;
+		it++;
+	}
+}
+
+void Corporation::takeUserofHash( Users &s1) {
+
+	Ash_Users_inactive::iterator it = usersInactives.begin();
+
+	while (it != usersInactives.end()) {
+
+		if ((*it).getNif() == s1.getNif()) {
+			usersInactives.erase(it);
+			return;
+		}
+		
+		it++;
+	}
+}

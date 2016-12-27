@@ -9,9 +9,29 @@
 #include "Utilities.h"
 #include "Menu.h"
 #include <malloc.h>
+#include <unordered_set>
 
 
 using namespace std;
+
+struct eqstr {
+	bool operator() (const Users &s1,const Users &s2) const {
+		return s1 == s2;
+	}
+};
+
+struct hstr {
+	int operator() ( const Users &s1) const {
+		int v = 7 * s1.getNif();
+		return v%127;
+	}
+};
+
+
+typedef tr1::unordered_set<Users, hstr, eqstr> Ash_Users_inactive;
+
+
+
 /*! \brief Brief description.
 *
 * Classe Base that contains every function that changes the information of the suppliers,users,rents and reservations(create,delete,register)
@@ -25,6 +45,7 @@ private:
 	vector<Supplier> suppliersVec;/*!<  "suppliersVec" is the vector that contains the suppliers information*/ 
 	vector<Rent> rentsVec;/*!<  "rentsVec" is the vector that contains the rents and reservations information*/ 
 	priority_queue<Rent> discountsRents;
+	Ash_Users_inactive usersInactives;
 
 public:
 	string username, supplierName;//!< saves the username and password that were loged in.
@@ -61,5 +82,10 @@ public:
 	void saveRents();//!< a function that saves the information that of the vector in the file
 
 	void deleteRents();//!< a function that deletes the rents
+
+
+	void createHashUsersInactive();
+	void takeUserofHash(Users &s1);
+	void displayUsersInactive();
 };
 
