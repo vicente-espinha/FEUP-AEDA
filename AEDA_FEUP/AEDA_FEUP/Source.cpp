@@ -50,8 +50,11 @@ int main() {
 	Corporation::instance()->loadRents();
 	Corporation::instance()->orderRentsVec();
 	Corporation::instance()->createPriorityQueueFromRents();
+	Corporation::instance()->createHashUsersInactive();
 	//Corporation::instance()->printSuppliers();
-	
+	Corporation::instance()->displayUsersInactive();
+	Sleep(5000);
+
 	menu.MainMenu();
 
 	u.clearScreen();
