@@ -16,12 +16,21 @@
 
 using namespace std;
 
+/*! \brief Brief description.
+*
+* struct that contains the equal function needed for the hash
+*/
 struct eqstr {
 	bool operator() (const Users &s1,const Users &s2) const {
 		return s1 == s2;
 	}
 };
 
+
+/*! \brief Brief description.
+*
+* struct that contains the hash function
+*/
 struct hstr {
 	int operator() ( const Users &s1) const {
 		int v = 7 * s1.getNif();
@@ -47,7 +56,7 @@ private:
 	vector<Supplier> suppliersVec;/*!<  "suppliersVec" is the vector that contains the suppliers information*/ 
 	vector<Rent> rentsVec;/*!<  "rentsVec" is the vector that contains the rents and reservations information*/ 
 	priority_queue<Rent> discountsRents;
-	Ash_Users_inactive usersInactives;
+	Ash_Users_inactive usersInactives; /*!<  "Ash_Users_inactive" is the ash that contains inactive users (havent made a reservation in 60 or more days) */
 	BST<Reservation> bills;
 
 public:

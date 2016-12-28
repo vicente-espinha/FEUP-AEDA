@@ -32,8 +32,8 @@ protected:
 public:
 	Rent() {}
 	virtual bool isValid(Date, Date);//!< a function that checks if dates are valid
-	int lastRent() const;
-	bool operator<(const Rent x) const;
+	int lastRent() const;//!< a function that returns the diference between the actual date and the date of check-in in the last reservation made in that rent
+	bool operator<(const Rent x) const;//!< a function that returns true if the "lastRent()" of the actual rent is smaller than the "lastRent()" of rent "x"(argument)
 	virtual long getNif() { return nif; }//!< a function that returns nif of supplier
 	virtual void setNif(int n) { nif = n; }//!< a function that sets nif
 	virtual void setPrice(float n) { price = n; }//!< a function that sets price

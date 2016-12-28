@@ -35,7 +35,7 @@ public:
 	string getPassword();//!< a function that returns the password.
 	int getPoints();//!< a function that returns the points.
 	long getNif()const ;//!< a function that returns the nif.
-	friend bool operator==(const Users &u1, const Users &s2);
+	friend bool operator==(const Users &u1, const Users &s2);//!< a function that returns true if the users are equal else returns false
 	bool checkExistance(string username, string password);//!< a function that checks existance
 };
 
