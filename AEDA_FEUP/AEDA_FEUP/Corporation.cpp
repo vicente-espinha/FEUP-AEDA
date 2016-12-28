@@ -1784,7 +1784,7 @@ void Corporation::displayUsersInactive() {
 	}
 }
 
-void Corporation::addBill(const Reservation & r1) {
+void Corporation::addBill(const Reservation &r1) {
 	bills.insert(r1);
 }
 

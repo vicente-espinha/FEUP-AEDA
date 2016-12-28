@@ -51,12 +51,18 @@ int main() {
 	Corporation::instance()->orderRentsVec();
 	Corporation::instance()->createPriorityQueueFromRents();
 	Corporation::instance()->createHashUsersInactive();
-	/*   DIOGO DO YA THANG
-	for (int i = 0; i < rentsVec.size(); i++)
-	{
-		Corporation::instance()->addBill();
-	}
-	*/
+	
+	Date d1 = "12/12/2017";
+	Date d2 = "13/12/2017";
+	Date d3 = "28/12/2016";
+	string s1 = "1";
+	long n1 = 121121121;
+	double p1 = 1.1;
+
+	Reservation r1(s1, n1,p1, d1, d2, d3);
+	
+	Corporation::instance()->addBill(r1);
+	
 	
 	Corporation::instance()->displayBST();
 	//Corporation::instance()->printSuppliers();

@@ -16,13 +16,13 @@ private:
 
 public:
 	Reservation(long nif,double price, Date d1, Date d2);
-	//Reservation(string name, long nif, double price, Date d1, Date d2, Date reservationDate);
+	Reservation(string name, long nif, double price, Date d1, Date d2, Date reservationDate);
 	Date getDate1() const {return d1;}//!< a function that returns the date of the check-in.
 	Date getDate2() const { return d2;}//!< a function that returns the date of the check-out.
 	double getPrice() const { return price; }//!< a function that returns the price.
 	long getnif() const { return nif; }//!< a function that returns the city where they will stay.
-	//Date getReservationDate() const { return reservationDate;}//!< a function that returns the date the reservation was made.
-	//string getName() const { return name;}//!< a function that returns the name of the user that made the reservation.
+	Date getReservationDate() const { return reservationDate;}//!< a function that returns the date the reservation was made.
+	string getName() const { return name;}//!< a function that returns the name of the user that made the reservation.
 
-	//bool operator<(const Reservation & r) const;
+	bool operator<(const Reservation & r) const;
 };
