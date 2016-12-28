@@ -52,8 +52,6 @@ int main() {
 	Corporation::instance()->createPriorityQueueFromRents();
 	Corporation::instance()->createHashUsersInactive();
 	//Corporation::instance()->printSuppliers();
-	Corporation::instance()->displayUsersInactive();
-	Sleep(5000);
 
 	menu.MainMenu();
 
