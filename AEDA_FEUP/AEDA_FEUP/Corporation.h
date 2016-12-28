@@ -99,5 +99,7 @@ public:
 	void createHashUsersInactive();//!< a function that creates a hash containing the users that havent made a reservation in more than 60 days
 	void displayUsersInactive();//!< a function that displays the users that are in the hash usersInactives;
 
+	void displayBST();
+
 };
 

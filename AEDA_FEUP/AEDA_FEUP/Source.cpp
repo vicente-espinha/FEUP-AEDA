@@ -51,6 +51,14 @@ int main() {
 	Corporation::instance()->orderRentsVec();
 	Corporation::instance()->createPriorityQueueFromRents();
 	Corporation::instance()->createHashUsersInactive();
+	/*   DIOGO DO YA THANG
+	for (int i = 0; i < rentsVec.size(); i++)
+	{
+		Corporation::instance()->addBill();
+	}
+	*/
+	
+	Corporation::instance()->displayBST();
 	//Corporation::instance()->printSuppliers();
 
 	menu.MainMenu();
