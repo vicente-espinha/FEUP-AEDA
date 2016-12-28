@@ -4,8 +4,7 @@
 #include <fstream>
 #include <windows.h> 
 #include <conio.h>
-
-#include "Utilities.h"
+#include <vector>
 #include "Corporation.h"
 
 using namespace std;

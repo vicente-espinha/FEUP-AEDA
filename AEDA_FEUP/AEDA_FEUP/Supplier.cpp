@@ -1,7 +1,4 @@
 #include "Supplier.h"
-#include <conio.h>
-#include <windows.h>
-#include <cstdlib>
 
 Supplier::Supplier(){}
 

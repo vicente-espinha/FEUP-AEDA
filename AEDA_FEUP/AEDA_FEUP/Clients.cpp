@@ -3,12 +3,10 @@
 Clients::Clients(){}
 
 Users::Users(string username, string password, long nif,  int points){
-
 	this->username = username;
 	this->password = password;
 	this->nif = nif;
 	this->points = points;
-
 }
 
 string Users::getUsername()const { return username; }
