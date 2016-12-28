@@ -1429,8 +1429,11 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 
 	}
 
+	Date reservationDate = real_date;
+
 	//ALTERAR O CONSTRUTOR DE RENTS
 	rentsVec[v[option - 1]].setReservation(Reservation(nif, totalPrice, date1, date2));
+	//addBill(Reservation(username, nif, totalPrice, date1, date2, reservationDate));
 	createPriorityQueueFromRents();
 	u1.successMessage();
 	return;
@@ -1781,6 +1784,10 @@ void Corporation::displayUsersInactive() {
 		cout << (*it).getUsername() << endl;
 		it++;
 	}
+}
+
+void Corporation::addBill(const Reservation & r1){
+	bills.insert(r1);
 }
 
 void Corporation::takeUserofHash( Users &s1) {

@@ -8,6 +8,8 @@
 #include "Supplier.h"
 #include "Utilities.h"
 #include "Menu.h"
+#include "BST.h"
+#include "Rent.h"
 #include <malloc.h>
 #include <unordered_set>
 
@@ -46,6 +48,7 @@ private:
 	vector<Rent> rentsVec;/*!<  "rentsVec" is the vector that contains the rents and reservations information*/ 
 	priority_queue<Rent> discountsRents;
 	Ash_Users_inactive usersInactives;
+	BST<Reservation> bills;
 
 public:
 	string username, supplierName;//!< saves the username and password that were loged in.
@@ -83,9 +86,10 @@ public:
 
 	void deleteRents();//!< a function that deletes the rents
 
-
 	void createHashUsersInactive();
 	void takeUserofHash(Users &s1);
 	void displayUsersInactive();
+
+	void addBill(const Reservation &r1);
 };
 

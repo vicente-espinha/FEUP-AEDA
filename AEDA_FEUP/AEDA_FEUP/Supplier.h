@@ -3,7 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include "Rent.h"
+
 
 using namespace std;
 
