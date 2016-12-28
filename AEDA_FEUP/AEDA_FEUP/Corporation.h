@@ -86,10 +86,9 @@ public:
 
 	void deleteRents();//!< a function that deletes the rents
 
-	void createHashUsersInactive();
-	void takeUserofHash(Users &s1);
-	void displayUsersInactive();
-
 	void addBill(const Reservation &r1);
+	void createHashUsersInactive();//!< a function that creates a hash containing the users that havent made a reservation in more than 60 days
+	void displayUsersInactive();//!< a function that displays the users that are in the hash usersInactives;
+
 };
 

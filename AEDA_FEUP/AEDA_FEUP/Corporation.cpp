@@ -1435,6 +1435,7 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 	rentsVec[v[option - 1]].setReservation(Reservation(nif, totalPrice, date1, date2));
 	//addBill(Reservation(username, nif, totalPrice, date1, date2, reservationDate));
 	createPriorityQueueFromRents();
+	createHashUsersInactive();
 	u1.successMessage();
 	return;
 }
@@ -1757,23 +1758,20 @@ void Corporation::createHashUsersInactive() {
 
 					have_reservations = true;
 
-					if (num_days != 0 && real_date.minus(x.at(j).getDate2()) > num_days)
-						num_days = real_date.minus(x.at(j).getDate2());
+					if (num_days != 0 && real_date.minus(x.at(j).getDate1()) > num_days)
+						num_days = real_date.minus(x.at(j).getDate1());
 
 					if (num_days == 0)
-						num_days= real_date.minus(x.at(j).getDate2());
+						num_days= real_date.minus(x.at(j).getDate1());
 				}
 			}
 		}
-
 		if (num_days > 60 || !have_reservations)
 			temp.insert(usersVec.at(k));
 	}
 
 	usersInactives = temp;
 }
-
-
 
 void Corporation::displayUsersInactive() {
 
@@ -1788,19 +1786,4 @@ void Corporation::displayUsersInactive() {
 
 void Corporation::addBill(const Reservation & r1){
 	bills.insert(r1);
-}
-
-void Corporation::takeUserofHash( Users &s1) {
-
-	Ash_Users_inactive::iterator it = usersInactives.begin();
-
-	while (it != usersInactives.end()) {
-
-		if ((*it).getNif() == s1.getNif()) {
-			usersInactives.erase(it);
-			return;
-		}
-		
-		it++;
-	}
 }
