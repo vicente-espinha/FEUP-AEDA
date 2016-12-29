@@ -1,35 +1,29 @@
 #pragma once
-#include <iostream>
 #include <string>
+#include <iostream>
 #include <fstream>
 #include <vector>
+#include <conio.h>
+#include <windows.h>
+#include <cstdlib>
 #include <queue>
-#include "Clients.h"
-#include "Supplier.h"
-#include "Utilities.h"
-#include "Menu.h"
-#include "BST.h"
-#include "Rent.h"
+#include <unordered_set>
 #include <malloc.h>
 
 
+#include "Rent.h"
+#include "BSTNew.h"
+#include "Clients.h"
+#include "Supplier.h"
+
 using namespace std;
 
-/*! \brief Brief description.
-*
-* struct that contains the equal function needed for the hash
-*/
 struct eqstr {
 	bool operator() (const Users &s1,const Users &s2) const {
 		return s1 == s2;
 	}
 };
 
-
-/*! \brief Brief description.
-*
-* struct that contains the hash function
-*/
 struct hstr {
 	int operator() ( const Users &s1) const {
 		int v = 7 * s1.getNif();
@@ -49,26 +43,32 @@ typedef tr1::unordered_set<Users, hstr, eqstr> Ash_Users_inactive;
 class Corporation
 {
 private:
-	static Corporation* singleton_instance;/*!<  "singleton_instance" instances variables*/ 
-	string usersFile, suppliersFile, rentsFile;/*!< "usersFile" is the file that contais the information about the users,"suppliersFile" is the file that contais the information about the suppliers and "rentsFile" is the file that contais the information about the rents and reservations,*/ 
-	vector<Users> usersVec; /*!<  "usersVec" is the vector that contains the users information*/ 
-	vector<Supplier> suppliersVec;/*!<  "suppliersVec" is the vector that contains the suppliers information*/ 
-	vector<Rent> rentsVec;/*!<  "rentsVec" is the vector that contains the rents and reservations information*/ 
+	static Corporation* singleton_instance;/*!<  "singleton_instance" instances variables*/
+	string usersFile, suppliersFile, rentsFile;/*!< "usersFile" is the file that contais the information about the users,"suppliersFile" is the file that contais the information about the suppliers and "rentsFile" is the file that contais the information about the rents and reservations,*/
+	vector<Users> usersVec; /*!<  "usersVec" is the vector that contains the users information*/
+	vector<Supplier> suppliersVec;/*!<  "suppliersVec" is the vector that contains the suppliers information*/
+	vector<Rent> rentsVec;/*!<  "rentsVec" is the vector that contains the rents and reservations information*/
 	priority_queue<Rent> discountsRents;
-	Ash_Users_inactive usersInactives; /*!<  "Ash_Users_inactive" is the ash that contains inactive users (havent made a reservation in 60 or more days) */
-	BST<Reservation> bills;
-
+	Ash_Users_inactive usersInactives;
+	BST<Users> receipt;
 public:
 	string username, supplierName;//!< saves the username and password that were loged in.
 	
-	void createPriorityQueueFromRents();
-	vector<Rent> setDiscounts(vector<Rent> v);
-	void displayDiscounts();
-
 	static Corporation* instance();//!< a function instances variables.
 
 	void login();//!< a function that logins
 
+	// PRIORITY_QUEUE
+
+	void createPriorityQueueFromRents();
+	vector<Rent> setDiscounts(vector<Rent> v);
+	void displayDiscounts();
+
+	// BST
+
+	void createBST();
+	void displayBST();
+	
 	bool foundUsersFile(string userFiles);//!< a function that checks if the file is correct.
 	void loadUsers();//!< a function that saves the information that of the file in the vector
 	void saveUsers();//!< a function that saves the information that of the vector in the file
@@ -94,11 +94,9 @@ public:
 
 	void deleteRents();//!< a function that deletes the rents
 
-	void addBill(const Reservation &r1);
-	void createHashUsersInactive();//!< a function that creates a hash containing the users that havent made a reservation in more than 60 days
-	void displayUsersInactive();//!< a function that displays the users that are in the hash usersInactives;
 
-	void displayBST();
-
+	void createHashUsersInactive();
+	void takeUserofHash(Users &s1);
+	void displayUsersInactive();
 };
 

@@ -1,5 +1,6 @@
 #include "Supplier.h"
 
+
 Supplier::Supplier(){}
 
 Supplier::Supplier(string n, string password, long ni, string ad)

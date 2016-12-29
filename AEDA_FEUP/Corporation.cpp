@@ -1,7 +1,5 @@
 #include "Corporation.h"
 
-using namespace std;
-
 Utilities u1;
 Menu corpMenu;
 
@@ -33,13 +31,13 @@ vector<Rent> Corporation::setDiscounts(vector<Rent> v)
 		float newPrice;
 		if (v[i].lastRent() >= 0 && v[i].lastRent() < 20)
 			continue;
-		else if (v[i].lastRent() >= 100)
-			newPrice = v[i].getPrice() - 0.2 * v[i].getPrice();
-		else if (v[i].lastRent() >= 50)
-			newPrice = v[i].getPrice() - 0.1 * v[i].getPrice();
-		else if (rentsVec[i].lastRent() >= 20)
-			newPrice = v[i].getPrice() - 0.05 * v[i].getPrice();
-
+			else if (v[i].lastRent() >= 100)
+				newPrice = v[i].getPrice() - 0.2 * v[i].getPrice();
+			else if (v[i].lastRent() >= 50)
+				newPrice = v[i].getPrice() - 0.1 * v[i].getPrice();
+			else if (rentsVec[i].lastRent() >= 20)
+				newPrice = v[i].getPrice() - 0.05 * v[i].getPrice();
+		
 		v[i].setPrice(newPrice);
 		tmp.push(v[i]);
 	}
@@ -107,7 +105,7 @@ void Corporation::displayDiscounts()
 				else if (x.lastRent() >= 50 && x.lastRent() < 100)
 					cout << x.getPrice() + 0.1* x.getPrice() << " and now is " << x.getPrice() << "." << endl;
 				else if (x.lastRent() >= 100)
-					cout << x.getPrice() + 0.2* x.getPrice() << " and now is " << x.getPrice() << "." << endl;
+					cout << x.getPrice() + 0.2* x.getPrice() << " and now is " << x.getPrice() << "." << endl; 
 				cout << "Capacity: " << x.getNumPeople() << endl << endl;
 				counter++;
 			}
@@ -118,11 +116,11 @@ void Corporation::displayDiscounts()
 				cout << "Available from: " << x.getDataInicio();
 				cout << "  To: " << x.getDataFim() << endl;
 				if (x.lastRent() > 20 && x.lastRent() < 50)
-					cout << x.getPrice() + 0.05* x.getPrice() << " and now is " << x.getPrice() << "." << endl;
+					cout << x.getPrice() + 0.05* x.getPrice() << " and now is " << x.getPrice() << "." <<  endl;
 				else if (x.lastRent() >= 50 && x.lastRent() < 100)
 					cout << x.getPrice() + 0.1* x.getPrice() << " and now is " << x.getPrice() << "." << endl;
 				else if (x.lastRent() >= 100)
-					cout << x.getPrice() + 0.2* x.getPrice() << " and now is " << x.getPrice() << "." << endl;
+					cout << x.getPrice() + 0.2* x.getPrice() << " and now is " << x.getPrice() << "."<<endl; 
 				cout << "Capacity: " << x.getNumPeople() << endl << endl;
 				counter++;
 
@@ -145,6 +143,41 @@ void Corporation::displayDiscounts()
 	return;
 
 }
+
+void Corporation::createBST()
+{
+	for (int i = 0; i < usersVec.size(); i++)
+	{
+		receipt.insert(usersVec[i]);
+	}
+	for (int i = 0; i < rentsVec.size(); i++)
+	{
+	for (int j = 0; j < rentsVec[i].getReservations().size(); j++)
+		{
+			BSTItrIn<Users> it(receipt);
+			while (!it.isAtEnd())
+			{
+
+				if (rentsVec[i].getReservations[j].getNif() == it.retrieve().getNif())
+					it.retrieve().addReservation(rentsVec[i].getReservations[j]);
+			}
+			it.retrieve().orderReservations();
+		}
+	}
+}
+
+
+void Corporation::displayBST()
+{
+	cout << receipt.isEmpty() << endl;
+	BSTItrIn<Users> it(receipt);
+	while (!it.isAtEnd())
+	{
+		cout << it.retrieve().getUsername() << endl;
+	}
+}
+
+
 
 void Corporation::login() {
 
@@ -1429,13 +1462,9 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 
 	}
 
-	Date reservationDate = real_date;
-
 	//ALTERAR O CONSTRUTOR DE RENTS
 	rentsVec[v[option - 1]].setReservation(Reservation(nif, totalPrice, date1, date2));
-	//addBill(Reservation(username, nif, totalPrice, date1, date2, reservationDate));
 	createPriorityQueueFromRents();
-	createHashUsersInactive();
 	u1.successMessage();
 	return;
 }
@@ -1758,20 +1787,23 @@ void Corporation::createHashUsersInactive() {
 
 					have_reservations = true;
 
-					if (num_days != 0 && real_date.minus(x.at(j).getDate1()) > num_days)
-						num_days = real_date.minus(x.at(j).getDate1());
+					if (num_days != 0 && real_date.minus(x.at(j).getDate2()) > num_days)
+						num_days = real_date.minus(x.at(j).getDate2());
 
 					if (num_days == 0)
-						num_days = real_date.minus(x.at(j).getDate1());
+						num_days= real_date.minus(x.at(j).getDate2());
 				}
 			}
 		}
+
 		if (num_days > 60 || !have_reservations)
 			temp.insert(usersVec.at(k));
 	}
 
 	usersInactives = temp;
 }
+
+
 
 void Corporation::displayUsersInactive() {
 
@@ -1784,18 +1816,17 @@ void Corporation::displayUsersInactive() {
 	}
 }
 
-void Corporation::addBill(const Reservation &r1) {
-	bills.insert(r1);
-}
+void Corporation::takeUserofHash( Users &s1) {
 
-void Corporation::displayBST()
-{
-	BSTItrIn<Reservation> it(bills);
+	Ash_Users_inactive::iterator it = usersInactives.begin();
 
-	while (!it.isAtEnd())
-	{
-		cout << it.retrieve().getnif() << endl;
-		it.advance();
+	while (it != usersInactives.end()) {
 
+		if ((*it).getNif() == s1.getNif()) {
+			usersInactives.erase(it);
+			return;
+		}
+		
+		it++;
 	}
 }

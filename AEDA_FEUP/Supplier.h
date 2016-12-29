@@ -1,11 +1,5 @@
 #pragma once
 #include <string>
-#include <iostream>
-#include <fstream>
-#include <vector>
-#include <conio.h>
-#include <windows.h>
-#include <cstdlib>
 
 
 using namespace std;

@@ -159,104 +159,14 @@ Date Date::operator-(Date days)
 
 int Date::minus(Date days)     // Retorna a diferenca das datas, para fins de price e whatnot
 {
-	int days_in_months[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-	int years_difference, days_difference;
-	int months_total;
-	int reg_year = 365;
-
-
-	if (this->year == days.getYear())
-		years_difference = 0;
+	if (this->getDay() - (this->getDay() - days.getDay()) > 0)
+		return (this->getDay() - (this->getDay() - days.getDay()));
+	else if (this->getMonth() == 1 || this->getMonth() == 3 || this->getMonth() == 5 || this->getMonth() == 7 || this->getMonth() == 9 || this->getMonth() == 11)
+		return (this->getDay() - (this->getDay() - days.getDay()) + 31);
+	else if (this->getMonth() == 2)
+		return (this->getDay() - (this->getDay() - days.getDay()));
 	else
-	{
-			if (this->year % 4 == 0 && this->year % 100 != 0 || this->year % 400 == 0)
-			{
-					if (days.getYear() % 4 == 0 && days.getYear() % 100 != 0 || days.getYear() % 400 == 0)
-					{
-							if (this->year > days.getYear())
-									years_difference = (this->year - days.getYear()) * (reg_year)+2;
-							else
-								years_difference = (days.getYear() - this->year) * (reg_year)+2;
-							
-							if (days.getMonth() > this->month)
-							{
-									if (days_in_months[this->month - 1] > days_in_months[1])
-											--years_difference;
-							}
-					}
-					else
-					{
-							if (this->year > days.getYear())
-								years_difference = (this->year - days.getYear()) * (reg_year)+1;
-							else
-								years_difference = (days.getYear() - this->year) * (reg_year)+1;
-							if (this->month > days.getMonth())
-							{
-									if (days_in_months[days.getMonth() - 1] > days_in_months[1])
-										--years_difference;
-							}
-					}
-			}
-			else
-			{
-					if (this->year > days.getYear())
-						years_difference = (this->year - days.getYear()) * (reg_year);
-					else
-						years_difference = (days.getYear() - this->year) * (reg_year);
-			}
-	}
-		/////////////////////////////Months////////////////////////////////////
-
-		if (this->month == days.getMonth())
-			months_total = 0;
-		else
-		{
-				if (this->month > days.getMonth())
-				{
-						for (int i = (this->month - 1); i > (days.getMonth() - 1); i--)
-						{
-								static int months_total_temp = 0;
-								months_total_temp += days_in_months[i];
-								months_total = months_total_temp;
-						}
-				}
-				else
-				{
-						for (int i = (this->month - 1); i < (days.getMonth() - 1); i++)
-						{
-								static int months_total_temp = 0;
-								months_total_temp += days_in_months[i];
-								months_total = months_total_temp;
-						}
-				}
-		}
-		////////////////////////////Days//////////////////////////////////
-
-		int days_total;
-
-		if (this->day == days.getDay())
-		{
-			days_difference = 0;
-			days_total = (years_difference + months_total) - days_difference;
-		}
-		else
-		{
-				if (this->day > days.getDay())
-				{
-						days_difference = this->day - days.getDay();
-						days_total = (years_difference + months_total) - days_difference;
-				}
-				else
-				{
-						days_difference = days.getDay() - this->day;
-						days_total = (years_difference + months_total) + days_difference;
-				}
-		}
-
-		if (days_total < 0)
-			days_total = (-1)*days_total;
-
-		return days_total;
+		return (this->getDay() - (this->getDay() - days.getDay()) + 30);
 
 }
 

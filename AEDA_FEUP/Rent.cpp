@@ -1,4 +1,6 @@
 #include "Rent.h"
+#include "Corporation.h"
+
 
 Utilities u2;
 Menu rentMenu;

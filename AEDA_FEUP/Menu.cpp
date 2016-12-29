@@ -1,4 +1,11 @@
+#include <iostream>
+#include <string>
+#include <windows.h> 
+#include <conio.h>
+#include <vector>
+
 #include "Menu.h"
+#include "Corporation.h"
 
 using namespace std;
 
