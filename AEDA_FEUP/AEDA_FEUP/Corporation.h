@@ -11,10 +11,10 @@
 #include "BST.h"
 #include "Rent.h"
 #include <malloc.h>
-#include <unordered_set>
 
 
 using namespace std;
+<<<<<<< HEAD
 
 /*! \brief Brief description.
 *
@@ -43,6 +43,8 @@ typedef tr1::unordered_set<Users, hstr, eqstr> Ash_Users_inactive;
 
 
 
+=======
+>>>>>>> parent of 4dfd8db... tabela de dispersão ainda incompleto
 /*! \brief Brief description.
 *
 * Classe Base that contains every function that changes the information of the suppliers,users,rents and reservations(create,delete,register)
@@ -56,8 +58,11 @@ private:
 	vector<Supplier> suppliersVec;/*!<  "suppliersVec" is the vector that contains the suppliers information*/ 
 	vector<Rent> rentsVec;/*!<  "rentsVec" is the vector that contains the rents and reservations information*/ 
 	priority_queue<Rent> discountsRents;
+<<<<<<< HEAD
 	Ash_Users_inactive usersInactives; /*!<  "Ash_Users_inactive" is the ash that contains inactive users (havent made a reservation in 60 or more days) */
 	BST<Reservation> bills;
+=======
+>>>>>>> parent of 4dfd8db... tabela de dispersão ainda incompleto
 
 public:
 	string username, supplierName;//!< saves the username and password that were loged in.
@@ -94,6 +99,7 @@ public:
 	void saveRents();//!< a function that saves the information that of the vector in the file
 
 	void deleteRents();//!< a function that deletes the rents
+<<<<<<< HEAD
 
 	void addBill(const Reservation &r1);
 	void createHashUsersInactive();//!< a function that creates a hash containing the users that havent made a reservation in more than 60 days
@@ -101,5 +107,7 @@ public:
 
 	void displayBST();
 
+=======
+>>>>>>> parent of 4dfd8db... tabela de dispersão ainda incompleto
 };
 

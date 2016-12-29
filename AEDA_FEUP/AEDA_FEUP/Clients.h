@@ -31,11 +31,15 @@ protected:
 	
 public:
 	Users(string username, string password, long nif, int points);
-	string getUsername()const;//!< a function that returns the username.
+	string getUsername();//!< a function that returns the username.
 	string getPassword();//!< a function that returns the password.
 	int getPoints();//!< a function that returns the points.
+<<<<<<< HEAD
 	long getNif()const ;//!< a function that returns the nif.
 	friend bool operator==(const Users &u1, const Users &s2);//!< a function that returns true if the users are equal else returns false
+=======
+	long getNif();//!< a function that returns the nif.
+>>>>>>> parent of 4dfd8db... tabela de dispersão ainda incompleto
 	bool checkExistance(string username, string password);//!< a function that checks existance
 };
 

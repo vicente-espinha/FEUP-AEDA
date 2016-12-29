@@ -1730,6 +1730,7 @@ string Corporation::cities() {
 			continue;
 		}
 	}
+<<<<<<< HEAD
 }
 
 
@@ -1798,4 +1799,6 @@ void Corporation::displayBST()
 		it.advance();
 
 	}
+=======
+>>>>>>> parent of 4dfd8db... tabela de dispersão ainda incompleto
 }
