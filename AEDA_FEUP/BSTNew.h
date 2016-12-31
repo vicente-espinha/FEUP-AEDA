@@ -39,6 +39,7 @@ template <class Comparable>
 class BST
 {
 public:
+	BST();
 	explicit BST(const Comparable & notFound);
 	BST(const BST & rhs);
 	~BST();
@@ -77,6 +78,13 @@ private:
 };
 
 // Note that all "matching" is based on the < method.
+
+template <class Comparable>
+BST<Comparable>::BST()
+{
+
+}
+
 
 template <class Comparable>
 BST<Comparable>::BST(const Comparable & notFound) :

@@ -52,6 +52,7 @@ private:
 	Ash_Users_inactive usersInactives;
 	BST<Users> receipt;
 public:
+
 	string username, supplierName;//!< saves the username and password that were loged in.
 	
 	static Corporation* instance();//!< a function instances variables.
