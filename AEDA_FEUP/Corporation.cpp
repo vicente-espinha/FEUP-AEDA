@@ -161,14 +161,13 @@ void Corporation::createBST()
 				Rent x = rentsVec[i];
 				if (x.getReservations()[j].getnif() == it.retrieve().getNif())
 				{
-					it.retrieve().addReservation(x.getReservations[j]);
+					cout << it.retrieve().getUsername() << " " << it.retrieve().getNif() << endl << " RESERVATION DATE 1: " << x.getReservations()[j].getDate1() << endl;
+					it.retrieve().addReservation(x.getReservations()[j]);
 					it.retrieve().orderReservations();
 				}
 				it.advance();
 
 			}
-			
-
 		}
 	}
 }
@@ -176,11 +175,16 @@ void Corporation::createBST()
 
 void Corporation::displayBST()
 {
-	cout << receipt.isEmpty() << endl;
 	BSTItrIn<Users> it(receipt);
 	while (!it.isAtEnd())
 	{
-		cout << it.retrieve().getUsername() << endl;
+		cout << it.retrieve().getNif() << endl;
+		for (int i = 0; i < it.retrieve().getReservation().size(); i++)
+		{
+			cout << it.retrieve().getReservation()[i].getDate1() << " ";
+		}
+		cout << endl;
+		it.advance();
 	}
 }
 

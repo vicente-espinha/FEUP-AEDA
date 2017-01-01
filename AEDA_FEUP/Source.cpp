@@ -15,7 +15,6 @@ int main() {
 	u.setColor(15); u.logo();
 	cout << "\n  In order to ensure the software runs as expected, an initial setup is necessary.\n"; Sleep(1);
 	cout << "\n  You will be now asked to input the name of the resource files. \n"; Sleep(1);
-	cout << "MERDA, PUTA QUE PARIU\n";
 
 	//CLIENTS FILE TEST (FOUND/VALID)
 	cout << "\n  Users file:       ";
@@ -48,8 +47,7 @@ int main() {
 	Corporation::instance()->orderRentsVec();
 	Corporation::instance()->createPriorityQueueFromRents();
 	Corporation::instance()->createBST();
-	Corporation::instance()->displayBST();
-	cout << "MERDA, PUTA QUE PARIU\n";
+//	Corporation::instance()->displayBST();
 	Sleep(4000);
 	//Corporation::instance()->printSuppliers();
 	

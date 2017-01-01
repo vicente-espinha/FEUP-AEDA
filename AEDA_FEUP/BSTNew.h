@@ -82,7 +82,7 @@ private:
 template <class Comparable>
 BST<Comparable>::BST()
 {
-	root(NULL);
+
 }
 
 

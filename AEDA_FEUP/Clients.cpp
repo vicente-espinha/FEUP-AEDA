@@ -11,6 +11,12 @@ Users::Users(string username, string password, long nif,  int points){
 
 }
 
+Users::Users()
+{
+	username = ""; password = "";/*!< "username" is the username of the User and "password" is the password of the account of the User*/
+	points = 0; nif = 0;/*!< "points" is a variable that has the number of points that the Client has and it increments as he makes reservations. "nif" is the numero de identificacao fiscal of the Client*/
+}
+
 void Users::orderReservations()
 {
 	for (int j = 0; j < reserVec.size() - 1; j++)
@@ -32,7 +38,7 @@ void Users::orderReservations()
 }
 
 
-bool Users::operator<(const Users &u1)
+bool Users::operator<(const Users &u1) const
 {
 	return (getUsername() < u1.getUsername());
 }
