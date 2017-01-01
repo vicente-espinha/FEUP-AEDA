@@ -69,7 +69,8 @@ public:
 
 	void createBST();
 	void displayBST();
-	
+	bool checkExistance(int nif);
+
 	bool foundUsersFile(string userFiles);//!< a function that checks if the file is correct.
 	void loadUsers();//!< a function that saves the information that of the file in the vector
 	void saveUsers();//!< a function that saves the information that of the vector in the file

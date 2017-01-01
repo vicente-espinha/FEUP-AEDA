@@ -47,7 +47,7 @@ int main() {
 	Corporation::instance()->orderRentsVec();
 	Corporation::instance()->createPriorityQueueFromRents();
 	Corporation::instance()->createBST();
-//	Corporation::instance()->displayBST();
+	Corporation::instance()->displayBST();
 	Sleep(4000);
 	//Corporation::instance()->printSuppliers();
 	

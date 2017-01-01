@@ -5,3 +5,4 @@ Rui Pereira ; 123abc ; 123456783 ; 123
 Joao Silva ; joaosilva123 ; 121221211 ; 0
 Pedro Silva ; pedro ; 121200000 ; 0
 Manuel ; manuel ; 123123999 ; 0
+NON REG ; unreg ; 999999999 ; 0

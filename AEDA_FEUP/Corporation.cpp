@@ -150,24 +150,40 @@ void Corporation::createBST()
 	{
 		receipt.insert(usersVec[i]);
 	}
+	BSTItrIn<Users> notFound(receipt);
+
+	bool hasNotFound = false;
+	while (!hasNotFound)
+	{
+		notFound.retrieve().getNif();
+		if (notFound.retrieve().getNif() == 999999999)
+			hasNotFound = true;
+		else
+			notFound.advance();
+	}
+
 	for (int i = 0; i < rentsVec.size(); i++)
 	{
+		Rent x = rentsVec[i];
+
 		for (int j = 0; j < rentsVec[i].getReservations().size(); j++)
 		{
 			BSTItrIn<Users> it(receipt);
-
 			while (!it.isAtEnd())
 			{
-				Rent x = rentsVec[i];
-				if (x.getReservations()[j].getnif() == it.retrieve().getNif())
+				if (it.retrieve().getNif() == x.getReservations()[j].getnif())
 				{
-					cout << it.retrieve().getUsername() << " " << it.retrieve().getNif() << endl << " RESERVATION DATE 1: " << x.getReservations()[j].getDate1() << endl;
 					it.retrieve().addReservation(x.getReservations()[j]);
 					it.retrieve().orderReservations();
 				}
 				it.advance();
-
+				if ((!checkExistance(x.getReservations()[j].getnif())) && it.isAtEnd())
+				{
+					notFound.retrieve().addReservation(x.getReservations()[j]);
+					notFound.retrieve().orderReservations();
+				}
 			}
+		
 		}
 	}
 }
@@ -178,16 +194,30 @@ void Corporation::displayBST()
 	BSTItrIn<Users> it(receipt);
 	while (!it.isAtEnd())
 	{
-		cout << it.retrieve().getNif() << endl;
+		cout << it.retrieve().getNif() << ": RESERVATIONS : \n";
 		for (int i = 0; i < it.retrieve().getReservation().size(); i++)
 		{
-			cout << it.retrieve().getReservation()[i].getDate1() << " ";
+			cout << it.retrieve().getReservation()[i].getnif() << " " << it.retrieve().getReservation()[i].getDate1() << " " << endl;
 		}
-		cout << endl;
 		it.advance();
 	}
 }
 
+
+bool Corporation::checkExistance(int nif)
+{
+	for (int i = 0; i < usersVec.size(); i++)
+	{
+		if (nif == usersVec[i].getNif())
+		{
+			//cout << "ESTÁ LÁ FODASSE\n";
+			return true;
+		}
+
+
+	}
+	return false;
+}
 
 
 void Corporation::login() {
