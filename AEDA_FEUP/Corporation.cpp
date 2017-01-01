@@ -161,7 +161,6 @@ void Corporation::createBST()
 				Rent x = rentsVec[i];
 				if (x.getReservations()[j].getnif() == it.retrieve().getNif())
 				{
-					cout << it.retrieve().getUsername() << " " << it.retrieve().getNif() << endl << " RESERVATION DATE 1: " << x.getReservations()[j].getDate1() << endl;
 					it.retrieve().addReservation(x.getReservations()[j]);
 					it.retrieve().orderReservations();
 				}
@@ -170,6 +169,8 @@ void Corporation::createBST()
 			}
 		}
 	}
+
+	return;
 }
 
 
@@ -188,8 +189,6 @@ void Corporation::displayBST()
 	}
 }
 
-
-
 void Corporation::login() {
 
 	string password, user;
@@ -198,6 +197,9 @@ void Corporation::login() {
 	bool isIn = true;
 
 	while (isIn) {
+
+		u1.setColor(14); cout << "\n  ::| LOGIN |::\n\n"; u1.setColor(15);
+
 		cout << "Username:  ";
 		getline(cin, user);
 
@@ -236,14 +238,67 @@ void Corporation::login() {
 		}
 
 		if (!foundUser && !foundSupplier) {
+			u1.setColor(12);
 			cout << "\n  ERROR: The username/password combination you inserted does not exist.";
 			Sleep(1500);
-			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z.";
+			cout << endl << "  Please try again. If you wish to cancel the operation press CTRL + Z."; u1.setColor(15);
 			Sleep(1500);
 			u1.clearScreen();
 			continue;
 		}
 	}
+}
+
+void Corporation::managmentLogin(){
+
+	string password, user;
+	bool isIn = true;
+
+	while (isIn) {
+
+		u1.setColor(14); cout << "\n  ::| LOGIN |::\n\n"; u1.setColor(15);
+
+		u1.setColor(11); cout << "Insert the manager credentials below:\n\n"; u1.setColor(15);
+
+		cout << " Username:  ";
+		getline(cin, user);
+
+		if (user != "manager") {
+			u1.setColor(12); cout << "The username you inserted does not match the manager's one.\n";
+			Sleep(1500);
+			cout << endl << "  Please try again or login normally from the main menu. If you wish to cancel the operation press CTRL + Z."; u1.setColor(15);
+			Sleep(2500);
+			u1.clearScreen();
+			continue;
+		}
+
+		if (cin.eof()) {
+			u1.cancelMessage();
+			corpMenu.MainMenu();
+		}
+
+		cout << "\nPassword:  "; cin >> password;
+
+		if (cin.eof()) {
+			u1.cancelMessage();
+			corpMenu.MainMenu();
+		}
+
+		if (password != "manager123") {
+			u1.setColor(12); cout << "The password you inserted does not match the manager's one.\n";
+			Sleep(1500);
+			cout << endl << "  Please try again or login normally from the main menu. If you wish to cancel the operation press CTRL + Z."; u1.setColor(15);
+			Sleep(2500);
+			u1.clearScreen();
+			continue;
+		}
+
+		u1.cinClear();
+		break;
+	}
+	u1.clearScreen();
+	corpMenu.ManagmentMenu();
+	return;
 }
 
 //Checks existance of the users file
@@ -312,6 +367,9 @@ void Corporation::registerUser() {
 	bool isIn = true;
 
 	while (isIn) {
+
+		u1.setColor(14); cout << "\n  ::| REGISTER |::\n"; u1.setColor(15);
+
 		cout << "\n Username:  "; getline(cin, user);
 
 		if (cin.eof()) {
@@ -942,105 +1000,110 @@ void Corporation::deleteRents()
 void Corporation::registerSupplier() {
 
 	string user, password, nif, address;
+	bool isIn = true;
 
-	cout << "\n Name:  ";
-	getline(cin, user);
+	while (isIn) {
 
-	if (cin.eof()) {
-		u1.cancelMessage();
-		corpMenu.RegisterMenu();
-	}
+		u1.setColor(14); cout << "\n  ::| REGISTER |::\n"; u1.setColor(15);
 
-	for (unsigned int index = 0; index != user.size(); index++) {
-		if (!isalpha(user.at(index)) && user.at(index) != ' ') {
-			u1.setColor(12); cerr << "  ERROR: Name must only contain alphabetic characters. "; u1.setColor(15);
-			Sleep(1500);
-			u1.clearScreen();
-			u1.cinClear();
+		cout << "\n Username:  ";
+		getline(cin, user);
+
+		if (cin.eof()) {
+			u1.cancelMessage();
 			corpMenu.RegisterMenu();
 		}
-	}
+
+		for (unsigned int index = 0; index != user.size(); index++) {
+			if (!isalpha(user.at(index)) && user.at(index) != ' ') {
+				u1.setColor(12); cerr << "  ERROR: Name must only contain alphabetic characters. "; u1.setColor(15);
+				Sleep(1500);
+				u1.clearScreen();
+				u1.cinClear();
+				continue;
+			}
+		}
 
 
-	for (unsigned int index2 = 0; index2 != suppliersVec.size(); index2++) {
-		if (suppliersVec.at(index2).getName() == user) {
-			u1.setColor(12); cerr << "  ERROR: The username you selected already exists. Please choose another one. "; u1.setColor(15);
+		for (unsigned int index2 = 0; index2 != suppliersVec.size(); index2++) {
+			if (suppliersVec.at(index2).getName() == user) {
+				u1.setColor(12); cerr << "  ERROR: The username you selected already exists. Please choose another one. "; u1.setColor(15);
+				Sleep(3000);
+				u1.clearScreen();
+				u1.cinClear();
+				continue;
+			}
+		}
+
+
+		cout << "\n Password:  "; cin >> password;
+		if (cin.eof()) {
+			u1.cancelMessage();
+			corpMenu.RegisterMenu();
+		}
+		u1.cinClear();
+
+		for (unsigned int index3 = 0; index3 != password.size(); index3++) {
+			if (!isalnum(password.at(index3))) {
+				u1.setColor(12); cerr << "  ERROR: Password cannot contain special characters. "; u1.setColor(15);
+				Sleep(3000);
+				u1.clearScreen();
+				continue;
+			}
+		}
+
+		cout << "\n NIF:  "; cin >> nif;
+
+		if (cin.eof()) {
+			u1.cancelMessage();
+			corpMenu.RegisterMenu();
+		}
+		u1.cinClear();
+
+		for (unsigned int index4 = 0; index4 != nif.size(); index4++) {
+			if (!isdigit(nif.at(index4))) {
+				u1.setColor(12); cerr << "  ERROR: NIF can only contain digits. "; u1.setColor(15);
+				Sleep(3000);
+				u1.clearScreen();
+				continue;
+			}
+		}
+
+		for (unsigned int index5 = 0; index5 != suppliersVec.size(); index5++) {
+			if (suppliersVec.at(index5).getNif() == stoi(nif)) {
+				u1.setColor(12); cerr << "  ERROR: The NIF you selected was already found in our system. Probably you already have an account. "; u1.setColor(15);
+				Sleep(3000);
+				u1.clearScreen();
+				continue;
+			}
+
+		}
+
+		if (nif.size() != 9) {
+			u1.setColor(12); cerr << "  ERROR: The NIF must have 9 digits. "; u1.setColor(15);
 			Sleep(3000);
 			u1.clearScreen();
-			u1.cinClear();
-			corpMenu.RegisterMenu();
+			continue;
 		}
-	}
 
+		cout << "\n Address:  "; cin >> address;
 
-	cout << "\n Password:  "; cin >> password;
-	if (cin.eof()) {
-		u1.cancelMessage();
-		corpMenu.RegisterMenu();
-	}
-	u1.cinClear();
-
-	for (unsigned int index3 = 0; index3 != password.size(); index3++) {
-		if (!isalnum(password.at(index3))) {
-			u1.setColor(12); cerr << "  ERROR: Password cannot contain special characters. "; u1.setColor(15);
-			Sleep(3000);
-			u1.clearScreen();
-			corpMenu.RegisterMenu();
-		}
-	}
-
-	cout << "\n NIF:  "; cin >> nif;
-	if (cin.eof()) {
-		u1.cancelMessage();
-		corpMenu.RegisterMenu();
-	}
-	u1.cinClear();
-
-	for (unsigned int index4 = 0; index4 != nif.size(); index4++) {
-		if (!isdigit(nif.at(index4))) {
-			u1.setColor(12); cerr << "  ERROR: NIF can only contain digits. "; u1.setColor(15);
-			Sleep(3000);
-			u1.clearScreen();
-			corpMenu.RegisterMenu();
-		}
-	}
-
-	for (unsigned int index5 = 0; index5 != suppliersVec.size(); index5++) {
-		if (suppliersVec.at(index5).getNif() == stoi(nif)) {
-			u1.setColor(12); cerr << "  ERROR: The NIF you selected was already found in our system. Probably you already have an account. "; u1.setColor(15);
-			Sleep(3000);
-			u1.clearScreen();
+		if (cin.eof()) {
+			u1.cancelMessage();
 			corpMenu.RegisterMenu();
 		}
 
-	}
+		u1.cinClear();
 
-	if (nif.size() != 9) {
-		u1.setColor(12); cerr << "  ERROR: The NIF must have 9 digits. "; u1.setColor(15);
-		Sleep(3000);
-		u1.clearScreen();
-		corpMenu.RegisterMenu();
-	}
-
-	cout << "\n Address:  "; cin >> address;
-
-	if (cin.eof()) {
-		u1.cancelMessage();
-		corpMenu.RegisterMenu();
-	}
-
-	u1.cinClear();
-
-	for (unsigned int i = 0; i != suppliersVec.size(); i++) {
-		if (suppliersVec.at(i).getAddress() == address) {
-			u1.setColor(12); cerr << "  ERROR: The address you selected was already found in our system. Probably you already have an account. "; u1.setColor(15);
-			Sleep(3000);
-			u1.clearScreen();
-			corpMenu.RegisterMenu();
+		for (unsigned int i = 0; i != suppliersVec.size(); i++) {
+			if (suppliersVec.at(i).getAddress() == address) {
+				u1.setColor(12); cerr << "  ERROR: The address you selected was already found in our system. Probably you already have an account. "; u1.setColor(15);
+				Sleep(3000);
+				u1.clearScreen();
+				continue;
+			}
 		}
 	}
-
-
 
 	suppliersVec.push_back(Supplier(user, password, stoi(nif), address));
 	u1.clearScreen();

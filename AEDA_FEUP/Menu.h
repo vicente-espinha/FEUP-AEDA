@@ -6,7 +6,7 @@
 #include <conio.h>
 
 #include "Utilities.h"
-//#include "Corporation.h"
+
 
 using namespace std;
 
@@ -25,6 +25,7 @@ public:
 	string * RegisterItems();//!< a function that returns the register Itmes
 	string * MainMenuItems();//!< a function that returns the main menu items
 	string * SuppliersMenuItems();//!< a function that returns the suppliers menu items
+	string * ManagmentItems();
 
 	// Menu functionalities //
 	void gotoxy(int, int); //!< a function that gets you to a position in the cmd line screen
@@ -35,4 +36,5 @@ public:
 	int RegisterMenu();//!< a function that returns the register menu
 	int UsersMenu();//!< a function that returns the  users menu
 	int SuppliersMenu();//!< a function that returns the suppliers menu
+	int ManagmentMenu();
 };

@@ -58,6 +58,7 @@ public:
 	static Corporation* instance();//!< a function instances variables.
 
 	void login();//!< a function that logins
+	void managmentLogin(); //!< A function used for logging in the manager account
 
 	// PRIORITY_QUEUE
 
