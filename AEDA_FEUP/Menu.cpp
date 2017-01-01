@@ -400,7 +400,7 @@ int Menu::UsersMenu() {
 	ChangeCursorStatus(false);
 	typedef void(*TMenuOption)();
 
-	int ItemCount = 5; // This variable holds the number of menu items.
+	int ItemCount = 6; // This variable holds the number of menu items.
 	int MenuChoice = 1; // This variable holds the position of the cursor. 
 	char key; //For entering the key (up arrow,down arrow,etc...).
 
