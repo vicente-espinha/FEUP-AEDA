@@ -159,10 +159,16 @@ void Corporation::createBST()
 			while (!it.isAtEnd())
 			{
 				Rent x = rentsVec[i];
-				if (x.getReservations[j].getNif() == it.retrieve().getNif())
+				if (x.getReservations()[j].getnif() == it.retrieve().getNif())
+				{
 					it.retrieve().addReservation(x.getReservations[j]);
+					it.retrieve().orderReservations();
+				}
+				it.advance();
+
 			}
-			it.retrieve().orderReservations();
+			
+
 		}
 	}
 }
