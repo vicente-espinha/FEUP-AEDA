@@ -47,6 +47,7 @@ int main() {
 	Corporation::instance()->orderRentsVec();
 	Corporation::instance()->createPriorityQueueFromRents();
 	Corporation::instance()->createBST();
+	Corporation::instance()->createHashUsersInactive();
 
 	u.clearScreen();
 	

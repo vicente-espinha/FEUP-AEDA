@@ -1909,10 +1909,10 @@ void Corporation::createHashUsersInactive() {
 					have_reservations = true;
 
 					if (num_days != 0 && real_date.minus(x.at(j).getDate2()) > num_days)
-						num_days = real_date.minus(x.at(j).getDate2());
+						num_days = real_date.minus(x.at(j).getDate1());
 
 					if (num_days == 0)
-						num_days = real_date.minus(x.at(j).getDate2());
+						num_days = real_date.minus(x.at(j).getDate1());
 				}
 			}
 		}
@@ -1935,24 +1935,5 @@ void Corporation::displayUsersInactive() {
 		cout << (*it).getUsername() << endl;
 		it++;
 	}
-<<<<<<< HEAD
-=======
-
 	u1.pressToContinueMessage();
-}
-
-void Corporation::takeUserofHash(Users &s1) {
-
-	Ash_Users_inactive::iterator it = usersInactives.begin();
-
-	while (it != usersInactives.end()) {
-
-		if ((*it).getNif() == s1.getNif()) {
-			usersInactives.erase(it);
-			return;
-		}
-
-		it++;
-	}
->>>>>>> origin/master
 }
