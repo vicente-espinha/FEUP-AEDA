@@ -49,7 +49,7 @@ public:
 	virtual string getTypeRent() { return typeRent; }//!< a function that returns the typeRent
 	virtual string getName() { return name; }//!< a function that returns the name
 	virtual string getType() { return type; }//!< a function that returns the Type
-	virtual int getNumRooms() { int i =0; return i; }//!< a function that returns the number of rooms
+	virtual int getNumRooms() { int i = 0; return i; }//!< a function that returns the number of rooms
 	virtual bool getKitchen() {bool i = true; return i; }//!< a function that returns true if has kitchen, if not returns false
 	virtual bool getSuite() { bool x = true; return x; }//!< a function that returns true if has Suite, if not returns false
 	virtual bool getLivingRoom() { bool x = true; return x; }//!< a function that returns true if has LivingRoom, if not returns false

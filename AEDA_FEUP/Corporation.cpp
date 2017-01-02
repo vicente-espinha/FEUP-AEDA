@@ -64,6 +64,7 @@ void Corporation::displayDiscounts()
 
 
 	city = Corporation::instance()->cities();
+	u1.cinClear();
 	u1.clearScreen();
 
 
@@ -83,11 +84,11 @@ void Corporation::displayDiscounts()
 				cout << "Room type: " << x.getType() << endl;
 				cout << "Price per night:\n"; u1.setColor(11); cout << "Was: ";
 				if (x.lastRent() > 20 && x.lastRent() < 50)
-					cout << x.getPrice() + 0.05* x.getPrice() << "\n Now: " << x.getPrice() << "." << endl;
+					cout << x.getPrice() + 0.05* x.getPrice() << "\nNow: " << x.getPrice() << endl;
 				else if (x.lastRent() >= 50 && x.lastRent() < 100)
-					cout << x.getPrice() + 0.1* x.getPrice() << "\n Now: " << x.getPrice() << "." << endl;
+					cout << x.getPrice() + 0.1* x.getPrice() << "\nNow: " << x.getPrice() << endl;
 				else if (x.lastRent() >= 100)
-					cout << x.getPrice() + 0.2* x.getPrice() << "\n Now: " << x.getPrice() << "." << endl;
+					cout << x.getPrice() + 0.2* x.getPrice() << "\nNow: " << x.getPrice() << endl;
 				u1.setColor(15);
 				cout << "Capacity: " << x.getNumPeople() << endl << endl;
 				counter++;
@@ -103,11 +104,11 @@ void Corporation::displayDiscounts()
 				cout << "Has Suite: " << x.getSuite() << endl;
 				cout << "Price per night:\n"; u1.setColor(11); cout << "Was: ";
 				if (x.lastRent() > 20 && x.lastRent() < 50)
-					cout << x.getPrice() + 0.05* x.getPrice() << "\n Now: " << x.getPrice() << "." << endl;
+					cout << x.getPrice() + 0.05* x.getPrice() << "\nNow: " << x.getPrice() << endl;
 				else if (x.lastRent() >= 50 && x.lastRent() < 100)
-					cout << x.getPrice() + 0.1* x.getPrice() << "\n Now: " << x.getPrice() << "." << endl;
+					cout << x.getPrice() + 0.1* x.getPrice() << "\nNow: " << x.getPrice() << endl;
 				else if (x.lastRent() >= 100)
-					cout << x.getPrice() + 0.2* x.getPrice() << "\n Now: " << x.getPrice() << "." << endl;
+					cout << x.getPrice() + 0.2* x.getPrice() << "\nNow: " << x.getPrice() << endl;
 				u1.setColor(15);
 				cout << "Capacity: " << x.getNumPeople() << endl << endl;
 				counter++;
@@ -120,11 +121,11 @@ void Corporation::displayDiscounts()
 				cout << "  To: " << x.getDataFim() << endl;
 				cout << "Price per night:\n"; u1.setColor(11); cout << "Was: ";
 				if (x.lastRent() > 20 && x.lastRent() < 50)
-					cout << x.getPrice() + 0.05* x.getPrice() << "\n Now: " << x.getPrice() << "." << endl;
+					cout << x.getPrice() + 0.05* x.getPrice() << "\nNow: " << x.getPrice() << endl;
 				else if (x.lastRent() >= 50 && x.lastRent() < 100)
-					cout << x.getPrice() + 0.1* x.getPrice() << "\n Now: " << x.getPrice() << "." << endl;
+					cout << x.getPrice() + 0.1* x.getPrice() << "\nNow: " << x.getPrice() << endl;
 				else if (x.lastRent() >= 100)
-					cout << x.getPrice() + 0.2* x.getPrice() << "\n Now: " << x.getPrice() << "." << endl;
+					cout << x.getPrice() + 0.2* x.getPrice() << "\nNow: " << x.getPrice() << endl;
 				u1.setColor(15);
 				cout << "Capacity: " << x.getNumPeople() << endl << endl;
 				counter++;
@@ -202,22 +203,24 @@ void Corporation::displayBST()
 
 	while (!it.isAtEnd())
 	{
+		if (!(it.retrieve().getReservation().empty())) {
 
-		if (it.retrieve().getNif() == nonReg) {
-			u1.setColor(14); cout << "Reservations made by unregistered users: \n\n"; u1.setColor(15);
+			if (it.retrieve().getNif() == nonReg) {
+				u1.setColor(14); cout << "Reservations made by unregistered users: \n\n"; u1.setColor(15);
 
-			for (int i = 0; i < it.retrieve().getReservation().size(); i++) {
-				cout << "  NIF: " << it.retrieve().getReservation()[i].getnif() << "\n  Check-in Date: " << it.retrieve().getReservation()[i].getDate1() << "\n  Check-out Date: " << it.retrieve().getReservation()[i].getDate2() << "\n  Price: " << it.retrieve().getReservation()[i].getPrice() << endl << endl;
+				for (int i = 0; i < it.retrieve().getReservation().size(); i++) {
+					cout << "  NIF: " << it.retrieve().getReservation()[i].getnif() << "\n  Check-in Date: " << it.retrieve().getReservation()[i].getDate1() << "\n  Check-out Date: " << it.retrieve().getReservation()[i].getDate2() << "\n  Price: " << it.retrieve().getReservation()[i].getPrice() << " euros" << endl << endl;
+				}
+			}
+			else {
+				u1.setColor(14); cout << "Reservations made by: " << it.retrieve().getUsername() << endl << endl; u1.setColor(15);
+				for (int i = 0; i < it.retrieve().getReservation().size(); i++) {
+					cout << "  Check-in Date: " << it.retrieve().getReservation()[i].getDate1() << "\n  Check-out Date: " << it.retrieve().getReservation()[i].getDate2() << "\n  Price: " << it.retrieve().getReservation()[i].getPrice() << " euros" << endl << endl;
+				}
 			}
 		}
-		else {
-			u1.setColor(14); cout << "Reservations made by: " << it.retrieve().getUsername() << endl << endl; u1.setColor(15);
-			for (int i = 0; i < it.retrieve().getReservation().size(); i++) {
-				cout << "  Check-in Date: " << it.retrieve().getReservation()[i].getDate1() << "\n  Check-out Date: " << it.retrieve().getReservation()[i].getDate2() << "\n  Price: " << it.retrieve().getReservation()[i].getPrice() << endl << endl;
-			}
-		}
+		
 		it.advance();
-		cout << endl;
 	}
 
 	u1.pressToContinueMessage();
@@ -231,8 +234,6 @@ bool Corporation::checkExistance(int nif)
 		{
 			return true;
 		}
-
-
 	}
 	return false;
 }
@@ -268,6 +269,7 @@ void Corporation::login() {
 		for (size_t i = 0; i != usersVec.size(); i++) {
 			if (usersVec.at(i).getUsername() == user && usersVec.at(i).getPassword() == password) {
 				Corporation::instance()->username = user;
+				Corporation::instance()->nif = usersVec.at(i).getNif();
 				foundUser = true;
 				u1.clearScreen();
 				corpMenu.UsersMenu();
@@ -278,6 +280,7 @@ void Corporation::login() {
 		for (size_t i = 0; i != suppliersVec.size(); i++) {
 			if (suppliersVec.at(i).getName() == user && suppliersVec.at(i).getPassword() == password) {
 				Corporation::instance()->supplierName = user;
+				Corporation::instance()->nif = suppliersVec.at(i).getNif();
 				foundSupplier = true;
 				u1.clearScreen();
 				corpMenu.SuppliersMenu();
@@ -518,66 +521,52 @@ void Corporation::registerUser() {
 void Corporation::printSuppliersRents()
 {
 	int counter = 1;
-	for (int i = 0; i < rentsVec.size(); i++)
-		for (int j = 0; j < suppliersVec.size(); j++) {
-			if (Corporation::instance()->supplierName == suppliersVec[j].getName()) {
+	
+	u1.setColor(14); cout << "Your active rents: \n\n"; u1.setColor(15);
 
-				Rent x = rentsVec[i];
-				cout << counter << "- ";
-				cout << "The rent is in " << x.getCity() << ", starts on " << x.getDataInicio() << ", ends on " << x.getDataFim() << ".\n";
-				if (x.getTypeRent() == "Hotel")
-				{
-					cout << "It is a hotel, more specifically a " << x.getType() << ", named " << x.getName() << ", with " << x.getNumPeople() << "ocupants. \nIt's price per night is " << x.getPrice() << ".\n";
-					counter++;
-				}
-				if (x.getTypeRent() == "Apartment")
-				{
-					cout << "It is an apartment, under the name of " << x.getName() << "housing " << x.getNumPeople() << "ocupants, from " << x.getDataInicio() << " to " << x.getDataFim() << ".\n";
-					if (x.getKitchen())
-						cout << "It has a kitchen, ";
-					else
-						cout << "It has no kitchen, ";
-					if (x.getSuite())
-						cout << "has a suite, ";
-					else
-						cout << "doesn't have a suite, ";
-					if (x.getLivingRoom())
-						cout << " and has a living room.";
-					else
-						cout << " and it doesn't have a living room.";
-					cout << "The total price per night is " << x.getPrice() << ".\n";
-					counter++;
-				}
-				if (x.getTypeRent() == "Flat")
-				{
-					cout << "It is a flat, under the name of " << x.getName() << "housing " << x.getNumPeople() << "ocupants, from " << x.getDataInicio() << " to " << x.getDataFim() << ".\n";
-					if (x.getKitchen())
-						cout << "It has a kitchen, ";
-					else
-						cout << "It has no kitchen, ";
-
-					cout << "and the total price per night is " << x.getPrice() << ".\n";
-					counter++;
-				}
-				if (x.getTypeRent() == "Shared House")
-				{
-					cout << "It is a shared house, under the name of " << x.getName() << "housing " << x.getNumPeople() << "ocupants, from " << x.getDataInicio() << " to " << x.getDataFim() << ".\n";
-
-					cout << "The the total price per night is " << x.getPrice() << ".\n";
-					counter++;
-				}
-				else
-				{
-					cout << "It is a Bed'n'Breakfast, named of " << x.getName() << "housing " << x.getNumPeople() << "ocupants, from " << x.getDataInicio() << " to " << x.getDataFim() << ".\n";
-
-					cout << "The the total price per night is " << x.getPrice() << ".\n";
-					counter++;
-				}
+	for (int i = 0; i < rentsVec.size(); i++) {
+		if (nif == rentsVec.at(i).getNif()) {
+			if (rentsVec.at(i).getTypeRent() == "Hotel") {
+				u1.setColor(11); cout << "Rent [" << counter << "]\n"; u1.setColor(15);
+				cout << "Type of accomodation: " << rentsVec.at(i).getTypeRent() << endl;
+				cout << "Name: " << rentsVec.at(i).getName() << endl;
+				cout << "Available from: " << rentsVec.at(i).getDataInicio();
+				cout << "   To: " << rentsVec.at(i).getDataFim() << endl;
+				cout << "Price per night: " << rentsVec.at(i).getPrice() << endl;
+				cout << "Capacity: " << rentsVec.at(i).getNumPeople() << endl;
+				cout << "Type of room: " << rentsVec.at(i).getType() << endl << endl;
+				counter++;
+			}
+			else if (rentsVec.at(i).getTypeRent() == "Apartment") {
+				u1.setColor(11); cout << "Rent [" << counter << "]\n"; u1.setColor(15);
+				cout << "Type of accomodation: " << rentsVec.at(i).getTypeRent() << endl;
+				cout << "Name: " << rentsVec.at(i).getName() << endl;
+				cout << "Available from: " << rentsVec.at(i).getDataInicio();
+				cout << "   To: " << rentsVec.at(i).getDataFim() << endl;
+				cout << "Has Kitchen: " << rentsVec.at(i).getKitchen() << endl;
+				cout << "Has Living Room: " << rentsVec.at(i).getLivingRoom() << endl;
+				cout << "Has Suite: " << rentsVec.at(i).getSuite() << endl;
+				cout << "Price per night: " << rentsVec.at(i).getPrice() << endl;
+				cout << "Capacity: " << rentsVec.at(i).getNumPeople() << endl << endl;
+				counter++;
+			}
+			else {
+				u1.setColor(11); cout << "Rent [" << counter << "]\n"; u1.setColor(15);
+				cout << "Type of accomodation: " << rentsVec.at(i).getTypeRent() << endl;
+				cout << "Name: " << rentsVec.at(i).getName() << endl;
+				cout << "Available from: " << rentsVec.at(i).getDataInicio();
+				cout << "   To: " << rentsVec.at(i).getDataFim() << endl;
+				cout << "Price per night: " << rentsVec.at(i).getPrice() << endl;
+				cout << "Capacity: " << rentsVec.at(i).getNumPeople() << endl << endl;
+				counter++;
 			}
 		}
+	}
+
 	if (counter == 1) {
 		cout << "You currently have no rents... You can add a rent in the Menu.\n";
 	}
+
 	u1.pressToContinueMessage();
 
 }
@@ -1586,6 +1575,7 @@ void Corporation::makeReservation() // o unico erro é como dar display das rents
 	//ALTERAR O CONSTRUTOR DE RENTS
 	rentsVec[v[option - 1]].setReservation(Reservation(nif, totalPrice, date1, date2));
 	createPriorityQueueFromRents();
+	createHashUsersInactive();
 	u1.successMessage();
 	return;
 }
@@ -1729,26 +1719,29 @@ void Corporation::printUsersReservations()
 {
 	int counter = 1;
 
-	for (int i = 0; i < rentsVec.size(); i++) {
+	u1.setColor(14); cout << "Your active reservations: \n"; u1.setColor(15);
 
-		if (Corporation::instance()->username == usersVec[i].getUsername())
-		{
-			vector<Reservation> x = rentsVec[i].getReservations();
-			for (int j = 0; j < x.size(); j++)
-			{
-				cout << "Reservation " << counter << ":\nBeginning date: " << x[j].getDate1().getDay() << "/" << x[j].getDate1().getMonth() << "/" << x[j].getDate1().getYear() << ", whose price totals " << x[j].getPrice() << ".\n";
-				counter++;
-			}
-			Sleep(1000);
-			for (int j = 0; j < rentsVec[i].getReservations().size(); j++) {
-				cout << "Reservation number " << counter << " starting on date " << rentsVec[i].getReservations()[j].getDate1() << " ,finishing on date " << rentsVec[i].getReservations()[j].getDate2() << " ,whose price totals " << rentsVec[i].getReservations()[j].getPrice() << ".\n";
+	
+	u1.setColor(11); cout << endl << left << "  " << setw(20) << "Check-in" << setw(20) << "Check-out" << setw(20) << "Price" << endl;
+	cout << "  ----------------------------------------------"; u1.setColor(15);
+
+	for (int i = 0; i < rentsVec.size(); i++) {
+		for (int j = 0; j < rentsVec.at(i).getReservations().size(); j++) {
+			if (nif == rentsVec.at(i).getReservations().at(j).getnif()) {
+				cout << endl << left << "  "  << rentsVec.at(i).getReservations().at(j).getDate1() 
+					 << "          " << rentsVec.at(i).getReservations().at(j).getDate2() 
+					 << "          " << rentsVec.at(i).getReservations().at(j).getPrice();
 				counter++;
 			}
 		}
 	}
+
 	if (counter == 1) {
-		cout << "There are currently no reservations made in your name... \nYou can add a reservation in your name in the Menu.\n";
+		u1.setColor(14);
+		cout << "\n  You do not have any active reservations at the moment.\n";
+		u1.setColor(15);
 	}
+
 	u1.pressToContinueMessage();
 
 
@@ -1924,15 +1917,18 @@ void Corporation::createHashUsersInactive() {
 	usersInactives = temp;
 }
 
-
-
 void Corporation::displayUsersInactive() {
 
 	Ash_Users_inactive::iterator it = usersInactives.begin();
 
-	while (it != usersInactives.end()) {
+	u1.setColor(14); cout << "The following users have been inactive for 60 days: \n\n"; u1.setColor(15);
 
-		cout << (*it).getUsername() << endl;
+	u1.setColor(11); cout << endl << left << "  " << setw(20) << "Username" << setw(20) << "NIF" << endl;
+	cout << "  ------------------------------" << endl; u1.setColor(15);
+	while (it != usersInactives.end()) {
+		if (!((*it).getUsername() == "_NON REG")) {
+			cout << left << "  " << setw(20) << (*it).getUsername() << setw(20) << (*it).getNif() << endl;
+		}
 		it++;
 	}
 	u1.pressToContinueMessage();

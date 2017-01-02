@@ -54,6 +54,7 @@ private:
 public:
 
 	string username, supplierName;//!< saves the username and password that were loged in.
+	long nif;
 	
 	static Corporation* instance();//!< a function instances variables.
 

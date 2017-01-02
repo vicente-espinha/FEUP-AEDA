@@ -732,7 +732,8 @@ apartment::apartment(long nif, string tipoRent, string name, string cidade, Date
 	hasKitchen = kitchen;
 	hasSuite = suite;
 	hasLivingRoom = livingroom;
-	numRooms = numrooms;
+	this->numPeople = numOcupantes;
+	this->numRooms = numrooms;
 }
 
 apartment apartment::buildRent(long nif)
@@ -1104,11 +1105,6 @@ apartment apartment::buildRent(long nif)
 
 	Date d1 = Date(date1);
 	Date d2 = Date(date2);
-
-	cout << numRooms;
-	Sleep(4000);
-
-
 	u2.clearScreen();
 
 

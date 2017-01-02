@@ -1,12 +1,16 @@
 123456789 ; Shared House ; Vitor Manuel ; Portalegre ; 27/12/2016 ; 09/09/2018 ; 10 ; 10
 0 ;
-122121212 ; Apartment ; Flat do Pedro ; Setubal ; 12/12/2016 ; 13/01/2017 ; 12 ; 3 ; 0 ; 1 ; 1 ; 1
+122121212 ; Apartment ; Final test ; Evora ; 01/01/2018 ; 02/02/2018 ; 10 ; 2 ; -858993460 ; 1 ; 1 ; 1
+0 ;
+122121212 ; Apartment ; Flat do Pedro ; Setubal ; 12/12/2016 ; 13/01/2017 ; 12 ; 3 ; -858993460 ; 1 ; 1 ; 1
 1 ; 123456792 ; 01/01/2017 ; 02/01/2017
-123456789 ; Apartment ; Condominio do Mar ; Evora ; 27/12/2016 ; 09/09/2018 ; 12 ; 5 ; 0 ; 1 ; 1 ; 1
+123456789 ; Apartment ; Condominio do Mar ; Evora ; 27/12/2016 ; 09/09/2018 ; 12 ; 5 ; -858993460 ; 1 ; 1 ; 1
 0 ;
 123456789 ; Flat ; Flat ; Viseu ; 29/11/2017 ; 30/11/2017 ; 12 ; 5
 0 ;
-123456789 ; Apartment ; Quinta das Flores ; Leiria ; 27/12/2016 ; 09/09/2018 ; 15 ; 5 ; 0 ; 1 ; 1 ; 1
+123456789 ; Apartment ; Quinta das Flores ; Leiria ; 27/12/2016 ; 09/09/2018 ; 15 ; 5 ; -858993460 ; 1 ; 1 ; 1
+0 ;
+122121212 ; Apartment ; Teste ; Faro ; 12/12/2017 ; 12/12/2018 ; 20 ; 5 ; -858993460 ; 1 ; 1 ; 1
 0 ;
 123456789 ; Flat ; Vivenda Pereira ; Porto ; 27/12/2016 ; 09/09/2018 ; 20.5 ; 5
 0 ;
@@ -14,15 +18,15 @@
 0 ;
 123456789 ; Bed'n'Breakfast ; Bn'B Lisbon ; Lisboa ; 27/12/2016 ; 09/09/2018 ; 30 ; 4
 0 ;
-123456789 ; Apartment ; Apart ; Coimbra ; 27/12/2016 ; 09/09/2018 ; 30 ; 5 ; 0 ; 1 ; 1 ; 1
+123456789 ; Apartment ; Apart ; Coimbra ; 27/12/2016 ; 09/09/2018 ; 30 ; 5 ; -858993460 ; 1 ; 1 ; 1
 0 ;
-123456789 ; Apartment ; Apartment ; Leiria ; 29/12/2016 ; 03/01/2017 ; 34 ; 12 ; 0 ; 1 ; 1 ; 1
+123456789 ; Apartment ; Apartment ; Leiria ; 29/12/2016 ; 03/01/2017 ; 34 ; 12 ; -858993460 ; 1 ; 1 ; 1
 0 ;
 123456789 ; Shared House ; Nice ; Porto ; 12/12/2016 ; 13/12/2016 ; 35 ; 2
 0 ;
 122121212 ; Hotel ; Hotel do Pedro ; Bragança ; 12/01/2017 ; 30/12/2017 ; Triple Room ; 40 ; 3
 0 ;
-123456789 ; Apartment ; Come over here ; Coimbra ; 19/01/2017 ; 31/12/2018 ; 40 ; 12 ; 0 ; 1 ; 1 ; 1
+123456789 ; Apartment ; Come over here ; Coimbra ; 19/01/2017 ; 31/12/2018 ; 40 ; 12 ; -858993460 ; 1 ; 1 ; 1
 0 ;
 123456789 ; Hotel ; Hotel Viana ; Viana do Castelo ; 27/12/2016 ; 09/09/2018 ; Simple Room ; 60 ; 1
 0 ;
@@ -36,7 +40,9 @@
 1 ; 123124000 ; 01/01/2017 ; 02/01/2017
 123456789 ; Flat ; Catelo Branco Flat ; Castelo Branco ; 06/12/2016 ; 20/07/2020 ; 100 ; 5
 0 ;
-123456789 ; Apartment ; Guarda test ; Guarda ; 12/12/2017 ; 30/06/2018 ; 120 ; 12 ; 0 ; 1 ; 1 ; 1
+122121212 ; Apartment ; vdjh ; Aveiro ; 01/01/2018 ; 01/02/2018 ; 100 ; 12 ; -858993460 ; 1 ; 1 ; 1
+0 ;
+123456789 ; Apartment ; Guarda test ; Guarda ; 12/12/2017 ; 30/06/2018 ; 120 ; 12 ; -858993460 ; 1 ; 1 ; 1
 0 ;
 213213122 ; Bed'n'Breakfast ; Joaquim dos Santos ; Aveiro ; 01/01/2017 ; 04/12/2017 ; 200 ; 3
 3 ; 123123120 ; 02/02/2017 ; 03/04/2017 ; 123321120 ; 04/04/2017 ; 05/04/2017 ; 321123136 ; 31/11/2017 ; 03/12/2017
@@ -45,4 +51,6 @@
 123456789 ; Shared House ; SH Beja ; Beja ; 24/03/2017 ; 04/04/2017 ; 200 ; 6
 0 ;
 123456789 ; Hotel ; Hotel Aveiro ; Aveiro ; 30/12/2016 ; 02/01/2017 ; Double Room ; 250 ; 2
+0 ;
+122121212 ; Apartment ; qq ; Viseu ; 01/01/2018 ; 01/02/2018 ; 12 ; 2 ; -858993460 ; 1 ; 1 ; 1
 0 ;

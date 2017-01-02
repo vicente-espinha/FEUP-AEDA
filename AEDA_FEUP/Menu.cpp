@@ -228,7 +228,7 @@ void ViewReceiptsOption() {
 }
 
 /*-------Return and exit options--------*/
-void Logout() { u.clearScreen(); Corporation::instance()->username = ""; Corporation::instance()->supplierName = ""; m.MainMenu(); }
+void Logout() { u.clearScreen(); Corporation::instance()->username = ""; Corporation::instance()->supplierName = ""; Corporation::instance()->nif = 0; m.MainMenu(); }
 
 void ExitOption() { 
 	Corporation::instance()->saveUsers();
