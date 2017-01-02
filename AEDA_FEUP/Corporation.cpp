@@ -81,13 +81,14 @@ void Corporation::displayDiscounts()
 				cout << "Available from: " << x.getDataInicio();
 				cout << "  To: " << x.getDataFim() << endl;
 				cout << "Room type: " << x.getType() << endl;
-				cout << "Price per night used to be: ";
+				cout << "Price per night:\n"; u1.setColor(11); cout << "Was: ";
 				if (x.lastRent() > 20 && x.lastRent() < 50)
-					cout << x.getPrice() + 0.05* x.getPrice() << " and now is " << x.getPrice() << "." << endl;
+					cout << x.getPrice() + 0.05* x.getPrice() << "\n Now: " << x.getPrice() << "." << endl;
 				else if (x.lastRent() >= 50 && x.lastRent() < 100)
-					cout << x.getPrice() + 0.1* x.getPrice() << " and now is " << x.getPrice() << "." << endl;
+					cout << x.getPrice() + 0.1* x.getPrice() << "\n Now: " << x.getPrice() << "." << endl;
 				else if (x.lastRent() >= 100)
-					cout << x.getPrice() + 0.2* x.getPrice() << " and now is " << x.getPrice() << "." << endl;
+					cout << x.getPrice() + 0.2* x.getPrice() << "\n Now: " << x.getPrice() << "." << endl;
+				u1.setColor(15);
 				cout << "Capacity: " << x.getNumPeople() << endl << endl;
 				counter++;
 			}
@@ -100,12 +101,14 @@ void Corporation::displayDiscounts()
 				cout << "Has Kitchen: " << x.getKitchen() << endl;
 				cout << "Has Living Room: " << x.getLivingRoom() << endl;
 				cout << "Has Suite: " << x.getSuite() << endl;
+				cout << "Price per night:\n"; u1.setColor(11); cout << "Was: ";
 				if (x.lastRent() > 20 && x.lastRent() < 50)
-					cout << x.getPrice() + 0.05* x.getPrice() << " and now is " << x.getPrice() << "." << endl;
+					cout << x.getPrice() + 0.05* x.getPrice() << "\n Now: " << x.getPrice() << "." << endl;
 				else if (x.lastRent() >= 50 && x.lastRent() < 100)
-					cout << x.getPrice() + 0.1* x.getPrice() << " and now is " << x.getPrice() << "." << endl;
+					cout << x.getPrice() + 0.1* x.getPrice() << "\n Now: " << x.getPrice() << "." << endl;
 				else if (x.lastRent() >= 100)
-					cout << x.getPrice() + 0.2* x.getPrice() << " and now is " << x.getPrice() << "." << endl;
+					cout << x.getPrice() + 0.2* x.getPrice() << "\n Now: " << x.getPrice() << "." << endl;
+				u1.setColor(15);
 				cout << "Capacity: " << x.getNumPeople() << endl << endl;
 				counter++;
 			}
@@ -115,12 +118,14 @@ void Corporation::displayDiscounts()
 				cout << "Name: " << x.getName() << endl;
 				cout << "Available from: " << x.getDataInicio();
 				cout << "  To: " << x.getDataFim() << endl;
+				cout << "Price per night:\n"; u1.setColor(11); cout << "Was: ";
 				if (x.lastRent() > 20 && x.lastRent() < 50)
-					cout << x.getPrice() + 0.05* x.getPrice() << " and now is " << x.getPrice() << "." << endl;
+					cout << x.getPrice() + 0.05* x.getPrice() << "\n Now: " << x.getPrice() << "." << endl;
 				else if (x.lastRent() >= 50 && x.lastRent() < 100)
-					cout << x.getPrice() + 0.1* x.getPrice() << " and now is " << x.getPrice() << "." << endl;
+					cout << x.getPrice() + 0.1* x.getPrice() << "\n Now: " << x.getPrice() << "." << endl;
 				else if (x.lastRent() >= 100)
-					cout << x.getPrice() + 0.2* x.getPrice() << " and now is " << x.getPrice() << "." << endl;
+					cout << x.getPrice() + 0.2* x.getPrice() << "\n Now: " << x.getPrice() << "." << endl;
+				u1.setColor(15);
 				cout << "Capacity: " << x.getNumPeople() << endl << endl;
 				counter++;
 
@@ -138,8 +143,7 @@ void Corporation::displayDiscounts()
 
 	cout << "\n In order to make a reservation, please proceed to the appropriate menu.\n";
 
-	Sleep(4000);
-	u1.successMessage();
+	u1.pressToContinueMessage();
 	return;
 
 }
@@ -194,15 +198,29 @@ void Corporation::createBST()
 void Corporation::displayBST()
 {
 	BSTItrIn<Users> it(receipt);
+	long nonReg = 999999999;
+
 	while (!it.isAtEnd())
 	{
-		cout << it.retrieve().getNif() << ": RESERVATIONS : \n";
-		for (int i = 0; i < it.retrieve().getReservation().size(); i++)
-		{
-			cout << it.retrieve().getReservation()[i].getnif() << " " << it.retrieve().getReservation()[i].getDate1() << " " << endl;
+
+		if (it.retrieve().getNif() == nonReg) {
+			u1.setColor(14); cout << "Reservations made by unregistered users: \n\n"; u1.setColor(15);
+
+			for (int i = 0; i < it.retrieve().getReservation().size(); i++) {
+				cout << "  NIF: " << it.retrieve().getReservation()[i].getnif() << "\n  Check-in Date: " << it.retrieve().getReservation()[i].getDate1() << "\n  Check-out Date: " << it.retrieve().getReservation()[i].getDate2() << "\n  Price: " << it.retrieve().getReservation()[i].getPrice() << endl << endl;
+			}
+		}
+		else {
+			u1.setColor(14); cout << "Reservations made by: " << it.retrieve().getUsername() << endl << endl; u1.setColor(15);
+			for (int i = 0; i < it.retrieve().getReservation().size(); i++) {
+				cout << "  Check-in Date: " << it.retrieve().getReservation()[i].getDate1() << "\n  Check-out Date: " << it.retrieve().getReservation()[i].getDate2() << "\n  Price: " << it.retrieve().getReservation()[i].getPrice() << endl << endl;
+			}
 		}
 		it.advance();
+		cout << endl;
 	}
+
+	u1.pressToContinueMessage();
 }
 
 bool Corporation::checkExistance(int nif)
@@ -211,7 +229,6 @@ bool Corporation::checkExistance(int nif)
 	{
 		if (nif == usersVec[i].getNif())
 		{
-			//cout << "ESTÁ LÁ FODASSE\n";
 			return true;
 		}
 
@@ -308,7 +325,7 @@ void Corporation::managmentLogin(){
 			corpMenu.MainMenu();
 		}
 
-		cout << "\nPassword:  "; cin >> password;
+		cout << "\n Password:  "; cin >> password;
 
 		if (cin.eof()) {
 			u1.cancelMessage();
@@ -325,10 +342,10 @@ void Corporation::managmentLogin(){
 		}
 
 		u1.cinClear();
-		break;
+		u1.clearScreen();
+		corpMenu.ManagmentMenu();
 	}
-	u1.clearScreen();
-	corpMenu.ManagmentMenu();
+	
 	return;
 }
 
@@ -1336,7 +1353,6 @@ void Corporation::makeRent() {
 
 void Corporation::makeReservation() // o unico erro é como dar display das rents e ainda vai haver modificacoes na estrutura da funcao
 {
-
 	string city, nameRent, typeRent, type;
 	unsigned int n_people, n, counter = 1, option;
 	bool isIn = true;
@@ -1919,4 +1935,24 @@ void Corporation::displayUsersInactive() {
 		cout << (*it).getUsername() << endl;
 		it++;
 	}
+<<<<<<< HEAD
+=======
+
+	u1.pressToContinueMessage();
+}
+
+void Corporation::takeUserofHash(Users &s1) {
+
+	Ash_Users_inactive::iterator it = usersInactives.begin();
+
+	while (it != usersInactives.end()) {
+
+		if ((*it).getNif() == s1.getNif()) {
+			usersInactives.erase(it);
+			return;
+		}
+
+		it++;
+	}
+>>>>>>> origin/master
 }

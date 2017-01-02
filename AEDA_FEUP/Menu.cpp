@@ -110,6 +110,7 @@ string * Menu::ManagmentItems() {
 
 	return item;
 }
+
 ///////////////////
 // MENU OPTIONS //
 //////////////////
@@ -143,7 +144,7 @@ void UnregUserOption() {
 void ManagmentOption() {
 	u.clearScreen();
 	Corporation::instance()->managmentLogin();
-	m.ManagmentMenu();
+	u.clearScreen();
 }
 
 /*-------Register Menu Options------*/
@@ -562,7 +563,7 @@ int Menu::ManagmentMenu() {
 
 			gotoxy(2, 2 + i);
 			MenuChoice == i + 1 ? cout << " -> " : cout << "    "; // if (i+1) == MenuChoice, ' -> ', else print '    '.
-			cout << MainMenuItems()[i] << endl;
+			cout << ManagmentItems()[i] << endl;
 		}
 
 		key = _getch(); //get the key.
