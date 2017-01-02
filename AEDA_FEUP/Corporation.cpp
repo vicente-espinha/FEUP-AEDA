@@ -1920,18 +1920,3 @@ void Corporation::displayUsersInactive() {
 		it++;
 	}
 }
-
-void Corporation::takeUserofHash(Users &s1) {
-
-	Ash_Users_inactive::iterator it = usersInactives.begin();
-
-	while (it != usersInactives.end()) {
-
-		if ((*it).getNif() == s1.getNif()) {
-			usersInactives.erase(it);
-			return;
-		}
-
-		it++;
-	}
-}

@@ -37,12 +37,12 @@ public:
 	string getPassword();//!< a function that returns the password.
 	int getPoints();//!< a function that returns the points.
 	long getNif()const ;//!< a function that returns the nif.
-	friend bool operator==(const Users &u1, const Users &s2);
-	bool operator<(const Users &u1) const;
+	friend bool operator==(const Users &u1, const Users &s2);//!< a function that returns true if the users are the same,else returns false
+	bool operator<(const Users &u1) const;//!< a function that returns true if the users username is alphabetic bigger
 	bool checkExistance(string username, string password);//!< a function that checks existance
-	void orderReservations();
-	vector<Reservation> getReservation() { return reserVec; }
-	void addReservation(Reservation &r1) { reserVec.push_back(r1); }
+	void orderReservations();//!< a function that puts the reservation vector in order
+	vector<Reservation> getReservation() { return reserVec; }//!< a function that returns a vector that contains the user's reservation
+	void addReservation(Reservation &r1) { reserVec.push_back(r1); }//!< a function that adds a reservation to the vector of reservations
 };
 
 

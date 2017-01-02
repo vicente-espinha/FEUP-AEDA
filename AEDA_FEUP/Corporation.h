@@ -48,9 +48,9 @@ private:
 	vector<Users> usersVec; /*!<  "usersVec" is the vector that contains the users information*/
 	vector<Supplier> suppliersVec;/*!<  "suppliersVec" is the vector that contains the suppliers information*/
 	vector<Rent> rentsVec;/*!<  "rentsVec" is the vector that contains the rents and reservations information*/
-	priority_queue<Rent> discountsRents;
-	Ash_Users_inactive usersInactives;
-	BST<Users> receipt;
+	priority_queue<Rent> discountsRents;/*!<  "discountsRents" is the priority_queue that contains the rents in order that the first rent is the one which has the most time since last reservation*/
+	Ash_Users_inactive usersInactives;/*!<  "usersInactives" is the hash that contains the inactive users*/
+	BST<Users> receipt;/*!< "receipt" is the BST that contains the receipts of the users in alphabetical order*/
 public:
 
 	string username, supplierName;//!< saves the username and password that were loged in.
@@ -62,14 +62,14 @@ public:
 
 	// PRIORITY_QUEUE
 
-	void createPriorityQueueFromRents();
-	vector<Rent> setDiscounts(vector<Rent> v);
-	void displayDiscounts();
+	void createPriorityQueueFromRents();//!< a function that creates and updates the priority_queue "discountsRents"
+	vector<Rent> setDiscounts(vector<Rent> v);//!< a function that sets the discounts
+	void displayDiscounts();//!< a function that displays the discounts made by the company
 
 	// BST
 
-	void createBST();
-	void displayBST();
+	void createBST();//!< a function that creates the BST
+	void displayBST();//!< a function that displays the Users that the BST has
 	bool checkExistance(int nif);
 
 	bool foundUsersFile(string userFiles);//!< a function that checks if the file is correct.
@@ -98,8 +98,7 @@ public:
 	void deleteRents();//!< a function that deletes the rents
 
 
-	void createHashUsersInactive();
-	void takeUserofHash(Users &s1);
-	void displayUsersInactive();
+	void createHashUsersInactive();//!< a function that creates or updates the hash that contains the inactive users
+	void displayUsersInactive();//!< a function that displays the users that the hash contains
 };
 
