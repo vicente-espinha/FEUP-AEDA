@@ -82,7 +82,7 @@ string * Menu::UsersMenuItems() {
 	item[0] = "Make Reservation";
 	item[1] = "Cancel Reservation";
 	item[2] = "Special Offers";
-	item[3] = "Explore";
+	item[3] = "View Reservations";
 	item[4] = "Logout";
 	item[5] = "Exit";
 
@@ -103,10 +103,11 @@ string * Menu::SuppliersMenuItems() {
 //------------------------------------------------
 string * Menu::ManagmentItems() {
 
-	string *item = new string[3];
+	string *item = new string[4];
 	item[0] = "View Inactive Clients";
 	item[1] = "View All Receipts";
-	item[2] = "Exit";
+	item[2] = "Back to Main Menu";
+	item[3] = "Exit";
 
 	return item;
 }
@@ -548,14 +549,15 @@ int Menu::ManagmentMenu() {
 	ChangeCursorStatus(false);
 	typedef void(*TMenuOption)();
 
-	int ItemCount = 3; // This variable holds the number of menu items.
+	int ItemCount = 4; // This variable holds the number of menu items.
 	int MenuChoice = 1; // This variable holds the position of the cursor. 
 	char key; //For entering the key (up arrow,down arrow,etc...).
 
 	TMenuOption *MenuOption = new TMenuOption[ItemCount]; //Array of pointers to functions (dynamic).
 	MenuOption[0] = ViewInactiveOption; //Filling the array with the functions.
 	MenuOption[1] = ViewReceiptsOption;
-	MenuOption[2] = ExitOption;
+	MenuOption[2] = Logout;
+	MenuOption[3] = ExitOption;
 
 	while (1) {
 
