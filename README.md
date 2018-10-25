@@ -11,7 +11,7 @@ As ofertas de alojamento poderão ser de vários tipos, nomeadamente: quartos (q
 
 Para realizar uma reserva, o utilizador deverá antes poder fazer uma consulta das ofertas em uma determinada localidade (cidade), para as datas pretendidas; tendo encontrado uma oferta do seu agrado, poderá realizar uma reserva, passando a oferta a estar indisponível para as datas da reserva. Para os clientes registados, a empresa pretende implementar um sistema de pontos, em função da sua utilização do sistema. Os clientes não registados não conseguem acumular pontos. Os fornecedores registados na empresa deverão pagar uma taxa de serviço, por cada alojamento efetivamente confirmado, cujo valor dependerá do tipo de alojamento (quartos, flats, apartamentos). Cancelamentos de reserva são possíveis, mas poderão incorrer em taxas administrativas; ao efetuar um cancelamento, o cliente receberá 100% do valor pago, se realizado com antecedência de um mês da data de início de reserva; se cancelar até 15 dias antes do início da reserva receberá 50% do valor. Se for realizado após estes prazos, não haverá lugar a reembolso. 
 
-#Parte 2 
+# Parte 2 
 
 Complete o sistema já implementado com as seguintes funcionalidades:
 
